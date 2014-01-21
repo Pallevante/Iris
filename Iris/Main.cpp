@@ -20,6 +20,4 @@ variabelnamn börjar med liten bokstav sedan följer "Camel case", medlemsvariable
 Klasser/Enums börjar med stor bokstav
 Instanser av klasser hanteras som variabelnamn dvs börjar med liten bokstav.
 
-
-
 */
