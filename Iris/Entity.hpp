@@ -1,4 +1,5 @@
 #include <vector>
+#include <SFML\Graphics.hpp>
 
 typedef std::vector<Entity*> EntityVector;
 //Base class for all entities. 
