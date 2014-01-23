@@ -12,7 +12,7 @@ int main(){
 if(vilkor == 1 &&
 	vilkor == 2 ||
 	vilkor == 3){
-	}
+}
 
 
 variabelnamn börjar med liten bokstav sedan följer "Camel case", medlemsvariabler börjar med bokstaven m.  
