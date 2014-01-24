@@ -32,10 +32,11 @@ Vad som krävs:
 
 
 #include <SFML/Graphics.hpp>
+#include "World.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
 
