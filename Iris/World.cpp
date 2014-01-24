@@ -3,15 +3,8 @@
 
 World::World(){}
 
-<<<<<<< HEAD
-=======
-World::World(){
-}
->>>>>>> a6d5e89d94d9433ce489f2064f8b8ce0c9bb1d55
-
 World::~World(){}
 
-<<<<<<< HEAD
 
 void World::run(){
 	sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
@@ -32,7 +25,3 @@ void World::run(){
 		window.display();
 	}
 }
-=======
-World::~World(){
-}
->>>>>>> a6d5e89d94d9433ce489f2064f8b8ce0c9bb1d55
