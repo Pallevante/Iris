@@ -1,6 +1,5 @@
 #pragma once
-class World
-{
+class World{
 public:
 	World();
 	~World();
