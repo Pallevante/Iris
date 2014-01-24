@@ -20,7 +20,16 @@ variabelnamn börjar med liten bokstav sedan följer "Camel case", medlemsvariable
 Klasser/Enums börjar med stor bokstav
 Instanser av klasser hanteras som variabelnamn dvs börjar med liten bokstav.
 
+Vad som krävs:
+	Resurshanterare
+	Save-hantering
+	Basklass
+	Världsklass
+	Dekorators
+	Simpel AI (kan ha en fungerande funktion för att få den att gå mot spelaren).
+	Kollisionshantering (Samma som vi fick av micke?)
 */
+
 
 #include <SFML/Graphics.hpp>
 #include "World.h"
@@ -47,3 +56,4 @@ int main()
 
 	return 0;
 }
+
