@@ -1,7 +1,10 @@
 #include "World.h"
-#include <SFML/Graphics.hpp>
 
-World::World(){}
+World::World(): 
+entityVector(),
+
+{	
+}
 
 World::~World(){}
 
