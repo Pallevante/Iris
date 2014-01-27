@@ -29,7 +29,11 @@ void World::run(){
 		}
 
 		window.clear();
+
 		renderImages();
+
+		window.draw(shape);
+
 		//Ritar ut exempelspriten
 		window.draw(sprite);
 		window.display();
@@ -38,7 +42,9 @@ void World::run(){
 
 
 void renderImages(){
-	for (EntityVector.size_type i = 0; i <= entityVector.size();)
+	for (EntityVector.size_type i = 0; i <= entityVector.size(); i++){
+		window.draw(*entityVector[i]);
+	}
 }
 /* Tar emot två Entitypekare och returnerar om de kolliderar eller inte. Används som stödfunktion till detectCollisions. */
 bool World::isColliding(Entity *entity1, Entity *entity2){
