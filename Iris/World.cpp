@@ -21,7 +21,8 @@ void World::run(){
 	sf::Sprite sprite = sf::Sprite(resourceManager.getTexture(0));
 
 	//Lägg till en animation (egentligen med en enum istället för 0)
-	resourceManager.addAnimation(0, Animation("resource/idle_right.png", 200, 2));
+	Animation testAnimation("resource/idle_right.png", 200, 2);
+	resourceManager.addAnimation(0, testAnimation);
 
 	while (window.isOpen())
 	{
@@ -41,8 +42,10 @@ void World::run(){
 		
 		//För att animationen ska animeras så måste medlemsfunktionen Update köras på själva animationen. 
 		resourceManager.getAnimation(0).Update();
-		//Rita ut spriten som finns inuti animationen
 		window.draw(resourceManager.getAnimation(0).getSprite());
+		//resourceManager.getAnimation(0).Update();
+		//Rita ut spriten som finns inuti animationen
+		//window.draw(resourceManager.getAnimation(0).getSprite());
 		window.display();
 	}
 }
