@@ -1,9 +1,7 @@
 #include "World.h"
 
 World::World(): 
-entityVector(),
-
-{	
+entityVector(){	
 }
 
 World::~World(){}
