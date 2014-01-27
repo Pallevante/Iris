@@ -1,12 +1,15 @@
 #include "World.hpp"
 
-sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
-bool hasLoadedPlayer = false;
+sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
+
 World::World(): 
-entityVector(){
-	loadAllTheShit();
+
+entityVector()
+{
+	Animation* playerAnimation = new Animation("resource/test.png", 200, 2);
+	Player *mPlayer;
 	window.setFramerateLimit(65);
-	mPlayer = new Player(resourceManager.getAnimation(0), 100, 100);
+	mPlayer = new Player(playerAnimation, 100, 100);
 	entityVector.push_back(mPlayer);
 }
 
@@ -14,14 +17,17 @@ World::~World(){}
 
 void World::loadAllTheShit(){
 	//Skapa en textur, ladda in en fil i den, lägg till den (egentligen med enumen i entity som första parametern) i resourceManager. 
-	/*sf::Texture textureTest;
+	sf::Texture textureTest;
 	textureTest.loadFromFile("resource/test.png");
-	resourceManager.addTexture(0, textureTest);*/
-	//Skapa en sprite som gettar texturen med det ID som du vill ha. 
+	resourceManager.addTexture(0, textureTest);
+	//Skapa en sprite som gettar texturen med det ID som du vill ha.
+	sf::Sprite sprite = sf::Sprite(resourceManager.getTexture(0));
+	
 
 	//Lägg till en animation (egentligen med en enum istället för 0)
-	Animation testAnimation("resource/test.png", 200, 1);
-	resourceManager.addAnimation(0, testAnimation);	
+
+	//Animation testAnimation("resource/idle_right.png", 200, 2);
+	//resourceManager.addAnimation(0, testAnimation);
 }
 
 
@@ -36,10 +42,7 @@ void World::run(){
 		}
 
 		window.clear();
-		if (!hasLoadedPlayer){
 
-			hasLoadedPlayer = !hasLoadedPlayer;
-		}
 		tick();
 		renderImages();
 
@@ -47,8 +50,10 @@ void World::run(){
 		//window.draw(sprite);
 		
 		//För att animationen ska animeras så måste medlemsfunktionen Update köras på själva animationen. 
+
 		//resourceManager.getAnimation(0).Update();
 		//window.draw(resourceManager.getAnimation(0).getSprite());
+
 		//resourceManager.getAnimation(0).Update();
 		//Rita ut spriten som finns inuti animationen
 		//window.draw(resourceManager.getAnimation(0).getSprite());
@@ -64,7 +69,7 @@ void World::renderImages(){
 }
 
 void World::tick(){
-	for (EntityVector::size_type i = 0; i <= entityVector.size(); i++){
+	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		entityVector[i]->tick(entityVector);
 	}
 }

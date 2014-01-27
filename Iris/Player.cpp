@@ -2,14 +2,17 @@
 sf::Clock reloadTimer;
 
 /*Public funktioner*/
-Player::Player(Animation &animation, float xPosition, float yPosition, int speedMultiplier) :
+
+
+Player::Player(Animation *animation, float xPosition, float yPosition, int speedMultiplier) :
+
 mDamage(10),
 mSpeed(3 * speedMultiplier),
 //Måste ändras relativt till bilden.
 mRad(20.f),
 mAnimation(animation)
 {
-	mAnimation.setPosition(sf::Vector2f(xPosition, yPosition));
+	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
 }
 
 Player::~Player(){}
@@ -17,6 +20,7 @@ Player::~Player(){}
 void Player::tick(EntityVector &mEnteties){
 	move();
 	fire(mEnteties);
+	mAnimation->Update();
 }
 
 int Player::collide(Entity *entity, EntityVector &enteties){
@@ -41,7 +45,7 @@ int Player::getDamage() const{
 }
 
 sf::Vector2f Player::getPosition(){
-	return mAnimation.getSprite().getPosition();
+	return mAnimation->getSprite().getPosition();
 }
 
 float Player::getRad() const{
@@ -61,23 +65,22 @@ void Player::setDamage(int newDamage){
 
 /*Private medlemsfunktioner*/
 void Player::move(){
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-		mSprite.move(mSpeed, 0);
+	float currentX = mAnimation->getSprite().getPosition().x;
+	float currentY = mAnimation->getSprite().getPosition().y;
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){		
+		currentX += mSpeed;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-		mSprite.move(-mSpeed, 0);
-
+		currentX -= mSpeed;		
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-		mSprite.move(0, mSpeed);
-
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){		
+		currentY += mSpeed;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-		mSprite.move(0, -mSpeed);
-
+		currentY -= mSpeed;
 	}
-
+	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
 }
 
 void Player::fire(EntityVector &mEnteties){

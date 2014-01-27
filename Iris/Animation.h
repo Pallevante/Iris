@@ -15,7 +15,7 @@ public:
 	void setPosition(const sf::Vector2f& position);
 
 	/* Getters */
-	const sf::Sprite& getSprite();
+	const sf::Sprite getSprite();
 private:
 	/* Medlemsvariablar */
 	sf::Clock mFrameTimer;
