@@ -6,27 +6,37 @@
 
 class World{
 public:
+	/*Används för att veta vad man ska rendera.*/
+	enum GameState{
+		INMENU,
+		PLAYING,
+		INSHOP,
+		OUTRO,
+		INTRO
+	};
+	
 	World();
 	~World();
 	void run();
 	void menu();
-	//Have to load the map first
+	/*Måste ladda in banan innan*/
 	void startGame();
-	//Have to enter the parameters for images, enemies and music. 
+	/*Slänga in rätt parametrar för att loadMap ska ladda in
+	music, bilder och fiender*/
 	void loadMap();
 private:	
-	//Game related functions
+	/*Spelrelaterade funktioner*/
 	void renderImages();
 	void tick();
 	void detectCollisions();
 	void killDeadEnteties();
 
-	//Menu related functions
+	/*Menyrelaterade funktioner*/
 	void enterStore();
 	void enterSettings();
 	void enterMap();
 	
-	//Variables.
+	/*Variabler*/
 	int mGold;
 	Entity::EntityVector entityVector;
 	Player *mPlayer;
