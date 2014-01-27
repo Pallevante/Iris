@@ -28,8 +28,9 @@ private:
 	/*Spelrelaterade funktioner*/
 	void renderImages();
 	void tick();
+	bool isColliding(Entity *entity1, Entity *entity2);
 	void detectCollisions();
-	void killDeadEnteties();
+	void killDeadEntities();
 
 	/*Menyrelaterade funktioner*/
 	void enterStore();
