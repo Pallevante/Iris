@@ -40,8 +40,8 @@ int Player::getDamage() const{
 	return mDamage;
 }
 
-sf::Vector2f Player::getPosition() const{
-	return mCircleShape.getPosition();
+sf::Vector2f Player::getPosition(){
+	return mAnimation.getSprite().getPosition();
 }
 
 float Player::getRad() const{
@@ -63,18 +63,18 @@ void Player::setDamage(int newDamage){
 void Player::move(){
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-		mCircleShape.move(mSpeed, 0);
+		mAnimation.getSprite().move(mSpeed, 0);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-		mCircleShape.move(-mSpeed, 0);
+		mAnimation.getSprite().move(-mSpeed, 0);
 
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-		mCircleShape.move(0, mSpeed);
+		mAnimation.getSprite().move(0, mSpeed);
 
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-		mCircleShape.move(0, -mSpeed);
+		mAnimation.getSprite().move(0, -mSpeed);
 
 	}
 

@@ -9,20 +9,19 @@ public:
 	Player(Animation &animation, float xPosition, float yPosition, int speedMultiplier = 1);
 	~Player();
 	virtual float getRad() const;
-	virtual sf::Vector2f getPosition() const;
+	virtual sf::Vector2f getPosition();
 	virtual int getDamage()	const;
 	virtual Type getType() const;
 	virtual void setDamage(int newDamage);
 	virtual int collide(Entity *e0, EntityVector &entities);
 	virtual bool isAlive();
 	virtual void tick(EntityVector &entities);
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
-		target.draw(mCircleShape, states);
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
+		target.draw(mAnimation.getSprite(), states);
 	}
 private: 
 	void move();
 	void fire(EntityVector &enteties);
-	sf::Sprite mCircleShape;
 	Animation mAnimation;
 	float mSpeed;
 	int mHealth;

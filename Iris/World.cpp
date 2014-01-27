@@ -5,6 +5,8 @@ bool hasLoadedPlayer = false;
 World::World(): 
 entityVector(){
 	window.setFramerateLimit(65);
+	mPlayer = new Player(resourceManager.getAnimation(0), 100, 100);
+	entityVector.push_back(mPlayer);
 }
 
 World::~World(){}
@@ -18,20 +20,7 @@ void World::loadAllTheShit(){
 
 	//Lägg till en animation (egentligen med en enum istället för 0)
 	Animation testAnimation("resource/test.png", 200, 1);
-	resourceManager.addAnimation(0, testAnimation);
-	mPlayer = new Player(resourceManager.getAnimation(0), 100, 100);
-	
-}
-
-
-void World::startGame(){
-	//Laddar in spelaren och skickar med en referens till resourcemanagern för att hämta texturen.
-	if (!hasLoadedPlayer){
-		entityVector.push_back(mPlayer);
-		hasLoadedPlayer = !hasLoadedPlayer;
-	}
-	tick();
-	renderImages();
+	resourceManager.addAnimation(0, testAnimation);	
 }
 
 
@@ -46,7 +35,12 @@ void World::run(){
 		}
 
 		window.clear();
-		startGame();
+		if (!hasLoadedPlayer){
+
+			hasLoadedPlayer = !hasLoadedPlayer;
+		}
+		tick();
+		renderImages();
 
 		//Ritar ut exempelspriten
 		//window.draw(sprite);
