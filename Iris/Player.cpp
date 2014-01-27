@@ -42,7 +42,7 @@ int Player::getDamage() const{
 }
 
 sf::Vector2f Player::getPosition() const{
-	mCircleShape.getPosition();
+	return mCircleShape.getPosition();
 }
 
 float Player::getRad() const{
@@ -55,7 +55,7 @@ Player::Type Player::getType() const{
 
 
 /*Set funktioner*/
-int Player::setDamage(int newDamage){
+void Player::setDamage(int newDamage){
 	mDamage = newDamage;
 }
 
@@ -86,7 +86,7 @@ void Player::fire(EntityVector &mEnteties){
 	sf::Time isReloaded = reloadTimer.getElapsedTime();
 	if (isReloaded.asMilliseconds() > 200){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-			mEnteties.push_back(new Ray());
+			//mEnteties.push_back(new Ray());
 		}
 		reloadTimer.restart();
 	}

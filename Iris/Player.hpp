@@ -8,7 +8,7 @@ public:
 	virtual sf::Vector2f getPosition() const;
 	virtual int getDamage()	const;
 	virtual Type getType() const;
-	virtual int setDamage(int newDamage);
+	virtual void setDamage(int newDamage);
 	virtual int collide(Entity *e0, EntityVector &entities);
 	virtual bool isAlive();
 	virtual void tick(EntityVector &entities);

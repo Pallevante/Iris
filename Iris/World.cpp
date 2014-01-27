@@ -1,16 +1,23 @@
 #include "World.h"
 
 World::World(): 
-entityVector(){	
+entityVector(){
+	mPlayer = entityVector.push_back(new(Player(100, 100));
 }
 
 World::~World(){}
 
 
 void World::run(){
+	//Skapa en textur, ladda in en fil i den, lägg till den (egentligen med enumen i entity som första parametern) i resourceManager. 
+	sf::Texture textureTest;
+	textureTest.loadFromFile("resource/test.png");
+	resourceManager.addTexture(0, textureTest);
+	//Skapa en sprite som gettar texturen med det ID som du vill ha. 
+	sf::Sprite sprite = sf::Sprite(resourceManager.getTexture(0));
+
 	sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	
 
 	while (window.isOpen())
 	{
@@ -22,11 +29,17 @@ void World::run(){
 		}
 
 		window.clear();
-		window.draw(shape);
+		renderImages();
+		//Ritar ut exempelspriten
+		window.draw(sprite);
 		window.display();
 	}
 }
 
+
+void renderImages(){
+	for (EntityVector.size_type i = 0; i <= entityVector.size();)
+}
 /* Tar emot två Entitypekare och returnerar om de kolliderar eller inte. Används som stödfunktion till detectCollisions. */
 bool World::isColliding(Entity *entity1, Entity *entity2){
 	const float X0 = entity1->getPosition().x;
