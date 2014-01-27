@@ -1,4 +1,4 @@
-#include "World.h"
+#include "World.hpp"
 
 sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
 
@@ -20,8 +20,8 @@ void World::run(){
 	//Skapa en sprite som gettar texturen med det ID som du vill ha. 
 	sf::Sprite sprite = sf::Sprite(resourceManager.getTexture(0));
 
-	
-	
+	//Lägg till en animation (egentligen med en enum istället för 0)
+	resourceManager.addAnimation(0, Animation("resource/idle_right.png", 200, 2));
 
 	while (window.isOpen())
 	{
@@ -38,6 +38,11 @@ void World::run(){
 
 		//Ritar ut exempelspriten
 		window.draw(sprite);
+		
+		//För att animationen ska animeras så måste medlemsfunktionen Update köras på själva animationen. 
+		resourceManager.getAnimation(0).Update();
+		//Rita ut spriten som finns inuti animationen
+		window.draw(resourceManager.getAnimation(0).getSprite());
 		window.display();
 	}
 }

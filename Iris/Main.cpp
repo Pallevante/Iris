@@ -30,7 +30,7 @@ Vad som krävs:
 	Kollisionshantering (Samma som vi fick av micke?)
 */
 
-#include "World.h"
+#include "World.hpp"
 
 
 int main()
