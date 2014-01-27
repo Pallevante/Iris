@@ -1,4 +1,4 @@
-#include "World.h"
+#include "World.hpp"
 
 sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
 
