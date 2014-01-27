@@ -8,6 +8,13 @@ World::~World(){}
 
 
 void World::run(){
+	//Skapa en textur, ladda in en fil i den, lägg till den (egentligen med enumen i entity som första parametern) i resourceManager. 
+	sf::Texture textureTest;
+	textureTest.loadFromFile("resource/test.png");
+	resourceManager.addTexture(0, textureTest);
+	//Skapa en sprite som gettar texturen med det ID som du vill ha. 
+	sf::Sprite sprite = sf::Sprite(resourceManager.getTexture(0));
+
 	sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
@@ -23,6 +30,8 @@ void World::run(){
 
 		window.clear();
 		window.draw(shape);
+		//Ritar ut exempelspriten
+		window.draw(sprite);
 		window.display();
 	}
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include "ResourceManager.h"
 #include "Entity.hpp"
 #include "Player.hpp"
 #include <SFML/Graphics.hpp>
@@ -28,6 +29,7 @@ private:
 	void enterMap();
 	
 	//Variables.
+	ResourceManager resourceManager;
 	int mGold;
 	Entity::EntityVector entityVector;
 	Player *mPlayer;
