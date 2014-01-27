@@ -18,8 +18,9 @@ private:
 	//Game related functions
 	void renderImages();
 	void tick();
+	bool isColliding(Entity *entity1, Entity *entity2);
 	void detectCollisions();
-	void killDeadEnteties();
+	void killDeadEntities();
 
 	//Menu related functions
 	void enterStore();
