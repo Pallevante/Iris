@@ -7,6 +7,7 @@ public:
 	virtual float getRad() const;
 	virtual float getPosition() const;
 	virtual int getDamage()	const;
+	virtual Type getType() const;
 	virtual int setDamage(int newDamage);
 	virtual int collide(Entity *e0, EntityVector &entities);
 	virtual bool isAlive();
@@ -16,7 +17,7 @@ private:
 	void move();
 	void fire(EntityVector &enteties);
 	sf::CircleShape mCircleShape;
-	int mSpeed;
+	float mSpeed;
 	int mHealth;
 	int mDamage;
 	float mRad;

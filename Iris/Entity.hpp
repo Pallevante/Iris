@@ -3,13 +3,19 @@
 #include <SFML\Graphics.hpp>
 
 
-//Base class for all entities. 
-//May need improvements. 
+//Basklass för alla entiteter. 
+//Kommer nog behövas byggas ut.
 class Entity : public sf::Drawable {
 public:
+	enum Type{
+		PLAYER,
+		RAY, 
+		ENEMY
+	};
 	Entity();
 	~Entity();
 	typedef std::vector<Entity*> EntityVector;
+	virtual Type getType() const = 0;
 	virtual float getPosition() const = 0;
 	virtual float getRad() const = 0;
 	virtual void tick(EntityVector &entities) = 0;

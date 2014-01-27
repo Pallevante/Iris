@@ -1,12 +1,12 @@
 #include "Player.hpp"
 sf::Clock reloadTimer;
 
-/*Public functions*/
+/*Public funktioner*/
 Player::Player(float xPosition, float yPosition, int speedMultiplier) :
 mDamage(10),
 mSpeed(3 * speedMultiplier),
 //Måste ändras relativt till bilden.
-mRad(20)
+mRad(20.f)
 {
 	mCircleShape.setRadius(mRad);
 	mCircleShape.setPosition(xPosition, yPosition);
@@ -21,8 +21,8 @@ void Player::tick(EntityVector &mEnteties){
 }
 
 int Player::collide(Entity *entity, EntityVector &enteties){
-	//We should have something else to make sure the user don't shoot's himself?
-	if (entity->getDamage() > 0){
+	
+	if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
 		mHealth -= entity->getDamage();
 		if (mHealth <= 0) {
 			mIsAlive = false;
@@ -32,7 +32,7 @@ int Player::collide(Entity *entity, EntityVector &enteties){
 }
 
 
-/*Get functions*/
+/*Get funktioner*/
 bool Player::isAlive(){
 	return mIsAlive;
 }
@@ -49,14 +49,18 @@ float Player::getRad() const{
 	return mRad;
 }
 
+Player::Type Player::getType() const{
+	return PLAYER;
+}
 
-/*Set functions*/
+
+/*Set funktioner*/
 int Player::setDamage(int newDamage){
 	mDamage = newDamage;
 }
 
 
-/*Private memberfunctions*/
+/*Private medlemsfunktioner*/
 void Player::move(){
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
@@ -82,7 +86,7 @@ void Player::fire(EntityVector &mEnteties){
 	sf::Time isReloaded = reloadTimer.getElapsedTime();
 	if (isReloaded.asMilliseconds() > 200){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-			mEnteties.push_back(new Ray(7, 0, getX() + mRad, getY() + mRad / 2));
+			mEnteties.push_back(new Ray());
 		}
 		reloadTimer.restart();
 	}
