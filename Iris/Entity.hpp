@@ -10,8 +10,7 @@ public:
 	Entity();
 	~Entity();
 	typedef std::vector<Entity*> EntityVector;
-	virtual float getX() const = 0;
-	virtual float getY() const = 0;
+	virtual float getPosition() const = 0;
 	virtual float getRad() const = 0;
 	virtual void tick(EntityVector &entities) = 0;
 	virtual int getDamage() const = 0;
