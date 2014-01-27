@@ -1,4 +1,5 @@
 #pragma once
+#include "ResourceManager.h"
 #include "Entity.hpp"
 #include "Player.hpp"
 #include <SFML/Graphics.hpp>
@@ -18,8 +19,9 @@ private:
 	//Game related functions
 	void renderImages();
 	void tick();
+	bool isColliding(Entity *entity1, Entity *entity2);
 	void detectCollisions();
-	void killDeadEnteties();
+	void killDeadEntities();
 
 	//Menu related functions
 	void enterStore();
@@ -27,6 +29,7 @@ private:
 	void enterMap();
 	
 	//Variables.
+	ResourceManager resourceManager;
 	int mGold;
 	Entity::EntityVector entityVector;
 	Player *mPlayer;
