@@ -15,12 +15,12 @@ public:
 		INSHOP,
 		OUTRO,
 		INTRO
-	};
-	
+	};	
 	World();
 	~World();
 	void run();
 	void menu();
+	void loadAllTheShit();
 	/*Måste ladda in banan innan*/
 	void startGame();
 	/*Slänga in rätt parametrar för att loadMap ska ladda in

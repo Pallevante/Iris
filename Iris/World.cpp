@@ -3,29 +3,37 @@
 sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
 
 World::World(): 
-entityVector(),
-mPlayer(new Player(100, 100)){
+entityVector(){
 	window.setFramerateLimit(65);
-	entityVector.push_back(mPlayer);
 }
 
 World::~World(){}
 
-
-void World::run(){
+void World::loadAllTheShit(){
 	//Skapa en textur, ladda in en fil i den, lägg till den (egentligen med enumen i entity som första parametern) i resourceManager. 
 	sf::Texture textureTest;
 	textureTest.loadFromFile("resource/test.png");
 	resourceManager.addTexture(0, textureTest);
 	//Skapa en sprite som gettar texturen med det ID som du vill ha. 
-	sf::Sprite sprite = sf::Sprite(resourceManager.getTexture(0));
 
 	//Lägg till en animation (egentligen med en enum istället för 0)
 	Animation testAnimation("resource/idle_right.png", 200, 2);
 	resourceManager.addAnimation(0, testAnimation);
+}
 
-	while (window.isOpen())
-	{
+
+void World::startGame(){
+	//Laddar in spelaren och skickar med en referens till resourcemanagern för att hämta texturen.
+	mPlayer = new Player(resourceManager, 100, 100);
+	entityVector.push_back(mPlayer);
+	tick();
+	renderImages();
+}
+
+
+void World::run(){
+
+		while (window.isOpen())	{
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -34,15 +42,14 @@ void World::run(){
 		}
 
 		window.clear();
-		tick();
-		renderImages();
+		startGame();
 
 		//Ritar ut exempelspriten
-		window.draw(sprite);
+		//window.draw(sprite);
 		
 		//För att animationen ska animeras så måste medlemsfunktionen Update köras på själva animationen. 
-		resourceManager.getAnimation(0).Update();
-		window.draw(resourceManager.getAnimation(0).getSprite());
+		//resourceManager.getAnimation(0).Update();
+		//window.draw(resourceManager.getAnimation(0).getSprite());
 		//resourceManager.getAnimation(0).Update();
 		//Rita ut spriten som finns inuti animationen
 		//window.draw(resourceManager.getAnimation(0).getSprite());

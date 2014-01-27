@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include "Entity.hpp"
 
 class Ray :	public Entity{
@@ -14,13 +14,14 @@ public:
 	virtual bool isAlive();
 	virtual void tick(EntityVector &entities);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
-		target.draw(mCircleShape, states);
+		target.draw(RaySprite, states);
 	}
 private:
-	sf::CircleShape mCircleShape;
+	sf::Sprite RaySprite;
 	bool mIsAlive;
 	float mDamage;
 	float mRad;
 	float mSpeed;
 };
 
+*/

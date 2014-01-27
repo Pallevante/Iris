@@ -19,6 +19,7 @@ public:
 	const sf::Texture& getTexture(unsigned int TYPE);
 	const sf::Texture& getLevel(unsigned int TYPE);
 	const sf::Sound& getSound(unsigned int TYPE);
+
 private:
 	/* Medlemsvariablar */
 	std::unordered_map<unsigned int, Animation*> mAnimations;

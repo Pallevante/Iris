@@ -2,15 +2,16 @@
 sf::Clock reloadTimer;
 
 /*Public funktioner*/
-Player::Player(float xPosition, float yPosition, int speedMultiplier) :
+Player::Player(ResourceManager &resourceManager, float xPosition, float yPosition, int speedMultiplier) :
 mDamage(10),
 mSpeed(3 * speedMultiplier),
 //Måste ändras relativt till bilden.
 mRad(20.f)
 {
-	mCircleShape.setRadius(mRad);
+	mCircleShape.setTexture(resourceManager.getTexture(0));
+	//Animation testAnimation("resource/test.png", 200, 2);
+	//resourceManager.addAnimation(0, testAnimation);
 	mCircleShape.setPosition(xPosition, yPosition);
-	mCircleShape.setFillColor(sf::Color::Red);
 }
 
 Player::~Player(){}
@@ -86,7 +87,7 @@ void Player::fire(EntityVector &mEnteties){
 	sf::Time isReloaded = reloadTimer.getElapsedTime();
 	if (isReloaded.asMilliseconds() > 200){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-			mEnteties.push_back(new Ray(getPosition()));
+			//mEnteties.push_back(new Ray(getPosition()));
 		}
 		reloadTimer.restart();
 	}

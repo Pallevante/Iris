@@ -1,10 +1,13 @@
 #pragma once
 #include "Entity.hpp"
 #include "Ray.hpp"
+#include "Animation.h"
+#include "ResourceManager.hpp"
+
 
 class Player : public Entity{
 public:
-	Player(float xPosition, float yPosition, int speedMultiplier = 1);
+	Player(ResourceManager &resourceManager, float xPosition, float yPosition, int speedMultiplier = 1);
 	~Player();
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition() const;
@@ -20,7 +23,7 @@ public:
 private: 
 	void move();
 	void fire(EntityVector &enteties);
-	sf::CircleShape mCircleShape;
+	sf::Sprite mCircleShape;
 	float mSpeed;
 	int mHealth;
 	int mDamage;

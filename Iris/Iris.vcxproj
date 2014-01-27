@@ -97,8 +97,8 @@
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Ray.hpp" />
-    <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="World.h" />
+    <ClInclude Include="ResourceManager.hpp" />
+    <ClInclude Include="World.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
