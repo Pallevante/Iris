@@ -65,25 +65,22 @@ void Player::setDamage(int newDamage){
 
 /*Private medlemsfunktioner*/
 void Player::move(){
+	float currentX = mAnimation->getSprite().getPosition().x;
+	float currentY = mAnimation->getSprite().getPosition().y;
 
-	sf::Vector2f currentPosition = mAnimation->getSprite().getPosition();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-		mCircleShape.move(mSpeed, 0);
-		mAnimation->setPosition(sf::Vector2f((currentPosition.x + mSpeed), currentPosition.y));
+		currentX += mSpeed;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-		mCircleShape.move(-mSpeed, 0);
-		mAnimation->setPosition(sf::Vector2f(currentPosition.x - mSpeed, currentPosition.y));
+		currentX -= mSpeed;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-		mCircleShape.move(0, mSpeed);
-		mAnimation->setPosition(sf::Vector2f(currentPosition.x, (currentPosition.y + mSpeed)));
+		currentY += mSpeed;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-		mCircleShape.move(0, -mSpeed);
-		mAnimation->setPosition(sf::Vector2f(currentPosition.x, currentPosition.y - mSpeed));
+		currentY -= mSpeed;
 	}
-
+	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
 }
 
 void Player::fire(EntityVector &mEnteties){
