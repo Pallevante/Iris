@@ -44,6 +44,6 @@ void Animation::setPosition(const sf::Vector2f& position){
 }
 
 /* Getters */
-const sf::Sprite& Animation::getSprite(){
+const sf::Sprite Animation::getSprite(){
 	return mSprite;
 }

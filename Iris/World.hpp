@@ -45,6 +45,5 @@ private:
 	ResourceManager resourceManager;
 	int mGold;
 	Entity::EntityVector entityVector;
-	Player *mPlayer;
 };
 

@@ -2,12 +2,14 @@
 sf::Clock reloadTimer;
 
 /*Public funktioner*/
-Player::Player(float xPosition, float yPosition, int speedMultiplier) :
+Player::Player(Animation *animation, float xPosition, float yPosition, int speedMultiplier) :
 mDamage(10),
 mSpeed(3 * speedMultiplier),
 //Måste ändras relativt till bilden.
-mRad(20.f)
+mRad(20.f),
+mAnimation(animation)
 {
+	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
 	mCircleShape.setRadius(mRad);
 	mCircleShape.setPosition(xPosition, yPosition);
 	mCircleShape.setFillColor(sf::Color::Red);
@@ -18,6 +20,7 @@ Player::~Player(){}
 void Player::tick(EntityVector &mEnteties){
 	move();
 	fire(mEnteties);
+	mAnimation->Update();
 }
 
 int Player::collide(Entity *entity, EntityVector &enteties){
@@ -63,20 +66,22 @@ void Player::setDamage(int newDamage){
 /*Private medlemsfunktioner*/
 void Player::move(){
 
+	sf::Vector2f currentPosition = mAnimation->getSprite().getPosition();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 		mCircleShape.move(mSpeed, 0);
+		mAnimation->setPosition(sf::Vector2f((currentPosition.x + mSpeed), currentPosition.y));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 		mCircleShape.move(-mSpeed, 0);
-
+		mAnimation->setPosition(sf::Vector2f(currentPosition.x - mSpeed, currentPosition.y));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 		mCircleShape.move(0, mSpeed);
-
+		mAnimation->setPosition(sf::Vector2f(currentPosition.x, (currentPosition.y + mSpeed)));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 		mCircleShape.move(0, -mSpeed);
-
+		mAnimation->setPosition(sf::Vector2f(currentPosition.x, currentPosition.y - mSpeed));
 	}
 
 }

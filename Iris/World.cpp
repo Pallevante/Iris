@@ -3,8 +3,12 @@
 sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
 
 World::World(): 
-entityVector(),
-mPlayer(new Player(100, 100)){
+entityVector()
+{
+	Animation* playerAnimation = new Animation("resource/idle_right.png", 200, 2);
+	Player *mPlayer;
+	mPlayer = new Player(playerAnimation, 100, 100);
+
 	window.setFramerateLimit(65);
 	entityVector.push_back(mPlayer);
 }
@@ -21,8 +25,8 @@ void World::run(){
 	sf::Sprite sprite = sf::Sprite(resourceManager.getTexture(0));
 
 	//Lägg till en animation (egentligen med en enum istället för 0)
-	Animation testAnimation("resource/idle_right.png", 200, 2);
-	resourceManager.addAnimation(0, testAnimation);
+	//Animation testAnimation("resource/idle_right.png", 200, 2);
+	//resourceManager.addAnimation(0, testAnimation);
 
 	while (window.isOpen())
 	{
@@ -41,9 +45,9 @@ void World::run(){
 		window.draw(sprite);
 		
 		//För att animationen ska animeras så måste medlemsfunktionen Update köras på själva animationen. 
-		resourceManager.getAnimation(0).Update();
+		//resourceManager.getAnimation(0).Update();
 		//Rita ut spriten som finns inuti animationen
-		window.draw(resourceManager.getAnimation(0).getSprite());
+		//window.draw(resourceManager.getAnimation(0).getSprite());
 		window.display();
 	}
 }
