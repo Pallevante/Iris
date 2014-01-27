@@ -86,7 +86,7 @@ void Player::fire(EntityVector &mEnteties){
 	sf::Time isReloaded = reloadTimer.getElapsedTime();
 	if (isReloaded.asMilliseconds() > 200){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-			//mEnteties.push_back(new Ray());
+			mEnteties.push_back(new Ray(getPosition()));
 		}
 		reloadTimer.restart();
 	}

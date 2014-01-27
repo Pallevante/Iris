@@ -1,5 +1,7 @@
 #pragma once
 #include "Entity.hpp"
+#include "Ray.hpp"
+
 class Player : public Entity{
 public:
 	Player(float xPosition, float yPosition, int speedMultiplier = 1);
