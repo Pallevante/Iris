@@ -38,12 +38,10 @@ private:
 	void enterSettings();
 	void enterMap();
 	
-<<<<<<< HEAD
+
 	/*Variabler*/
-=======
-	//Variables.
+	typedef std::vector<Entity*> EntityVector;
 	ResourceManager resourceManager;
->>>>>>> origin/bq
 	int mGold;
 	Entity::EntityVector entityVector;
 	Player *mPlayer;

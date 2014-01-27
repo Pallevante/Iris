@@ -86,25 +86,15 @@
   <ItemGroup>
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Main.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="Player.cpp" />
-=======
     <ClCompile Include="ResourceManager.cpp" />
->>>>>>> origin/bq
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="Player.hpp" />
-<<<<<<< HEAD
-    <ClInclude Include="resource.h" />
-=======
     <ClInclude Include="ResourceManager.h" />
->>>>>>> origin/bq
     <ClInclude Include="World.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Iris.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

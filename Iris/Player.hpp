@@ -12,7 +12,9 @@ public:
 	virtual int collide(Entity *e0, EntityVector &entities);
 	virtual bool isAlive();
 	virtual void tick(EntityVector &entities);
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
+		target.draw(mCircleShape, states);
+	}
 private: 
 	void move();
 	void fire(EntityVector &enteties);
