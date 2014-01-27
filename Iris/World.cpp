@@ -42,10 +42,8 @@ void World::run(){
 		
 		//För att animationen ska animeras så måste medlemsfunktionen Update köras på själva animationen. 
 		resourceManager.getAnimation(0).Update();
-		window.draw(resourceManager.getAnimation(0).getSprite());
-		//resourceManager.getAnimation(0).Update();
 		//Rita ut spriten som finns inuti animationen
-		//window.draw(resourceManager.getAnimation(0).getSprite());
+		window.draw(resourceManager.getAnimation(0).getSprite());
 		window.display();
 	}
 }
