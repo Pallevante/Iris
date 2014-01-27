@@ -1,7 +1,12 @@
 #include "World.h"
 
+sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
+
 World::World(): 
-entityVector(){	
+entityVector(),
+mPlayer(new Player(100, 100)){
+	window.setFramerateLimit(65);
+	entityVector.push_back(mPlayer);
 }
 
 World::~World(){}
@@ -15,9 +20,8 @@ void World::run(){
 	//Skapa en sprite som gettar texturen med det ID som du vill ha. 
 	sf::Sprite sprite = sf::Sprite(resourceManager.getTexture(0));
 
-	sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	
+	
 
 	while (window.isOpen())
 	{
@@ -29,21 +33,37 @@ void World::run(){
 		}
 
 		window.clear();
-		window.draw(shape);
+		tick();
+		renderImages();
+
 		//Ritar ut exempelspriten
 		window.draw(sprite);
 		window.display();
 	}
 }
 
+
+void World::renderImages(){
+	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
+		window.draw(*entityVector[i]);
+	}
+}
+
+void World::tick(){
+	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
+		entityVector[i]->tick(entityVector);
+	}
+}
+
+
 /* Tar emot två Entitypekare och returnerar om de kolliderar eller inte. Används som stödfunktion till detectCollisions. */
 bool World::isColliding(Entity *entity1, Entity *entity2){
-	const float X0 = entity1->getX();
-	const float Y0 = entity1->getY();
+	const float X0 = entity1->getPosition().x;
+	const float Y0 = entity1->getPosition().y;
 	const float R0 = entity1->getRad();
 
-	const float X1 = entity2->getX();
-	const float Y1 = entity2->getY();
+	const float X1 = entity2->getPosition().x;
+	const float Y1 = entity2->getPosition().y;
 	const float R1 = entity2->getRad();
 	const float DX = X0 - X1;
 	const float DY = Y0 - Y1;
