@@ -63,18 +63,18 @@ void Player::setDamage(int newDamage){
 void Player::move(){
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-		mAnimation.getSprite().move(mSpeed, 0);
+		mSprite.move(mSpeed, 0);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-		mAnimation.getSprite().move(-mSpeed, 0);
+		mSprite.move(-mSpeed, 0);
 
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-		mAnimation.getSprite().move(0, mSpeed);
+		mSprite.move(0, mSpeed);
 
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-		mAnimation.getSprite().move(0, -mSpeed);
+		mSprite.move(0, -mSpeed);
 
 	}
 

@@ -17,12 +17,15 @@ public:
 	virtual bool isAlive();
 	virtual void tick(EntityVector &entities);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
-		target.draw(mAnimation.getSprite(), states);
+		target.draw(mSprite, states);
+		//Fucking hell vad jag hatar denna klassen...
 	}
 private: 
 	void move();
 	void fire(EntityVector &enteties);
-	Animation mAnimation;
+	Animation &mAnimation;
+	sf::Sprite mSprite = mAnimation.getSprite();
+
 	float mSpeed;
 	int mHealth;
 	int mDamage;

@@ -23,6 +23,6 @@ public:
 	virtual void setDamage(int newDamage) = 0;
 	virtual bool isAlive() = 0;
 	virtual int collide(Entity *e0, EntityVector &entities) = 0;
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) cosnt = 0;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 private:
 };

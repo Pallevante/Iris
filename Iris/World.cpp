@@ -4,6 +4,7 @@ sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
 bool hasLoadedPlayer = false;
 World::World(): 
 entityVector(){
+	loadAllTheShit();
 	window.setFramerateLimit(65);
 	mPlayer = new Player(resourceManager.getAnimation(0), 100, 100);
 	entityVector.push_back(mPlayer);
