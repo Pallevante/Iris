@@ -5,7 +5,7 @@ public:
 	Player(float xPosition, float yPosition, int speedMultiplier = 1);
 	~Player();
 	virtual float getRad() const;
-	virtual float getPosition() const;
+	virtual sf::Vector2f getPosition() const;
 	virtual int getDamage()	const;
 	virtual Type getType() const;
 	virtual int setDamage(int newDamage);

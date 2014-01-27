@@ -29,12 +29,12 @@ void World::run(){
 
 /* Tar emot två Entitypekare och returnerar om de kolliderar eller inte. Används som stödfunktion till detectCollisions. */
 bool World::isColliding(Entity *entity1, Entity *entity2){
-	const float X0 = entity1->getX();
-	const float Y0 = entity1->getY();
+	const float X0 = entity1->getPosition().x;
+	const float Y0 = entity1->getPosition().y;
 	const float R0 = entity1->getRad();
 
-	const float X1 = entity2->getX();
-	const float Y1 = entity2->getY();
+	const float X1 = entity2->getPosition().x;
+	const float Y1 = entity2->getPosition().y;
 	const float R1 = entity2->getRad();
 	const float DX = X0 - X1;
 	const float DY = Y0 - Y1;

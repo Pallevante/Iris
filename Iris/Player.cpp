@@ -41,7 +41,7 @@ int Player::getDamage() const{
 	return mDamage;
 }
 
-float Player::getPosition() const{
+sf::Vector2f Player::getPosition() const{
 	mCircleShape.getPosition();
 }
 
