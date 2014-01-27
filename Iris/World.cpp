@@ -1,7 +1,7 @@
 #include "World.hpp"
 
 sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
-
+bool hasLoadedPlayer = false;
 World::World(): 
 entityVector(){
 	window.setFramerateLimit(65);
@@ -11,21 +11,25 @@ World::~World(){}
 
 void World::loadAllTheShit(){
 	//Skapa en textur, ladda in en fil i den, lägg till den (egentligen med enumen i entity som första parametern) i resourceManager. 
-	sf::Texture textureTest;
+	/*sf::Texture textureTest;
 	textureTest.loadFromFile("resource/test.png");
-	resourceManager.addTexture(0, textureTest);
+	resourceManager.addTexture(0, textureTest);*/
 	//Skapa en sprite som gettar texturen med det ID som du vill ha. 
 
 	//Lägg till en animation (egentligen med en enum istället för 0)
-	Animation testAnimation("resource/idle_right.png", 200, 2);
+	Animation testAnimation("resource/test.png", 200, 1);
 	resourceManager.addAnimation(0, testAnimation);
+	mPlayer = new Player(resourceManager.getAnimation(0), 100, 100);
+	
 }
 
 
 void World::startGame(){
 	//Laddar in spelaren och skickar med en referens till resourcemanagern för att hämta texturen.
-	mPlayer = new Player(resourceManager, 100, 100);
-	entityVector.push_back(mPlayer);
+	if (!hasLoadedPlayer){
+		entityVector.push_back(mPlayer);
+		hasLoadedPlayer = !hasLoadedPlayer;
+	}
 	tick();
 	renderImages();
 }
@@ -65,7 +69,7 @@ void World::renderImages(){
 }
 
 void World::tick(){
-	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
+	for (EntityVector::size_type i = 0; i <= entityVector.size(); i++){
 		entityVector[i]->tick(entityVector);
 	}
 }
@@ -106,3 +110,14 @@ void World::detectCollisions(){
 		}
 	}
 }
+
+
+/*
+				__		- Oh for fucks sake.
+			   / _)
+	  _/\/\/\_/ /
+	 /			|
+	/ (	 |	 (	|
+   /   |_|--- |_|
+	  
+ */

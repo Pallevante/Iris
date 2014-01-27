@@ -2,16 +2,14 @@
 sf::Clock reloadTimer;
 
 /*Public funktioner*/
-Player::Player(ResourceManager &resourceManager, float xPosition, float yPosition, int speedMultiplier) :
+Player::Player(Animation &animation, float xPosition, float yPosition, int speedMultiplier) :
 mDamage(10),
 mSpeed(3 * speedMultiplier),
 //Måste ändras relativt till bilden.
-mRad(20.f)
+mRad(20.f),
+mAnimation(animation)
 {
-	mCircleShape.setTexture(resourceManager.getTexture(0));
-	//Animation testAnimation("resource/test.png", 200, 2);
-	//resourceManager.addAnimation(0, testAnimation);
-	mCircleShape.setPosition(xPosition, yPosition);
+	mAnimation.setPosition(sf::Vector2f(xPosition, yPosition));
 }
 
 Player::~Player(){}

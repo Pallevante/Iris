@@ -2,12 +2,11 @@
 #include "Entity.hpp"
 #include "Ray.hpp"
 #include "Animation.h"
-#include "ResourceManager.hpp"
 
 
 class Player : public Entity{
 public:
-	Player(ResourceManager &resourceManager, float xPosition, float yPosition, int speedMultiplier = 1);
+	Player(Animation &animation, float xPosition, float yPosition, int speedMultiplier = 1);
 	~Player();
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition() const;
@@ -24,6 +23,7 @@ private:
 	void move();
 	void fire(EntityVector &enteties);
 	sf::Sprite mCircleShape;
+	Animation mAnimation;
 	float mSpeed;
 	int mHealth;
 	int mDamage;
