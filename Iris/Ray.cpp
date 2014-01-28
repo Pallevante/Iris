@@ -4,7 +4,7 @@
 Ray::Ray(sf::Vector2f position, Animation *animation) :
 mDamage(10),
 mRad(3),
-mSpeed(4),
+mSpeed(7),
 mAnimation(animation)
 {
 	mAnimation->setPosition(position);

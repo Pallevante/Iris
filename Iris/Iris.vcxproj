@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Enemies.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Ray.hpp" />

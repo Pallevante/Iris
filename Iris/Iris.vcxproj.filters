@@ -42,6 +42,9 @@
     <ClInclude Include="ResourceManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enemies.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
