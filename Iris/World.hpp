@@ -45,6 +45,6 @@ private:
 	int mGold;
 	Entity::EntityVector entityVector;
 	Player *mPlayer;
-	LoadLevel* mLoadLevel;
+	
 };
 

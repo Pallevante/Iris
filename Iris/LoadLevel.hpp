@@ -10,12 +10,11 @@ class LoadLevel
 public:
 	LoadLevel();
 	~LoadLevel();
-	void setLevel();
+	void setLevel(Entity::EntityVector &entityVector);
 	int getLevel();
 
 protected:
-	enum Level
-	{
+	enum Level	{
 		firstLevel,
 		secondLevel,
 		thirdLevel,
@@ -27,12 +26,8 @@ protected:
 	};
 
 private:
-	//::Sprite mSprite;
-	//sf::Texture mTexture;
-	sf::CircleShape shape;
-	//EntityVector entityVector;
 	Level level;
-	//typedef std::vector<Entity*> EntityVector;
-	Entity::EntityVector *entityVector;
-
+	ResourceManager *mResourceManager;
+	sf::Sprite mSprite;
+	sf::Texture mTexture;
 };

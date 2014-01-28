@@ -1,7 +1,7 @@
 #include "LoadLevel.hpp"
 
 
-LoadLevel::LoadLevel(){
+LoadLevel::LoadLevel() {
 
 
 }
@@ -11,16 +11,19 @@ LoadLevel::~LoadLevel(){
 }
 
 
-void LoadLevel::setLevel(){
+
+void LoadLevel::setLevel(Entity::EntityVector &entityVector){
+	/*sätter banan till 1*/
 	int level1 = 1;
 
-
+	/*väljer bana 1*/
 	if (level1 == 1){ level = Level::firstLevel; }
 
-	switch (level)
-	{
+	switch (level)	{
 	case LoadLevel::firstLevel:
-		entityVector->push_back(new Player(400, 400, 2));
+		entityVector.push_back(new Player(400, 400, 2));
+	//	mSprite.setTexture(mResourceManager->getTexture(1));
+
 		break;
 	case LoadLevel::secondLevel:
 		break;
