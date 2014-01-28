@@ -74,8 +74,9 @@ void Player::move(){
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 		currentX -= mSpeed;		
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){		
+	}	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+
 		currentY += mSpeed;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
