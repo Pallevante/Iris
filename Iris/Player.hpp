@@ -7,7 +7,7 @@
 
 class Player : public Entity{
 public:
-	Player(Animation *animation, float xPosition, float yPosition, int speedMultiplier = 1);
+	Player(Animation *animation, float xPosition, float yPosition, float speedMultiplier = 1);
 
 	~Player();
 	virtual float getRad() const;

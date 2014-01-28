@@ -90,10 +90,12 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="DefaultEnemy.h" />
     <ClInclude Include="Enemies.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="Player.hpp" />

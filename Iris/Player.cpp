@@ -5,7 +5,7 @@ sf::Clock reloadTimer;
 
 
 
-Player::Player(Animation *animation, float xPosition, float yPosition, int speedMultiplier) :
+Player::Player(Animation *animation, float xPosition, float yPosition, float speedMultiplier) :
 
 mDamage(10),
 mSpeed(3 * speedMultiplier),
