@@ -3,6 +3,8 @@
 
 class Enemy : public Entity {
 public:
+	/*´Bas klass för fiender. 
+		Använder lite speciella funktioner som kan behövas av Enity. */
 	Enemy();
 	~Enemy();
 	virtual void death() = 0;

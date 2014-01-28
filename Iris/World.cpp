@@ -111,9 +111,14 @@ void World::detectCollisions(){
 	}
 }
 
+void World::spawnEnemies(){
+
+}
+
+
 
 /*
-				__		- Oh for fucks sake.
+				__	- FML.
 			   / _)
 	  _/\/\/\_/ /
 	 /			|

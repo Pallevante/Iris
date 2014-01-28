@@ -28,6 +28,7 @@ public:
 	void loadMap();
 private:	
 	/*Spelrelaterade funktioner*/
+	void spawnEnemies();
 	void renderImages();
 	void tick();
 	bool isColliding(Entity *entity1, Entity *entity2);
