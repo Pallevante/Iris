@@ -3,7 +3,7 @@
 #include "Entity.hpp"
 #include "Player.hpp"
 #include <SFML/Graphics.hpp>
-
+#include "LoadLevel.hpp"
 
 class World{
 public:
@@ -45,5 +45,6 @@ private:
 	int mGold;
 	Entity::EntityVector entityVector;
 	Player *mPlayer;
+	LoadLevel* mLoadLevel;
 };
 

@@ -7,6 +7,7 @@ entityVector(),
 mPlayer(new Player(100, 100)){
 	window.setFramerateLimit(65);
 	entityVector.push_back(mPlayer);
+
 }
 
 World::~World(){}
@@ -20,7 +21,7 @@ void World::run(){
 	//Skapa en sprite som gettar texturen med det ID som du vill ha. 
 	sf::Sprite sprite = sf::Sprite(resourceManager.getTexture(0));
 
-	
+	mLoadLevel->setLevel();
 	
 
 	while (window.isOpen())
@@ -35,7 +36,6 @@ void World::run(){
 		window.clear();
 		tick();
 		renderImages();
-
 		//Ritar ut exempelspriten
 		window.draw(sprite);
 		window.display();
