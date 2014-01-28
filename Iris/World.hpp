@@ -42,7 +42,6 @@ private:
 
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
-	ResourceManager resourceManager;
 	int mGold;
 	Entity::EntityVector entityVector;
 };
