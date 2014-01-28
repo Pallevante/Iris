@@ -26,11 +26,9 @@ void World::run(){
 	mLoadLevel->setLevel(entityVector);
 	
 
-	while (window.isOpen())
-	{
+	while (window.isOpen()){
 		sf::Event event;
-		while (window.pollEvent(event))
-		{
+		while (window.pollEvent(event)){
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
@@ -38,7 +36,7 @@ void World::run(){
 		window.clear();
 		tick();
 		renderImages();
-		
+
 		//Ritar ut exempelspriten
 		window.draw(sprite);
 		window.display();
@@ -50,6 +48,7 @@ void World::renderImages(){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 	}
+
 }
 
 void World::tick(){

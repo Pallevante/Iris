@@ -12,6 +12,7 @@ public:
 	~LoadLevel();
 	void setLevel(Entity::EntityVector &entityVector);
 	int getLevel();
+	
 
 protected:
 	enum Level	{
