@@ -3,6 +3,7 @@ sf::Clock reloadTimer;
 
 /*Public funktioner*/
 
+Animation* rayAnimation = new Animation("resource/test.png", 200, 4);
 
 Player::Player(Animation *animation, float xPosition, float yPosition, int speedMultiplier) :
 
@@ -11,7 +12,7 @@ mSpeed(3 * speedMultiplier),
 //Måste ändras relativt till bilden.
 mRad(20.f),
 mAnimation(animation)
-{
+{	
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
 }
 
@@ -88,7 +89,7 @@ void Player::fire(EntityVector &mEnteties){
 	sf::Time isReloaded = reloadTimer.getElapsedTime();
 	if (isReloaded.asMilliseconds() > 200){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-			//mEnteties.push_back(new Ray(getPosition()));
+			mEnteties.push_back(new Ray(getPosition(), rayAnimation));
 		}
 		reloadTimer.restart();
 	}
