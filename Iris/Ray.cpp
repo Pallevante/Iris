@@ -42,6 +42,7 @@ bool Ray::isAlive(){
 
 void Ray::tick(EntityVector &entities){
 	move();
+	mAnimation->Update();
 }
 
 void Ray::move(){
