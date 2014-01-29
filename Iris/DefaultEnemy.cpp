@@ -3,6 +3,7 @@
 DefaultEnemy::DefaultEnemy(Animation *animation,  float speedMultiplier) :
 mDamage(10),
 mSpeed(4 * speedMultiplier),
+mIsAlive(true),
 //Måste ändras relativt till bilden.
 mRad(20.f),
 mAnimation(animation)

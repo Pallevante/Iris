@@ -28,7 +28,7 @@ public:
 private:
 	Animation* mAnimation;
 	float mSpeed;
-	bool mIsAlive = true;
+	bool mIsAlive;
 	bool mIsDying;
 	float mHealth;
 	float mRad;
