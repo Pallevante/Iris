@@ -2,7 +2,7 @@
 #include "Entity.hpp"
 #include "ResourceManager.hpp"
 #include "Ray.hpp"
-#include "Animation.h"
+#include "Animation.hpp"
 
 
 class Player : public Entity{

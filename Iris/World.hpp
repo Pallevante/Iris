@@ -3,7 +3,7 @@
 #include "Entity.hpp"
 #include "Player.hpp"
 #include <SFML/Graphics.hpp>
-#include "Animation.h"
+#include "Animation.hpp"
 #include "DefaultEnemy.hpp"
 
 class World{
