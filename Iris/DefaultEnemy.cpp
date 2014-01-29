@@ -29,8 +29,12 @@ int DefaultEnemy::getDamage() const {
 	return mDamage;
 }
 
-Animation* DefaultEnemy::getAnimation(){
-	return mAnimation;
+int DefaultEnemy::getHeight() const {
+	return mAnimation->getSprite().getTextureRect().height;
+}
+
+int DefaultEnemy::getWidth() const {
+	return mAnimation->getSprite().getTextureRect().width;
 }
 
 //Någonstans här insåg jag att DefaultEnemy är ett jävligt ocoolt namn på en klass.
