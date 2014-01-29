@@ -10,7 +10,11 @@
 =======
 >>>>>>> master
 #include "Animation.h"
+<<<<<<< HEAD
 
+>>>>>>> master
+=======
+#include "DefaultEnemy.hpp"
 >>>>>>> master
 
 class World{
@@ -35,6 +39,7 @@ public:
 	void loadMap();
 private:	
 	/*Spelrelaterade funktioner*/
+	void spawnEnemies();
 	void renderImages();
 	void tick();
 	bool isColliding(Entity *entity1, Entity *entity2);

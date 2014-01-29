@@ -5,14 +5,16 @@ sf::Clock reloadTimer;
 
 
 
-Player::Player(Animation *animation, float xPosition, float yPosition, int speedMultiplier) :
+Player::Player(Animation *animation, float xPosition, float yPosition, float speedMultiplier) :
 
 mDamage(10),
-mSpeed(3 * speedMultiplier),
+mSpeed(4 * speedMultiplier),
+mIsAlive(true),
 //Måste ändras relativt till bilden.
 mRad(20.f),
 mAnimation(animation)
 {	
+	//mAnimation->updateTexture();
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
 }
 
@@ -90,7 +92,8 @@ void Player::fire(EntityVector &mEnteties){
 	sf::Time isReloaded = reloadTimer.getElapsedTime();
 	if (isReloaded.asMilliseconds() > 200){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-			Animation* rayAnimation = new Animation("resource/test.png", 100, 4);
+			/*Laddar in texturen för ray samt kastar in den i vektorn.*/
+			Animation* rayAnimation = new Animation("resource/test.png", 100, 4);		
 			mEnteties.push_back(new Ray(getPosition(), rayAnimation));
 		}
 		reloadTimer.restart();

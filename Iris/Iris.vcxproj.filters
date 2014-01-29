@@ -32,6 +32,12 @@
 >>>>>>> master
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Enemies.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.hpp">
@@ -58,6 +64,15 @@
 =======
     <ClInclude Include="ResourceManager.hpp">
 >>>>>>> master
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemies.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultEnemy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLevel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

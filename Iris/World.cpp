@@ -1,7 +1,8 @@
 #include "World.hpp"
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
-
+sf::Clock spawnTimer;
+int spawnTimeLimit =  500;
 World::World(): 
 
 entityVector()
@@ -49,7 +50,11 @@ void World::run(){
 		window.clear();
 
 		tick();
+		detectCollisions();
+		killDeadEntities();
+		spawnEnemies();
 		renderImages();
+
 		window.display();
 	}
 }
@@ -93,25 +98,47 @@ void World::detectCollisions(){
 	for (unsigned int i = 0; i < entityVector.size(); i++){
 		Entity *entity0 = entityVector[i];
 
-		for (unsigned int j = 0; j < entityVector.size(); j++){
+		for (unsigned int j = i + 1; j < entityVector.size(); j++){
 			Entity *entity1 = entityVector[j];
 
-			if (isColliding(entity0, entity1)/* && entity0->getType() != entity1->getType()*/){
-
+			if (isColliding(entity0, entity1) && entity0->getType() != entity1->getType()){
 				entity0->collide(entity1, entityVector);
 				entity1->collide(entity0, entityVector);
 			}
 		}
 	}
 }
+/*Skapar en ny vektor som sedan lägger in alla levande entiteter.
+Den nya vektorn uppdaterar våran "main" vektor sedan.*/
+void World::killDeadEntities(){
+	EntityVector reserveEnteties;
+	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); i++){
+		Entity* enteties = *i;
+		if (enteties->isAlive()){
+			reserveEnteties.push_back(enteties);
+		}
+	}
+	entityVector = reserveEnteties;
+}
+
+/*Denna tiomern får vi hämta ifrån levelload sedan då det kommmer olika många fiender på olika banor.*/
+void World::spawnEnemies(){
+	sf::Time time = spawnTimer.getElapsedTime();
+	if(time.asMilliseconds() > 600){
+		Animation* enemyAnimation = new Animation("resource/test.png", 50, 4);
+		entityVector.push_back(new DefaultEnemy(enemyAnimation, 1));
+		spawnTimer.restart();
+	}
+}
+
 
 
 /*
-				__		- Oh for fucks sake.
+				__	- FML.
 			   / _)
 	  _/\/\/\_/ /
 	 /			|
 	/ (	 |	 (	|
    /   |_|--- |_|
-	  
+
  */

@@ -21,7 +21,7 @@ private:
 	void move();
 	Animation* mAnimation;
 	bool mIsAlive;
-	float mDamage;
+	int mDamage;
 	float mRad;
 	float mSpeed;
 };

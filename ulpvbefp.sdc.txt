@@ -1,0 +1,19 @@
+﻿Påbörjad LevelLoad.
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch majal
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   Iris/LoadLevel.cpp
+#	modified:   Iris/LoadLevel.hpp
+#	modified:   Iris/World.cpp
+#	modified:   Iris/World.hpp
+#
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   Iris/Player.cpp
+#
+

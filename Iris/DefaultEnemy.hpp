@@ -1,15 +1,12 @@
 #pragma once
-#include "Entity.hpp"
-#include "ResourceManager.hpp"
-#include "Ray.hpp"
+#include "Enemies.hpp"
 #include "Animation.h"
+#include "Ray.hpp"
 
-
-class Player : public Entity{
+class DefaultEnemy : public Enemy {
 public:
-	Player(Animation *animation, float xPosition, float yPosition, float speedMultiplier = 1);
-
-	~Player();
+	DefaultEnemy(Animation *animation, float speedMultiplier);
+	~DefaultEnemy();
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition();
 	virtual int getDamage()	const;
@@ -23,16 +20,17 @@ public:
 		target.draw(mAnimation->getSprite(), states);
 
 	}
-private: 
-	void move();
-	void fire(EntityVector &enteties);	
+	/*Medlemsfunktioner för Enemy*/
+	virtual void death();
+	virtual void fire(EntityVector &enteties);
+	virtual void move();
+	virtual void useAbility();
+private:
 	Animation* mAnimation;
-	//sf::Sprite mSprite = mAnimation->getSprite();
-
 	float mSpeed;
-	int mHealth;
-	int mDamage;
-	float mRad;
 	bool mIsAlive;
-	sf::Vector2f mVelocity;
+	bool mIsDying;
+	float mHealth;
+	float mRad;
+	int mDamage;
 };
