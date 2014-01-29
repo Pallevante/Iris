@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Clock.hpp>
 #include <string>
+#include "ResourceManager.hpp"
 
 class Animation{
 public:
@@ -26,7 +27,7 @@ public:
 private:
 	/* Medlemsvariablar */
 	sf::Clock mFrameTimer;
-	sf::Texture mTexture;
+	//sf::Texture mTexture;
 	sf::Sprite mSprite;
 	int mTimePerFrame = 0;
 	int mNumFrames = 0;
