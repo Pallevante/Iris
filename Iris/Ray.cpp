@@ -26,6 +26,11 @@ Ray::Type Ray::getType() const{
 	return RAY;
 }
 
+Animation* Ray::getAnimation(){
+	return mAnimation;
+}
+
+
 void Ray::setDamage(int newDamage){
 	mDamage = newDamage;
 }

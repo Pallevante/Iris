@@ -9,6 +9,7 @@ public:
 	~DefaultEnemy();
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition();
+	virtual Animation* getAnimation();
 	virtual int getDamage()	const;
 	virtual Type getType() const;
 	virtual void setDamage(int newDamage);

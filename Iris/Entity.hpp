@@ -15,6 +15,7 @@ public:
 	Entity();
 	~Entity();
 	typedef std::vector<Entity*> EntityVector;
+	virtual Animation* getAnimation() = 0;
 	virtual Type getType() const = 0;
 	virtual sf::Vector2f getPosition() = 0;
 	virtual float getRad() const = 0;

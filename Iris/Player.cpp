@@ -62,6 +62,10 @@ void Player::setDamage(int newDamage){
 	mDamage = newDamage;
 }
 
+Animation* Player::getAnimation(){
+	return mAnimation;
+}
+
 
 /*Private medlemsfunktioner*/
 void Player::move(){

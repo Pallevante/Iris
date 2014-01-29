@@ -29,6 +29,10 @@ int DefaultEnemy::getDamage() const {
 	return mDamage;
 }
 
+Animation* DefaultEnemy::getAnimation(){
+	return mAnimation;
+}
+
 //Någonstans här insåg jag att DefaultEnemy är ett jävligt ocoolt namn på en klass.
 
 void DefaultEnemy::setDamage(int newDamage){
