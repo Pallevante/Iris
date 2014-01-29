@@ -7,7 +7,7 @@ World::World():
 
 entityVector()
 {
-	Animation* playerAnimation = new Animation("resource/test.png", 50, 4);
+	Animation* playerAnimation = &ResourceManager::getAnimation("resource/test.png", 200, 2);
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(playerAnimation, 100, 100);
@@ -15,22 +15,6 @@ entityVector()
 }
 
 World::~World(){}
-
-void World::loadAllTheShit(){
-	//Skapa en textur, ladda in en fil i den, lägg till den (egentligen med enumen i entity som första parametern) i resourceManager. 
-	sf::Texture textureTest;
-	textureTest.loadFromFile("resource/test.png");
-	resourceManager.addTexture(0, textureTest);
-	//Skapa en sprite som gettar texturen med det ID som du vill ha.
-	sf::Sprite sprite = sf::Sprite(resourceManager.getTexture(0));
-	
-
-	//Lägg till en animation (egentligen med en enum istället för 0)
-
-	//Animation testAnimation("resource/idle_right.png", 200, 2);
-	//resourceManager.addAnimation(0, testAnimation);
-}
-
 
 void World::run(){
 
@@ -48,18 +32,7 @@ void World::run(){
 		detectCollisions();
 		spawnEnemies();
 		renderImages();
-		
-		//Ritar ut exempelspriten
-		//window.draw(sprite);
-		
-		//För att animationen ska animeras så måste medlemsfunktionen Update köras på själva animationen. 
 
-		//resourceManager.getAnimation(0).Update();
-		//window.draw(resourceManager.getAnimation(0).getSprite());
-
-		//resourceManager.getAnimation(0).Update();
-		//Rita ut spriten som finns inuti animationen
-		//window.draw(resourceManager.getAnimation(0).getSprite());
 		window.display();
 	}
 }

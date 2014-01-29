@@ -1,6 +1,6 @@
 #include "Animation.h"
 
-/* Konstrukturn tar ett filnamn, antal millisekunder varje frame ska visas och antal frames. */
+
 Animation::Animation(const std::string& filename, int timePerFrame, int numFrames) :
 mTimePerFrame(timePerFrame),
 mNumFrames(numFrames),
@@ -19,7 +19,7 @@ Animation::~Animation(){
 
 };
 
-/* Måste köras varje frame av programmet för att animationen ska utföras. */
+
 void Animation::Update(){
 	/* Kollar om timern för framen har gått ut */
 	if (mFrameTimer.getElapsedTime().asMilliseconds() > mTimePerFrame){
@@ -38,7 +38,11 @@ void Animation::Update(){
 	}
 }
 
-/* För att sätta positionen på medlemsspriten i en Animation. */
+
+void Animation::updateTexture(){
+	mSprite.setTexture(mTexture);
+}
+/* Setters */
 void Animation::setPosition(const sf::Vector2f& position){
 	mSprite.setPosition(position);
 }

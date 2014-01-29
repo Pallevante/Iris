@@ -1,36 +1,52 @@
 #include "ResourceManager.hpp"
 
-/* Adders */
-void ResourceManager::addAnimation(unsigned int TYPE, Animation &animation){
-	mAnimations.emplace(TYPE, &animation);
+ResourceManager::ResourceManager(){
+
+}
+ResourceManager::~ResourceManager(){
+
 }
 
-/* emplace lägger till i mapen om ID't, alltså TYPE, är unikt och inte har något tidigare värde. Vi kan behöva en changeTexture i framtiden. */
-void ResourceManager::addTexture(unsigned int TYPE, sf::Texture &texture){
-	mTextures.emplace(TYPE, &texture);
+
+Animation& ResourceManager::getAnimation(const std::string& filename, int timePerFrame, int numFrames){
+	/* Jag valde att kolla om resursen redan existerade i mapen genom att räkna antalet resurser med samma filnamn */
+	if (mAnimations.count(filename) == 0){
+		mAnimations.insert(std::pair<std::string, Animation>(filename, Animation(filename, timePerFrame, numFrames)));
+	}
+	/* MÅSTE använda det här sättet att returnera på Animation eftersom Animation inte använder en defaultkonstruktor */
+	/* Provar man att använda return mAnimation[filename] istället så får man fel om att den saknar defaultkonstruktor */
+	return mAnimations.find(filename)->second;
+}
+sf::Texture& ResourceManager::getTexture(const std::string& filename){
+	if (mTextures.count(filename) == 0){
+		sf::Texture newTexture;
+		newTexture.loadFromFile(filename);
+
+		mTextures.insert(std::pair<std::string, sf::Texture>(filename, newTexture));
+	}
+	return mTextures.find(filename)->second;
+}
+sf::Texture& ResourceManager::getLevel(const std::string& filename){
+	if (mLevels.count(filename) == 0){
+		sf::Texture newTexture;
+		newTexture.loadFromFile(filename);
+
+		mLevels.insert(std::pair<std::string, sf::Texture>(filename, newTexture));
+	}
+	return mLevels.find(filename)->second;
+}
+sf::SoundBuffer& ResourceManager::getSound(const std::string& filename){
+	if (mSounds.count(filename) == 0){
+		sf::SoundBuffer newSound;
+		newSound.loadFromFile(filename);
+
+		mSounds.insert(std::pair<std::string, sf::SoundBuffer>(filename, newSound));
+	}
+	return mSounds.find(filename)->second;
 }
 
-void ResourceManager::addLevel(unsigned int TYPE, sf::Texture &level){
-	mLevels.emplace(TYPE, &level);
-}
-
-void ResourceManager::addSound(unsigned int TYPE, sf::Sound &sound){
-	mSounds.emplace(TYPE, &sound);
-}
-
-/* Getters */
-Animation& ResourceManager::getAnimation(unsigned int TYPE){
-	return *mAnimations[TYPE];
-}
-
-const sf::Texture& ResourceManager::getTexture(unsigned int TYPE){
-	return *mTextures[TYPE];
-}
-
-const sf::Texture& ResourceManager::getLevel(unsigned int TYPE){
-	return *mLevels[TYPE];
-}
-
-const sf::Sound& ResourceManager::getSound(unsigned int TYPE){
-	return *mSounds[TYPE];
-}
+/* Det här är min bane */
+std::map<std::string, Animation> ResourceManager::mAnimations;
+std::map<std::string, sf::Texture> ResourceManager::mTextures;
+std::map<std::string, sf::Texture> ResourceManager::mLevels;
+std::map<std::string, sf::SoundBuffer> ResourceManager::mSounds;

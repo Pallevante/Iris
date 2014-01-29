@@ -1,29 +1,34 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <unordered_map>
+#include <map>
 #include "Animation.h"
-
-/* Använd funktionerna för att lägga till nya resurser, och använd enumsen för att separera mellan unika entities/levels/etc. */
+#include <string>
 
 class ResourceManager{
+
 public:
-	/* Adders */
-	void addAnimation(unsigned int TYPE, Animation &animation);
-	void addTexture(unsigned int TYPE, sf::Texture &texture);
-	void addLevel(unsigned int TYPE, sf::Texture &level);
-	void addSound(unsigned int TYPE, sf::Sound &sound);
+	ResourceManager();
+	~ResourceManager(); 
 
-	/* Getters */
-	Animation& getAnimation(unsigned int TYPE);
-	const sf::Texture& getTexture(unsigned int TYPE);
-	const sf::Texture& getLevel(unsigned int TYPE);
-	const sf::Sound& getSound(unsigned int TYPE);
+	/* getters & adders: Om sökvägen inte hittas i den valda mappen (mAnimations, mTextures, etc)
+	så läggs den till och returneras direkt. */
+	/* På grund av funktionernas natur så måste man ange allt för en Animation-konstruktor för att hämta ut den. */
+	static Animation& getAnimation(const std::string& filename, int timePerFrame, int numFrames);
+	static sf::Texture& getTexture(const std::string& filename);
+	static sf::Texture& getLevel(const std::string& filename);
+	static sf::SoundBuffer& getSound(const std::string& filename);
 
+	/* Kör clear innan avslut av programmet för att tömma minnet. */
+	static void clear(){
+		mAnimations.clear();
+		mTextures.clear();
+		mLevels.clear();
+		mSounds.clear();
+	}
 private:
-	/* Medlemsvariablar */
-	std::unordered_map<unsigned int, Animation*> mAnimations;
-	std::unordered_map<unsigned int, sf::Texture*> mTextures;
-	std::unordered_map<unsigned int, sf::Texture*> mLevels;
-	std::unordered_map<unsigned int, sf::Sound*> mSounds;
+	static std::map<std::string, Animation> mAnimations;
+	static std::map<std::string, sf::Texture> mTextures;
+	static std::map<std::string, sf::Texture> mLevels;
+	static std::map<std::string, sf::SoundBuffer> mSounds;
 };
