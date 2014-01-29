@@ -1,12 +1,13 @@
 #include "World.hpp"
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
-
+sf::Clock spawnTimer;
+int spawnTimeLimit =  500;
 World::World(): 
 
 entityVector()
 {
-	Animation* playerAnimation = new Animation("resource/test.png", 200, 2);
+	Animation* playerAnimation = new Animation("resource/test.png", 50, 4);
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(playerAnimation, 100, 100);
@@ -44,8 +45,10 @@ void World::run(){
 		window.clear();
 
 		tick();
+		detectCollisions();
+		spawnEnemies();
 		renderImages();
-
+		
 		//Ritar ut exempelspriten
 		//window.draw(sprite);
 		
@@ -99,11 +102,10 @@ void World::detectCollisions(){
 	for (unsigned int i = 0; i < entityVector.size(); i++){
 		Entity *entity0 = entityVector[i];
 
-		for (unsigned int j = 0; j < entityVector.size(); j++){
+		for (unsigned int j = i + 1; j < entityVector.size(); j++){
 			Entity *entity1 = entityVector[j];
 
-			if (isColliding(entity0, entity1)/* && entity0->getType() != entity1->getType()*/){
-
+			if (isColliding(entity0, entity1) && entity0->getType() != entity1->getType()){
 				entity0->collide(entity1, entityVector);
 				entity1->collide(entity0, entityVector);
 			}
@@ -112,7 +114,12 @@ void World::detectCollisions(){
 }
 
 void World::spawnEnemies(){
-
+	sf::Time time = spawnTimer.getElapsedTime();
+	if(time.asMilliseconds() > 600){
+		Animation* enemyAnimation = new Animation("resource/test.png", 50, 4);
+		entityVector.push_back(new DefaultEnemy(enemyAnimation, 1));
+		spawnTimer.restart();
+	}
 }
 
 

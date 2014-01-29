@@ -4,7 +4,7 @@
 #include "Player.hpp"
 #include <SFML/Graphics.hpp>
 #include "Animation.h"
-
+#include "DefaultEnemy.hpp"
 
 class World{
 public:
