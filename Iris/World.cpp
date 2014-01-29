@@ -6,7 +6,7 @@ World::World():
 
 entityVector()
 {
-	Animation* playerAnimation = new Animation("resource/test.png", 200, 2);
+	Animation* playerAnimation = &ResourceManager::getAnimation("resource/test.png", 200, 2);
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(playerAnimation, 100, 100);

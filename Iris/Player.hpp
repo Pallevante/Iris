@@ -1,6 +1,6 @@
 #pragma once
 #include "Entity.hpp"
-
+#include "ResourceManager.hpp"
 #include "Ray.hpp"
 #include "Animation.h"
 
