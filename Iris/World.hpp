@@ -4,8 +4,11 @@
 #include "Player.hpp"
 #include <SFML/Graphics.hpp>
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "LoadLevel.hpp"
 =======
+=======
+>>>>>>> master
 #include "Animation.h"
 
 >>>>>>> master
@@ -49,8 +52,11 @@ private:
 	int mGold;
 	Entity::EntityVector entityVector;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Player *mPlayer;
 	
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 };

@@ -19,6 +19,7 @@ World::~World(){}
 
 void World::run(){
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//Skapa en textur, ladda in en fil i den, lägg till den (egentligen med enumen i entity som första parametern) i resourceManager. 
 	sf::Texture textureTest;
 	textureTest.loadFromFile("resource/test.png");
@@ -31,6 +32,10 @@ void World::run(){
 	
 
 	while (window.isOpen()){
+=======
+
+		while (window.isOpen())	{
+>>>>>>> master
 =======
 
 		while (window.isOpen())	{

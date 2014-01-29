@@ -17,12 +17,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="LoadLevel.cpp">
 =======
+=======
+>>>>>>> master
     <ClCompile Include="Ray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -44,7 +50,11 @@
       <Filter>Header Files</Filter>
     </ClInclude>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClInclude Include="LoadLevel.hpp">
+=======
+    <ClInclude Include="ResourceManager.hpp">
+>>>>>>> master
 =======
     <ClInclude Include="ResourceManager.hpp">
 >>>>>>> master
