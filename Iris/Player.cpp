@@ -9,6 +9,7 @@ Player::Player(Animation *animation, float xPosition, float yPosition, float spe
 
 mDamage(10),
 mSpeed(4 * speedMultiplier),
+mIsAlive(true),
 //Måste ändras relativt till bilden.
 mRad(20.f),
 mAnimation(animation)
@@ -92,7 +93,7 @@ void Player::fire(EntityVector &mEnteties){
 	if (isReloaded.asMilliseconds() > 200){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 			/*Laddar in texturen för ray samt kastar in den i vektorn.*/
-			Animation* rayAnimation = new Animation("resource/test.png", 100, 4);
+			Animation* rayAnimation = new Animation("resource/test.png", 100, 4);		
 			mEnteties.push_back(new Ray(getPosition(), rayAnimation));
 		}
 		reloadTimer.restart();

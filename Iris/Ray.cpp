@@ -5,6 +5,7 @@ Ray::Ray(sf::Vector2f position, Animation *animation) :
 mDamage(10),
 mRad(3),
 mSpeed(7),
+mIsAlive(true),
 mAnimation(animation)
 {
 	mAnimation->setPosition(position);
@@ -30,7 +31,7 @@ void Ray::setDamage(int newDamage){
 }
 
 int Ray::collide(Entity *e0, EntityVector &entities){
-	if (e0->getDamage() > 0){
+	if (e0->getDamage() > 0 && e0->getType() != Type::PLAYER){
 		mIsAlive = false;		
 	}
 	return 0;

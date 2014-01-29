@@ -7,7 +7,7 @@ World::World():
 
 entityVector()
 {
-	Animation* playerAnimation = &ResourceManager::getAnimation("resource/test.png", 200, 2);
+	Animation* playerAnimation = &ResourceManager::getAnimation("resource/test.png", 200, 4);
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(playerAnimation, 100, 100);
@@ -30,6 +30,7 @@ void World::run(){
 
 		tick();
 		detectCollisions();
+		killDeadEntities();
 		spawnEnemies();
 		renderImages();
 
@@ -85,7 +86,20 @@ void World::detectCollisions(){
 		}
 	}
 }
+/*Skapar en ny vektor som sedan lägger in alla levande entiteter.
+Den nya vektorn uppdaterar våran "main" vektor sedan.*/
+void World::killDeadEntities(){
+	EntityVector reserveEnteties;
+	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); i++){
+		Entity* enteties = *i;
+		if (enteties->isAlive()){
+			reserveEnteties.push_back(enteties);
+		}
+	}
+	entityVector = reserveEnteties;
+}
 
+/*Denna tiomern får vi hämta ifrån levelload sedan då det kommmer olika många fiender på olika banor.*/
 void World::spawnEnemies(){
 	sf::Time time = spawnTimer.getElapsedTime();
 	if(time.asMilliseconds() > 600){
