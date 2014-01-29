@@ -27,8 +27,6 @@ void World::run(){
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		
-
 		window.clear();
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/

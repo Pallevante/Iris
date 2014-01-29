@@ -62,9 +62,14 @@ void Player::setDamage(int newDamage){
 	mDamage = newDamage;
 }
 
-Animation* Player::getAnimation(){
-	return mAnimation;
+int Player::getHeight() const {
+	return mAnimation->getSprite().getTextureRect().height;
 }
+
+int Player::getWidth() const {
+	return mAnimation->getSprite().getTextureRect().width;
+}
+
 
 
 /*Private medlemsfunktioner*/

@@ -26,10 +26,14 @@ Ray::Type Ray::getType() const{
 	return RAY;
 }
 
-Animation* Ray::getAnimation(){
-	return mAnimation;
+
+int Ray::getHeight() const {
+	return mAnimation->getSprite().getTextureRect().height;
 }
 
+int Ray::getWidth() const {
+	return mAnimation->getSprite().getTextureRect().width;
+}
 
 void Ray::setDamage(int newDamage){
 	mDamage = newDamage;
