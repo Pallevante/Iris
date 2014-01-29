@@ -3,7 +3,12 @@
 #include "Entity.hpp"
 #include "Player.hpp"
 #include <SFML/Graphics.hpp>
+<<<<<<< HEAD
 #include "LoadLevel.hpp"
+=======
+#include "Animation.h"
+
+>>>>>>> master
 
 class World{
 public:
@@ -14,12 +19,12 @@ public:
 		INSHOP,
 		OUTRO,
 		INTRO
-	};
-	
+	};	
 	World();
 	~World();
 	void run();
 	void menu();
+	void loadAllTheShit();
 	/*Måste ladda in banan innan*/
 	void startGame();
 	/*Slänga in rätt parametrar för att loadMap ska ladda in
@@ -41,10 +46,12 @@ private:
 
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
-	ResourceManager resourceManager;
 	int mGold;
 	Entity::EntityVector entityVector;
+<<<<<<< HEAD
 	Player *mPlayer;
 	
+=======
+>>>>>>> master
 };
 

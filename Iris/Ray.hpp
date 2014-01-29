@@ -1,15 +1,11 @@
 #pragma once
 #include "Entity.hpp"
-
-#include "Ray.hpp"
 #include "Animation.h"
 
-
-class Player : public Entity{
+class Ray :	public Entity{
 public:
-	Player(Animation *animation, float xPosition, float yPosition, int speedMultiplier = 1);
-
-	~Player();
+	Ray(sf::Vector2f position, Animation *animation);
+	~Ray();
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition();
 	virtual int getDamage()	const;
@@ -18,21 +14,15 @@ public:
 	virtual int collide(Entity *e0, EntityVector &entities);
 	virtual bool isAlive();
 	virtual void tick(EntityVector &entities);
-
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
 		target.draw(mAnimation->getSprite(), states);
-
 	}
-private: 
+private:
 	void move();
-	void fire(EntityVector &enteties);	
 	Animation* mAnimation;
-	//sf::Sprite mSprite = mAnimation->getSprite();
-
-	float mSpeed;
-	int mHealth;
-	int mDamage;
-	float mRad;
 	bool mIsAlive;
-	sf::Vector2f mVelocity;
+	float mDamage;
+	float mRad;
+	float mSpeed;
 };
+

@@ -1,11 +1,15 @@
 #include "World.hpp"
 
-sf::RenderWindow window(sf::VideoMode(1024, 768), "Iris");
+sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 
 World::World(): 
-entityVector(),
-mPlayer(new Player(100, 100)){
+
+entityVector()
+{
+	Animation* playerAnimation = new Animation("resource/test.png", 200, 2);
+	Player *mPlayer;
 	window.setFramerateLimit(65);
+	mPlayer = new Player(playerAnimation, 100, 100);
 	entityVector.push_back(mPlayer);
 
 
@@ -13,8 +17,8 @@ mPlayer(new Player(100, 100)){
 
 World::~World(){}
 
-
 void World::run(){
+<<<<<<< HEAD
 	//Skapa en textur, ladda in en fil i den, lägg till den (egentligen med enumen i entity som första parametern) i resourceManager. 
 	sf::Texture textureTest;
 	textureTest.loadFromFile("resource/test.png");
@@ -27,6 +31,10 @@ void World::run(){
 	
 
 	while (window.isOpen()){
+=======
+
+		while (window.isOpen())	{
+>>>>>>> master
 		sf::Event event;
 		while (window.pollEvent(event)){
 			if (event.type == sf::Event::Closed)
@@ -34,11 +42,9 @@ void World::run(){
 		}
 
 		window.clear();
+
 		tick();
 		renderImages();
-
-		//Ritar ut exempelspriten
-		window.draw(sprite);
 		window.display();
 	}
 }
@@ -93,3 +99,14 @@ void World::detectCollisions(){
 		}
 	}
 }
+
+
+/*
+				__		- Oh for fucks sake.
+			   / _)
+	  _/\/\/\_/ /
+	 /			|
+	/ (	 |	 (	|
+   /   |_|--- |_|
+	  
+ */

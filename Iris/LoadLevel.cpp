@@ -22,7 +22,7 @@ void LoadLevel::setLevel(Entity::EntityVector &entityVector){
 	switch (level)	{
 	case LoadLevel::firstLevel:
 		entityVector.push_back(new Player(400, 400, 2));
-	//	mSprite.setTexture(mResourceManager->getTexture(1));
+		mSprite.setTexture(mResourceManager->getAnimation("", 0, 0));
 
 		break;
 	case LoadLevel::secondLevel:
