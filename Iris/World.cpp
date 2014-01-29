@@ -3,11 +3,13 @@
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
 int spawnTimeLimit =  500;
+
 World::World(): 
 
 entityVector()
 {
-	Animation* playerAnimation = new Animation("resource/test.png", 200, 2);
+	currentState = PLAYING;
+	Animation* playerAnimation = new Animation("resource/test.png", 200, 4);
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(playerAnimation, 100, 100);
@@ -27,17 +29,21 @@ void World::run(){
 		}
 
 		window.clear();
-
-		tick();
-		detectCollisions();
-		killDeadEntities();
-		spawnEnemies();
-		renderImages();
-
+		/*Använder en instans av GameState för att veta vad den skall göra.
+		  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
+		if (currentState == PLAYING){
+			startGame();
+		}
 		window.display();
 	}
 }
-
+void World::startGame(){
+	tick();
+	detectCollisions();
+	killDeadEntities();
+	spawnEnemies();
+	renderImages();
+}
 
 void World::renderImages(){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){

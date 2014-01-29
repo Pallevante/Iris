@@ -3,7 +3,7 @@
 
 Ray::Ray(sf::Vector2f position, Animation *animation) :
 mDamage(10),
-mRad(3),
+mRad(64),
 mSpeed(7),
 mIsAlive(true),
 mAnimation(animation)

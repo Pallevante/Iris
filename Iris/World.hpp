@@ -8,14 +8,17 @@
 
 class World{
 public:
-	/*Används för att veta vad man ska rendera.*/
+	/*Används för att veta vad man ska rendera.*/	
 	enum GameState{
 		INMENU,
 		PLAYING,
 		INSHOP,
 		OUTRO,
 		INTRO
-	};	
+	};
+
+	GameState currentState;
+
 	World();
 	~World();
 	void run();
