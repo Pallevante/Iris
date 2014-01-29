@@ -95,7 +95,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Animation.hpp" />
     <ClInclude Include="BaseLevel.hpp" />
     <ClInclude Include="DefaultEnemy.hpp" />
     <ClInclude Include="Enemies.hpp" />

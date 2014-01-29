@@ -1,6 +1,6 @@
 #pragma once
 #include "Enemies.hpp"
-#include "Animation.h"
+#include "Animation.hpp"
 #include "Ray.hpp"
 
 class DefaultEnemy : public Enemy {

@@ -20,19 +20,16 @@ mAnimation(animation)
 
 Player::~Player(){}
 
-void Player::tick(EntityVector &mEnteties){
+void Player::tick(EntityVector &entities){
 	move();
-	fire(mEnteties);
+	fire(entities);
 	mAnimation->Update();
 }
 
-int Player::collide(Entity *entity, EntityVector &enteties){
+int Player::collide(Entity *entity, EntityVector &entities){
 	
 	if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
-		mHealth -= entity->getDamage();
-		if (mHealth <= 0) {
-			mIsAlive = false;
-		}
+		mHealth -= entity->getDamage() / 2;		
 	}
 	return 0;
 }
@@ -87,14 +84,14 @@ void Player::move(){
 	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
 }
 
-void Player::fire(EntityVector &mEnteties){
+void Player::fire(EntityVector &entities){
 
 	sf::Time isReloaded = reloadTimer.getElapsedTime();
 	if (isReloaded.asMilliseconds() > 200){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 			/*Laddar in texturen för ray samt kastar in den i vektorn.*/
 			Animation* rayAnimation = new Animation("resource/test.png", 100, 4);		
-			mEnteties.push_back(new Ray(getPosition(), rayAnimation));
+			entities.push_back(new Ray(getPosition(), rayAnimation));
 		}
 		reloadTimer.restart();
 	}

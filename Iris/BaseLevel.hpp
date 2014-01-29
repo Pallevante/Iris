@@ -8,6 +8,6 @@ public:
 	virtual float specialEnemySpawnTimeMin() = 0;
 	virtual float specialEnemySpawnTimeMax() = 0;
 	virtual float obstacleSpawnTimeMin() = 0;
-	virtual float ostacleSpawnTimeMax() = 0;
+	virtual float obstacleSpawnTimeMax() = 0;
 	virtual float scoreRequirement() = 0;	
 };
