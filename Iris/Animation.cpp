@@ -6,12 +6,14 @@ mTimePerFrame(timePerFrame),
 mNumFrames(numFrames),
 mCurrentFrame(0){
 	/* Laddar in filen som en textur */
-	mTexture.loadFromFile(filename);
+	//mTexture.loadFromFile(filename);
+
+	
 	/* Använder texturen som en sprite */
-	mSprite.setTexture(mTexture);
+	mSprite.setTexture(ResourceManager::getTexture(filename));
 	
 	/* Visar den första framen av spritesheetet */
-	sf::IntRect textureRect(0, 0, mTexture.getSize().x / mNumFrames, mTexture.getSize().y);
+	sf::IntRect textureRect(0, 0, ResourceManager::getTexture(filename).getSize().x / mNumFrames, ResourceManager::getTexture(filename).getSize().y);
 	mSprite.setTextureRect(textureRect);
 };
 
@@ -38,10 +40,10 @@ void Animation::Update(){
 	}
 }
 
-
+/*
 void Animation::updateTexture(){
 	mSprite.setTexture(mTexture);
-}
+}*/
 /* Setters */
 void Animation::setPosition(const sf::Vector2f& position){
 	mSprite.setPosition(position);

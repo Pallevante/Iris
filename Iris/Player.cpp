@@ -14,7 +14,7 @@ mIsAlive(true),
 mRad(20.f),
 mAnimation(animation)
 {	
-	mAnimation->updateTexture();
+	//mAnimation->updateTexture();
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
 }
 
