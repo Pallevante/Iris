@@ -27,6 +27,7 @@ void World::run(){
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+		
 
 		window.clear();
 		/*Använder en instans av GameState för att veta vad den skall göra.
