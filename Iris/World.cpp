@@ -59,17 +59,24 @@ void World::tick(){
 
 /* Tar emot två Entitypekare och returnerar om de kolliderar eller inte. Används som stödfunktion till detectCollisions. */
 bool World::isColliding(Entity *entity1, Entity *entity2){
-	const float X0 = entity1->getPosition().x;
-	const float Y0 = entity1->getPosition().y;
-	const float R0 = entity1->getRad();
+	int width1 = entity1->getWidth();
+	int width2 = entity2->getWidth();
+	int height1 = entity1->getHeight();
+	int height2 = entity2->getHeight();
+	sf::Vector2f position1 = entity1->getPosition();
+	sf::Vector2f position2 = entity2->getPosition();
 
-	const float X1 = entity2->getPosition().x;
-	const float Y1 = entity2->getPosition().y;
-	const float R1 = entity2->getRad();
-	const float DX = X0 - X1;
-	const float DY = Y0 - Y1;
 
-	return DX * DX + DY * DY < (R0 + R1) * (R0 + R1);
+	if ((position1.x + width1	< position2.x) ||
+		(position1.x			> position2.x + width2) ||
+		(position1.y			> position2.y + height2) ||
+		(position1.y + height1	< position2.y)
+		){
+		return false;
+	}
+	else{
+		return true;
+	}
 }
 
 /* Går igenom entityVector och kör isColliding på alla par av entiteter. 
