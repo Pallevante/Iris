@@ -3,7 +3,7 @@
 
 Ray::Ray(sf::Vector2f position, Animation *animation) :
 mDamage(10),
-mRad(3),
+mRad(64),
 mSpeed(7),
 mIsAlive(true),
 mAnimation(animation)
@@ -24,6 +24,15 @@ int Ray::getDamage() const{
 }
 Ray::Type Ray::getType() const{
 	return RAY;
+}
+
+
+int Ray::getHeight() const {
+	return mAnimation->getSprite().getTextureRect().height;
+}
+
+int Ray::getWidth() const {
+	return mAnimation->getSprite().getTextureRect().width;
 }
 
 void Ray::setDamage(int newDamage){

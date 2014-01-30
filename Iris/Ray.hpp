@@ -1,6 +1,6 @@
 #pragma once
 #include "Entity.hpp"
-#include "Animation.h"
+#include "Animation.hpp"
 
 class Ray :	public Entity{
 public:
@@ -8,6 +8,8 @@ public:
 	~Ray();
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition();
+	virtual int getHeight() const;
+	virtual int getWidth() const;
 	virtual int getDamage()	const;
 	virtual Type getType() const;
 	virtual void setDamage(int newDamage);

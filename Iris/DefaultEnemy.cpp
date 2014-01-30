@@ -5,7 +5,7 @@ mDamage(10),
 mSpeed(4 * speedMultiplier),
 mIsAlive(true),
 //Måste ändras relativt till bilden.
-mRad(20.f),
+mRad(64),
 mAnimation(animation)
 {
 	mAnimation->setPosition(sf::Vector2f(1200, 500));
@@ -27,6 +27,14 @@ DefaultEnemy::Type DefaultEnemy::getType() const {
 
 int DefaultEnemy::getDamage() const {
 	return mDamage;
+}
+
+int DefaultEnemy::getHeight() const {
+	return mAnimation->getSprite().getTextureRect().height;
+}
+
+int DefaultEnemy::getWidth() const {
+	return mAnimation->getSprite().getTextureRect().width;
 }
 
 //Någonstans här insåg jag att DefaultEnemy är ett jävligt ocoolt namn på en klass.

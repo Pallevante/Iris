@@ -2,7 +2,7 @@
 #include "Entity.hpp"
 #include "ResourceManager.hpp"
 #include "Ray.hpp"
-#include "Animation.h"
+#include "Animation.hpp"
 
 
 class Player : public Entity{
@@ -12,6 +12,8 @@ public:
 	~Player();
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition();
+	virtual int getHeight() const;
+	virtual int getWidth() const;
 	virtual int getDamage()	const;
 	virtual Type getType() const;
 	virtual void setDamage(int newDamage);
@@ -27,8 +29,7 @@ private:
 	void move();
 	void fire(EntityVector &enteties);	
 	Animation* mAnimation;
-	//sf::Sprite mSprite = mAnimation->getSprite();
-
+	
 	float mSpeed;
 	int mHealth;
 	int mDamage;

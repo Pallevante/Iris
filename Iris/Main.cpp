@@ -32,7 +32,6 @@ Vad som krävs:
 
 #include "World.hpp"
 
-
 int main()
 {
 	World world;

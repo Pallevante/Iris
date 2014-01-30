@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
 #include <SFML\Graphics.hpp>
-
+#include <map>
+#include <SFML/Audio/Sound.hpp>
+#include "ResourceManager.hpp"
 
 //Basklass för alla entiteter. 
 //Kommer nog behövas byggas ut.
@@ -15,6 +17,8 @@ public:
 	Entity();
 	~Entity();
 	typedef std::vector<Entity*> EntityVector;
+	virtual int getHeight() const = 0;
+	virtual int getWidth() const = 0;
 	virtual Type getType() const = 0;
 	virtual sf::Vector2f getPosition() = 0;
 	virtual float getRad() const = 0;
@@ -24,5 +28,9 @@ public:
 	virtual bool isAlive() = 0;
 	virtual int collide(Entity *e0, EntityVector &entities) = 0;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+
+	/* Använd play("resource/exempel.ogg") för att spela upp ett ljud. Minneshantering sker automatiskt. */
+	void play(const std::string& filename);
 private:
+	std::map<std::string, sf::Sound> mSounds;
 };

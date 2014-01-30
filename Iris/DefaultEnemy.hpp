@@ -1,6 +1,6 @@
 #pragma once
 #include "Enemies.hpp"
-#include "Animation.h"
+#include "Animation.hpp"
 #include "Ray.hpp"
 
 class DefaultEnemy : public Enemy {
@@ -9,6 +9,8 @@ public:
 	~DefaultEnemy();
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition();
+	virtual int getHeight() const;
+	virtual int getWidth() const;
 	virtual int getDamage()	const;
 	virtual Type getType() const;
 	virtual void setDamage(int newDamage);

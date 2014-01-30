@@ -97,8 +97,13 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Level.hpp" />
+=======
+    <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="BaseLevel.hpp" />
+>>>>>>> master
     <ClInclude Include="DefaultEnemy.hpp" />
     <ClInclude Include="Enemies.hpp" />
     <ClInclude Include="Entity.hpp" />

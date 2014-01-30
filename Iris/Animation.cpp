@@ -1,4 +1,4 @@
-#include "Animation.h"
+#include "Animation.hpp"
 
 
 Animation::Animation(const std::string& filename, int timePerFrame, int numFrames) :
