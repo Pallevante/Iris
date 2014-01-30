@@ -71,6 +71,7 @@ bool World::isColliding(Entity *entity1, Entity *entity2){
 		(position1.x > position2.x + width2) ||
 		(position1.y > position2.y + height2) ||
 		(position1.y + height1  < position2.y)
+
 		){
 		return false;
 	}
