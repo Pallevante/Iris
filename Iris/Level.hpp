@@ -1,0 +1,43 @@
+#pragma once
+#include <SFML\Graphics.hpp>
+#include "World.hpp"
+
+class Level {
+public:
+//	Level(float spawnMini, float spawnMax, float requirement, float specialMin,
+//		float specialMax, float obstMin, float obstMax, sf::Texture &texture);
+	Level();
+	~Level();
+	/*Spawn:ar default enemies*/
+	void spawnBasicEnemies(float minTime, float maxTime, int maxEnemiesSpawn,Entity::EntityVector &entityVector);
+	float getSpawnEnemyTime();
+	//float enemySpawnTimeMin(float spawnMini);
+	//float enemySpawnTimeMax(float spawnMax);
+	float percentRequirement(float requirement);
+	float specialEnemySpawnTimeMin(float specialMin);
+	float specialEnemySpawnTimeMax(float specialMax);
+	/*obst är en förkortning för obstacle*/
+	float obstacleSpawnTimeMin(float obstSpawn);
+	float obstacleSpawnTimeMax(float obstMax);
+
+	void setBackground(sf::Texture &texture);
+	sf::Sprite getBackground();
+private:
+	sf::Texture mTexture;
+	sf::Sprite mSprite;
+	float mSpawnMini;
+	float mSpawnMax;
+	float mRequirment;
+	float mSpecialMin;
+	float mSpecialMax;
+	float mObstSpawn;
+	float mObstMax;
+	float mSpawn;
+	float mRandomSpawn;
+	/*maxx antal enemies som spawnas*/
+	int mMaxSpawnEnemies;
+	//Animation *animation;
+	Animation *enemyAnimation;
+	sf::Clock mDefaultCl;
+
+};

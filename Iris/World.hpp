@@ -3,19 +3,10 @@
 #include "Entity.hpp"
 #include "Player.hpp"
 #include <SFML/Graphics.hpp>
-<<<<<<< HEAD
-<<<<<<< HEAD
 #include "LoadLevel.hpp"
-=======
-=======
->>>>>>> master
 #include "Animation.h"
-<<<<<<< HEAD
-
->>>>>>> master
-=======
 #include "DefaultEnemy.hpp"
->>>>>>> master
+
 
 class World{
 public:
@@ -56,13 +47,8 @@ private:
 	typedef std::vector<Entity*> EntityVector;
 	int mGold;
 	Entity::EntityVector entityVector;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	Player *mPlayer;
-	
-=======
->>>>>>> master
-=======
->>>>>>> master
+	LoadLevel *mLoadLevel;
 };
 

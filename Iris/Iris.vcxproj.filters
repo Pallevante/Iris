@@ -1,89 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <ClCompile Include="LoadLevel.cpp">
-=======
-=======
->>>>>>> master
-    <ClCompile Include="Ray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> master
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemies.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DefaultEnemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="DefaultEnemy.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="LoadLevel.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Enemies.cpp" />
+    <ClCompile Include="World.cpp" />
+    <ClCompile Include="Level.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Player.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ray.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="World.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <ClInclude Include="LoadLevel.hpp">
-=======
-    <ClInclude Include="ResourceManager.hpp">
->>>>>>> master
-=======
-    <ClInclude Include="ResourceManager.hpp">
->>>>>>> master
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemies.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultEnemy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseLevel.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{f88f7309-5e65-4629-a54d-2a6d376d419c}</UniqueIdentifier>
-      <Extensions>hpp;h</Extensions>
-    </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{bf67f524-217b-44ec-9ff1-666f8e01937d}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="DefaultEnemy.hpp" />
+    <ClInclude Include="Enemies.hpp" />
+    <ClInclude Include="Entity.hpp" />
+    <ClInclude Include="LoadLevel.hpp" />
+    <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Ray.hpp" />
+    <ClInclude Include="ResourceManager.hpp" />
+    <ClInclude Include="World.hpp" />
+    <ClInclude Include="Level.hpp" />
   </ItemGroup>
 </Project>

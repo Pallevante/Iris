@@ -2,8 +2,8 @@
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
-int spawnTimeLimit =  500;
-World::World(): 
+int spawnTimeLimit = 500;
+World::World() :
 
 entityVector()
 {
@@ -12,41 +12,21 @@ entityVector()
 	window.setFramerateLimit(65);
 	mPlayer = new Player(playerAnimation, 100, 100);
 	entityVector.push_back(mPlayer);
-
-
 }
 
 World::~World(){}
 
 void World::run(){
-<<<<<<< HEAD
-<<<<<<< HEAD
-	//Skapa en textur, ladda in en fil i den, lägg till den (egentligen med enumen i entity som första parametern) i resourceManager. 
-	sf::Texture textureTest;
-	textureTest.loadFromFile("resource/test.png");
-	resourceManager.addTexture(0, textureTest);
-	//Skapa en sprite som gettar texturen med det ID som du vill ha. 
-	sf::Sprite sprite = sf::Sprite(resourceManager.getTexture(0));
 
-	LoadLevel *mLoadLevel = new LoadLevel;
-	mLoadLevel->setLevel(entityVector);
-	
-
-	while (window.isOpen()){
-=======
-
-		while (window.isOpen())	{
->>>>>>> master
-=======
-
-		while (window.isOpen())	{
->>>>>>> master
+	while (window.isOpen())        {
 		sf::Event event;
-		while (window.pollEvent(event)){
+		while (window.pollEvent(event))
+		{
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
 
+		mLoadLevel->setLevel();
 		window.clear();
 
 		tick();
@@ -64,7 +44,6 @@ void World::renderImages(){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 	}
-
 }
 
 void World::tick(){
@@ -89,9 +68,9 @@ bool World::isColliding(Entity *entity1, Entity *entity2){
 	return DX * DX + DY * DY < (R0 + R1) * (R0 + R1);
 }
 
-/* Går igenom entityVector och kör isColliding på alla par av entiteter. 
-Den utkommenterade biten kollar om sakerna som kolliderar har samma typ 
-(hostile eller friendly t ex) och struntar isåfall i att de kolliderar. 
+/* Går igenom entityVector och kör isColliding på alla par av entiteter.
+Den utkommenterade biten kollar om sakerna som kolliderar har samma typ
+(hostile eller friendly t ex) och struntar isåfall i att de kolliderar.
 
 Typ-kollen bör ske innan kollisions-kollen för att spara på arbetskraft.*/
 void World::detectCollisions(){
@@ -124,7 +103,7 @@ void World::killDeadEntities(){
 /*Denna tiomern får vi hämta ifrån levelload sedan då det kommmer olika många fiender på olika banor.*/
 void World::spawnEnemies(){
 	sf::Time time = spawnTimer.getElapsedTime();
-	if(time.asMilliseconds() > 600){
+	if (time.asMilliseconds() > 600){
 		Animation* enemyAnimation = new Animation("resource/test.png", 50, 4);
 		entityVector.push_back(new DefaultEnemy(enemyAnimation, 1));
 		spawnTimer.restart();
@@ -134,11 +113,11 @@ void World::spawnEnemies(){
 
 
 /*
-				__	- FML.
-			   / _)
-	  _/\/\/\_/ /
-	 /			|
-	/ (	 |	 (	|
-   /   |_|--- |_|
+__        - FML.
+/ _)
+_/\/\/\_/ /
+/                        |
+/ (         |         (        |
+/   |_|--- |_|
 
- */
+*/

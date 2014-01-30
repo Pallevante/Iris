@@ -3,26 +3,32 @@
 
 LoadLevel::LoadLevel() {
 
-
+	
 }
 
 
 LoadLevel::~LoadLevel(){
 }
 
+void LoadLevel::setVector(Entity::EntityVector &entityVector){
+	mEntityVector = entityVector;
+	
+}
+Entity::EntityVector LoadLevel::getVector(){
 
+	return mEntityVector;
+}
 
-void LoadLevel::setLevel(Entity::EntityVector &entityVector){
+void LoadLevel::setLevel(/*Entity::EntityVector &entityVector*/){
 	/*sätter banan till 1*/
 	int level1 = 1;
 
 	/*väljer bana 1*/
-	if (level1 == 1){ level = Level::firstLevel; }
+	if (level1 == 1){ levelEnum = LevelEnum::firstLevel; }
 
-	switch (level)	{
+	switch (levelEnum)	{
 	case LoadLevel::firstLevel:
-		entityVector.push_back(new Player(400, 400, 2));
-		mSprite.setTexture(mResourceManager->getAnimation("", 0, 0));
+	//	level->spawnBasicEnemies(3.0f, 4.0f, 3, getVector());
 
 		break;
 	case LoadLevel::secondLevel:
@@ -44,8 +50,36 @@ void LoadLevel::setLevel(Entity::EntityVector &entityVector){
 	}
 
 }
+
+
 int LoadLevel::getLevel(){
 
 
-	return level;
+	return levelEnum;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
