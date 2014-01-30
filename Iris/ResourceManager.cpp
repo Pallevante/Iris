@@ -35,7 +35,7 @@ sf::Texture& ResourceManager::getLevel(const std::string& filename){
 	}
 	return mLevels.find(filename)->second;
 }
-sf::SoundBuffer& ResourceManager::getSound(const std::string& filename){
+sf::SoundBuffer& ResourceManager::getSoundBuffer(const std::string& filename){
 	if (mSounds.count(filename) == 0){
 		sf::SoundBuffer newSound;
 		newSound.loadFromFile(filename);

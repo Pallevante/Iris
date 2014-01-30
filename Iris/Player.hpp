@@ -29,8 +29,7 @@ private:
 	void move();
 	void fire(EntityVector &enteties);	
 	Animation* mAnimation;
-	//sf::Sprite mSprite = mAnimation->getSprite();
-
+	
 	float mSpeed;
 	int mHealth;
 	int mDamage;
