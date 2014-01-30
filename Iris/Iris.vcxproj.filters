@@ -14,18 +14,7 @@
     <ClCompile Include="Level.cpp" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <ClInclude Include="Animation.h" />
-    <ClInclude Include="DefaultEnemy.hpp" />
-    <ClInclude Include="Enemies.hpp" />
-    <ClInclude Include="Entity.hpp" />
-    <ClInclude Include="LoadLevel.hpp" />
-    <ClInclude Include="Player.hpp" />
-    <ClInclude Include="Ray.hpp" />
-    <ClInclude Include="ResourceManager.hpp" />
-    <ClInclude Include="World.hpp" />
-    <ClInclude Include="Level.hpp" />
-=======
+
     <ClInclude Include="Player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -63,6 +52,5 @@
       <UniqueIdentifier>{bf67f524-217b-44ec-9ff1-666f8e01937d}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
->>>>>>> master
   </ItemGroup>
 </Project>
