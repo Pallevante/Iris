@@ -14,7 +14,6 @@
     <ClCompile Include="Level.cpp" />
   </ItemGroup>
   <ItemGroup>
-
     <ClInclude Include="Player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -36,10 +35,10 @@
     <ClInclude Include="DefaultEnemy.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BaseLevel.hpp">
+    <ClInclude Include="Animation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.hpp">
+    <ClInclude Include="LoadLevel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
