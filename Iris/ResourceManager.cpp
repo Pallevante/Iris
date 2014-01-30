@@ -45,6 +45,19 @@ sf::SoundBuffer& ResourceManager::getSound(const std::string& filename){
 	return mSounds.find(filename)->second;
 }
 
+sf::SoundBuffer& ResourceManager::getSoundBuffer(const std::string& filename){
+	if (mSounds.count(filename) == 0){
+		sf::SoundBuffer newSound;
+		newSound.loadFromFile(filename);
+
+		mSounds.insert(std::pair<std::string, sf::SoundBuffer>(filename, newSound));
+	}
+	return mSounds.find(filename)->second;
+}
+
+
+
+
 /* Det här är min bane */
 //std::map<std::string, Animation> ResourceManager::mAnimations;
 std::map<std::string, sf::Texture> ResourceManager::mTextures;

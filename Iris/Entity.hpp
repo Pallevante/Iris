@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
 #include <SFML\Graphics.hpp>
-
+#include <SFML\Audio.hpp>
+#include "ResourceManager.hpp"
+#include <map>
 
 //Basklass för alla entiteter. 
 //Kommer nog behövas byggas ut.
@@ -26,5 +28,9 @@ public:
 	virtual bool isAlive() = 0;
 	virtual int collide(Entity *e0, EntityVector &entities) = 0;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+	/* Funktionen arbetar både med resurshanteraren för att hålla koll på soundbuffers och undvika flera inladdningar av samma fil, */
+	/* samtidigt som den skapar Sounds som behövs och håller dem levande under programmets gång. */
+	void Entity::play(const std::string& filename);
 private:
+	std::map<std::string, sf::Sound> mSounds;
 };

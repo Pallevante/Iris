@@ -99,7 +99,8 @@ void Player::fire(EntityVector &entities){
 	if (isReloaded.asMilliseconds() > 200){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 			/*Laddar in texturen för ray samt kastar in den i vektorn.*/
-			Animation* rayAnimation = new Animation("resource/test.png", 100, 4);		
+			Animation* rayAnimation = new Animation("resource/test.png", 100, 4);
+			play("resource/test.wav");
 			entities.push_back(new Ray(getPosition(), rayAnimation));
 		}
 		reloadTimer.restart();
