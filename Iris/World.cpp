@@ -27,6 +27,8 @@ void World::run(){
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+				pause();
 		}
 		
 		window.clear();
@@ -38,7 +40,6 @@ void World::run(){
 		if (currentState == PAUSED){
 			renderImages();
 		}
-		takeInput(event);
 		window.display();
 	}
 }
@@ -127,17 +128,14 @@ void World::spawnEnemies(){
 	}
 }
 
-void World::takeInput(sf::Event event){
-	if (event.type == sf::Event::KeyReleased){
-		if (event.key.code == sf::Keyboard::Escape){
-			if (currentState == PLAYING){
-				currentState = PAUSED;
-				return;
-			}else if (currentState==PAUSED){
-				currentState = PLAYING;
-				return;
-			}
-		}
+void World::pause(){
+	if (currentState == PLAYING){
+		currentState = PAUSED;
+		return;
+	}
+	else if (currentState == PAUSED){
+		currentState = PLAYING;
+		return;
 	}
 }
 

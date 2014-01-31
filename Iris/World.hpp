@@ -41,7 +41,7 @@ private:
 	void killDeadEntities();
 
 	/*Menyrelaterade funktioner*/
-	void takeInput(sf::Event event);
+	void pause();
 	void enterStore();
 	void enterSettings();
 	void enterMap();
