@@ -14,9 +14,6 @@ public:
 	/* Måste köras varje frame av programmet för att animationen ska utföras. */
 	void Update();
 
-	/* Stödfunktion för att uppdatera mSprites interna textur efter kopiering */
-	void updateTexture();
-
 	/* Setters */
 
 	/* Stödfunktion för att sätta positionen på medlemsspriten i en Animation. */
@@ -27,7 +24,6 @@ public:
 private:
 	/* Medlemsvariablar */
 	sf::Clock mFrameTimer;
-	//sf::Texture mTexture;
 	sf::Sprite mSprite;
 	int mTimePerFrame = 0;
 	int mNumFrames = 0;

@@ -9,7 +9,7 @@ World::World():
 entityVector()
 {
 	currentState = PLAYING;
-	Animation* playerAnimation = new Animation("resource/test.png", 200, 4);
+	Animation* playerAnimation = new Animation("resource/player.png", 125, 8);
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(playerAnimation, 100, 100);
@@ -115,7 +115,7 @@ void World::killDeadEntities(){
 void World::spawnEnemies(){
 	sf::Time time = spawnTimer.getElapsedTime();
 	if(time.asMilliseconds() > 600){
-		Animation* enemyAnimation = new Animation("resource/test.png", 50, 4);
+		Animation* enemyAnimation = new Animation("resource/enemy1.png", 50, 2);
 		entityVector.push_back(new DefaultEnemy(enemyAnimation, 1));
 		spawnTimer.restart();
 	}

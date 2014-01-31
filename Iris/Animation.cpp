@@ -5,10 +5,6 @@ Animation::Animation(const std::string& filename, int timePerFrame, int numFrame
 mTimePerFrame(timePerFrame),
 mNumFrames(numFrames),
 mCurrentFrame(0){
-	/* Laddar in filen som en textur */
-	//mTexture.loadFromFile(filename);
-
-	
 	/* Använder texturen som en sprite */
 	mSprite.setTexture(ResourceManager::getTexture(filename));
 	
@@ -39,11 +35,6 @@ void Animation::Update(){
 		mSprite.setTextureRect(currentRect);
 	}
 }
-
-/*
-void Animation::updateTexture(){
-	mSprite.setTexture(mTexture);
-}*/
 /* Setters */
 void Animation::setPosition(const sf::Vector2f& position){
 	mSprite.setPosition(position);
