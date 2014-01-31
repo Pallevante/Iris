@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "World.hpp"
+#include "Enemies.hpp"
 
 class Level {
 public:
@@ -9,7 +10,8 @@ public:
 	Level();
 	~Level();
 	/*Spawn:ar default enemies*/
-	void spawnBasicEnemies(float minTime, float maxTime, int maxEnemiesSpawn,Entity::EntityVector &entityVector);
+	void spawnBasicEnemies(float minTime, float maxTime, int maxEnemiesSpawn,
+		Entity::EntityVector &entityVector, Enemy *enemyType);
 	float getSpawnEnemyTime();
 	//float enemySpawnTimeMin(float spawnMini);
 	//float enemySpawnTimeMax(float spawnMax);
@@ -19,6 +21,8 @@ public:
 	/*obst är en förkortning för obstacle*/
 	float obstacleSpawnTimeMin(float obstSpawn);
 	float obstacleSpawnTimeMax(float obstMax);
+
+	int getRandomNumber();
 
 	void setBackground(sf::Texture &texture);
 	sf::Sprite getBackground();

@@ -41,6 +41,9 @@
     <ClInclude Include="LoadLevel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Level.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

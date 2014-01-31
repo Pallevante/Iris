@@ -101,6 +101,7 @@
     <ClInclude Include="DefaultEnemy.hpp" />
     <ClInclude Include="Enemies.hpp" />
     <ClInclude Include="Entity.hpp" />
+    <ClInclude Include="Level.hpp" />
     <ClInclude Include="LoadLevel.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Ray.hpp" />
