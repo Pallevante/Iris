@@ -1,13 +1,13 @@
 #include "Ray.hpp"
 
 
-Ray::Ray(sf::Vector2f position, Animation *animation) :
+Ray::Ray(sf::Vector2f position) :
 mDamage(10),
 mRad(64),
 mSpeed(7),
-mIsAlive(true),
-mAnimation(animation)
+mIsAlive(true)
 {
+	mAnimation = new Animation("resource/test.png", 100, 4);
 	mAnimation->setPosition(position);
 }
 

@@ -5,16 +5,15 @@ sf::Clock reloadTimer;
 
 
 
-Player::Player(Animation *animation, float xPosition, float yPosition, float speedMultiplier) :
+Player::Player(float xPosition, float yPosition, float speedMultiplier) :
 
 mDamage(10),
 mSpeed(4 * speedMultiplier),
 mIsAlive(true),
 //Måste ändras relativt till bilden.
-mRad(20.f),
-mAnimation(animation)
+mRad(20.f)
 {	
-	//mAnimation->updateTexture();
+	mAnimation = new Animation("resource/Iris_flying_anim2.png", 100, 8);
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
 }
 
@@ -98,11 +97,10 @@ void Player::fire(EntityVector &entities){
 	sf::Time isReloaded = reloadTimer.getElapsedTime();
 	if (isReloaded.asMilliseconds() > 200){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-			/*Laddar in texturen för ray samt kastar in den i vektorn.*/
-			Animation* rayAnimation = new Animation("resource/test.png", 100, 4);
+			/*Laddar in texturen för ray samt kastar in den i vektorn.*/			
 			play("resource/test.wav");
 			reloadTimer.restart();
-			entities.push_back(new Ray(getPosition(), rayAnimation));
+			entities.push_back(new Ray(getPosition()));
 		}
 	}
 }

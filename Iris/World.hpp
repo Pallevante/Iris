@@ -7,6 +7,10 @@
 #include "DefaultEnemy.hpp"
 #include "LoadLevel.hpp"
 
+class Level;
+class LoadLevel;
+enum LoadLevel::LevelEnum;
+
 class World{
 public:
 	/*Används för att veta vad man ska rendera.*/	
@@ -51,5 +55,8 @@ private:
 	int mGold;
 	Entity::EntityVector entityVector;
 
+	LoadLevel* mLoadLevel;
+	LoadLevel::LevelEnum mCurrentLevel;
+	Level* mLevel;
 };
 

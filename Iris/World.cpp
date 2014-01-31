@@ -8,11 +8,10 @@ World::World():
 
 entityVector()
 {
-	currentState = PLAYING;
-	Animation* playerAnimation = new Animation("resource/test.png", 200, 4);
+	currentState = PLAYING;	
 	Player *mPlayer;
 	window.setFramerateLimit(65);
-	mPlayer = new Player(playerAnimation, 100, 100);
+	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
 }
 
@@ -31,6 +30,9 @@ void World::run(){
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
+			mCurrentLevel = LoadLevel::LevelEnum::firstLevel;
+			mLoadLevel->setLevel(mCurrentLevel);
+			mLevel = mLoadLevel->getLevel();
 			startGame();
 		}
 		window.display();

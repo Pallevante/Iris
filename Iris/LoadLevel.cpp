@@ -1,4 +1,5 @@
 #include "LoadLevel.hpp"
+
 Level* mLevel;
 
 LoadLevel::LoadLevel(){}
