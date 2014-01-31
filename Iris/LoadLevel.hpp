@@ -1,23 +1,13 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "Level.hpp"
+/*Denna frammåt dekleration löste mina problem med instanser samt felet
+; före * som vi fick ett tag.*/
+class Level;
 
-
-class LoadLevel
-{
-
-
+class LoadLevel{
 public:
-	LoadLevel();
-	~LoadLevel();
-	void setLevel();
-	int getLevel();
-	void setVector(Entity::EntityVector &entityVector);
-	Entity::EntityVector getVector();
-
-
-protected:
-	enum LevelEnum	{
+	static enum LevelEnum {
 		firstLevel,
 		secondLevel,
 		thirdLevel,
@@ -28,11 +18,11 @@ protected:
 		eighthLevel
 	};
 
+	LoadLevel();
+	~LoadLevel();
+	void setLevel(LevelEnum& levelToLoad);
+	Level* getLevel();
+	LevelEnum currentLevel;
 private:
-	LevelEnum levelEnum;
-	Level *level;
-	ResourceManager *mc;
-	sf::Sprite mSprite;
-	sf::Texture mTexture;
-	Entity::EntityVector mEntityVector;
+
 };

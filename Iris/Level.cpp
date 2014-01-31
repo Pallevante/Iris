@@ -1,5 +1,6 @@
 #include "Level.hpp"
 
+
 //Level::Level(float spawnMini, float spawnMax, float requirement, float specialMin,
 //	float specialMax, float obstMin, float obstMax, sf::Texture &texture): mSpawnMini(spawnMini),
 //	mSpawnMax(spawnMax),mRequirment(requirement), mSpecialMin(specialMin), mSpecialMax(specialMax)
@@ -16,10 +17,11 @@ Level::~Level(){
 
 }
 
-void Level::set(float spawnMini, float spawnMax, float requirment, float obstSpawnMin,
+void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,
 	float obstMax, int maxSpawnEnemies, float specialMin, float specialMax, int maxSpecialSpawn){
 	
-	mSpawnMini = spawnMini;
+
+	mSpawnMin = spawnMin;
 	mSpawnMax = spawnMax;
 	mObstSpawnMin = obstSpawnMin;
 	mObstMax = obstMax;
@@ -29,6 +31,7 @@ void Level::set(float spawnMini, float spawnMax, float requirment, float obstSpa
 	mSpecialMax = specialMax;
 	mMaxSpecialSpawn = maxSpecialSpawn;
 
+
 }
 
 int Level::getRandomNumber(){
@@ -37,28 +40,29 @@ int Level::getRandomNumber(){
 	return rand() % 10;
 }
 
-void Level::spawnBasicEnemies(Entity::EntityVector &entityVector){
 
+void Level::spawnBasicEnemies(Entity::EntityVector &mEntities){
 
 
 	sf::Time spawnDefaultT = mDefaultCl.getElapsedTime();
 	int spawnCount = 0;
 
-	if (mSpawnMini < spawnDefaultT.asSeconds()
+	if (mSpawnMin < spawnDefaultT.asSeconds()
 		&& spawnDefaultT.asSeconds() < mSpawnMax){
 
 		getRandomNumber();
 
 		if (getRandomNumber() == 1 && spawnCount < mMaxSpawnEnemies){
 			spawnCount++;
-			mEntityVector.push_back(new DefaultEnemy(enemyAnimation, 1.0f));
+
+			mEntityVector.push_back(new DefaultEnemy(1));
 
 		}
 
 	}
 		
 	 if (spawnDefaultT.asSeconds() >= mSpawnMax){
-		 mEntityVector.push_back(new DefaultEnemy(enemyAnimation, 1.0f));
+		 mEntityVector.push_back(new DefaultEnemy(1));
 
 		mDefaultCl.restart();
 		
@@ -78,58 +82,38 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
 		if (getRandomNumber() == 1 && spawnCount < mMaxSpecialSpawn){
 			spawnCount++;
-			mEntityVector.push_back(new DefaultEnemy(enemyAnimation, 1.0f));
+			mEntityVector.push_back(new DefaultEnemy(1));
 
 		}
 
 	}
 
 	if (spawnSpecialT.asSeconds() >= mSpecialMax){
-		mEntityVector.push_back(new DefaultEnemy(enemyAnimation, 1.0f));
 
-		mDefaultCl.restart();
-
+		mEntityVector.push_back(new DefaultEnemy(1));
+		mSpecialCl.restart();
 	}
 
+
 }
+
+
 
 float Level::percentRequirement(float requirement){
 	mRequirment = requirement;
 
 	return mRequirment;
 }
-//float Level::specialEnemySpawnTimeMin(float specialMin){
-//
-//	mSpecialMin = specialMin;
-//	return specialMin;
-//}
-//float Level::specialEnemySpawnTimeMax(float specialMax){
-//
-//	mSpecialMax = specialMax;
-//	return specialMax;
-//}
-//float Level::obstacleSpawnTimeMin(float obstSpawn){
-//
-//	mObstSpawnMin = obstSpawn;
-//	return obstSpawn;
-//}
-//
-//float Level::obstacleSpawnTimeMax(float obstMax){
-//
-//	mObstMax = mObstMax;
-//	return obstMax;
-//}
-//
+
+
+
 void Level::setBackground(sf::Texture &texture)
 {
 	mTexture = texture;
 	mSprite.setTexture(mTexture);
 
 }
-//sf::Sprite Level::getBackground(){
-//
-//	return mSprite;
-//}
+
 
 void Level::drawBackground(sf::RenderWindow *window){
 
@@ -142,3 +126,4 @@ void Level::moveBackground(){
 	mSprite.move(-1, 0);
 
 }
+

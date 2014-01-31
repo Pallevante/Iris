@@ -4,7 +4,7 @@
 
 class Ray :	public Entity{
 public:
-	Ray(sf::Vector2f position, Animation *animation);
+	Ray(sf::Vector2f position);
 	~Ray();
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition();

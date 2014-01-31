@@ -5,6 +5,7 @@
 
 class Level {
 public:
+
 //	Level(float spawnMini, float spawnMax, float requirement, float specialMin,
 //		float specialMax, float obstMin, float obstMax, sf::Texture &texture);
 	Level();
@@ -17,31 +18,20 @@ public:
 		float obstMax, int maxSpawnEnemies, float specialMin, 
 		float specialMax, int maxSpecialSpawn);
 	void drawBackground(sf::RenderWindow *window);
-	void moveBackground();
-	//float enemySpawnTimeMin(float spawnMini);
-	//float enemySpawnTimeMax(float spawnMax);
-	float percentRequirement(float requirement);
-	//float specialEnemySpawnTimeMin(float specialMin);
-	//float specialEnemySpawnTimeMax(float specialMax);
-	/*obst är en förkortning för obstacle*/
-	float obstacleSpawnTimeMin(float obstSpawn);
-	float obstacleSpawnTimeMax(float obstMax);
-
 	int getRandomNumber();
-
+	float percentRequirement(float requirement);
 	void setBackground(sf::Texture &texture);
-	//sf::Sprite getBackground();
-	
+	void moveBackground();
+
+	sf::Sprite getBackground();
 private:
-	sf::Texture mTexture;
-	sf::Sprite mSprite;
-	float mSpawnMini;
+	float mSpawnMin;
 	float mSpawnMax;
-	float mRequirment;
 	float mSpecialMin;
 	float mSpecialMax;
 	float mObstSpawnMin;
 	float mObstMax;
+	float mRequirment;
 //	float mSpawn;
 	float mRandomSpawn;
 	/*maxx antal enemies som spawnas*/
@@ -50,7 +40,10 @@ private:
 
 	Animation* enemyAnimation;
 	Entity::EntityVector mEntityVector;
+
 	sf::Clock mDefaultCl;
 	sf::Clock mSpecialCl;
 
+	sf::Sprite mSprite;
+	sf::Texture mTexture;
 };
