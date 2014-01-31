@@ -20,9 +20,9 @@ public:
 
 	LoadLevel();
 	~LoadLevel();
-	void setLevel(LevelEnum& levelToLoad);
+	/*Anropas av World.*/
+	void setLevel(LevelEnum& levelToLoad);	
 	Level* getLevel();
-	LevelEnum currentLevel;
 private:
 	
 };

@@ -9,7 +9,6 @@
 
 class Level;
 
-
 class World{
 public:
 	/*Används för att veta vad man ska rendera.*/	
