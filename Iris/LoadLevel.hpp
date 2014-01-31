@@ -7,7 +7,7 @@ class Level;
 
 class LoadLevel{
 public:
-	enum LevelEnum {
+	static enum LevelEnum {
 		firstLevel,
 		secondLevel,
 		thirdLevel,

@@ -2,6 +2,9 @@
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
+LoadLevel mLoadLevel;
+LoadLevel::LevelEnum mCurrentLevel;
+
 int spawnTimeLimit =  500;
 
 World::World(): 
@@ -30,9 +33,10 @@ void World::run(){
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
-			mCurrentLevel = LoadLevel::LevelEnum::firstLevel;
-			mLoadLevel->setLevel(mCurrentLevel);
-			mLevel = mLoadLevel->getLevel();
+			//Lite halv homo lösning men verkar fungera (den kompilerar).
+			mCurrentLevel = mLoadLevel.LevelEnum::firstLevel;
+			mLoadLevel.setLevel(mCurrentLevel);
+			mLevel = mLoadLevel.getLevel();
 			startGame();
 		}
 		window.display();
