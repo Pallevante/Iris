@@ -2,17 +2,19 @@
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
+LoadLevel mLoadLevel;
+LoadLevel::LevelEnum mCurrentLevel;
+
 int spawnTimeLimit =  500;
 
 World::World(): 
 
 entityVector()
 {
-	currentState = PLAYING;
-	Animation* playerAnimation = new Animation("resource/player.png", 125, 8);
+	currentState = PLAYING;	
 	Player *mPlayer;
 	window.setFramerateLimit(65);
-	mPlayer = new Player(playerAnimation, 100, 100);
+	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
 }
 
@@ -35,6 +37,10 @@ void World::run(){
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
+			//Lite halv homo lösning men verkar fungera (den kompilerar).
+			mCurrentLevel = mLoadLevel.LevelEnum::firstLevel;
+			mLoadLevel.setLevel(mCurrentLevel);
+			mLevel = mLoadLevel.getLevel();
 			startGame();
 		}
 		if (currentState == PAUSED){
@@ -74,11 +80,10 @@ bool World::isColliding(Entity *entity1, Entity *entity2){
 	sf::Vector2f position2 = entity2->getPosition();
 
 
-	if ((position1.x + width1	< position2.x) ||
-		(position1.x			> position2.x + width2) ||
-		(position1.y			> position2.y + height2) ||
-		(position1.y + height1	< position2.y)
-		){
+	if ((position1.x + width1 < position2.x) ||
+		(position1.x > position2.x + width2) ||
+		(position1.y > position2.y + height2) ||
+		(position1.y + height1  < position2.y)){
 		return false;
 	}
 	else{
@@ -122,8 +127,13 @@ void World::killDeadEntities(){
 void World::spawnEnemies(){
 	sf::Time time = spawnTimer.getElapsedTime();
 	if(time.asMilliseconds() > 600){
+<<<<<<< HEAD
 		Animation* enemyAnimation = new Animation("resource/enemy1.png", 50, 2);
 		entityVector.push_back(new DefaultEnemy(enemyAnimation, 1));
+=======
+		
+		entityVector.push_back(new DefaultEnemy(1));
+>>>>>>> peterH
 		spawnTimer.restart();
 	}
 }
