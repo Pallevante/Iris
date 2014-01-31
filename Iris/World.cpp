@@ -22,17 +22,23 @@ void World::run(){
 
 		while (window.isOpen())	{
 		sf::Event event;
+
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+		
 		window.clear();
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
 			startGame();
 		}
+		if (currentState == PAUSED){
+			renderImages();
+		}
+		takeInput(event);
 		window.display();
 	}
 }
@@ -118,6 +124,20 @@ void World::spawnEnemies(){
 		Animation* enemyAnimation = new Animation("resource/enemy1.png", 50, 2);
 		entityVector.push_back(new DefaultEnemy(enemyAnimation, 1));
 		spawnTimer.restart();
+	}
+}
+
+void World::takeInput(sf::Event event){
+	if (event.type == sf::Event::KeyReleased){
+		if (event.key.code == sf::Keyboard::Escape){
+			if (currentState == PLAYING){
+				currentState = PAUSED;
+				return;
+			}else if (currentState==PAUSED){
+				currentState = PLAYING;
+				return;
+			}
+		}
 	}
 }
 

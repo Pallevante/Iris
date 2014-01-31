@@ -100,9 +100,8 @@ void Player::fire(EntityVector &entities){
 			entities.push_back(new Ray(getPosition(), rayAnimation));
 			/* Spelar upp skjutljud */
 			play("resource/shoot.wav");
-			
+			reloadTimer.restart();
 		}
-		reloadTimer.restart();
 	}
 }
 

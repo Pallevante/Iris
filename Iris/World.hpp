@@ -12,12 +12,14 @@ public:
 	enum GameState{
 		INMENU,
 		PLAYING,
+		PAUSED,
 		INSHOP,
 		OUTRO,
 		INTRO
 	};
 
 	GameState currentState;
+	//sf::Event event;
 
 	World();
 	~World();
@@ -39,6 +41,7 @@ private:
 	void killDeadEntities();
 
 	/*Menyrelaterade funktioner*/
+	void takeInput(sf::Event event);
 	void enterStore();
 	void enterSettings();
 	void enterMap();
