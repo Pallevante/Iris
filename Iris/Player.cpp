@@ -101,8 +101,8 @@ void Player::fire(EntityVector &entities){
 			/*Laddar in texturen för ray samt kastar in den i vektorn.*/
 			Animation* rayAnimation = new Animation("resource/test.png", 100, 4);
 			play("resource/test.wav");
+			reloadTimer.restart();
 			entities.push_back(new Ray(getPosition(), rayAnimation));
 		}
-		reloadTimer.restart();
 	}
 }

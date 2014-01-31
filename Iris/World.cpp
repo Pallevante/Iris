@@ -70,9 +70,7 @@ bool World::isColliding(Entity *entity1, Entity *entity2){
 	if ((position1.x + width1 < position2.x) ||
 		(position1.x > position2.x + width2) ||
 		(position1.y > position2.y + height2) ||
-		(position1.y + height1  < position2.y)
-
-		){
+		(position1.y + height1  < position2.y)){
 		return false;
 	}
 	else{
@@ -116,8 +114,8 @@ void World::killDeadEntities(){
 void World::spawnEnemies(){
 	sf::Time time = spawnTimer.getElapsedTime();
 	if(time.asMilliseconds() > 600){
-		Animation* enemyAnimation = new Animation("resource/test.png", 50, 4);
-		entityVector.push_back(new DefaultEnemy(enemyAnimation, 1));
+		
+		entityVector.push_back(new DefaultEnemy(1));
 		spawnTimer.restart();
 	}
 }

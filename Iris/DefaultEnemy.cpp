@@ -1,13 +1,13 @@
 #include "DefaultEnemy.hpp"
 
-DefaultEnemy::DefaultEnemy(Animation *animation,  float speedMultiplier) :
+DefaultEnemy::DefaultEnemy(float speedMultiplier) :
 mDamage(10),
 mSpeed(4 * speedMultiplier),
 mIsAlive(true),
 //Måste ändras relativt till bilden.
-mRad(64),
-mAnimation(animation)
+mRad(64)
 {
+	mAnimation = new Animation("resource/test.png", 50, 4);
 	mAnimation->setPosition(sf::Vector2f(1200, 500));
 }
 

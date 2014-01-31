@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "Animation.hpp"
 #include "DefaultEnemy.hpp"
+#include "LoadLevel.hpp"
 
 class World{
 public:
@@ -43,10 +44,12 @@ private:
 	void enterSettings();
 	void enterMap();
 	
+	
 
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
 	int mGold;
 	Entity::EntityVector entityVector;
+
 };
 
