@@ -35,5 +35,4 @@ private:
 	sf::Sprite mSprite;
 	sf::Texture mTexture;
 	Entity::EntityVector mEntityVector;
-	Level *level;
 };

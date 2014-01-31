@@ -8,33 +8,44 @@ World::World():
 
 entityVector()
 {
-        currentState = PLAYING;
-        Animation* playerAnimation = new Animation("resource/test.png", 200, 4);
-        Player *mPlayer;
-        window.setFramerateLimit(65);
-        mPlayer = new Player(playerAnimation, 100, 100);
-        entityVector.push_back(mPlayer);
+
+	currentState = PLAYING;
+	Animation* playerAnimation = new Animation("resource/player.png", 125, 8);
+	Player *mPlayer;
+	window.setFramerateLimit(65);
+	mPlayer = new Player(playerAnimation, 100, 100);
+	entityVector.push_back(mPlayer);
+
 }
 
 World::~World(){}
 
 void World::run(){
 
-                while (window.isOpen())        {
-                sf::Event event;
-                while (window.pollEvent(event))
-                {
-                        if (event.type == sf::Event::Closed)
-                                window.close();
-                }
-                window.clear();
-                /*Använder en instans av GameState för att veta vad den skall göra.
-                  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
-                if (currentState == PLAYING){
-                        startGame();
-                }
-                window.display();
-        }
+
+		while (window.isOpen())	{
+		sf::Event event;
+
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+				pause();
+		}
+		
+		window.clear();
+		/*Använder en instans av GameState för att veta vad den skall göra.
+		  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
+		if (currentState == PLAYING){
+			startGame();
+		}
+		if (currentState == PAUSED){
+			renderImages();
+		}
+		window.display();
+	}
+
 }
 void World::startGame(){
         tick();
@@ -113,12 +124,24 @@ void World::killDeadEntities(){
 
 /*Denna tiomern får vi hämta ifrån levelload sedan då det kommmer olika många fiender på olika banor.*/
 void World::spawnEnemies(){
-        sf::Time time = spawnTimer.getElapsedTime();
-        if(time.asMilliseconds() > 600){
-                Animation* enemyAnimation = new Animation("resource/test.png", 50, 4);
-                entityVector.push_back(new DefaultEnemy(enemyAnimation, 1));
-                spawnTimer.restart();
-        }
+
+	sf::Time time = spawnTimer.getElapsedTime();
+	if(time.asMilliseconds() > 600){
+		Animation* enemyAnimation = new Animation("resource/enemy1.png", 50, 2);
+		entityVector.push_back(new DefaultEnemy(enemyAnimation, 1));
+		spawnTimer.restart();
+	}
+}
+
+void World::pause(){
+	if (currentState == PLAYING){
+		currentState = PAUSED;
+		return;
+	}
+	else if (currentState == PAUSED){
+		currentState = PLAYING;
+		return;
+	}
 }
 
 

@@ -8,16 +8,19 @@
 
 class World{
 public:
-        /*Används för att veta vad man ska rendera.*/        
-        enum GameState{
-                INMENU,
-                PLAYING,
-                INSHOP,
-                OUTRO,
-                INTRO
-        };
 
-        GameState currentState;
+	/*Används för att veta vad man ska rendera.*/	
+	enum GameState{
+		INMENU,
+		PLAYING,
+		PAUSED,
+		INSHOP,
+		OUTRO,
+		INTRO
+	};
+
+	GameState currentState;
+	//sf::Event event;
 
         World();
         ~World();
@@ -38,14 +41,17 @@ private:
         void detectCollisions();
         void killDeadEntities();
 
-        /*Menyrelaterade funktioner*/
-        void enterStore();
-        void enterSettings();
-        void enterMap();
-        
 
-        /*Variabler*/
-        typedef std::vector<Entity*> EntityVector;
-        int mGold;
-        Entity::EntityVector entityVector;
+	/*Menyrelaterade funktioner*/
+	void pause();
+	void enterStore();
+	void enterSettings();
+	void enterMap();
+	
+
+	/*Variabler*/
+	typedef std::vector<Entity*> EntityVector;
+	int mGold;
+	Entity::EntityVector entityVector;
 };
+
