@@ -9,12 +9,15 @@ public:
 //		float specialMax, float obstMin, float obstMax, sf::Texture &texture);
 	Level();
 	~Level();
-	/*Spawn:ar enemies*/
-	void spawnBasicEnemies(float minTime, float maxTime, int maxEnemiesSpawn,
-		Entity::EntityVector &entityVector, Enemy *enemyType);
+	/*Spawn:ar default enemies*/
+	void spawnBasicEnemies(Entity::EntityVector &entityVector);
+	/*Spawn:ar Skjutare*/
+	void spawnSpecialEnemies(Entity::EntityVector &entityVector);
 	void set(float spawnMini, float spawnMax, float requirment, float obstSpawnMin, 
-		float obstMax);
-	//float getSpawnEnemyTime();
+		float obstMax, int maxSpawnEnemies, float specialMin, 
+		float specialMax, int maxSpecialSpawn);
+	void drawBackground(sf::RenderWindow *window);
+	void moveBackground();
 	//float enemySpawnTimeMin(float spawnMini);
 	//float enemySpawnTimeMax(float spawnMax);
 	float percentRequirement(float requirement);
@@ -27,23 +30,27 @@ public:
 	int getRandomNumber();
 
 	void setBackground(sf::Texture &texture);
-	sf::Sprite getBackground();
+	//sf::Sprite getBackground();
+	
 private:
 	sf::Texture mTexture;
 	sf::Sprite mSprite;
 	float mSpawnMini;
 	float mSpawnMax;
 	float mRequirment;
-//	float mSpecialMin;
-//	float mSpecialMax;
+	float mSpecialMin;
+	float mSpecialMax;
 	float mObstSpawnMin;
 	float mObstMax;
-	float mSpawn;
+//	float mSpawn;
 	float mRandomSpawn;
 	/*maxx antal enemies som spawnas*/
 	int mMaxSpawnEnemies;
-	//Animation *animation;
+	int mMaxSpecialSpawn;
 
+	Animation* enemyAnimation;
+	Entity::EntityVector mEntityVector;
 	sf::Clock mDefaultCl;
+	sf::Clock mSpecialCl;
 
 };

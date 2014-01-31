@@ -10,18 +10,11 @@ class LoadLevel
 public:
 	LoadLevel();
 	~LoadLevel();
-	void setLevel(/*Entity::EntityVector &entityVector*/);
+	void setLevel();
 	int getLevel();
 	void setVector(Entity::EntityVector &entityVector);
 	Entity::EntityVector getVector();
-	//virtual float enemySpawnTimeMin();
-	//virtual float enemySpawnTimeMax();
-	//virtual float percentRequirement();
-	//virtual float specialEnemySpawnTimeMin();
-	//virtual float specialEnemySpawnTimeMax();
-	//virtual float obstacleSpawnTimeMin();
-	//virtual float ostacleSpawnTimeMax();
-	//virtual float scoreRequirement();
+
 
 protected:
 	enum LevelEnum	{
@@ -42,4 +35,5 @@ private:
 	sf::Sprite mSprite;
 	sf::Texture mTexture;
 	Entity::EntityVector mEntityVector;
+	Level *level;
 };
