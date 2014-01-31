@@ -15,6 +15,17 @@ Level::~Level(){
 
 }
 
+void Level::set(float spawnMini, float spawnMax, float requirment, float obstSpawnMin,
+	float obstMax, int maxSpawnEnemies){
+
+	mSpawnMini = spawnMini;
+	mSpawnMax = spawnMax;
+	mObstSpawnMin = obstSpawnMin;
+	mObstMax = obstMax;
+	mRequirment = requirment;
+	mMaxSpawnEnemies = maxSpawnEnemies;
+}
+
 int Level::getRandomNumber(){
 
 
@@ -24,8 +35,7 @@ int Level::getRandomNumber(){
 void Level::spawnBasicEnemies(float minTime, float maxTime, int maxEnemiesSpawn,
 	Entity::EntityVector &entityVector, Enemy *enemyType){
 
-	mSpawnMini = minTime;
-	mSpawnMax = maxTime;
+
 
 	sf::Time spawnDefaultT = mDefaultCl.getElapsedTime();
 	int spawnCount = 0;
@@ -51,10 +61,10 @@ void Level::spawnBasicEnemies(float minTime, float maxTime, int maxEnemiesSpawn,
 	}
 
 }  
-float Level::getSpawnEnemyTime(){
-
-	return mSpawn;
-}
+//float Level::getSpawnEnemyTime(){
+//
+//	return mSpawn;
+//}
 
 float Level::percentRequirement(float requirement){
 	mRequirment = requirement;
@@ -73,7 +83,7 @@ float Level::percentRequirement(float requirement){
 //}
 float Level::obstacleSpawnTimeMin(float obstSpawn){
 
-	mObstSpawn = obstSpawn;
+	mObstSpawnMin = obstSpawn;
 	return obstSpawn;
 }
 
