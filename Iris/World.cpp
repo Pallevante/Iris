@@ -39,7 +39,7 @@ void World::run(){
 		if (currentState == PLAYING){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
 			mCurrentLevel = mLoadLevel.LevelEnum::firstLevel;
-			mLoadLevel.setLevel(mCurrentLevel);
+			//mLoadLevel.setLevel(mCurrentLevel);
 			mLevel = mLoadLevel.getLevel();
 			startGame();
 		}
@@ -127,13 +127,7 @@ void World::killDeadEntities(){
 void World::spawnEnemies(){
 	sf::Time time = spawnTimer.getElapsedTime();
 	if(time.asMilliseconds() > 600){
-<<<<<<< HEAD
-		Animation* enemyAnimation = new Animation("resource/enemy1.png", 50, 2);
-		entityVector.push_back(new DefaultEnemy(enemyAnimation, 1));
-=======
-		
 		entityVector.push_back(new DefaultEnemy(1));
->>>>>>> peterH
 		spawnTimer.restart();
 	}
 }
