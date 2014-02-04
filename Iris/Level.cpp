@@ -40,7 +40,7 @@ int Level::getRandomNumber(){
 	return rand() % 10;
 }
 
-
+/*Kollar hur många som ska spawnas av default enemies*/
 void Level::spawnBasicEnemies(Entity::EntityVector &mEntities){
 
 
@@ -96,6 +96,7 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
 
 }
+/*Kallar på spawn-funktioner*/
 void Level::spawn(Entity::EntityVector &entityVector){
 
 	if (mSpecialMax > 0 ){
@@ -129,18 +130,15 @@ void Level::drawBackground(sf::RenderWindow *window){
 	window->draw(mSprite);
 	
 }
-
+/*flyttar på view*/
 void Level::moveBackground(sf::RenderWindow *window){
-
-	view.setViewport(sf::FloatRect(1.0f, 1.0f, 1.0f, 1.0f));
-	view.setCenter(window->getSize().x / 2, window->getSize().y / 2);
 
 
 	if (mSprite.getGlobalBounds().left > window->getSize().x - 1){
-		view.move(1, 0);
+		mSprite.move(-1, 0);
 	}
 	else if (mSprite.getGlobalBounds().left <= window->getSize().x - 1){
-		view.move(0, 0);
+		mSprite.move(0, 0);
 	}
 
 
