@@ -8,14 +8,14 @@ class Level;
 class LoadLevel{
 public:
 	static enum LevelEnum {
-		firstLevel,
-		secondLevel,
-		thirdLevel,
-		fourthLevel,
-		fifthLevel,
-		sixtLevel,
-		seventhLevel,
-		eighthLevel
+		FIRSTLEVEL,
+		SECONDLEVEL,
+		THIRDLEVEL,
+		FOURTHLEVEL,
+		FIFTHLEVEL,
+		SIXTHLEVEL,
+		SEVENTHLEVEL,
+		EIGHTLEVEL
 	};
 
 	LoadLevel();

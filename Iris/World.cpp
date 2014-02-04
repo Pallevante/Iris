@@ -2,6 +2,7 @@
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
+sf::Music music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 
@@ -11,6 +12,8 @@ World::World():
 
 entityVector()
 {
+	music.openFromFile("resource/Level1Theme.ogg");
+	music.play();
 	currentState = PLAYING;	
 	Player *mPlayer;
 	window.setFramerateLimit(65);
@@ -38,7 +41,7 @@ void World::run(){
 		  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
-			mCurrentLevel = mLoadLevel.LevelEnum::firstLevel;
+			mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
 			//mLoadLevel.setLevel(mCurrentLevel);
 			mLevel = mLoadLevel.getLevel();
 			startGame();

@@ -10,7 +10,7 @@ LoadLevel::~LoadLevel(){
 
 /*Sätter variablerna för nivå 1 i detta fall. kommer att utökas i framtida versioner.*/
 void LoadLevel::setLevel(LevelEnum& levelToLoad){
-	if (levelToLoad == firstLevel){
+	if (levelToLoad == FIRSTLEVEL){
 		mLevel->set(3, 5, 0.5, 4, 5, 1);
 	}
 }
