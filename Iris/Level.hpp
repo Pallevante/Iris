@@ -17,6 +17,7 @@ public:
 	void set(float spawnMini, float spawnMax, float requirment, float obstSpawnMin, 
 		float obstMax, int maxSpawnEnemies, float specialMin, 
 		float specialMax, int maxSpecialSpawn);
+	void spawn(Entity::EntityVector &entityVector);
 	void drawBackground(sf::RenderWindow *window);
 	int getRandomNumber();
 	float percentRequirement(float requirement);

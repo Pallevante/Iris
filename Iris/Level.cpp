@@ -96,7 +96,16 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
 
 }
+void Level::spawn(Entity::EntityVector &entityVector){
 
+	if (mSpecialMax > 0 ){
+
+		spawnSpecialEnemies(entityVector);
+
+	}
+
+	spawnBasicEnemies(entityVector);
+}
 
 
 float Level::percentRequirement(float requirement){
@@ -134,11 +143,6 @@ void Level::moveBackground(sf::RenderWindow *window){
 		view.move(0, 0);
 	}
 
-	//if (){
-	//	mSprite.move(-1, 0);
-	//}
-	//else if (){
-	//	mSprite.move(0, 0);
-	//}
+
 }
 
