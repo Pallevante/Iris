@@ -11,7 +11,7 @@ World::World():
 
 entityVector()
 {
-	currentState = PLAYING;	
+	currentState = INMENU;	
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(100, 100);
@@ -36,6 +36,11 @@ void World::run(){
 		window.clear();
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
+		if (currentState == INMENU){
+			mainMenu.drawMenu(window);
+			menu();
+		}
+
 		if (currentState == PLAYING){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
 			mCurrentLevel = mLoadLevel.LevelEnum::firstLevel;

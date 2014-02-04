@@ -6,6 +6,7 @@
 #include "Animation.hpp"
 #include "DefaultEnemy.hpp"
 #include "LoadLevel.hpp"
+#include "MainMenu.hpp"
 
 class Level;
 
@@ -55,7 +56,7 @@ private:
 	typedef std::vector<Entity*> EntityVector;
 	int mGold;
 	Entity::EntityVector entityVector;
-
+	MainMenu mainMenu;
 	Level* mLevel;
 };
 

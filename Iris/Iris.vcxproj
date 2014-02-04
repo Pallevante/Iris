@@ -90,11 +90,15 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LoadLevel.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Menu.hpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="World_menus.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
@@ -103,6 +107,7 @@
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="Level.hpp" />
     <ClInclude Include="LoadLevel.hpp" />
+    <ClInclude Include="MainMenu.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Ray.hpp" />
     <ClInclude Include="ResourceManager.hpp" />
