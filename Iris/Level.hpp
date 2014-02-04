@@ -21,7 +21,7 @@ public:
 	int getRandomNumber();
 	float percentRequirement(float requirement);
 	void setBackground(sf::Texture &texture);
-	void moveBackground();
+	void moveBackground(sf::RenderWindow *window);
 
 	sf::Sprite getBackground();
 	private:
@@ -46,4 +46,5 @@ public:
 
 	sf::Sprite mSprite;
 	sf::Texture mTexture;
+	sf::View view;
 };

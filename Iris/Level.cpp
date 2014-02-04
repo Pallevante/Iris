@@ -26,10 +26,10 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	float	mObstSpawnMin = obstSpawnMin;
 	float	mObstMax = obstMax;
 	float	mRequirment = requirment;
-	float	mMaxSpawnEnemies = maxSpawnEnemies;
+	int 	mMaxSpawnEnemies = maxSpawnEnemies;
 	float	mSpecialMin = specialMin;
 	float	mSpecialMax = specialMax;
-	float   mMaxSpecialSpawn = maxSpecialSpawn;
+	int     mMaxSpecialSpawn = maxSpecialSpawn;
 
 
 }
@@ -121,9 +121,24 @@ void Level::drawBackground(sf::RenderWindow *window){
 	
 }
 
-void Level::moveBackground(){
+void Level::moveBackground(sf::RenderWindow *window){
 
-	mSprite.move(-1, 0);
+	view.setViewport(sf::FloatRect(1.0f, 1.0f, 1.0f, 1.0f));
+	view.setCenter(window->getSize().x / 2, window->getSize().y / 2);
 
+
+	if (mSprite.getGlobalBounds().left > window->getSize().x - 1){
+		view.move(1, 0);
+	}
+	else if (mSprite.getGlobalBounds().left <= window->getSize().x - 1){
+		view.move(0, 0);
+	}
+
+	//if (){
+	//	mSprite.move(-1, 0);
+	//}
+	//else if (){
+	//	mSprite.move(0, 0);
+	//}
 }
 
