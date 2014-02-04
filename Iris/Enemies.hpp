@@ -12,7 +12,8 @@ public:
 		WAVE,
 		FOLLOWING
 	};
-	//virtual Movement getMovement() = 0;
+	/*Kan använda en parameter vid skapandet av enemy för vilket rörelsemönster denne skall ha. */
+	virtual Movement getMovement() = 0;
 	virtual void death() = 0;
 	virtual void fire(EntityVector &enteties) = 0;
 	virtual void move() = 0;

@@ -128,11 +128,7 @@ void World::killDeadEntities(){
 
 /*Denna tiomern får vi hämta ifrån levelload sedan då det kommmer olika många fiender på olika banor.*/
 void World::spawnEnemies(){
-	sf::Time time = spawnTimer.getElapsedTime();
-	if(time.asMilliseconds() > 600){
-		entityVector.push_back(new DefaultEnemy(1));
-		spawnTimer.restart();
-	}
+	mLevel->spawn();
 }
 
 void World::pause(){

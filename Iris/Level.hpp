@@ -5,39 +5,47 @@
 
 class Level {
 public:
-	// Level(float spawnMini, float spawnMax, float requirement, float specialMin,
-	// float specialMax, float obstMin, float obstMax, sf::Texture &texture);
-	Level();
-	~Level();
-	/*Spawn:ar enemies*/
-	void spawnBasicEnemies(Entity::EntityVector &mEntities);
-	void set(float spawnMini, float spawnMax, float requirment, float obstSpawnMin,
-	float obstMax, int MaxSpawnEnemies);
-	float percentRequirement(float requirement);
 
-	/*obst är en förkortning för obstacle*/
-	float obstacleSpawnTimeMin(float obstSpawn);
-	float obstacleSpawnTimeMax(float obstMax);
+// Level(float spawnMini, float spawnMax, float requirement, float specialMin,
+// float specialMax, float obstMin, float obstMax, sf::Texture &texture);
+Level();
+~Level();
+/*Spawn:ar default enemies*/
+void spawnBasicEnemies(Entity::EntityVector &entityVector);
+/*Spawn:ar Skjutare*/
+void spawnSpecialEnemies(Entity::EntityVector &entityVector);
+void set(float spawnMini, float spawnMax, float requirment, float obstSpawnMin,
+float obstMax, int maxSpawnEnemies, float specialMin,
+float specialMax, int maxSpecialSpawn);
+void spawn(Entity::EntityVector &entityVector);
+void drawBackground(sf::RenderWindow *window);
+int getRandomNumber();
+float percentRequirement(float requirement);
+void setBackground(sf::Texture &texture);
+void moveBackground(sf::RenderWindow *window);
 
-	int getRandomNumber();
-
-	void setBackground(sf::Texture &texture);
-	sf::Sprite getBackground();
+sf::Sprite getBackground();
 private:
-	sf::Texture mTexture;
-	sf::Sprite mSprite;
-	float mSpawnMini;
-	float mSpawnMax;
-	float mRequirment;
-	// float mSpecialMin;
-	// float mSpecialMax;
-	float mObstSpawnMin;
-	float mObstMax;
-	float mSpawn;
-	float mRandomSpawn;
-	/*maxx antal enemies som spawnas*/
-	int mMaxSpawnEnemies;
-	//Animation *animation;
-	sf::Clock mDefaultCl;
+float mSpawnMin;
+float mSpawnMax;
+float mSpecialMin;
+float mSpecialMax;
+float mObstSpawnMin;
+float mObstMax;
+float mRequirment;
+// float mSpawn;
+float mRandomSpawn;
+/*maxx antal enemies som spawnas*/
+int mMaxSpawnEnemies;
+int mMaxSpecialSpawn;
 
+Animation* enemyAnimation;
+Entity::EntityVector mEntityVector;
+
+sf::Clock mDefaultCl;
+sf::Clock mSpecialCl;
+
+sf::Sprite mSprite;
+sf::Texture mTexture;
+sf::View view;
 };

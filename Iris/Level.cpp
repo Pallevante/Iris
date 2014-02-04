@@ -1,89 +1,137 @@
 #include "Level.hpp"
 
-Level::Level(){}
 
-Level::~Level(){}
+//Level::Level(float spawnMini, float spawnMax, float requirement, float specialMin,
+// float specialMax, float obstMin, float obstMax, sf::Texture &texture): mSpawnMini(spawnMini),
+// mSpawnMax(spawnMax),mRequirment(requirement), mSpecialMin(specialMin), mSpecialMax(specialMax)
+// ,mObstSpawn(obstMin),mObstMax(obstMax) ,mTexture(texture){
+//
+//}
 
-void Level::set(float spawnMini, float spawnMax, float requirment, float obstSpawnMin,
-	float obstMax, int maxSpawnEnemies){
+Level::Level(){
 
-	mSpawnMini = spawnMini;
-	mSpawnMax = spawnMax;
-	mObstSpawnMin = obstSpawnMin;
-	mObstMax = obstMax;
-	mRequirment = requirment;
-	mMaxSpawnEnemies = maxSpawnEnemies;
-	
+enemyAnimation = new Animation("resource/test.png", 200, 4);
+}
+Level::~Level(){
+
+
+}
+
+void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,
+float obstMax, int maxSpawnEnemies, float specialMin, float specialMax, int maxSpecialSpawn){
+
+
+float	mSpawnMin = spawnMin;
+float	mSpawnMax = spawnMax;
+float	mObstSpawnMin = obstSpawnMin;
+float	mObstMax = obstMax;
+float	mRequirment = requirment;
+int mMaxSpawnEnemies = maxSpawnEnemies;
+float	mSpecialMin = specialMin;
+float	mSpecialMax = specialMax;
+int mMaxSpecialSpawn = maxSpecialSpawn;
+
+
 }
 
 int Level::getRandomNumber(){
 
 
-	return rand() % 10;
+return rand() % 10;
 }
+
 
 void Level::spawnBasicEnemies(Entity::EntityVector &mEntities){
 
-	sf::Time spawnDefaultT = mDefaultCl.getElapsedTime();
-	int spawnCount = 0;
 
-	if (mSpawnMini < spawnDefaultT.asSeconds()
-		&& spawnDefaultT.asSeconds() < mSpawnMax){
-		getRandomNumber();
+sf::Time spawnDefaultT = mDefaultCl.getElapsedTime();
+int spawnCount = 0;
 
-		if (getRandomNumber() == 1 && spawnCount < mMaxSpawnEnemies){
-			spawnCount++;
-			mEntities.push_back(new DefaultEnemy(1));
-		}
-	}
+if (mSpawnMin < spawnDefaultT.asSeconds()
+&& spawnDefaultT.asSeconds() < mSpawnMax){
 
-	if (mSpawn >= mSpawnMax){
-		mEntities.push_back(new DefaultEnemy(1));
-		mDefaultCl.restart();
+getRandomNumber();
 
-	}
+if (getRandomNumber() == 1 && spawnCount < mMaxSpawnEnemies){
+spawnCount++;
+
+mEntityVector.push_back(new DefaultEnemy(1));
 
 }
-//float Level::getSpawnEnemyTime(){
-//
-// return mSpawn;
-//}
+
+}
+
+if (spawnDefaultT.asSeconds() >= mSpawnMax){
+mEntityVector.push_back(new DefaultEnemy(1));
+
+mDefaultCl.restart();
+
+}
+
+}
+
+void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
+
+	sf::Time spawnSpecialT = mSpecialCl.getElapsedTime();
+	int spawnCount = 0;
+
+	if (mSpecialMin < spawnSpecialT.asSeconds()
+		&& spawnSpecialT.asSeconds() < mSpecialMax){
+
+		getRandomNumber();
+
+	if (getRandomNumber() == 1 && spawnCount < mMaxSpecialSpawn){
+	spawnCount++;
+	mEntityVector.push_back(new DefaultEnemy(1));
+
+	}
+}
+
+if (spawnSpecialT.asSeconds() >= mSpecialMax){
+	mEntityVector.push_back(new DefaultEnemy(1));
+	mSpecialCl.restart();
+}
+
+
+}
+void Level::spawn(Entity::EntityVector &entityVector){
+	if (mSpecialMax > 0 ){
+		spawnSpecialEnemies(entityVector);
+	}
+	spawnBasicEnemies(entityVector);
+}
+
 
 float Level::percentRequirement(float requirement){
 	mRequirment = requirement;
-
 	return mRequirment;
 }
-//float Level::specialEnemySpawnTimeMin(float specialMin){
-//
-// mSpecialMin = specialMin;
-// return specialMin;
-//}
-//float Level::specialEnemySpawnTimeMax(float specialMax){
-//
-// mSpecialMax = specialMax;
-// return specialMax;
-//}
-float Level::obstacleSpawnTimeMin(float obstSpawn){
 
-	mObstSpawnMin = obstSpawn;
-	return obstSpawn;
-}
 
-float Level::obstacleSpawnTimeMax(float obstMax){
 
-	mObstMax = mObstMax;
-	return obstMax;
-}
-
-void Level::setBackground(sf::Texture &texture)
-{
+void Level::setBackground(sf::Texture &texture){
 	mTexture = texture;
 	mSprite.setTexture(mTexture);
+}
+
+
+void Level::drawBackground(sf::RenderWindow *window){
+
+	window->draw(mSprite);
 
 }
-sf::Sprite Level::getBackground(){
 
-	return mSprite;
+void Level::moveBackground(sf::RenderWindow *window){
+
+	view.setViewport(sf::FloatRect(1.0f, 1.0f, 1.0f, 1.0f));
+	view.setCenter(window->getSize().x / 2, window->getSize().y / 2);
+
+
+	if (mSprite.getGlobalBounds().left > window->getSize().x - 1){
+		view.move(1, 0);
+	}
+	else if (mSprite.getGlobalBounds().left <= window->getSize().x - 1){
+		view.move(0, 0);
+	}
 }
 
