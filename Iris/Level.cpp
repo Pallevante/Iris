@@ -21,15 +21,15 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	float obstMax, int maxSpawnEnemies, float specialMin, float specialMax, int maxSpecialSpawn){
 	
 
-	mSpawnMin = spawnMin;
-	mSpawnMax = spawnMax;
-	mObstSpawnMin = obstSpawnMin;
-	mObstMax = obstMax;
-	mRequirment = requirment;
-	mMaxSpawnEnemies = maxSpawnEnemies;
-	mSpecialMin = specialMin;
-	mSpecialMax = specialMax;
-	mMaxSpecialSpawn = maxSpecialSpawn;
+	float	mSpawnMin = spawnMin;
+	float	mSpawnMax = spawnMax;
+	float	mObstSpawnMin = obstSpawnMin;
+	float	mObstMax = obstMax;
+	float	mRequirment = requirment;
+	float	mMaxSpawnEnemies = maxSpawnEnemies;
+	float	mSpecialMin = specialMin;
+	float	mSpecialMax = specialMax;
+	float   mMaxSpecialSpawn = maxSpecialSpawn;
 
 
 }

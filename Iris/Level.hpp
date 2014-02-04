@@ -24,7 +24,7 @@ public:
 	void moveBackground();
 
 	sf::Sprite getBackground();
-private:
+	private:
 	float mSpawnMin;
 	float mSpawnMax;
 	float mSpecialMin;
