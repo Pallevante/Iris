@@ -37,14 +37,17 @@
     <ClCompile Include="World_menus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.hpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="Menu.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.hpp">
+      <Filter>Header Files\Menu</Filter>
     </ClCompile>
     <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,7 +82,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MainMenu.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopMenu.hpp">
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +96,12 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{bf67f524-217b-44ec-9ff1-666f8e01937d}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Menu">
+      <UniqueIdentifier>{8f59f307-b8ec-46eb-a24e-943fde22ebea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Menu">
+      <UniqueIdentifier>{1e0d22af-5ee0-4e44-8056-9ffef7ac549b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,19 +1,23 @@
 #pragma once
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "ResourceManager.hpp"
 
 class Menu{
 public:
-//	typedef std::vector<sf::Sprite*> ButtonVector;
-	//Menu();
-	//~Menu();
+	typedef std::vector<sf::Sprite*> ButtonVector;
+	Menu(ButtonVector buttons, const std::string& background, unsigned int currentMenuItem);
+	~Menu();
 
-	virtual int getCurrentMenuItem() = 0;
+	void drawMenu(sf::RenderWindow& window);
+	int getCurrentMenuItem();
+	void setCurrentMenuItem(unsigned int i);
+	void setActive(unsigned int i);
+
 	virtual int getMaxItems() = 0;
-private:/*
+protected:
 	ButtonVector mButtonVector;
+	sf::Sprite mActiveButton;
 	sf::Sprite mBackground;
-	enum mMenuItems;
-	int mCurrentMenuItem;
-	*/
+	unsigned int mCurrentMenuItem;
 };

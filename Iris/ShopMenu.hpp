@@ -4,17 +4,16 @@
 #include "ResourceManager.hpp"
 #include "Menu.hpp"
 
-class MainMenu : public Menu{
+class ShopMenu : public Menu{
 public:
-	enum mMenuItems{ 
-		PLAY, 
-		SHOP,
-		QUIT, 
-		NUM_CHOICES 
+	enum mMenuItems{
+		BACK,
+		NUM_CHOICES
 	};
-	MainMenu();
-	~MainMenu();
+	ShopMenu();
+	~ShopMenu();
 
 	int getMaxItems();
 private:
+
 };

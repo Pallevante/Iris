@@ -31,15 +31,20 @@ void World::run(){
 				window.close();
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 				pause();
+
+			//menuInput(event);
 		}
 		
 		window.clear();
-		/*Använder en instans av GameState för att veta vad den skall göra.
-		  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
+
 		if (currentState == INMENU){
 			mainMenu.drawMenu(window);
-			menu();
 		}
+
+		if (currentState == INSHOP){
+			shopMenu.drawMenu(window);
+		}
+		
 
 		if (currentState == PLAYING){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
