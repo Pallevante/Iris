@@ -21,10 +21,22 @@ int Menu::getCurrentMenuItem(){
 	return mCurrentMenuItem;
 }
 
-void Menu::setCurrentMenuItem(unsigned int i){
-	mCurrentMenuItem = i;
-	setActive(mCurrentMenuItem);
-}
 void Menu::setActive(unsigned int i){
 	mActiveButton.setPosition(mButtonVector[i]->getPosition().x - 80, mButtonVector[i]->getPosition().y);
+}
+
+void Menu::setCurrentMenuItem(unsigned int i){
+	mCurrentMenuItem = i;
+	Menu::setActive(mCurrentMenuItem);
+}
+
+void Menu::down(){
+	if (mCurrentMenuItem < getMaxItems()-1){
+		setCurrentMenuItem(mCurrentMenuItem + 1);
+	}
+}
+void Menu::up(){
+	if (mCurrentMenuItem > 0){
+		setCurrentMenuItem(mCurrentMenuItem - 1);
+	}
 }

@@ -11,7 +11,7 @@ World::World():
 
 entityVector()
 {
-	currentState = INMENU;	
+	currentState = INSHOP;	
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(100, 100);
@@ -31,8 +31,9 @@ void World::run(){
 				window.close();
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 				pause();
-
-			//menuInput(event);
+			
+			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+			menuInput(event);
 		}
 		
 		window.clear();

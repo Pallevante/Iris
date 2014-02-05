@@ -7,7 +7,7 @@ Menu::ButtonVector{
 	new sf::Sprite(ResourceManager::getTexture("resource/buttons/play.png")),
 	new sf::Sprite(ResourceManager::getTexture("resource/buttons/shop.png")),
 	new sf::Sprite(ResourceManager::getTexture("resource/buttons/quit.png"))
-}, "resource/menu_background.png", 0)
+}, "resource/backgrounds/menu.png", 0)
 {
 	/* Definera position på knapparna här */
 	mButtonVector[0]->setPosition(100, 100);

@@ -44,7 +44,6 @@ private:
 
 	/*Menyrelaterade funktioner*/
 	void menuInput(sf::Event &event);
-	void shopInput(sf::Event &event);
 	void pause();
 	void enterStore();
 	void enterSettings();

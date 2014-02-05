@@ -13,6 +13,8 @@ public:
 	int getCurrentMenuItem();
 	void setCurrentMenuItem(unsigned int i);
 	void setActive(unsigned int i);
+	void up();
+	void down();
 
 	virtual int getMaxItems() = 0;
 protected:
