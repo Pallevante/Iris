@@ -2,7 +2,6 @@
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
-sf::Music music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 
@@ -11,10 +10,7 @@ int spawnTimeLimit =  500;
 World::World(): 
 
 entityVector()
-{
-	music.openFromFile("resource/Level1Theme.ogg");
-	music.play();
-	currentState = PLAYING;	
+{	currentState = PLAYING;	
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(100, 100);
@@ -41,8 +37,8 @@ void World::run(){
 		  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
-			mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
-			//mLoadLevel.setLevel(mCurrentLevel);
+			mCurrentLevel = LoadLevel::LevelEnum::FIRSTLEVEL;
+			mLoadLevel.setLevel(mCurrentLevel);
 			mLevel = mLoadLevel.getLevel();
 			startGame();
 		}
@@ -56,7 +52,7 @@ void World::startGame(){
 	tick();
 	detectCollisions();
 	killDeadEntities();
-	spawnEnemies();
+	spawnEnemies(); //Memory error.
 	renderImages();
 }
 
@@ -113,6 +109,8 @@ void World::detectCollisions(){
 		}
 	}
 }
+
+
 /*Skapar en ny vektor som sedan lägger in alla levande entiteter.
 Den nya vektorn uppdaterar våran "main" vektor sedan.*/
 void World::killDeadEntities(){
@@ -126,9 +124,9 @@ void World::killDeadEntities(){
 	entityVector = reserveEnteties;
 }
 
-/*Denna tiomern får vi hämta ifrån levelload sedan då det kommmer olika många fiender på olika banor.*/
+
 void World::spawnEnemies(){
-	mLevel->spawn();
+	mLevel->spawn(entityVector);
 }
 
 void World::pause(){

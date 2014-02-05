@@ -25,6 +25,10 @@ DefaultEnemy::Type DefaultEnemy::getType() const {
 	return ENEMY;
 }
 
+DefaultEnemy::Movement DefaultEnemy::getMovement(){
+	return DEFAULT;
+}
+
 int DefaultEnemy::getDamage() const {
 	return mDamage;
 }
@@ -80,7 +84,7 @@ void DefaultEnemy::move(){
 		else if(getMovement() == WAVE){
 			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 500 + (40*sinf(0.005 * getPosition().x )) ));
 		}
-		else if(getMovement() == FOLLOWING){			
+		/*else if(getMovement() == FOLLOWING){			
 			if (checkUpdateDir.asMilliseconds() > 350){
 				entityVector::iterator i = mEnteties.begin();
 				Entity* enteties = *i;
@@ -90,7 +94,7 @@ void DefaultEnemy::move(){
 				mYDir = y / sqrt(powf(x, 2) + powf(y, 2)) * mSpeed;
 			}
 			mAnimation->setPosition(sf::Vector2f(mAnimation.getPosition().x + mXDir, mAnimation.getPosition().y + mYDir);
-		}	
+		}	*/
 	}
 	else{
 		death();
