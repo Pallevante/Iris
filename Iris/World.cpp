@@ -2,7 +2,7 @@
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
-LoadLevel mLoadLevel;
+LoadLevel* mLoadLevel = new LoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 
 int spawnTimeLimit =  500;
@@ -10,7 +10,8 @@ int spawnTimeLimit =  500;
 World::World(): 
 
 entityVector()
-{	currentState = PLAYING;	
+{
+	currentState = PLAYING;	
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(100, 100);
@@ -30,16 +31,27 @@ void World::run(){
 				window.close();
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 				pause();
+			
+			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+			menuInput(event);
 		}
 		
 		window.clear();
-		/*Använder en instans av GameState för att veta vad den skall göra.
-		  Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
+
+		if (currentState == INMENU){
+			mainMenu.drawMenu(window);
+		}
+
+		if (currentState == INSHOP){
+			shopMenu.drawMenu(window);
+		}
+		
+
 		if (currentState == PLAYING){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
-			mCurrentLevel = LoadLevel::LevelEnum::FIRSTLEVEL;
-			mLoadLevel.setLevel(mCurrentLevel);
-			mLevel = mLoadLevel.getLevel();
+			mCurrentLevel = mLoadLevel->FIRSTLEVEL;
+			mLoadLevel->setLevel(mCurrentLevel);
+			mLevel = mLoadLevel->getLevel();
 			startGame();
 		}
 		if (currentState == PAUSED){

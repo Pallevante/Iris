@@ -6,6 +6,8 @@
 #include "Animation.hpp"
 #include "DefaultEnemy.hpp"
 #include "LoadLevel.hpp"
+#include "MainMenu.hpp"
+#include "ShopMenu.hpp"
 
 class Level;
 
@@ -22,13 +24,10 @@ public:
 	};
 
 	GameState currentState;
-	//sf::Event event;
 
 	World();
 	~World();
 	void run();
-	void menu();
-	void loadAllTheShit();
 	/*Måste ladda in banan innan*/
 	void startGame();
 	/*Slänga in rätt parametrar för att loadMap ska ladda in
@@ -44,18 +43,18 @@ private:
 	void killDeadEntities();
 
 	/*Menyrelaterade funktioner*/
+	void menuInput(sf::Event &event);
 	void pause();
 	void enterStore();
 	void enterSettings();
 	void enterMap();
 	
-	
-
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
 	int mGold;
 	Entity::EntityVector entityVector;
-
+	MainMenu mainMenu;
+	ShopMenu shopMenu;
 	Level* mLevel;
 };
 

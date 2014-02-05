@@ -1,6 +1,6 @@
 #include "LoadLevel.hpp"
 sf::Music music;
-Level* mLevel;
+Level* mLevel = new Level;
 
 LoadLevel::LoadLevel(){}
 
