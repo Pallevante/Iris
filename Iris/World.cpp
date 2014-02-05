@@ -11,7 +11,7 @@ World::World():
 
 entityVector()
 {
-	currentState = INSHOP;	
+	currentState = INMENU;	
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(100, 100);

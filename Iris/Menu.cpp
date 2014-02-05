@@ -12,7 +12,7 @@ Menu::~Menu(){}
 
 void Menu::drawMenu(sf::RenderWindow& window){
 	window.draw(mBackground);
-	for (int i = 0; i < mButtonVector.size(); i++){
+	for (ButtonVector::size_type i = 0; i < mButtonVector.size(); i++){
 		window.draw(*mButtonVector[i]);
 	}
 	window.draw(mActiveButton);
