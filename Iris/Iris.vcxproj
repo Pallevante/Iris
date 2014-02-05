@@ -92,7 +92,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Menu.hpp" />
     <ClCompile Include="ShopMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ray.cpp" />
@@ -109,10 +108,11 @@
     <ClInclude Include="Level.hpp" />
     <ClInclude Include="LoadLevel.hpp" />
     <ClInclude Include="MainMenu.hpp" />
-    <ClInclude Include="ShopMenu.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Ray.hpp" />
     <ClInclude Include="ResourceManager.hpp" />
+    <ClInclude Include="ShopMenu.hpp" />
     <ClInclude Include="World.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
