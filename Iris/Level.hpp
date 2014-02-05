@@ -3,6 +3,7 @@
 #include "World.hpp"
 #include "Enemies.hpp"
 
+
 class Level {
 public:
 
@@ -15,13 +16,11 @@ public:
 	/*Spawn:ar Skjutare*/
 	void spawnSpecialEnemies(Entity::EntityVector &entityVector);
 	void set(float spawnMini, float spawnMax, float requirment, float obstSpawnMin, 
-		float obstMax, int maxSpawnEnemies, float specialMin, 
-		float specialMax, int maxSpecialSpawn);
+		float obstMax, float specialMin, 
+		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level);
 	void spawn(Entity::EntityVector &entityVector);
-	void drawBackground(sf::RenderWindow *window);
 	int getRandomNumber();
 	float percentRequirement(float requirement);
-	void setBackground(sf::Texture &texture);
 	void moveBackground(sf::RenderWindow *window);
 
 	sf::Sprite getBackground();
@@ -39,13 +38,11 @@ public:
 	int mMaxSpawnEnemies;
 	int mMaxSpecialSpawn;
 
-	Animation* enemyAnimation;
-	Entity::EntityVector mEntityVector;
+	std::string chooseLevel;
 
 	sf::Clock mDefaultCl;
 	sf::Clock mSpecialCl;
 
 	sf::Sprite mSprite;
 	sf::Texture mTexture;
-	sf::View view;
 };
