@@ -2,7 +2,7 @@
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
-
+sf::Music music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 
@@ -13,8 +13,9 @@ World::World() :
 
 entityVector()
 {
-
-	currentState = PLAYING;
+	music.openFromFile("resource/Level1Theme.ogg");
+	music.play();
+	currentState = INMENU;
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(100, 100);
@@ -32,14 +33,12 @@ void World::run(){
 			if (event.type == sf::Event::Closed)
 				window.close();				
 
-		}
+		}		
 		window.clear();
-
-
-		/*if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+		if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 			pause();
-			*/
-		if(currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+		
+		if (currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
 			menuInput(event);
 
 
@@ -50,7 +49,7 @@ void World::run(){
 		if (currentState == INSHOP){
 			shopMenu.drawMenu(window);
 		}
-		
+
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
@@ -60,10 +59,11 @@ void World::run(){
 			mLevel = mLoadLevel.getLevel();
 			startGame();
 		}
-		mLevel->moveBackground(&window);
 		window.display();
 	}
 }
+
+
 void World::startGame(){
 	tick();
 	detectCollisions();
@@ -73,9 +73,11 @@ void World::startGame(){
 }
 
 void World::renderImages(){
+	mLevel->moveBackground(&window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 	}
+	
 }
 
 void World::tick(){
@@ -145,7 +147,7 @@ void World::spawnEnemies(){
 	mLevel->spawn(entityVector);
 }
 
-/*void World::pause(){
+void World::pause(){
 	if (currentState == PLAYING){
 		currentState = PAUSED;
 		return;
@@ -154,7 +156,7 @@ void World::spawnEnemies(){
 		currentState = PLAYING;
 		return;
 	}
-}*/
+}
 
 
 

@@ -46,13 +46,11 @@ private:
 	/*Menyrelaterade funktioner*/
 
 	void menuInput(sf::Event &event);
-	//void pause();
+	void pause();
 	void enterStore();
 	void enterSettings();
 	void enterMap();
-
-
-
+	
 
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
@@ -61,8 +59,5 @@ private:
 
 	MainMenu mainMenu;
 	ShopMenu shopMenu;
-
-
-
 	Level* mLevel;
 };

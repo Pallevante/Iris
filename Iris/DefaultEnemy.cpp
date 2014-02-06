@@ -26,7 +26,7 @@ DefaultEnemy::Type DefaultEnemy::getType() const {
 }
 
 DefaultEnemy::Movement DefaultEnemy::getMovement(){
-	return DEFAULT;
+	return WAVE;
 }
 
 int DefaultEnemy::getDamage() const {
@@ -84,7 +84,7 @@ void DefaultEnemy::move(){
 			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, getPosition().y));
 		}
 		else if(getMovement() == WAVE){
-			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 500 + (40*sinf(0.005 * getPosition().x )) ));
+			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 500 + (70*sinf(0.005 * getPosition().x )) ));
 		}
 		/*else if(getMovement() == FOLLOWING){			
 			if (checkUpdateDir.asMilliseconds() > 350){

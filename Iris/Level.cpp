@@ -1,12 +1,5 @@
 #include "Level.hpp"
 
-sf::Music music;
-//Level::Level(float spawnMini, float spawnMax, float requirement, float specialMin,
-// float specialMax, float obstMin, float obstMax, sf::Texture &texture): mSpawnMini(spawnMini),
-// mSpawnMax(spawnMax),mRequirment(requirement), mSpecialMin(specialMin), mSpecialMax(specialMax)
-// ,mObstSpawn(obstMin),mObstMax(obstMax) ,mTexture(texture){
-//
-//}
 
 Level::Level(){
 
@@ -18,14 +11,10 @@ Level::~Level(){
 
 void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,
 	float obstMax, float specialMin, float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level){
-
-	
-	
-	switch (level)
-	{
+		
+	switch (level){
 	case 1:
-		music.openFromFile("resource/Level1Theme.ogg");
-		chooseWhiteTexture = "resource/test.jpg";
+		chooseWhiteTexture = "resource/usa_bild_blå.png";
 		chooseColoredTexture = "resource/TestRawr.jpg";
 		break;
 	case 2:
@@ -61,7 +50,6 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	}
 	// ResourceManager::getLevel(chooseLevel);
 
-	music.play();
 
 
 
@@ -127,13 +115,11 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 		if (getRandomNumber() == 1 && spawnCount < mMaxSpecialSpawn){
 			spawnCount++;
 			entityVector.push_back(new DefaultEnemy(1));
-
 		}
 
 	}
 
 	if (spawnSpecialT.asSeconds() >= mSpecialMax){
-
 		entityVector.push_back(new DefaultEnemy(1));
 		mSpecialCl.restart();
 	}
@@ -144,18 +130,14 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 void Level::spawn(Entity::EntityVector &entityVector){
 
 	if (mSpecialMax > 0){
-
 		spawnSpecialEnemies(entityVector);
-
 	}
-
 	spawnBasicEnemies(entityVector);
 }
 
 
 float Level::percentRequirement(float requirement){
 	mRequirment = requirement;
-
 	return mRequirment;
 }
 
