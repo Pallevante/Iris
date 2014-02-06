@@ -86,7 +86,7 @@ void DefaultEnemy::move(){
 		else if(getMovement() == WAVE){
 			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 500 + (40*sinf(0.005 * getPosition().x )) ));
 		}
-		else if(getMovement() == FOLLOWING){			
+		/*else if(getMovement() == FOLLOWING){			
 			if (checkUpdateDir.asMilliseconds() > 350){
 				for (EntityVector::iterator i = mEnteties.begin(); i++){
 					Entity* enteties = *i;
@@ -99,7 +99,7 @@ void DefaultEnemy::move(){
 				}
 			}
 			mAnimation->setPosition(sf::Vector2f(getPosition().x + mXDir, getPosition().y + mYDir));
-		}	
+		}	*/
 	}
 	else{
 		death();

@@ -18,6 +18,7 @@ public:
 	enum GameState{
 		INMENU,
 		PLAYING,
+		PAUSED,
 		INSHOP,
 		OUTRO,
 		INTRO
@@ -45,7 +46,7 @@ private:
 	/*Menyrelaterade funktioner*/
 
 	void menuInput(sf::Event &event);
-	void pause();
+	//void pause();
 	void enterStore();
 	void enterSettings();
 	void enterMap();

@@ -2,15 +2,10 @@
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
-<<<<<<< HEAD
-LoadLevel* mLoadLevel = new LoadLevel;
-LoadLevel::LevelEnum mCurrentLevel;
 
-int spawnTimeLimit =  500;
-=======
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
->>>>>>> majal
+
 
 int spawnTimeLimit = 500;
 
@@ -18,11 +13,8 @@ World::World() :
 
 entityVector()
 {
-<<<<<<< HEAD
-	currentState = INMENU;	
-=======
+
 	currentState = PLAYING;
->>>>>>> majal
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(100, 100);
@@ -38,18 +30,18 @@ void World::run(){
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
-				window.close();
-<<<<<<< HEAD
-			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
-				pause();
-			
-			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-			menuInput(event);
-=======
->>>>>>> majal
+				window.close();				
+
 		}
 		window.clear();
-<<<<<<< HEAD
+
+
+		/*if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+			pause();
+			*/
+		if(currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+			menuInput(event);
+
 
 		if (currentState == INMENU){
 			mainMenu.drawMenu(window);
@@ -59,22 +51,13 @@ void World::run(){
 			shopMenu.drawMenu(window);
 		}
 		
-
-		if (currentState == PLAYING){
-			//Lite halv homo lösning men verkar fungera (den kompilerar).
-			mCurrentLevel = mLoadLevel->FIRSTLEVEL;
-			mLoadLevel->setLevel(mCurrentLevel);
-			mLevel = mLoadLevel->getLevel();
-=======
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
-			mCurrentLevel = mLoadLevel.LevelEnum::firstLevel;
+			mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
 			mLoadLevel.setLevel(mCurrentLevel);
 			mLevel = mLoadLevel.getLevel();
-			
->>>>>>> majal
 			startGame();
 		}
 		mLevel->moveBackground(&window);
@@ -85,7 +68,7 @@ void World::startGame(){
 	tick();
 	detectCollisions();
 	killDeadEntities();
-	spawnEnemies(); //Memory error.
+	spawnEnemies(); 
 	renderImages();
 }
 
@@ -93,8 +76,6 @@ void World::renderImages(){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 	}
-
-
 }
 
 void World::tick(){
@@ -161,17 +142,19 @@ void World::killDeadEntities(){
 
 
 void World::spawnEnemies(){
-<<<<<<< HEAD
 	mLevel->spawn(entityVector);
-=======
-	sf::Time time = spawnTimer.getElapsedTime();
-	if (time.asMilliseconds() > 600){
-
-		entityVector.push_back(new DefaultEnemy(1));
-		spawnTimer.restart();
-	}
->>>>>>> majal
 }
+
+/*void World::pause(){
+	if (currentState == PLAYING){
+		currentState = PAUSED;
+		return;
+	}
+	else if (currentState == PAUSED){
+		currentState = PLAYING;
+		return;
+	}
+}*/
 
 
 

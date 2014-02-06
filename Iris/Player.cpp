@@ -10,10 +10,8 @@ Player::Player(float xPosition, float yPosition, float speedMultiplier) :
 mDamage(10),
 mSpeed(4 * speedMultiplier),
 mIsAlive(true),
-<<<<<<< HEAD
-=======
 
->>>>>>> majal
+
 //Måste ändras relativt till bilden.
 mRad(20.f)
 {	
@@ -78,6 +76,7 @@ int Player::getWidth() const {
 
 /*Private medlemsfunktioner*/
 void Player::move(){
+
         float currentX = mAnimation->getSprite().getPosition().x;
         float currentY = mAnimation->getSprite().getPosition().y;
         
@@ -88,7 +87,6 @@ void Player::move(){
                 currentX -= mSpeed;                
         }        
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-
                 currentY += mSpeed;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){

@@ -1,6 +1,5 @@
 #include "LoadLevel.hpp"
 
-sf::Music music;
 Level* mLevel = new Level;
 
 LoadLevel::LoadLevel(){}
@@ -13,9 +12,8 @@ LoadLevel::~LoadLevel(){
 void LoadLevel::setLevel(LevelEnum& levelToLoad){
 
 	if (levelToLoad == FIRSTLEVEL){
-		mLevel->set(3, 5, 0.5, 4, 5, 1, 0, 0, 0);
-		music.openFromFile("resource/Level1Theme.ogg");
-		music.play();
+		mLevel->set(3, 5, 0.5, 4, 5, 1, 0, 0, 0, 1);
+
 	}
 }
 /*Anropas av World för att hämta pekaren så den kan rita ut bakgrunden och spawna fiender.*/
