@@ -37,8 +37,10 @@ void World::run(){
 			mCurrentLevel = mLoadLevel.LevelEnum::firstLevel;
 			mLoadLevel.setLevel(mCurrentLevel);
 			mLevel = mLoadLevel.getLevel();
+			
 			startGame();
 		}
+		mLevel->moveBackground(&window);
 		window.display();
 	}
 }
@@ -54,6 +56,8 @@ void World::renderImages(){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 	}
+
+
 }
 
 void World::tick(){

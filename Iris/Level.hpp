@@ -38,11 +38,14 @@ public:
 	int mMaxSpawnEnemies;
 	int mMaxSpecialSpawn;
 
-	std::string chooseLevel;
+	std::string chooseWhiteTexture;
+	std::string chooseColoredTexture;
 
 	sf::Clock mDefaultCl;
 	sf::Clock mSpecialCl;
 
-	sf::Sprite mSprite;
-	sf::Texture mTexture;
+	sf::Sprite mSpriteWhite;
+	sf::Sprite mSpriteColor;
+	//sf::Texture mTexture;
+	sf::FloatRect mBackgroundRect;
 };

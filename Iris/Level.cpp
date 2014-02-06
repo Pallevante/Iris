@@ -23,33 +23,41 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	switch (level)
 	{
 	case 1:
-		chooseLevel ="resource/";
+		chooseWhiteTexture = "resource/test.jpg";
+		chooseColoredTexture = "resource/TestRawr.jpg";
 		break;
 	case 2:
-		chooseLevel = "resource/";
+		chooseWhiteTexture = "resource/test.png";
+		chooseColoredTexture = "resource/TestRawr.jpg";
 		break;
 	case 3:
-		chooseLevel = "resource/";
+		chooseWhiteTexture = "resource/test.png";
+		chooseColoredTexture = "resource/TestRawr.jpg";
 		break;
 	case 4:
-		chooseLevel = "resource/";
+		chooseWhiteTexture = "resource/test.png";
+		chooseColoredTexture = "resource/TestRawr.jpg";
 		break;
 	case 5:
-		chooseLevel = "resource/";
+		chooseWhiteTexture = "resource/test.png";
+		chooseColoredTexture = "resource/TestRawr.jpg";
 		break;
 	case 6:
-		chooseLevel = "resource/";
+		chooseWhiteTexture = "resource/test.png";
+		chooseColoredTexture = "resource/TestRawr.jpg";
 		break;
 	case 7:
-		chooseLevel = "resource/";
+		chooseWhiteTexture = "resource/test.png";
+		chooseColoredTexture = "resource/TestRawr.jpg";
 		break;
 	case 8:
-		chooseLevel = "resource/";
+		chooseWhiteTexture = "resource/test.png";
+		chooseColoredTexture = "resource/TestRawr.jpg";
 		break;
 	default:
 		break;
 	}
-	ResourceManager::getLevel(chooseLevel);
+//	ResourceManager::getLevel(chooseLevel);
 
 	mSpawnMin = spawnMin;
 	mSpawnMax = spawnMax;
@@ -61,8 +69,9 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
     mMaxSpecialSpawn = maxSpecialSpawn;
 	mMaxSpawnEnemies = maxSpawnEnemies;
 //	mTexture = texture;
-	mSprite.setTexture(ResourceManager::getTexture("resource/test.png"));
-
+	
+	mSpriteWhite.setTexture(ResourceManager::getLevel(chooseWhiteTexture));
+	mSpriteColor.setTexture(ResourceManager::getLevel(chooseColoredTexture));
 }
 
 int Level::getRandomNumber(){
@@ -147,18 +156,16 @@ float Level::percentRequirement(float requirement){
 }
 
 
-/*flyttar på view*/
+/*flyttar på spriten tills slutet av spriten når högra kanten av window */
 void Level::moveBackground(sf::RenderWindow *window){
+	mBackgroundRect = mSpriteWhite.getGlobalBounds();
 
-	window->draw(mSprite);
+	window->draw(mSpriteWhite);
 
-	if (mSprite.getGlobalBounds().left > window->getSize().x - 1){
-		mSprite.move(-1, 0);
+	if (mBackgroundRect.left + mBackgroundRect.width > window->getSize().x){
+		mSpriteWhite.move(-1, 0);
+
 	}
-	else if (mSprite.getGlobalBounds().left <= window->getSize().x - 1){
-		mSprite.move(0, 0);
-	}
-
 
 }
 
