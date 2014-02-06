@@ -77,6 +77,8 @@ void DefaultEnemy::death(){
 }
 
 void DefaultEnemy::move(){
+	float mXDir;
+	float mYDir;
 	if (!mIsDying){
 		if(getMovement() == DEFAULT){
 			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, getPosition().y));
@@ -84,17 +86,20 @@ void DefaultEnemy::move(){
 		else if(getMovement() == WAVE){
 			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 500 + (40*sinf(0.005 * getPosition().x )) ));
 		}
-		/*else if(getMovement() == FOLLOWING){			
+		else if(getMovement() == FOLLOWING){			
 			if (checkUpdateDir.asMilliseconds() > 350){
-				entityVector::iterator i = mEnteties.begin();
-				Entity* enteties = *i;
-				float x = enteties->getX() - getX();
-				float y = enteties->getY() - getY();
-				mXDir = x / sqrt(powf(x, 2) + powf(y, 2)) * mSpeed;
-				mYDir = y / sqrt(powf(x, 2) + powf(y, 2)) * mSpeed;
+				for (EntityVector::iterator i = mEnteties.begin(); i++){
+					Entity* enteties = *i;
+					if (enteties->getType() == PLAYER){
+						float x = enteties->getPosition().x - getPosition().x;
+						float y = enteties->getPosition().x - getPosition().x;
+						mXDir = x / sqrt(powf(x, 2) + powf(y, 2)) * mSpeed;
+						mYDir = y / sqrt(powf(x, 2) + powf(y, 2)) * mSpeed;
+					}
+				}
 			}
-			mAnimation->setPosition(sf::Vector2f(mAnimation.getPosition().x + mXDir, mAnimation.getPosition().y + mYDir);
-		}	*/
+			mAnimation->setPosition(sf::Vector2f(getPosition().x + mXDir, getPosition().y + mYDir));
+		}	
 	}
 	else{
 		death();
