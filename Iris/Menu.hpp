@@ -10,13 +10,13 @@ public:
 	~Menu();
 
 	void drawMenu(sf::RenderWindow& window);
-	int getCurrentMenuItem();
+	unsigned int getCurrentMenuItem();
 	void setCurrentMenuItem(unsigned int i);
 	void setActive(unsigned int i);
 	void up();
 	void down();
 
-	virtual int getMaxItems() = 0;
+	virtual unsigned int getMaxItems() = 0;
 protected:
 	ButtonVector mButtonVector;
 	sf::Sprite mActiveButton;

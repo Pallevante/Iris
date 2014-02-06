@@ -7,7 +7,7 @@ mIsAlive(true),
 //Måste ändras relativt till bilden.
 mRad(64)
 {
-	mAnimation = new Animation("resource/enemy.png", 50, 2);
+	mAnimation = new Animation("resource/textures/entities/enemy.png", 50, 2);
 	mAnimation->setPosition(sf::Vector2f(1200, 500));
 }
 

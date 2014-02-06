@@ -4,7 +4,7 @@ Menu::Menu(ButtonVector buttons, const std::string& background, unsigned int cur
 mButtonVector(buttons),
 mCurrentMenuItem(currentMenuItem),
 mBackground(ResourceManager::getTexture(background)),
-mActiveButton(ResourceManager::getTexture("resource/buttons/activebutton.png"))
+mActiveButton(ResourceManager::getTexture("resource/textures/buttons/activebutton.png"))
 {
 }
 
@@ -17,7 +17,7 @@ void Menu::drawMenu(sf::RenderWindow& window){
 	}
 	window.draw(mActiveButton);
 }
-int Menu::getCurrentMenuItem(){
+unsigned int Menu::getCurrentMenuItem(){
 	return mCurrentMenuItem;
 }
 
@@ -34,9 +34,11 @@ void Menu::down(){
 	if (mCurrentMenuItem < getMaxItems()-1){
 		setCurrentMenuItem(mCurrentMenuItem + 1);
 	}
+	ResourceManager::play("resource/sounds/menuscroll.ogg");
 }
 void Menu::up(){
 	if (mCurrentMenuItem > 0){
 		setCurrentMenuItem(mCurrentMenuItem - 1);
 	}
+	ResourceManager::play("resource/sounds/menuscroll.ogg");
 }
