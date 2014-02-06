@@ -36,16 +36,26 @@ sf::Texture& ResourceManager::getLevel(const std::string& filename){
 	return mLevels.find(filename)->second;
 }
 sf::SoundBuffer& ResourceManager::getSoundBuffer(const std::string& filename){
-	if (mSounds.count(filename) == 0){
+	if (mSoundBuffers.count(filename) == 0){
 		sf::SoundBuffer newSound;
 		newSound.loadFromFile(filename);
 
-		mSounds.insert(std::pair<std::string, sf::SoundBuffer>(filename, newSound));
+		mSoundBuffers.insert(std::pair<std::string, sf::SoundBuffer>(filename, newSound));
 	}
-	return mSounds.find(filename)->second;
+	return mSoundBuffers.find(filename)->second;
 }
 
+/* Funktionen arbetar både med resurshanteraren för att hålla koll på soundbuffers och undvika flera inladdningar av samma fil, */
+/* samtidigt som den skapar Sounds som behövs och håller dem levande under programmets gång. */
+void ResourceManager::play(const std::string& filename){
+	if (mSounds.count(filename) == 0){
+		sf::Sound newSound;
+		newSound.setBuffer(getSoundBuffer(filename));
+		mSounds.insert(std::pair<std::string, sf::Sound>(filename, newSound));
+	}
 
+	mSounds[filename].play();
+}
 
 
 
@@ -53,4 +63,5 @@ sf::SoundBuffer& ResourceManager::getSoundBuffer(const std::string& filename){
 //std::map<std::string, Animation> ResourceManager::mAnimations;
 std::map<std::string, sf::Texture> ResourceManager::mTextures;
 std::map<std::string, sf::Texture> ResourceManager::mLevels;
-std::map<std::string, sf::SoundBuffer> ResourceManager::mSounds;
+std::map<std::string, sf::SoundBuffer> ResourceManager::mSoundBuffers;
+std::map<std::string, sf::Sound> ResourceManager::mSounds;

@@ -15,6 +15,6 @@ ShopMenu::~ShopMenu(){
 
 };
 
-int ShopMenu::getMaxItems(){
+unsigned int ShopMenu::getMaxItems(){
 	return NUM_CHOICES;
 }

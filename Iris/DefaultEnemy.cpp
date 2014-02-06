@@ -75,7 +75,7 @@ void DefaultEnemy::death(){
 void DefaultEnemy::move(){
 	if (!mIsDying){
 		//mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, getPosition().y));
-		mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 500 + (40*sinf(0.005 * getPosition().x )) ));
+		mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 500 + (40*sinf(0.005f * getPosition().x )) ));
 	}
 	else{
 		death();

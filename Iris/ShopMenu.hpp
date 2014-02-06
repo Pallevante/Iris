@@ -13,7 +13,7 @@ public:
 	ShopMenu();
 	~ShopMenu();
 
-	int getMaxItems();
+	unsigned int getMaxItems();
 private:
 
 };

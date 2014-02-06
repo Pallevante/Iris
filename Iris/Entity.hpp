@@ -29,11 +29,6 @@ public:
 	virtual bool isAlive() = 0;
 	virtual int collide(Entity *e0, EntityVector &entities) = 0;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
-	/* Använd play("resource/exempel.ogg") för att spela upp ett ljud. Minneshantering sker automatiskt. */
-	/* Funktionen arbetar både med resurshanteraren för att hålla koll på soundbuffers och undvika flera inladdningar av samma fil, */
-	/* samtidigt som den skapar Sounds som behövs och håller dem levande under programmets gång. */
-
-	void play(const std::string& filename);
 private:
-	std::map<std::string, sf::Sound> mSounds;
+	
 };

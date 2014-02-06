@@ -20,6 +20,6 @@ Menu::ButtonVector{
 MainMenu::~MainMenu(){
 
 };
-int MainMenu::getMaxItems(){
+unsigned int MainMenu::getMaxItems(){
 	return NUM_CHOICES;
 }
