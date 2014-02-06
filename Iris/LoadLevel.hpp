@@ -2,7 +2,7 @@
 #include <SFML\Graphics.hpp>
 #include "Level.hpp"
 /*Denna frammåt dekleration löste mina problem med instanser samt felet
-	; före * som vi fick ett tag.*/
+; före * som vi fick ett tag.*/
 class Level;
 
 class LoadLevel{
@@ -24,5 +24,5 @@ public:
 	void setLevel(LevelEnum& levelToLoad);	
 	Level* getLevel();
 private:
-	
+
 };

@@ -2,16 +2,27 @@
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
+<<<<<<< HEAD
 LoadLevel* mLoadLevel = new LoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 
 int spawnTimeLimit =  500;
+=======
+LoadLevel mLoadLevel;
+LoadLevel::LevelEnum mCurrentLevel;
+>>>>>>> majal
 
-World::World(): 
+int spawnTimeLimit = 500;
+
+World::World() :
 
 entityVector()
 {
+<<<<<<< HEAD
 	currentState = INMENU;	
+=======
+	currentState = PLAYING;
+>>>>>>> majal
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(100, 100);
@@ -22,21 +33,23 @@ World::~World(){}
 
 void World::run(){
 
-		while (window.isOpen())	{
+	while (window.isOpen())	{
 		sf::Event event;
-
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+<<<<<<< HEAD
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 				pause();
 			
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
 			menuInput(event);
+=======
+>>>>>>> majal
 		}
-		
 		window.clear();
+<<<<<<< HEAD
 
 		if (currentState == INMENU){
 			mainMenu.drawMenu(window);
@@ -52,11 +65,19 @@ void World::run(){
 			mCurrentLevel = mLoadLevel->FIRSTLEVEL;
 			mLoadLevel->setLevel(mCurrentLevel);
 			mLevel = mLoadLevel->getLevel();
+=======
+		/*Använder en instans av GameState för att veta vad den skall göra.
+		Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
+		if (currentState == PLAYING){
+			//Lite halv homo lösning men verkar fungera (den kompilerar).
+			mCurrentLevel = mLoadLevel.LevelEnum::firstLevel;
+			mLoadLevel.setLevel(mCurrentLevel);
+			mLevel = mLoadLevel.getLevel();
+			
+>>>>>>> majal
 			startGame();
 		}
-		if (currentState == PAUSED){
-			renderImages();
-		}
+		mLevel->moveBackground(&window);
 		window.display();
 	}
 }
@@ -72,6 +93,8 @@ void World::renderImages(){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 	}
+
+
 }
 
 void World::tick(){
@@ -102,9 +125,9 @@ bool World::isColliding(Entity *entity1, Entity *entity2){
 	}
 }
 
-/* Går igenom entityVector och kör isColliding på alla par av entiteter. 
-Den utkommenterade biten kollar om sakerna som kolliderar har samma typ 
-(hostile eller friendly t ex) och struntar isåfall i att de kolliderar. 
+/* Går igenom entityVector och kör isColliding på alla par av entiteter.
+Den utkommenterade biten kollar om sakerna som kolliderar har samma typ
+(hostile eller friendly t ex) och struntar isåfall i att de kolliderar.
 
 Typ-kollen bör ske innan kollisions-kollen för att spara på arbetskraft.*/
 void World::detectCollisions(){
@@ -138,28 +161,26 @@ void World::killDeadEntities(){
 
 
 void World::spawnEnemies(){
+<<<<<<< HEAD
 	mLevel->spawn(entityVector);
-}
+=======
+	sf::Time time = spawnTimer.getElapsedTime();
+	if (time.asMilliseconds() > 600){
 
-void World::pause(){
-	if (currentState == PLAYING){
-		currentState = PAUSED;
-		return;
+		entityVector.push_back(new DefaultEnemy(1));
+		spawnTimer.restart();
 	}
-	else if (currentState == PAUSED){
-		currentState = PLAYING;
-		return;
-	}
+>>>>>>> majal
 }
 
 
 
 /*
-				__	- FML.
-			   / _)
-	  _/\/\/\_/ /
-	 /			|
-	/ (	 |	 (	|
-   /   |_|--- |_|
+__	- FML.
+           / _)
+  _/\/\/\_/ /
+/			|
+/ (	 |	 (	|
+/   |_|--- |_|
 
- */
+*/

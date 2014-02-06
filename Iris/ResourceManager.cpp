@@ -48,7 +48,6 @@ sf::SoundBuffer& ResourceManager::getSoundBuffer(const std::string& filename){
 
 
 
-
 /* Det här är min bane */
 //std::map<std::string, Animation> ResourceManager::mAnimations;
 std::map<std::string, sf::Texture> ResourceManager::mTextures;

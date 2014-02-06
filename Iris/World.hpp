@@ -11,13 +11,13 @@
 
 class Level;
 
+
 class World{
 public:
-	/*Används för att veta vad man ska rendera.*/	
+	/*Används för att veta vad man ska rendera.*/
 	enum GameState{
 		INMENU,
 		PLAYING,
-		PAUSED,
 		INSHOP,
 		OUTRO,
 		INTRO
@@ -33,7 +33,7 @@ public:
 	/*Slänga in rätt parametrar för att loadMap ska ladda in
 	music, bilder och fiender*/
 	void loadMap();
-private:	
+private:
 	/*Spelrelaterade funktioner*/
 	void spawnEnemies();
 	void renderImages();
@@ -43,18 +43,25 @@ private:
 	void killDeadEntities();
 
 	/*Menyrelaterade funktioner*/
+
 	void menuInput(sf::Event &event);
 	void pause();
 	void enterStore();
 	void enterSettings();
 	void enterMap();
-	
+
+
+
+
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
 	int mGold;
-	Entity::EntityVector entityVector;
+	EntityVector entityVector;
+
 	MainMenu mainMenu;
 	ShopMenu shopMenu;
+
+
+
 	Level* mLevel;
 };
-

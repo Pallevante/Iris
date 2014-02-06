@@ -7,6 +7,7 @@ Entity::~Entity(){}
 /* samtidigt som den skapar Sounds som behövs och håller dem levande under programmets gång. */
 void Entity::play(const std::string& filename){
 
+
 	if (mSounds.count(filename) == 0){
 		sf::Sound newSound;
 		newSound.setBuffer(ResourceManager::getSoundBuffer(filename));
@@ -14,4 +15,6 @@ void Entity::play(const std::string& filename){
 	}
 
 	mSounds[filename].play();
+
 }
+

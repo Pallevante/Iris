@@ -22,6 +22,7 @@ public:
 	static sf::SoundBuffer& getSound(const std::string& filename);
 	static sf::SoundBuffer& getSoundBuffer(const std::string& filename);
 	/* Kör clear innan avslut av programmet för att tömma minnet. */  
+
 	static void clear(){
 		//mAnimations.clear();
 		mTextures.clear();
