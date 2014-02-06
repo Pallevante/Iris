@@ -14,7 +14,7 @@ mIsAlive(true),
 //Måste ändras relativt till bilden.
 mRad(20.f)
 {	
-	mAnimation = new Animation("resource/Iris_flying_anim2.png", 100, 8);
+	mAnimation = new Animation("resource/textures/entities/player.png", 100, 8);
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
 }
 
@@ -115,7 +115,7 @@ void Player::fire(EntityVector &entities){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 			entities.push_back(new Ray(getPosition()));
 			/* Spelar upp skjutljud */
-			play("resource/shoot.wav");
+			play("resource/sounds/shoot.wav");
 			reloadTimer.restart();
 		}
 	}
