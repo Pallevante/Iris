@@ -3,6 +3,7 @@
 #include "Entity.hpp"
 #include "Player.hpp"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Animation.hpp"
 #include "DefaultEnemy.hpp"
 #include "LoadLevel.hpp"

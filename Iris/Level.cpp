@@ -14,8 +14,8 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 		
 	switch (level){
 	case 1:
-		chooseWhiteTexture = "resource/usa_bild_blå.png";
-		chooseColoredTexture = "resource/TestRawr.jpg";
+		chooseWhiteTexture = "resource/textures/backgrounds/usa_bild_grå.png";
+		chooseColoredTexture = "resource/textures/backgrounds/usa_bild_blå.png";
 		break;
 	case 2:
 		chooseWhiteTexture = "resource/test.png";

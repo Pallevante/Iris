@@ -2,6 +2,7 @@
 #include "Enemies.hpp"
 #include "Animation.hpp"
 #include "Ray.hpp"
+#include <cstdlib>
 
 class DefaultEnemy : public Enemy {
 public:
@@ -28,6 +29,7 @@ public:
 	virtual void move();
 	virtual void useAbility();
 private:
+	float setYPos(); 
 	Animation* mAnimation;
 	float mSpeed;
 	bool mIsAlive;

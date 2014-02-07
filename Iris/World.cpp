@@ -13,9 +13,9 @@ World::World() :
 
 entityVector()
 {
-	music.openFromFile("resource/Level1Theme.ogg");
+	music.openFromFile("resource/sounds/Level1Theme.ogg");
 	music.play();
-	currentState = INMENU;
+	currentState = PLAYING;
 	Player *mPlayer;
 	window.setFramerateLimit(65);
 	mPlayer = new Player(100, 100);

@@ -9,7 +9,7 @@ Player::Player(float xPosition, float yPosition, float speedMultiplier) :
 
 mDamage(10),
 mSpeed(6 * speedMultiplier),
-mAcceleration(0.8f * speedMultiplier),
+mAcceleration(0.5f * speedMultiplier),
 mIsAlive(true),
 
 
@@ -121,11 +121,7 @@ void Player::fire(EntityVector &entities){
 
 			entities.push_back(new Ray(getPosition()));
 			/* Spelar upp skjutljud */
-<<<<<<< HEAD
-			play("resource/test.wav");
-=======
 			ResourceManager::play("resource/sounds/shoot.wav");
->>>>>>> master
 			reloadTimer.restart();
 		}
 	}
