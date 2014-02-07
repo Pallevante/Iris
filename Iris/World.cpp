@@ -13,8 +13,11 @@ entityVector()
 {
 	currentState = INMENU;	
 	Player *mPlayer;
+	PlayerAura *mPlayerAura;
 	window.setFramerateLimit(65);
+	mPlayerAura = new PlayerAura(50, 50);
 	mPlayer = new Player(100, 100);
+	entityVector.push_back(mPlayerAura);
 	entityVector.push_back(mPlayer);
 }
 
@@ -66,6 +69,7 @@ void World::startGame(){
 	killDeadEntities();
 	spawnEnemies();
 	renderImages();
+	
 }
 
 void World::renderImages(){

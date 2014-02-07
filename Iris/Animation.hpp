@@ -19,12 +19,16 @@ public:
 	/* Stödfunktion för att sätta positionen på medlemsspriten i en Animation. */
 	void setPosition(const sf::Vector2f& position);
 
+	void setColor(sf::Color& color);
+
+
 	/* Getters */
 	const sf::Sprite getSprite();
 private:
 	/* Medlemsvariablar */
 	sf::Clock mFrameTimer;
 	sf::Sprite mSprite;
+	sf::Color mColor;
 	int mTimePerFrame = 0;
 	int mNumFrames = 0;
 	int mCurrentFrame = 0;

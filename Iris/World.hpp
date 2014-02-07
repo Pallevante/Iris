@@ -8,6 +8,7 @@
 #include "LoadLevel.hpp"
 #include "MainMenu.hpp"
 #include "ShopMenu.hpp"
+#include "PlayerAura.hpp"
 
 class Level;
 

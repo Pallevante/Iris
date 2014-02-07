@@ -5,14 +5,14 @@
 #include "Animation.hpp"
 
 
-class Player : public Entity{
+class PlayerAura : public Entity{
 public:
-	Player(float xPosition, float yPosition, float speedMultiplier = 1);
-	
+	PlayerAura(float xPosition, float yPosition, float speedMultiplier = 1);
 
-	~Player();
 
-	
+	~PlayerAura();
+
+
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition();
 	virtual int getHeight() const;
@@ -32,9 +32,9 @@ public:
 
 
 
-private: 
+private:
 	void move();
-	void fire(EntityVector &enteties);	
+	//void fire(EntityVector &enteties);
 	Animation* mAnimation;
 	float mSpeed;
 	int mHealth;

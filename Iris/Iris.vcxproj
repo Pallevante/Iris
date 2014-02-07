@@ -93,6 +93,7 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Menu.hpp" />
+    <ClCompile Include="PlayerAura.cpp" />
     <ClCompile Include="ShopMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ray.cpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="Level.hpp" />
     <ClInclude Include="LoadLevel.hpp" />
     <ClInclude Include="MainMenu.hpp" />
+    <ClInclude Include="PlayerAura.hpp" />
     <ClInclude Include="ShopMenu.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Ray.hpp" />

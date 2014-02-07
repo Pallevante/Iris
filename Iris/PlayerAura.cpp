@@ -1,104 +1,97 @@
-#include "Player.hpp"
+#include "PlayerAura.hpp"
 
-
+sf::Clock reloadTimer;
 
 /*Public funktioner*/
 
 
-
-Player::Player(float xPosition, float yPosition, float speedMultiplier) :
+PlayerAura::PlayerAura(float xPosition, float yPosition, float speedMultiplier) :
 mHealth(0),
-mDamage(10),
 mSpeed(4 * speedMultiplier),
 mIsAlive(true),
 //Måste ändras relativt till bilden.
 mRad(20.f)
-{	
-	mAnimation = new Animation("resource/Iris_flying_anim2.png", 100, 8);
+{
+	mAnimation = new Animation("resource/playerAura.png", 100, 1);
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
+	mAnimation->setColor(sf::Color(255, 255, 255, 255));	
 
-	//mAnimation = new Animation("resource/playerAura.png", 100, 1);
-	//mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
-
-
-	
-	//mAnimation1->setColor(sf::Color(255, 255, 255, 255));
-
-
-	
 
 }
 
 
 
 
-Player::~Player(){}
 
-void Player::tick(EntityVector &entities){
+PlayerAura::~PlayerAura(){}
+
+void PlayerAura::tick(EntityVector &entities){
 	move();
-	fire(entities);
+	//fire(entities);
 	mAnimation->Update();
-		
 	
+
+
+
 }
 
-int Player::collide(Entity *entity, EntityVector &entities){
-	
+int PlayerAura::collide(Entity *entity, EntityVector &entities){
+
 	if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
-		mHealth -= entity->getDamage() / 2;		
+		mHealth -= entity->getDamage() / 2;
 	}
 	return 0;
 }
 
 
 /*Get funktioner*/
-bool Player::isAlive(){
+bool PlayerAura::isAlive(){
 	return mIsAlive;
 }
 
-int Player::getDamage() const{
+int PlayerAura::getDamage() const{
 	return mDamage;
 }
 
-sf::Vector2f Player::getPosition(){
+sf::Vector2f PlayerAura::getPosition(){
 	return mAnimation->getSprite().getPosition();
 }
 
-float Player::getRad() const{
+float PlayerAura::getRad() const{
 	return mRad;
 }
 
-Player::Type Player::getType() const{
+PlayerAura::Type PlayerAura::getType() const{
 	return PLAYER;
 }
 
 
 /*Set funktioner*/
-void Player::setDamage(int newDamage){
+void PlayerAura::setDamage(int newDamage){
 	mDamage = newDamage;
 }
 
-int Player::getHeight() const {
+int PlayerAura::getHeight() const {
 	return mAnimation->getSprite().getTextureRect().height;
 }
 
-int Player::getWidth() const {
+int PlayerAura::getWidth() const {
 	return mAnimation->getSprite().getTextureRect().width;
 }
 
 
 
 /*Private medlemsfunktioner*/
-void Player::move(){
+void PlayerAura::move(){
 	float currentX = mAnimation->getSprite().getPosition().x;
 	float currentY = mAnimation->getSprite().getPosition().y;
-	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){		
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 		currentX += mSpeed;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-		currentX -= mSpeed;		
-	}	
+		currentX -= mSpeed;
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 
 		currentY += mSpeed;
@@ -109,16 +102,18 @@ void Player::move(){
 	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
 }
 
-void Player::fire(EntityVector &entities){
+/*
+void PlayerAura::fire(EntityVector &entities){
 
 	sf::Time isReloaded = reloadTimer.getElapsedTime();
 	if (isReloaded.asMilliseconds() > 200){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 			entities.push_back(new Ray(getPosition()));
-			/* Spelar upp skjutljud */
+			/* Spelar upp skjutljud 
 			play("resource/shoot.wav");
 			reloadTimer.restart();
 		}
 	}
 }
+*/
 
