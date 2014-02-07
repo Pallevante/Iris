@@ -1,7 +1,6 @@
 #pragma once
 #include "Entity.hpp"
 #include "ResourceManager.hpp"
-#include "Ray.hpp"
 #include "Animation.hpp"
 
 
@@ -28,9 +27,6 @@ public:
 	}
 
 	
-
-
-
 private:
 	void move();
 	Animation* mAnimation;
@@ -40,5 +36,4 @@ private:
 	float mRad;
 	bool mIsAlive;
 	sf::Vector2f mVelocity;
-	sf::Clock reloadTimer;
 };

@@ -15,7 +15,7 @@ entityVector()
 	Player *mPlayer;
 	PlayerAura *mPlayerAura;
 	window.setFramerateLimit(65);
-	mPlayerAura = new PlayerAura(50, 50);
+	mPlayerAura = new PlayerAura(35, 40);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayerAura);
 	entityVector.push_back(mPlayer);

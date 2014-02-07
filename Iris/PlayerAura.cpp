@@ -1,7 +1,5 @@
 #include "PlayerAura.hpp"
 
-sf::Clock reloadTimer;
-
 /*Public funktioner*/
 
 
@@ -12,27 +10,21 @@ mIsAlive(true),
 //Måste ändras relativt till bilden.
 mRad(20.f)
 {
+	
 	mAnimation = new Animation("resource/playerAura.png", 100, 1);
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
-	mAnimation->setColor(sf::Color(255, 0, 255, 255));	
+	mAnimation->setColor(sf::Color(255, 0, 255, 255));
+		
 
 
 }
-
-
-
-
 
 PlayerAura::~PlayerAura(){}
 
 void PlayerAura::tick(EntityVector &entities){
 	move();
-	//fire(entities);
 	mAnimation->Update();
 	
-
-
-
 }
 
 int PlayerAura::collide(Entity *entity, EntityVector &entities){
@@ -80,9 +72,9 @@ int PlayerAura::getWidth() const {
 }
 
 
-
 /*Private medlemsfunktioner*/
 void PlayerAura::move(){
+
 	float currentX = mAnimation->getSprite().getPosition().x;
 	float currentY = mAnimation->getSprite().getPosition().y;
 
@@ -99,7 +91,10 @@ void PlayerAura::move(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 		currentY -= mSpeed;
 	}
-	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
+	
+		mAnimation->setPosition(sf::Vector2f(currentX, currentY));
+		
+		
 }
 
 
