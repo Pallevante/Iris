@@ -33,6 +33,7 @@ public:
 	/*Slänga in rätt parametrar för att loadMap ska ladda in
 	music, bilder och fiender*/
 	void loadMap();
+	static int mGold;
 private:
 	/*Spelrelaterade funktioner*/
 	void spawnEnemies();
@@ -51,8 +52,9 @@ private:
 
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
-	int mGold;
+
 	Entity::EntityVector entityVector;
 
 	Level* mLevel;
+	
 };

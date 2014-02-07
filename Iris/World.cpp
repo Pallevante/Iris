@@ -4,7 +4,7 @@ sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
-
+int World::mGold;
 int spawnTimeLimit = 500;
 
 World::World() :
@@ -55,6 +55,7 @@ void World::startGame(){
 void World::renderImages(){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
+		
 	}
 
 
@@ -126,6 +127,7 @@ void World::spawnEnemies(){
 	if (time.asMilliseconds() > 600){
 
 		entityVector.push_back(new DefaultEnemy(1));
+		mGold++;
 		spawnTimer.restart();
 	}
 }
@@ -133,11 +135,11 @@ void World::spawnEnemies(){
 
 
 /*
-__	- FML.
-           / _)
-  _/\/\/\_/ /
-/			|
-/ (	 |	 (	|
-/   |_|--- |_|
+              __	- FML.
+	         / _)
+	_/\/\/\_/ /
+  /			 |
+ / (  |	 (	|
+/   |_|---|_|
 
 */

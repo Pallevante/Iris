@@ -20,10 +20,10 @@ public:
 		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level);
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
-	float percentRequirement(float requirement);
+	float percentRequirement();
 	void moveBackground(sf::RenderWindow *window);
-
 	sf::Sprite getBackground();
+
 	private:
 	float mSpawnMin;
 	float mSpawnMax;
@@ -37,7 +37,7 @@ public:
 	/*maxx antal enemies som spawnas*/
 	int mMaxSpawnEnemies;
 	int mMaxSpecialSpawn;
-
+	int opacity;
 	std::string chooseWhiteTexture;
 	std::string chooseColoredTexture;
 
@@ -48,4 +48,6 @@ public:
 	sf::Sprite mSpriteColor;
 	//sf::Texture mTexture;
 	sf::FloatRect mBackgroundRect;
+	Enemy *enemy;
+
 };

@@ -9,7 +9,6 @@
 //}
 
 Level::Level(){
-	
 }
 Level::~Level(){
 
@@ -149,8 +148,7 @@ void Level::spawn(Entity::EntityVector &entityVector){
 }
 
 
-float Level::percentRequirement(float requirement){
-	mRequirment = requirement;
+float Level::percentRequirement(){
 
 	return mRequirment;
 }
@@ -160,12 +158,27 @@ float Level::percentRequirement(float requirement){
 void Level::moveBackground(sf::RenderWindow *window){
 	mBackgroundRect = mSpriteWhite.getGlobalBounds();
 
-	window->draw(mSpriteWhite);
-
-	if (mBackgroundRect.left + mBackgroundRect.width > window->getSize().x){
-		mSpriteWhite.move(-1, 0);
-
+	if (World::mGold == 0){
+		opacity = 0;
 	}
 
+	for (int i = 0; i < World::mGold; i++){
+
+		if (opacity < 254){
+			opacity++;
+		}
+		
+	}
+	
+	mSpriteColor.setColor(sf::Color(255, 255, 255, opacity));
+
+	window->draw(mSpriteWhite);
+	window->draw(mSpriteColor);
+	
+	if (mBackgroundRect.left + mBackgroundRect.width > window->getSize().x){
+		mSpriteWhite.move(-1, 0);
+		mSpriteColor.move(-1, 0);
+	}
+	
 }
 
