@@ -14,7 +14,7 @@ mIsAlive(true),
 //Måste ändras relativt till bilden.
 mRad(20.f)
 {	
-	mAnimation = new Animation("resource/Iris_flying_anim2.png", 100, 8);
+	mAnimation = new Animation("resource/textures/entities/player.png", 100, 8);
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
 
 

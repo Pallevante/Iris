@@ -11,7 +11,7 @@ mIsAlive(true),
 mRad(20.f)
 {
 	
-	mAnimation = new Animation("resource/playerAura.png", 100, 1);
+	mAnimation = new Animation("resource/textures/entities/playerAura.png", 100, 1);
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
 	mAnimation->setColor(sf::Color(255, 0, 255, 255));
 		

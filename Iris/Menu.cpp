@@ -4,7 +4,7 @@ Menu::Menu(ButtonVector buttons, const std::string& background, unsigned int cur
 mButtonVector(buttons),
 mCurrentMenuItem(currentMenuItem),
 mBackground(ResourceManager::getTexture(background)),
-mActiveButton(ResourceManager::getTexture("resource/buttons/activebutton.png"))
+mActiveButton(ResourceManager::getTexture("resource/textures/buttons/activebutton.png"))
 {
 }
 
