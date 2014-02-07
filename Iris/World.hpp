@@ -56,6 +56,7 @@ private:
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
 	int mGold;
+	int mScore;
 	EntityVector entityVector;
 
 	MainMenu mainMenu;

@@ -6,24 +6,20 @@ sf::Music music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 
-
-int spawnTimeLimit = 500;
-
 World::World() :
 
 entityVector()
 {
-	music.openFromFile("resource/sounds/Level1Theme.ogg");
-	music.play();
-	currentState = PLAYING;
+	currentState = INMENU;
 	Player *mPlayer;
-	window.setFramerateLimit(65);
+	window.setFramerateLimit(60);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
+	music.openFromFile("resource/sounds/Level1Theme.ogg");
 }
 
 World::~World(){}
-
+bool tempBoolDefaultFalse = false; //Ta bort mig i helgen. 
 void World::run(){
 
 	while (window.isOpen())	{
@@ -32,11 +28,11 @@ void World::run(){
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();				
-
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+				pause();
 		}		
 		window.clear();
-		if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
-			pause();
+		
 		
 		if (currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
 			menuInput(event);
@@ -49,11 +45,20 @@ void World::run(){
 		if (currentState == INSHOP){
 			shopMenu.drawMenu(window);
 		}
+		if (currentState == PAUSED){
+			music.pause();
+			tempBoolDefaultFalse = false;
+			renderImages();
+		}
 
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
+			if (!tempBoolDefaultFalse){
+				music.play();
+				tempBoolDefaultFalse = !tempBoolDefaultFalse;
+			}
 			mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
 			mLoadLevel.setLevel(mCurrentLevel);
 			mLevel = mLoadLevel.getLevel();
@@ -73,7 +78,7 @@ void World::startGame(){
 }
 
 void World::renderImages(){
-	mLevel->moveBackground(&window);
+	mLevel->drawBackground(&window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 	}
@@ -81,6 +86,7 @@ void World::renderImages(){
 }
 
 void World::tick(){
+	mLevel->moveBackground(&window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		entityVector[i]->tick(entityVector);
 	}
@@ -162,10 +168,10 @@ void World::pause(){
 
 /*
 __	- FML.
-           / _)
-  _/\/\/\_/ /
-/			|
-/ (	 |	 (	|
+            / _)
+   _/\/\/\_/ /
+  /			 |
+ / (  |	  (  |
 /   |_|--- |_|
 
 */

@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "World.hpp"
-#include "Enemies.hpp"
-
+#include "Enemy.hpp"
+#include "ResourceManager.hpp"
 
 class Level {
 public:
@@ -21,8 +21,9 @@ public:
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
 	float percentRequirement(float requirement);
+	void drawBackground(sf::RenderWindow *window);
 	void moveBackground(sf::RenderWindow *window);
-
+	std::string getTheme(int level);
 	sf::Sprite getBackground();
 private:
 	float mSpawnMin;

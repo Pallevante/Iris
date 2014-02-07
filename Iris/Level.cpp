@@ -8,7 +8,7 @@ Level::~Level(){
 
 
 }
-
+ResourceManager resourceManager;
 void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,
 	float obstMax, float specialMin, float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level){
 		
@@ -16,6 +16,7 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	case 1:
 		chooseWhiteTexture = "resource/textures/backgrounds/usa_bild_grå.png";
 		chooseColoredTexture = "resource/textures/backgrounds/usa_bild_blå.png";
+		//resourceManager.play("resource/sounds/Level1Theme.ogg");
 		break;
 	case 2:
 		chooseWhiteTexture = "resource/test.png";
@@ -86,18 +87,14 @@ void Level::spawnBasicEnemies(Entity::EntityVector &entityVector){
 
 		if (getRandomNumber() == 1 && spawnCount < mMaxSpawnEnemies){
 			spawnCount++;
-
 			entityVector.push_back(new DefaultEnemy(1));
-
 		}
 
 	}
 
 	if (spawnDefaultT.asSeconds() >= mSpawnMax){
 		entityVector.push_back(new DefaultEnemy(1));
-
 		mDefaultCl.restart();
-
 	}
 
 }
@@ -141,13 +138,22 @@ float Level::percentRequirement(float requirement){
 	return mRequirment;
 }
 
+std::string Level::getTheme(int level){
+	if (level == 1){
+		return "resource/sounds/Level1Theme.ogg";
+	}
+}
+
+void Level::drawBackground(sf::RenderWindow *window){
+	window->draw(mSpriteWhite);
+}
+
 
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
 void Level::moveBackground(sf::RenderWindow *window){
 	mBackgroundRect = mSpriteWhite.getGlobalBounds();
-
-	window->draw(mSpriteWhite);
-
+	//Vi bör ha en funktion som hanterar opacitet här.
+	
 	if (mBackgroundRect.left + mBackgroundRect.width > window->getSize().x){
 		mSpriteWhite.move(-1, 0);
 
