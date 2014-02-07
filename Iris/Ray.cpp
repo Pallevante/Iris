@@ -50,14 +50,14 @@ bool Ray::isAlive(){
 	return mIsAlive;
 }
 
-void Ray::tick(EntityVector &entities){
-	move();
+void Ray::tick(EntityVector &entities, float dt){
+	move(dt);
 	mAnimation->Update();
 }
 
-void Ray::move(){
+void Ray::move(float dt){
 	float currentX = mAnimation->getSprite().getPosition().x;
 	float currentY = mAnimation->getSprite().getPosition().y;
-
-	mAnimation->setPosition(sf::Vector2f(currentX + mSpeed, currentY));
+	currentX = currentX + (mSpeed * dt);
+	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
 }

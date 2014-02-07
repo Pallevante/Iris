@@ -16,7 +16,7 @@ public:
 	virtual void setDamage(int newDamage);
 	virtual int collide(Entity *e0, EntityVector &entities);
 	virtual bool isAlive();
-	virtual void tick(EntityVector &entities);
+	virtual void tick(EntityVector &entities, float dt);
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
 		target.draw(mAnimation->getSprite(), states);
@@ -25,7 +25,7 @@ public:
 	/*Medlemsfunktioner för Enemy*/
 	virtual void death();
 	virtual void fire(EntityVector &enteties);
-	virtual void move();
+	virtual void move(float dt);
 	virtual void useAbility();
 private:
 	Animation* mAnimation;

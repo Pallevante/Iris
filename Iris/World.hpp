@@ -8,6 +8,7 @@
 #include "LoadLevel.hpp"
 #include "MainMenu.hpp"
 #include "ShopMenu.hpp"
+#include <SFML/System/Clock.hpp>
 
 class Level;
 
@@ -37,7 +38,7 @@ private:
 	/*Spelrelaterade funktioner*/
 	void spawnEnemies();
 	void renderImages();
-	void tick();
+	void tick(float dt);
 	bool isColliding(Entity *entity1, Entity *entity2);
 	void detectCollisions();
 	void killDeadEntities();
@@ -56,5 +57,6 @@ private:
 	MainMenu mainMenu;
 	ShopMenu shopMenu;
 	Level* mLevel;
+	sf::Clock deltaTimer;
 };
 

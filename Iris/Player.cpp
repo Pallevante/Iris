@@ -20,8 +20,8 @@ mRad(20.f)
 
 Player::~Player(){}
 
-void Player::tick(EntityVector &entities){
-	move();
+void Player::tick(EntityVector &entities, float dt){
+	move(dt);
 	fire(entities);
 	mAnimation->Update();
 }
@@ -73,9 +73,11 @@ int Player::getWidth() const {
 
 
 /*Private medlemsfunktioner*/
-void Player::move(){
+void Player::move(float dt){
 	float currentX = mAnimation->getSprite().getPosition().x;
 	float currentY = mAnimation->getSprite().getPosition().y;
+
+	sf::Vector2f oldVelocity = mVelocity;
 
 	/* Om den nuvarande hastigheten mVelocity är mindre än maxhastigheten, mSpeed, så ökas den nuvarande hastigheten med accelerationen, mAcceleration */
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
@@ -100,10 +102,10 @@ void Player::move(){
 	}
 	/* För att sakta ner spelaren gångras den nuvarande hastigheten med ett värde som är mindre än 1. */
 	mVelocity.x = mVelocity.x*0.935f;
-	currentX += mVelocity.x;
+	currentX = currentX + (oldVelocity.x + mVelocity.x) * 0.5 * dt;
 
 	mVelocity.y = mVelocity.y*0.935f;
-	currentY += mVelocity.y;
+	currentY = currentY + (oldVelocity.y + mVelocity.y) * 0.5 * dt;
 	/* Den nuvarande positionen uppdateras med det nya värdet */
 	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
 }

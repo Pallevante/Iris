@@ -57,8 +57,8 @@ bool DefaultEnemy::isAlive(){
 	return mIsAlive;
 }
 
-void DefaultEnemy::tick(EntityVector &entities){
-	move();
+void DefaultEnemy::tick(EntityVector &entities, float dt){
+	move(dt);
 	mAnimation->Update();
 	useAbility();
 	fire(entities);
@@ -72,10 +72,12 @@ void DefaultEnemy::death(){
 	}
 }
 
-void DefaultEnemy::move(){
+void DefaultEnemy::move(float dt){
 	if (!mIsDying){
 		//mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, getPosition().y));
-		mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 500 + (40*sinf(0.005f * getPosition().x )) ));
+		float posX = getPosition().x - 5 * dt;
+		float posY = 500 + (40 * sinf(0.005f * getPosition().x));
+		mAnimation->setPosition(sf::Vector2f(posX, posY));
 	}
 	else{
 		death();

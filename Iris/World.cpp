@@ -6,6 +6,7 @@ LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 
 int spawnTimeLimit =  500;
+int FRAME_LIMIT = 65;
 
 World::World(): 
 
@@ -13,7 +14,7 @@ entityVector()
 {
 	currentState = INMENU;	
 	Player *mPlayer;
-	window.setFramerateLimit(65);
+	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
 }
@@ -21,8 +22,12 @@ entityVector()
 World::~World(){}
 
 void World::run(){
+	while (window.isOpen())	{
 
-		while (window.isOpen())	{
+		int deltaTime = deltaTimer.restart().asMicroseconds();
+		float expectedTime = ((1.0f / FRAME_LIMIT) * 1000000);
+		float dt = deltaTime / expectedTime;
+
 		sf::Event event;
 
 		while (window.pollEvent(event))
@@ -31,7 +36,11 @@ void World::run(){
 				window.close();
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 				pause();
-			
+			/* Debug-funktioner */
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F1)
+				window.setFramerateLimit(10);
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F2)
+				window.setFramerateLimit(FRAME_LIMIT);
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
 			menuInput(event);
 		}
@@ -52,6 +61,7 @@ void World::run(){
 			mCurrentLevel = mLoadLevel.LevelEnum::firstLevel;
 			//mLoadLevel.setLevel(mCurrentLevel);
 			mLevel = mLoadLevel.getLevel();
+			tick(dt);
 			startGame();
 		}
 		if (currentState == PAUSED){
@@ -61,7 +71,6 @@ void World::run(){
 	}
 }
 void World::startGame(){
-	tick();
 	detectCollisions();
 	killDeadEntities();
 	spawnEnemies();
@@ -74,9 +83,9 @@ void World::renderImages(){
 	}
 }
 
-void World::tick(){
+void World::tick(float dt){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
-		entityVector[i]->tick(entityVector);
+		entityVector[i]->tick(entityVector, dt);
 	}
 }
 

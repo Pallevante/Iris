@@ -9,7 +9,7 @@ public:
 	~Enemy();
 	virtual void death() = 0;
 	virtual void fire(EntityVector &enteties) = 0;
-	virtual void move() = 0;
+	virtual void move(float dt) = 0;
 	virtual void useAbility() = 0;
 private:
 };
