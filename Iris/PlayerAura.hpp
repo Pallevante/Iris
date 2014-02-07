@@ -23,18 +23,16 @@ public:
 	virtual int collide(Entity *e0, EntityVector &entities);
 	virtual bool isAlive();
 	virtual void tick(EntityVector &entities);
-	//virtual void playerAura(float xPositionAura, float yPositionAura, float speedMultplier = 1);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
 		target.draw(mAnimation->getSprite(), states);
 	}
 
-
+	
 
 
 
 private:
 	void move();
-	//void fire(EntityVector &enteties);
 	Animation* mAnimation;
 	float mSpeed;
 	int mHealth;

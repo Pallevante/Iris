@@ -17,15 +17,6 @@ mRad(20.f)
 	mAnimation = new Animation("resource/Iris_flying_anim2.png", 100, 8);
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
 
-	//mAnimation = new Animation("resource/playerAura.png", 100, 1);
-	//mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
-
-
-	
-	//mAnimation1->setColor(sf::Color(255, 255, 255, 255));
-
-
-	
 
 }
 

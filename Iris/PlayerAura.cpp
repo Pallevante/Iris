@@ -14,7 +14,7 @@ mRad(20.f)
 {
 	mAnimation = new Animation("resource/playerAura.png", 100, 1);
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
-	mAnimation->setColor(sf::Color(255, 255, 255, 255));	
+	mAnimation->setColor(sf::Color(255, 0, 255, 255));	
 
 
 }
@@ -102,18 +102,4 @@ void PlayerAura::move(){
 	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
 }
 
-/*
-void PlayerAura::fire(EntityVector &entities){
-
-	sf::Time isReloaded = reloadTimer.getElapsedTime();
-	if (isReloaded.asMilliseconds() > 200){
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-			entities.push_back(new Ray(getPosition()));
-			/* Spelar upp skjutljud 
-			play("resource/shoot.wav");
-			reloadTimer.restart();
-		}
-	}
-}
-*/
 
