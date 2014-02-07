@@ -65,8 +65,8 @@ void DefaultEnemy::tick(EntityVector &entities, float dt){
 }
 
 /*Enemy Basfunktioner*/
-void DefaultEnemy::death(){
-	mAnimation->setPosition(sf::Vector2f(getPosition().x, getPosition().y - 15));
+void DefaultEnemy::death(float dt){
+	mAnimation->setPosition(sf::Vector2f(getPosition().x, getPosition().y - 15*dt));
 	if (getPosition().y < -140){
 		mIsAlive = false;
 	}
@@ -80,7 +80,7 @@ void DefaultEnemy::move(float dt){
 		mAnimation->setPosition(sf::Vector2f(posX, posY));
 	}
 	else{
-		death();
+		death(dt);
 	}
 }
 

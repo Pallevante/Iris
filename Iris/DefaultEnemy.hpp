@@ -23,7 +23,7 @@ public:
 
 	}
 	/*Medlemsfunktioner för Enemy*/
-	virtual void death();
+	virtual void death(float dt);
 	virtual void fire(EntityVector &enteties);
 	virtual void move(float dt);
 	virtual void useAbility();

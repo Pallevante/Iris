@@ -6,7 +6,7 @@ LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 
 int spawnTimeLimit =  500;
-int FRAME_LIMIT = 65;
+int FRAME_LIMIT = 60;
 
 World::World(): 
 
@@ -14,6 +14,7 @@ entityVector()
 {
 	currentState = INMENU;	
 	Player *mPlayer;
+	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
@@ -159,6 +160,10 @@ void World::pause(){
 	}
 	else if (currentState == PAUSED){
 		currentState = PLAYING;
+		return;
+	}
+	else if (currentState == INSHOP){
+		currentState = INMENU;
 		return;
 	}
 }
