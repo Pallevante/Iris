@@ -34,11 +34,11 @@ void Menu::down(){
 	if (mCurrentMenuItem < getMaxItems()-1){
 		setCurrentMenuItem(mCurrentMenuItem + 1);
 	}
-	ResourceManager::play("resource/sounds/menuscroll.ogg");
+	ResourceManager::getSound("resource/sounds/menuscroll.ogg").play();
 }
 void Menu::up(){
 	if (mCurrentMenuItem > 0){
 		setCurrentMenuItem(mCurrentMenuItem - 1);
 	}
-	ResourceManager::play("resource/sounds/menuscroll.ogg");
+	ResourceManager::getSound("resource/sounds/menuscroll.ogg").play();
 }

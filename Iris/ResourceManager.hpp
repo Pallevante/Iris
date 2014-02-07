@@ -19,13 +19,13 @@ public:
 	så läggs den till och returneras direkt. */
 	static sf::Texture& getTexture(const std::string& filename);
 	static sf::Texture& getLevel(const std::string& filename);
-	static sf::SoundBuffer& getSound(const std::string& filename);
+	static sf::Sound& getSound(const std::string& filename);
 	static sf::SoundBuffer& getSoundBuffer(const std::string& filename);
 	
 	/* Använd play("resource/exempel.ogg") för att spela upp ett ljud. Minneshantering sker automatiskt. */
 	/* Funktionen arbetar både med resurshanteraren för att hålla koll på soundbuffers och undvika flera inladdningar av samma fil, */
 	/* samtidigt som den skapar Sounds som behövs och håller dem levande under programmets gång. */
-	static void play(const std::string& filename);
+	//static void play(const std::string& filename);
 
 	/* Kör clear innan avslut av programmet för att tömma minnet. */  
 	static void clear(){
@@ -38,7 +38,8 @@ public:
 private:
 	//static std::map<std::string, Animation> mAnimations;
 	static std::map<std::string, sf::Texture> mTextures;
-	static std::map<std::string, sf::Texture> mLevels;
-	static std::map<std::string, sf::SoundBuffer> mSoundBuffers;
 	static std::map<std::string, sf::Sound> mSounds;
+	static std::map<std::string, sf::SoundBuffer> mSoundBuffers;
+	static std::map<std::string, sf::Image> mImages;
+	static std::map<std::string, sf::Texture> mLevels;
 };

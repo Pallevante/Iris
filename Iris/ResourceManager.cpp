@@ -47,14 +47,13 @@ sf::SoundBuffer& ResourceManager::getSoundBuffer(const std::string& filename){
 
 /* Funktionen arbetar både med resurshanteraren för att hålla koll på soundbuffers och undvika flera inladdningar av samma fil, */
 /* samtidigt som den skapar Sounds som behövs och håller dem levande under programmets gång. */
-void ResourceManager::play(const std::string& filename){
+sf::Sound& ResourceManager::getSound(const std::string& filename){
 	if (mSounds.count(filename) == 0){
 		sf::Sound newSound;
 		newSound.setBuffer(getSoundBuffer(filename));
 		mSounds.insert(std::pair<std::string, sf::Sound>(filename, newSound));
 	}
-
-	mSounds[filename].play();
+	return mSounds[filename];
 }
 
 
@@ -63,5 +62,6 @@ void ResourceManager::play(const std::string& filename){
 //std::map<std::string, Animation> ResourceManager::mAnimations;
 std::map<std::string, sf::Texture> ResourceManager::mTextures;
 std::map<std::string, sf::Texture> ResourceManager::mLevels;
-std::map<std::string, sf::SoundBuffer> ResourceManager::mSoundBuffers;
 std::map<std::string, sf::Sound> ResourceManager::mSounds;
+std::map<std::string, sf::SoundBuffer> ResourceManager::mSoundBuffers;
+std::map<std::string, sf::Image> ResourceManager::mImages;

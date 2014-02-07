@@ -117,7 +117,7 @@ void Player::fire(EntityVector &entities){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 			entities.push_back(new Ray(getPosition()));
 			/* Spelar upp skjutljud */
-			ResourceManager::play("resource/sounds/shoot.wav");
+			ResourceManager::getSound("resource/sounds/shoot.wav").play();
 			reloadTimer.restart();
 		}
 	}
