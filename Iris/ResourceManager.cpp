@@ -75,7 +75,7 @@ void ResourceManager::drawLevel(sf::RenderWindow& window, TextureVector& bgVecto
 	for (std::vector<sf::Texture>::size_type i = 0; i < bgVector.size(); i++){
 		sf::Sprite newSprite;
 		newSprite.setTexture(bgVector[i]);
-		newSprite.setPosition((i * bgVector[i].getSize().x) - speed, 0);
+		newSprite.setPosition((i * sf::Texture::getMaximumSize()) - speed, 0);
 		newSprite.setColor(color);
 		window.draw(newSprite);
 	}
