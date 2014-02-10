@@ -67,21 +67,22 @@ bool DefaultEnemy::isAlive(){
 	return mIsAlive;
 }
 
-void DefaultEnemy::tick(EntityVector &entities){
-	move();
+void DefaultEnemy::tick(EntityVector &entities, float dt){
+	move(dt);
 	mAnimation->Update();
 	useAbility();
 	fire(entities);
 }
 
 /*Enemy Basfunktioner*/
-void DefaultEnemy::death(){
-	mAnimation->setPosition(sf::Vector2f(getPosition().x, getPosition().y - 15));
+void DefaultEnemy::death(float dt){
+	mAnimation->setPosition(sf::Vector2f(getPosition().x, getPosition().y - 15*dt));
 	if (getPosition().y < -140){
 		mIsAlive = false;
 	}
 }
 
+<<<<<<< HEAD
 void DefaultEnemy::move(){
 	float mXDir;
 	float mYDir;
@@ -106,9 +107,17 @@ void DefaultEnemy::move(){
 			}
 			mAnimation->setPosition(sf::Vector2f(getPosition().x + mXDir, getPosition().y + mYDir));
 		}	*/
+=======
+void DefaultEnemy::move(float dt){
+	if (!mIsDying){
+		//mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, getPosition().y));
+		float posX = getPosition().x - 5 * dt;
+		float posY = 500 + (40 * sinf(0.005f * getPosition().x));
+		mAnimation->setPosition(sf::Vector2f(posX, posY));
+>>>>>>> bq
 	}
 	else{
-		death();
+		death(dt);
 	}
 }
 

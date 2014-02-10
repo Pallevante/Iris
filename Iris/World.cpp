@@ -6,13 +6,25 @@ sf::Music music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 
+<<<<<<< HEAD
 World::World() :
+=======
+int spawnTimeLimit =  500;
+int FRAME_LIMIT = 60;
+
+World::World(): 
+>>>>>>> bq
 
 entityVector()
 {
 	currentState = INMENU;
 	Player *mPlayer;
+<<<<<<< HEAD
 	window.setFramerateLimit(60);
+=======
+	window.setVerticalSyncEnabled(true);
+	window.setFramerateLimit(FRAME_LIMIT);
+>>>>>>> bq
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
 	
@@ -21,8 +33,12 @@ entityVector()
 World::~World(){}
 bool isPlaying = false; //Ta bort mig i helgen. 
 void World::run(){
-
 	while (window.isOpen())	{
+
+		int deltaTime = deltaTimer.restart().asMicroseconds();
+		float expectedTime = ((1.0f / FRAME_LIMIT) * 1000000);
+		float dt = deltaTime / expectedTime;
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -30,7 +46,16 @@ void World::run(){
 				window.close();				
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 				pause();
-		}		
+			/* Debug-funktioner */
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F1)
+				window.setFramerateLimit(10);
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F2)
+				window.setFramerateLimit(FRAME_LIMIT);
+			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+			menuInput(event);
+		}
+		
+
 		window.clear();
 		
 		
@@ -58,7 +83,6 @@ void World::run(){
 			mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
 			mLoadLevel.setLevel(mCurrentLevel);			
 			mLevel = mLoadLevel.getLevel();
-
 			if (!music.openFromFile(mLevel->getTheme(1)))
 				music.openFromFile(mLevel->getTheme(1));
 			
@@ -67,6 +91,9 @@ void World::run(){
 				music.play();
 				isPlaying = true;
 			}
+
+			tick(dt);
+
 			startGame();
 		}
 		window.display();
@@ -75,7 +102,6 @@ void World::run(){
 
 
 void World::startGame(){
-	tick();
 	detectCollisions();
 	killDeadEntities();
 	spawnEnemies(); 
@@ -90,10 +116,9 @@ void World::renderImages(){
 	
 }
 
-void World::tick(){
-	mLevel->moveBackground(&window);
+void World::tick(float dt){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
-		entityVector[i]->tick(entityVector);
+		entityVector[i]->tick(entityVector, dt);
 	}
 }
 
@@ -165,6 +190,10 @@ void World::pause(){
 	}
 	else if (currentState == PAUSED){
 		currentState = PLAYING;
+		return;
+	}
+	else if (currentState == INSHOP){
+		currentState = INMENU;
 		return;
 	}
 }

@@ -24,7 +24,7 @@ public:
 	virtual Type getType() const = 0;
 	virtual sf::Vector2f getPosition() = 0;
 	virtual float getRad() const = 0;
-	virtual void tick(EntityVector &entities) = 0;
+	virtual void tick(EntityVector &entities, float dt) = 0;
 	virtual int getDamage() const = 0;
 	virtual void setDamage(int newDamage) = 0;
 	virtual bool isAlive() = 0;
