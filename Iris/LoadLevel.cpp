@@ -16,7 +16,6 @@ void LoadLevel::setLevel(LevelEnum& levelToLoad){
 	}
 }
 /*Anropas av World för att hämta pekaren så den kan rita ut bakgrunden och spawna fiender.*/
-
 Level* LoadLevel::getLevel(){
 	return mLevel;
 }

@@ -15,11 +15,11 @@ entityVector()
 	window.setFramerateLimit(60);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
-	music.openFromFile("resource/sounds/Level1Theme.ogg");
+	
 }
 
 World::~World(){}
-bool tempBoolDefaultFalse = false; //Ta bort mig i helgen. 
+bool isPlaying = false; //Ta bort mig i helgen. 
 void World::run(){
 
 	while (window.isOpen())	{
@@ -47,21 +47,26 @@ void World::run(){
 		}
 		if (currentState == PAUSED){
 			music.pause();
-			tempBoolDefaultFalse = false;
+			isPlaying = false;
 			renderImages();
 		}
 
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
-			//Lite halv homo lösning men verkar fungera (den kompilerar).
-			if (!tempBoolDefaultFalse){
-				music.play();
-				tempBoolDefaultFalse = !tempBoolDefaultFalse;
-			}
+			//Lite halv homo lösning men verkar fungera (den kompilerar).			
 			mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
-			mLoadLevel.setLevel(mCurrentLevel);
+			mLoadLevel.setLevel(mCurrentLevel);			
 			mLevel = mLoadLevel.getLevel();
+
+			if (!music.openFromFile(mLevel->getTheme(1)))
+				music.openFromFile(mLevel->getTheme(1));
+			
+			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
+			if (!isPlaying){
+				music.play();
+				isPlaying = true;
+			}
 			startGame();
 		}
 		window.display();

@@ -15,9 +15,12 @@ public:
 	void spawnBasicEnemies(Entity::EntityVector &entityVector);
 	/*Spawn:ar Skjutare*/
 	void spawnSpecialEnemies(Entity::EntityVector &entityVector);
-	void set(float spawnMini, float spawnMax, float requirment, float obstSpawnMin,
-		float obstMax, float specialMin,
-		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level);
+
+	void set(float spawnMini, float spawnMax, float requirment, 
+		float obstSpawnMin,	float obstMax, float specialMin, 
+		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
+		int level);
+
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
 	float percentRequirement(float requirement);
