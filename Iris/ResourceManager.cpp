@@ -52,9 +52,9 @@ std::vector<sf::Texture>& ResourceManager::getLevel(const std::string& filename)
 	if (mLevels.count(filename) == 0){
 		sf::Image image;
 		image = getImage(filename);
-
+		
 		/* Räkna hur många tiles som kommer behövas */
-		int tileSize = 1024;
+		int tileSize = sf::Texture::getMaximumSize();
 		int imageWidth = image.getSize().x;
 		int tileCount = ceil(imageWidth / tileSize);
 		/* Definera alla nya texturer ifrån en sf::Image och en IntRect som beräknas genom antalet tiles och bredden på tiles och bilden*/
@@ -75,7 +75,7 @@ void ResourceManager::drawLevel(sf::RenderWindow& window, TextureVector& bgVecto
 	for (std::vector<sf::Texture>::size_type i = 0; i < bgVector.size(); i++){
 		sf::Sprite newSprite;
 		newSprite.setTexture(bgVector[i]);
-		newSprite.setPosition((i * 1024) - speed, 0);
+		newSprite.setPosition((i * bgVector[i].getSize().x) - speed, 0);
 		newSprite.setColor(color);
 		window.draw(newSprite);
 	}
