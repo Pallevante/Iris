@@ -2,39 +2,29 @@
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
-sf::Music music;
+sf::Music* music = new sf::Music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
-
-<<<<<<< HEAD
-World::World() :
-=======
 int spawnTimeLimit =  500;
 int FRAME_LIMIT = 60;
 
 World::World(): 
->>>>>>> bq
-
-entityVector()
-{
+entityVector(){	
 	currentState = INMENU;
-	Player *mPlayer;
-<<<<<<< HEAD
-	window.setFramerateLimit(60);
-=======
+	Player *mPlayer;	
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
->>>>>>> bq
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
 	
 }
 
 World::~World(){}
-bool isPlaying = false; //Ta bort mig i helgen. 
+bool isPlaying = false; /*Kollar om man spelar musik*/
+bool loadedMap = false;
 void World::run(){
 	while (window.isOpen())	{
-
+		
 		int deltaTime = deltaTimer.restart().asMicroseconds();
 		float expectedTime = ((1.0f / FRAME_LIMIT) * 1000000);
 		float dt = deltaTime / expectedTime;
@@ -42,8 +32,10 @@ void World::run(){
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
-				window.close();				
+			if (event.type == sf::Event::Closed){
+				window.close();
+				ResourceManager::clear();
+			}
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 				pause();
 			/* Debug-funktioner */
@@ -70,8 +62,8 @@ void World::run(){
 		if (currentState == INSHOP){
 			shopMenu.drawMenu(window);
 		}
-		if (currentState == PAUSED){
-			music.pause();
+		if (currentState == PAUSED){			
+			music->pause();
 			isPlaying = false;
 			renderImages();
 		}
@@ -79,17 +71,18 @@ void World::run(){
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
-			//Lite halv homo lösning men verkar fungera (den kompilerar).			
-			mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
-			mLoadLevel.setLevel(mCurrentLevel);			
-			mLevel = mLoadLevel.getLevel();
-			if (!music.openFromFile(mLevel->getTheme(1)))
-				music.openFromFile(mLevel->getTheme(1));
+			//Lite halv homo lösning men verkar fungera (den kompilerar).		
+			if (!loadedMap){
+				mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
+				mLoadLevel.setLevel(mCurrentLevel);
+				mLevel = mLoadLevel.getLevel();
+				music = ResourceManager::getMusic(mLevel->getTheme(1));				
+			}
 			
 			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
-			if (!isPlaying){
-				music.play();
-				isPlaying = true;
+			if (!isPlaying){	
+				music->play();
+				isPlaying = true;				
 			}
 
 			tick(dt);

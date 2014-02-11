@@ -16,7 +16,6 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	case 1:
 		chooseWhiteTexture = "resource/textures/backgrounds/usa_bild_grå.png";
 		chooseColoredTexture = "resource/textures/backgrounds/usa_bild_blå.png";
-		//resourceManager.play("resource/sounds/Level1Theme.ogg");
 		break;
 	case 2:
 		chooseWhiteTexture = "resource/test.png";
@@ -64,9 +63,10 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	mMaxSpecialSpawn = maxSpecialSpawn;
 	mMaxSpawnEnemies = maxSpawnEnemies;
 	// mTexture = texture;
-
-	mSpriteWhite.setTexture(ResourceManager::getLevel(chooseWhiteTexture));
-	mSpriteColor.setTexture(ResourceManager::getLevel(chooseColoredTexture));
+	
+	//ResourceManager::getLevel(chooseWhiteTexture);
+	//ResourceManager::getLevel(chooseColoredTexture);
+	
 }
 
 int Level::getRandomNumber(){

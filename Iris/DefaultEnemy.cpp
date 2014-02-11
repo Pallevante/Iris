@@ -82,13 +82,13 @@ void DefaultEnemy::death(float dt){
 	}
 }
 
-<<<<<<< HEAD
-void DefaultEnemy::move(){
+
+void DefaultEnemy::move(float dt){
 	float mXDir;
 	float mYDir;
 	if (!mIsDying){
 		if(getMovement() == DEFAULT){
-			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, getPosition().y));
+			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5 * dt, getPosition().y));
 		}
 		else if(getMovement() == WAVE){
 			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 200 + (70*sinf(0.005 * getPosition().x )) ));
@@ -105,16 +105,8 @@ void DefaultEnemy::move(){
 					}
 				}
 			}
-			mAnimation->setPosition(sf::Vector2f(getPosition().x + mXDir, getPosition().y + mYDir));
+			mAnimation->setPosition(sf::Vector2f(getPosition().x + mXDir * dt, getPosition().y + mYDir * dt));
 		}	*/
-=======
-void DefaultEnemy::move(float dt){
-	if (!mIsDying){
-		//mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, getPosition().y));
-		float posX = getPosition().x - 5 * dt;
-		float posY = 500 + (40 * sinf(0.005f * getPosition().x));
-		mAnimation->setPosition(sf::Vector2f(posX, posY));
->>>>>>> bq
 	}
 	else{
 		death(dt);
