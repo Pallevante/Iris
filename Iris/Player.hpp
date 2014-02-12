@@ -23,7 +23,6 @@ public:
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
 		target.draw(mAnimation->getSprite(), states);
-
 	}
 private: 
 	void move(float dt);

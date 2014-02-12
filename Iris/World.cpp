@@ -71,14 +71,16 @@ void World::run(){
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
-			//Lite halv homo lösning men verkar fungera (den kompilerar).		
+			//Lite halv homo lösning men verkar fungera (den kompilerar).
+
 			if (!loadedMap){
 				mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
 				mLoadLevel.setLevel(mCurrentLevel);
 				mLevel = mLoadLevel.getLevel();
-				music = ResourceManager::getMusic(mLevel->getTheme(1));				
+				music = ResourceManager::getMusic(mLevel->getTheme(1));	
+				loadedMap = true;
 			}
-			
+
 			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
 			if (!isPlaying){	
 				music->play();
@@ -102,7 +104,7 @@ void World::startGame(){
 }
 
 void World::renderImages(){
-	mLevel->drawBackground(&window);
+	mLevel->moveBackground(window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 	}
@@ -148,7 +150,7 @@ void World::detectCollisions(){
 
 		for (unsigned int j = i + 1; j < entityVector.size(); j++){
 			Entity *entity1 = entityVector[j];
-
+			/*Du använder en check i collision i world om typen är GOLD sedan hämtar du damage för värdet.*/
 			if (isColliding(entity0, entity1) && entity0->getType() != entity1->getType()){
 				entity0->collide(entity1, entityVector);
 				entity1->collide(entity0, entityVector);

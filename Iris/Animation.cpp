@@ -14,7 +14,6 @@ mCurrentFrame(0){
 };
 
 Animation::~Animation(){
-
 };
 
 
