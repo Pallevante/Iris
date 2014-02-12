@@ -8,23 +8,27 @@ sf::Clock reloadTimer;
 Player::Player(float xPosition, float yPosition, float speedMultiplier) :
 
 mDamage(10),
-mSpeed(4 * speedMultiplier),
+mSpeed(6 * speedMultiplier),
+mAcceleration(0.8f * speedMultiplier),
 mIsAlive(true),
 
 //Måste ändras relativt till bilden.
 mRad(20.f)
 {	
-	mAnimation = new Animation("resource/Iris_flying_anim2.png", 100, 8);
+	mAnimation = new Animation("resource/textures/entities/player.png", 100, 8);
+
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
 
 }
 
 Player::~Player(){}
 
-void Player::tick(EntityVector &entities){
-        move();
-        fire(entities);
-        mAnimation->Update();
+
+void Player::tick(EntityVector &entities, float dt){
+	move(dt);
+	fire(entities);
+	mAnimation->Update();
+
 }
 
 int Player::collide(Entity *entity, EntityVector &entities){
@@ -74,24 +78,43 @@ int Player::getWidth() const {
 
 
 /*Private medlemsfunktioner*/
-void Player::move(){
-        float currentX = mAnimation->getSprite().getPosition().x;
-        float currentY = mAnimation->getSprite().getPosition().y;
-        
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){                
-                currentX += mSpeed;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-                currentX -= mSpeed;                
-        }        
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 
-                currentY += mSpeed;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-                currentY -= mSpeed;
-        }
-        mAnimation->setPosition(sf::Vector2f(currentX, currentY));
+void Player::move(float dt){
+	float currentX = mAnimation->getSprite().getPosition().x;
+	float currentY = mAnimation->getSprite().getPosition().y;
+
+	sf::Vector2f oldVelocity = mVelocity;
+
+	/* Om den nuvarande hastigheten mVelocity är mindre än maxhastigheten, mSpeed, så ökas den nuvarande hastigheten med accelerationen, mAcceleration */
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+		if (mVelocity.x < mSpeed){
+			mVelocity.x += mAcceleration;
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+		if (mVelocity.x > -mSpeed){
+			mVelocity.x -= mAcceleration;
+		}
+	}	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+		if (mVelocity.y < mSpeed){
+			mVelocity.y += mAcceleration;
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+		if (mVelocity.y > -mSpeed){
+			mVelocity.y -= mAcceleration;
+		}
+	}
+	/* För att sakta ner spelaren gångras den nuvarande hastigheten med ett värde som är mindre än 1. */
+	mVelocity.x = mVelocity.x*0.935f;
+	currentX = currentX + (oldVelocity.x + mVelocity.x) * 0.5 * dt;
+
+	mVelocity.y = mVelocity.y*0.935f;
+	currentY = currentY + (oldVelocity.y + mVelocity.y) * 0.5 * dt;
+	/* Den nuvarande positionen uppdateras med det nya värdet */
+	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
+
 }
 
 void Player::fire(EntityVector &entities){
@@ -101,10 +124,10 @@ void Player::fire(EntityVector &entities){
 	if (isReloaded.asMilliseconds() > 200){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 
-			/*Laddar in texturen för ray samt kastar in den i vektorn.*/			
-			play("resource/test.wav");
-			reloadTimer.restart();
 			entities.push_back(new Ray(getPosition()));
+			/* Spelar upp skjutljud */
+			ResourceManager::getSound("resource/sounds/shoot.wav").play();
+			reloadTimer.restart();
 
 		}
 	}

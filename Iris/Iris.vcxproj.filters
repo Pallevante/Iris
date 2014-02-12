@@ -1,19 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-<<<<<<< HEAD
-    <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="DefaultEnemy.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="LoadLevel.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Ray.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="Enemies.cpp" />
-    <ClCompile Include="World.cpp" />
-    <ClCompile Include="Level.cpp" />
-=======
+
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -47,7 +35,20 @@
     <ClCompile Include="LoadLevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
->>>>>>> peterH
+
+    <ClCompile Include="World_menus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.hpp">
@@ -80,6 +81,15 @@
     <ClInclude Include="Level.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MainMenu.hpp">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.hpp">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopMenu.hpp">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -89,6 +99,12 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{bf67f524-217b-44ec-9ff1-666f8e01937d}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Menu">
+      <UniqueIdentifier>{8f59f307-b8ec-46eb-a24e-943fde22ebea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Menu">
+      <UniqueIdentifier>{1e0d22af-5ee0-4e44-8056-9ffef7ac549b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

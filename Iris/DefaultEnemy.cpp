@@ -7,7 +7,7 @@ mIsAlive(true),
 //Måste ändras relativt till bilden.
 mRad(64)
 {
-	mAnimation = new Animation("resource/enemy.png", 50, 2);
+	mAnimation = new Animation("resource/textures/entities/enemy.png", 50, 2);
 	mAnimation->setPosition(sf::Vector2f(1200, 500));
 }
 
@@ -57,27 +57,30 @@ bool DefaultEnemy::isAlive(){
 	return mIsAlive;
 }
 
-void DefaultEnemy::tick(EntityVector &entities){
-	move();
+void DefaultEnemy::tick(EntityVector &entities, float dt){
+	move(dt);
 	mAnimation->Update();
 	useAbility();
 	fire(entities);
 }
 
 /*Enemy Basfunktioner*/
-void DefaultEnemy::death(){
-	mAnimation->setPosition(sf::Vector2f(getPosition().x, getPosition().y - 15));
+void DefaultEnemy::death(float dt){
+	mAnimation->setPosition(sf::Vector2f(getPosition().x, getPosition().y - 15*dt));
 	if (getPosition().y < -140){
 		mIsAlive = false;
 	}
 }
 
-void DefaultEnemy::move(){
+void DefaultEnemy::move(float dt){
 	if (!mIsDying){
-		mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, getPosition().y));
+		//mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, getPosition().y));
+		float posX = getPosition().x - 5 * dt;
+		float posY = 500 + (40 * sinf(0.005f * getPosition().x));
+		mAnimation->setPosition(sf::Vector2f(posX, posY));
 	}
 	else{
-		death();
+		death(dt);
 	}
 }
 

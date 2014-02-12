@@ -2,6 +2,7 @@
 #include <SFML\Graphics.hpp>
 #include "World.hpp"
 #include "Enemies.hpp"
+#include "ResourceManager.hpp"
 
 
 class Level {
@@ -50,4 +51,6 @@ public:
 	sf::FloatRect mBackgroundRect;
 	Enemy *enemy;
 
+	ResourceManager::TextureVector bgVector;
+	ResourceManager::TextureVector bgVector2;
 };

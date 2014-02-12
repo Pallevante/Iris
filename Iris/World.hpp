@@ -6,9 +6,11 @@
 #include "Animation.hpp"
 #include "DefaultEnemy.hpp"
 #include "LoadLevel.hpp"
+#include "MainMenu.hpp"
+#include "ShopMenu.hpp"
+#include <SFML/System/Clock.hpp>
 
 class Level;
-
 
 class World{
 public:
@@ -16,6 +18,7 @@ public:
 	enum GameState{
 		INMENU,
 		PLAYING,
+		PAUSED,
 		INSHOP,
 		OUTRO,
 		INTRO
@@ -26,8 +29,6 @@ public:
 	World();
 	~World();
 	void run();
-	void menu();
-	void loadAllTheShit();
 	/*Måste ladda in banan innan*/
 	void startGame();
 	/*Slänga in rätt parametrar för att loadMap ska ladda in
@@ -38,23 +39,24 @@ private:
 	/*Spelrelaterade funktioner*/
 	void spawnEnemies();
 	void renderImages();
-	void tick();
+	void tick(float dt);
 	bool isColliding(Entity *entity1, Entity *entity2);
 	void detectCollisions();
 	void killDeadEntities();
 
 	/*Menyrelaterade funktioner*/
+	void menuInput(sf::Event &event);
+	void pause();
 	void enterStore();
 	void enterSettings();
 	void enterMap();
-
-
 
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
 
 	Entity::EntityVector entityVector;
-
+	MainMenu mainMenu;
+	ShopMenu shopMenu;
 	Level* mLevel;
-	
+	sf::Clock deltaTimer;
 };

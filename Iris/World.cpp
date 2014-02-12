@@ -4,16 +4,25 @@ sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
+
 int World::mGold;
-int spawnTimeLimit = 500;
+
+
+int spawnTimeLimit =  500;
+int FRAME_LIMIT = 60;
 
 World::World() :
 
 entityVector()
 {
+
 	currentState = PLAYING;
+
+	currentState = INMENU;	
+
 	Player *mPlayer;
-	window.setFramerateLimit(65);
+	window.setVerticalSyncEnabled(true);
+	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
 }
@@ -21,23 +30,48 @@ entityVector()
 World::~World(){}
 
 void World::run(){
-
 	while (window.isOpen())	{
+
+		int deltaTime = deltaTimer.restart().asMicroseconds();
+		float expectedTime = ((1.0f / FRAME_LIMIT) * 1000000);
+		float dt = deltaTime / expectedTime;
+
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+				pause();
+			/* Debug-funktioner */
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F1)
+				window.setFramerateLimit(10);
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F2)
+				window.setFramerateLimit(FRAME_LIMIT);
+			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+			menuInput(event);
+
 		}
 		window.clear();
-		/*Använder en instans av GameState för att veta vad den skall göra.
-		Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
+
+		if (currentState == INMENU){
+			mainMenu.drawMenu(window);
+		}
+
+		if (currentState == INSHOP){
+			shopMenu.drawMenu(window);
+		}
+		
+
 		if (currentState == PLAYING){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
 			mCurrentLevel = mLoadLevel.LevelEnum::firstLevel;
-			mLoadLevel.setLevel(mCurrentLevel);
+			//mLoadLevel.setLevel(mCurrentLevel);
 			mLevel = mLoadLevel.getLevel();
-			
+			tick(dt);
+
 			startGame();
 		}
 		mLevel->moveBackground(&window);
@@ -45,7 +79,6 @@ void World::run(){
 	}
 }
 void World::startGame(){
-	tick();
 	detectCollisions();
 	killDeadEntities();
 	spawnEnemies();
@@ -61,9 +94,9 @@ void World::renderImages(){
 
 }
 
-void World::tick(){
+void World::tick(float dt){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
-		entityVector[i]->tick(entityVector);
+		entityVector[i]->tick(entityVector, dt);
 	}
 }
 
@@ -124,14 +157,31 @@ void World::killDeadEntities(){
 /*Denna tiomern får vi hämta ifrån levelload sedan då det kommmer olika många fiender på olika banor.*/
 void World::spawnEnemies(){
 	sf::Time time = spawnTimer.getElapsedTime();
+
 	if (time.asMilliseconds() > 600){
 
 		entityVector.push_back(new DefaultEnemy(1));
 		mGold++;
+
 		spawnTimer.restart();
 	}
 }
 
+
+void World::pause(){
+	if (currentState == PLAYING){
+		currentState = PAUSED;
+		return;
+	}
+	else if (currentState == PAUSED){
+		currentState = PLAYING;
+		return;
+	}
+	else if (currentState == INSHOP){
+		currentState = INMENU;
+		return;
+	}
+}
 
 
 /*

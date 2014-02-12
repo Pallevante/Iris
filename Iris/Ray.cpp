@@ -7,7 +7,7 @@ mRad(64),
 mSpeed(7),
 mIsAlive(true)
 {
-	mAnimation = new Animation("resource/test.png", 100, 4);
+	mAnimation = new Animation("resource/textures/entities/ray.png", 20, 13);
 	mAnimation->setPosition(position);
 }
 
@@ -50,14 +50,14 @@ bool Ray::isAlive(){
 	return mIsAlive;
 }
 
-void Ray::tick(EntityVector &entities){
-	move();
+void Ray::tick(EntityVector &entities, float dt){
+	move(dt);
 	mAnimation->Update();
 }
 
-void Ray::move(){
+void Ray::move(float dt){
 	float currentX = mAnimation->getSprite().getPosition().x;
 	float currentY = mAnimation->getSprite().getPosition().y;
-
-	mAnimation->setPosition(sf::Vector2f(currentX + mSpeed, currentY));
+	currentX = currentX + (mSpeed * dt);
+	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
 }

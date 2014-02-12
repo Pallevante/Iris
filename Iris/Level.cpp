@@ -9,6 +9,8 @@
 //}
 
 Level::Level(){
+	opacity = 0;
+	
 }
 Level::~Level(){
 
@@ -57,7 +59,7 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 		break;
 	}
 //	ResourceManager::getLevel(chooseLevel);
-
+	
 	mSpawnMin = spawnMin;
 	mSpawnMax = spawnMax;
 	mObstSpawnMin = obstSpawnMin;
@@ -67,10 +69,13 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	mSpecialMax = specialMax;
     mMaxSpecialSpawn = maxSpecialSpawn;
 	mMaxSpawnEnemies = maxSpawnEnemies;
+
+	ResourceManager::TextureVector bgVector = ResourceManager::getLevel(chooseWhiteTexture);
+	ResourceManager::TextureVector bgVector2 = ResourceManager::getLevel(chooseColoredTexture);
 //	mTexture = texture;
-	
-	mSpriteWhite.setTexture(ResourceManager::getLevel(chooseWhiteTexture));
-	mSpriteColor.setTexture(ResourceManager::getLevel(chooseColoredTexture));
+
+//	mSpriteWhite.setTexture(ResourceManager::getLevel(chooseWhiteTexture));
+//	mSpriteColor.setTexture(ResourceManager::getLevel(chooseColoredTexture));
 }
 
 int Level::getRandomNumber(){
@@ -156,29 +161,32 @@ float Level::percentRequirement(){
 
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
 void Level::moveBackground(sf::RenderWindow *window){
-	mBackgroundRect = mSpriteWhite.getGlobalBounds();
 
-	if (World::mGold == 0){
-		opacity = 0;
-	}
-
-	for (int i = 0; i < World::mGold; i++){
-
-		if (opacity < 254){
-			opacity++;
-		}
-		
-	}
 	
-	mSpriteColor.setColor(sf::Color(255, 255, 255, opacity));
+//	mBackgroundRect = mSpriteWhite.getGlobalBounds();
 
-	window->draw(mSpriteWhite);
-	window->draw(mSpriteColor);
+//	if (World::mGold == 0){
+//		opacity = 0;
+//	}
+//
+//	for (int i = 0; i < World::mGold; i++){
+//
+//		if (opacity < 254){
+//			opacity++;
+//		}
+//		
+//	}
+//	mSpriteColor.setColor(sf::Color(255, 255, 255, opacity));
+	ResourceManager::drawLevel(*window, bgVector, 1.0f, sf::Color(255,255,255, 255));
+	ResourceManager::drawLevel(*window, bgVector2, 1.0f, sf::Color(255, 255, 255, opacity));
+
+	//window->draw(mSpriteWhite);
+	//window->draw(mSpriteColor);
 	
-	if (mBackgroundRect.left + mBackgroundRect.width > window->getSize().x){
-		mSpriteWhite.move(-1, 0);
-		mSpriteColor.move(-1, 0);
-	}
+	//if (mBackgroundRect.left + mBackgroundRect.width > window->getSize().x){
+	//	mSpriteWhite.move(-1, 0);
+	//	mSpriteColor.move(-1, 0);
+	//}
 	
 }
 
