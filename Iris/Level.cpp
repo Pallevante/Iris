@@ -9,7 +9,7 @@
 //}
 
 Level::Level(){
-	opacity = 0;
+	
 	
 }
 Level::~Level(){
