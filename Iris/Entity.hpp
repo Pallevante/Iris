@@ -1,7 +1,7 @@
 #pragma once
+#include <map>
 #include <vector>
 #include <SFML\Graphics.hpp>
-#include <map>
 #include <SFML/Audio/Sound.hpp>
 #include "ResourceManager.hpp"
 

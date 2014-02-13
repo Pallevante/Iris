@@ -1,8 +1,8 @@
 #pragma once
-#include "Entity.hpp"
-#include "ResourceManager.hpp"
-#include "Ray.hpp"
 #include "Animation.hpp"
+#include "Entity.hpp"
+#include "Ray.hpp"
+#include "ResourceManager.hpp"
 
 
 class Player : public Entity{

@@ -6,13 +6,13 @@ sf::Music* music = new sf::Music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 int spawnTimeLimit =  500;
-unsigned int FRAME_LIMIT = 60;
+int FRAME_LIMIT = 60;
 
 World::World(): 
 entityVector(){	
 	currentState = INMENU;
 	Player *mPlayer;
-	PlayerAura *mPlayerAura;	
+	PlayerAura *mPlayerAura;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayerAura = new PlayerAura(100, 100);
@@ -84,7 +84,7 @@ void World::run(){
 			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
 			if (!isPlaying){	
 				music->play();
-				isPlaying = true;				
+				isPlaying = true;
 			}
 
 			tick(dt);
@@ -99,7 +99,7 @@ void World::run(){
 void World::startGame(){
 	detectCollisions();
 	killDeadEntities();
-	spawnEnemies(); 
+	spawnEnemies();
 	renderImages();
 	
 }
@@ -198,10 +198,10 @@ void World::pause(){
 
 
 /*
-__	- FML.
+     - FML.  __
             / _)
    _/\/\/\_/ /
-  /	     |
+  /	         |
  / (  |	  (  |
 /   |_|--- |_|
 

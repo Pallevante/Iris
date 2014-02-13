@@ -1,8 +1,8 @@
 #pragma once
+#include <string>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Clock.hpp>
-#include <string>
 #include "ResourceManager.hpp"
 
 class Animation{

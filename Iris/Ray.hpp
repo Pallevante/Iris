@@ -1,6 +1,6 @@
 #pragma once
-#include "Entity.hpp"
 #include "Animation.hpp"
+#include "Entity.hpp"
 
 class Ray :	public Entity{
 public:

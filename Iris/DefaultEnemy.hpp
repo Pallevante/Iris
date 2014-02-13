@@ -1,8 +1,8 @@
 #pragma once
-#include "Enemy.hpp"
-#include "Animation.hpp"
-#include "Ray.hpp"
 #include <cstdlib>
+#include "Animation.hpp"
+#include "Enemy.hpp"
+#include "Ray.hpp"
 
 class DefaultEnemy : public Enemy {
 public:

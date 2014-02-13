@@ -1,4 +1,7 @@
 #pragma once
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/System/Clock.hpp>
 #include "Animation.hpp"
 #include "DefaultEnemy.hpp"
 #include "Entity.hpp"
@@ -8,9 +11,6 @@
 #include "PlayerAura.hpp"
 #include "ResourceManager.hpp"
 #include "ShopMenu.hpp"
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/System/Clock.hpp>
 
 class Level;
 
@@ -45,7 +45,7 @@ private:
 	bool isColliding(Entity *entity1, Entity *entity2);
 	void detectCollisions();
 	void killDeadEntities();
-	void auraAddSub(Entity *entity, Entity::EntityVector &entities);
+	void auraAddSub(Entity *entity1, Entity *entity2, Entity::EntityVector &entities);
 
 	/*Menyrelaterade funktioner*/
 
@@ -61,7 +61,7 @@ private:
 	int mGold;
 	int mScore;
 	EntityVector entityVector;
-
+	
 	MainMenu mainMenu;
 	ShopMenu shopMenu;
 	Level* mLevel;

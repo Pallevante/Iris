@@ -1,10 +1,10 @@
 #pragma once
+#include <map>
+#include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio/Music.hpp>
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
-#include <map>
-#include <string>
 
 class ResourceManager{
 
