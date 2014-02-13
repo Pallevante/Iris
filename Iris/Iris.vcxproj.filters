@@ -4,15 +4,6 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadLevel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -49,18 +40,21 @@
     <ClCompile Include="Ray.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Source Files\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadLevel.cpp">
+      <Filter>Source Files\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadLevel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.hpp">
@@ -93,6 +87,12 @@
     <ClInclude Include="Ray.hpp">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="LoadLevel.hpp">
+      <Filter>Header Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.hpp">
+      <Filter>Header Files\Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -100,9 +100,6 @@
     </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{e40694ad-569b-4880-9d00-14c30930544b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Menu">
-      <UniqueIdentifier>{c8c1e6e4-d460-47dd-abf2-11441bf4c71a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Entities">
       <UniqueIdentifier>{c67c7370-08fc-4792-b2f4-4dd8774f3115}</UniqueIdentifier>
@@ -112,6 +109,15 @@
     </Filter>
     <Filter Include="Source Files\Entities">
       <UniqueIdentifier>{69fe8f8b-d0b4-4544-9366-3ca176951a15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Level">
+      <UniqueIdentifier>{251d7ce7-0036-4f3f-8423-046114df0c65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Level">
+      <UniqueIdentifier>{c7bc160a-9274-4b4a-ac97-80ab4c3714c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Menu">
+      <UniqueIdentifier>{c8c1e6e4-d460-47dd-abf2-11441bf4c71a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
