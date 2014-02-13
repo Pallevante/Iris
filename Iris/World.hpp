@@ -1,16 +1,15 @@
 #pragma once
-#include "ResourceManager.hpp"
-#include "Entity.hpp"
-#include "Player.hpp"
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include "Animation.hpp"
 #include "DefaultEnemy.hpp"
+#include "Entity.hpp"
 #include "LoadLevel.hpp"
 #include "MainMenu.hpp"
-#include "ShopMenu.hpp"
+#include "Player.hpp"
 #include "PlayerAura.hpp"
-=======
+#include "ResourceManager.hpp"
+#include "ShopMenu.hpp"
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 
 class Level;

@@ -1,5 +1,4 @@
 #include "PlayerAura.hpp"
-sf::Clock reloadTimer;
 
 /*Public funktioner*/
 
@@ -18,10 +17,9 @@ mRad(20.f)
 
 PlayerAura::~PlayerAura(){}
 
-void PlayerAura::tick(EntityVector &entities){
-	move();
+void PlayerAura::tick(EntityVector &entities, float dt){
+	move(dt);
 	aura();
-	fire(entities);
 	mAnimation->Update();
 	
 }
@@ -125,7 +123,7 @@ int PlayerAura::getWidth() const {
 
 
 /*Private medlemsfunktioner*/
-void PlayerAura::move(){
+void PlayerAura::move(float dt){
 
 	float currentX = mAnimation->getSprite().getPosition().x;
 	float currentY = mAnimation->getSprite().getPosition().y;
@@ -166,16 +164,4 @@ void PlayerAura::aura(){
 	
 }
 
-void PlayerAura::fire(EntityVector &entities){
-
-	sf::Time isReloaded = reloadTimer.getElapsedTime();
-	if (isReloaded.asMilliseconds() > 300){
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-			entities.push_back(new Ray(getPosition()));
-			/* Spelar upp skjutljud */
-			play("resource/shoot.wav");
-			reloadTimer.restart();
-		}
-	}
-}
 

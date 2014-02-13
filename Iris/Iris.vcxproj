@@ -99,7 +99,7 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="World.cpp" />
-    <ClCompile Include="World_menus.cpp" />  
+    <ClCompile Include="World_menus.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />

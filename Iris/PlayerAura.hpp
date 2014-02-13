@@ -25,14 +25,14 @@ public:
 	virtual int collide(Entity *entity, EntityVector &entities);
 	//int collide1(Entity *entity, Entity *entity1, EntityVector &entities);
 	virtual bool isAlive();
-	virtual void tick(EntityVector &entities);
+	virtual void tick(EntityVector &entities, float dt);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
 		target.draw(mAnimation->getSprite(), states);
 	}
 	
 		
 private:
-	void move();
+	void move(float dt);
 	void fire(EntityVector &enteties);
 	void aura();
 	Animation* mAnimation;

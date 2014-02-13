@@ -1,4 +1,5 @@
 #include "Player.hpp"
+sf::Clock reloadTimer;
 
 /*Public funktioner*/
 
