@@ -4,8 +4,11 @@
 
 PlayerAura::PlayerAura(float xPosition, float yPosition, float speedMultiplier) :
 mHealth(1),
-mSpeed(4 * speedMultiplier),
+mSpeed(6 * speedMultiplier),
+mAcceleration(0.5f * speedMultiplier),
 mIsAlive(true),
+
+
 //Måste ändras relativt till bilden.
 mRad(20.f)
 {
@@ -124,25 +127,41 @@ int PlayerAura::getWidth() const {
 
 /*Private medlemsfunktioner*/
 void PlayerAura::move(float dt){
-
 	float currentX = mAnimation->getSprite().getPosition().x;
 	float currentY = mAnimation->getSprite().getPosition().y;
-	
 
+	sf::Vector2f oldVelocity = mVelocity;
+
+	/* Om den nuvarande hastigheten mVelocity är mindre än maxhastigheten, mSpeed, så ökas den nuvarande hastigheten med accelerationen, mAcceleration */
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-		currentX += mSpeed;
+		if (mVelocity.x < mSpeed){
+			mVelocity.x += mAcceleration;
+		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-		currentX -= mSpeed;
+		if (mVelocity.x > -mSpeed){
+			mVelocity.x -= mAcceleration;
+		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-
-		currentY += mSpeed;
+		if (mVelocity.y < mSpeed){
+			mVelocity.y += mAcceleration;
+		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-		currentY -= mSpeed;
+		if (mVelocity.y > -mSpeed){
+			mVelocity.y -= mAcceleration;
+		}
 	}
+	/* För att sakta ner spelaren gångras den nuvarande hastigheten med ett värde som är mindre än 1. */
+	mVelocity.x = mVelocity.x*0.935f;
+	currentX = currentX + (oldVelocity.x + mVelocity.x) * 0.5 * dt;
+
+	mVelocity.y = mVelocity.y*0.935f;
+	currentY = currentY + (oldVelocity.y + mVelocity.y) * 0.5 * dt;
+	/* Den nuvarande positionen uppdateras med det nya värdet */
 	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
+
 }
 
 

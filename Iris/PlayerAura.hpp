@@ -42,4 +42,5 @@ private:
 	float mRad;
 	bool mIsAlive;
 	sf::Vector2f mVelocity;
+	float mAcceleration;
 };

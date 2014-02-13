@@ -6,7 +6,7 @@ sf::Music* music = new sf::Music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 int spawnTimeLimit =  500;
-int FRAME_LIMIT = 60;
+unsigned int FRAME_LIMIT = 60;
 
 World::World(): 
 entityVector(){	
@@ -15,11 +15,10 @@ entityVector(){
 	PlayerAura *mPlayerAura;	
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
-	mPlayer = new Player(100, 100);
 	mPlayerAura = new PlayerAura(100, 100);
-	entityVector.push_back(mPlayer);
+	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayerAura);
-	
+	entityVector.push_back(mPlayer);
 }
 
 World::~World(){}
