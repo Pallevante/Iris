@@ -9,8 +9,9 @@ Player::Player(float xPosition, float yPosition, float speedMultiplier) :
 
 mDamage(10),
 mSpeed(6 * speedMultiplier),
-mAcceleration(0.8f * speedMultiplier),
+mAcceleration(0.5f * speedMultiplier),
 mIsAlive(true),
+
 
 //Måste ändras relativt till bilden.
 mRad(20.f)
@@ -33,10 +34,10 @@ void Player::tick(EntityVector &entities, float dt){
 
 int Player::collide(Entity *entity, EntityVector &entities){
         
-        if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
-                mHealth -= entity->getDamage() / 2;                
+    if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
+        mHealth -= entity->getDamage() / 2;                
         }
-        return 0;
+    return 0;
 }
 
 
@@ -119,9 +120,8 @@ void Player::move(float dt){
 
 void Player::fire(EntityVector &entities){
 
-
 	sf::Time isReloaded = reloadTimer.getElapsedTime();
-	if (isReloaded.asMilliseconds() > 200){
+	if (isReloaded.asMilliseconds() > 500){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 
 			entities.push_back(new Ray(getPosition()));
@@ -131,5 +131,4 @@ void Player::fire(EntityVector &entities){
 
 		}
 	}
-
 }

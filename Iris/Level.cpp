@@ -1,16 +1,11 @@
 #include "Level.hpp"
 
-
-//Level::Level(float spawnMini, float spawnMax, float requirement, float specialMin,
-//	float specialMax, float obstMin, float obstMax, sf::Texture &texture): mSpawnMini(spawnMini),
-//	mSpawnMax(spawnMax),mRequirment(requirement), mSpecialMin(specialMin), mSpecialMax(specialMax)
-//	,mObstSpawn(obstMin),mObstMax(obstMax) ,mTexture(texture){
-//	
-//}
+ResourceManager::TextureVector clVector;
+ResourceManager::TextureVector bgVector;
+sf::Clock WorldClock;
 
 Level::Level(){
-	
-	
+
 }
 Level::~Level(){
 
@@ -19,13 +14,11 @@ Level::~Level(){
 
 void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,
 	float obstMax, float specialMin, float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level){
-	
 
-	switch (level)
-	{
+	switch (level){
 	case 1:
-		chooseWhiteTexture = "resource/test.jpg";
-		chooseColoredTexture = "resource/TestRawr.jpg";
+		chooseWhiteTexture = "resource/textures/backgrounds/usa_bild_grå.png";
+		chooseColoredTexture = "resource/textures/backgrounds/usa_bild_blå.png";
 		break;
 	case 2:
 		chooseWhiteTexture = "resource/test.png";
@@ -58,8 +51,11 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	default:
 		break;
 	}
-//	ResourceManager::getLevel(chooseLevel);
-	
+	// ResourceManager::getLevel(chooseLevel);
+
+
+
+
 	mSpawnMin = spawnMin;
 	mSpawnMax = spawnMax;
 	mObstSpawnMin = obstSpawnMin;
@@ -67,20 +63,16 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	mRequirment = requirment;
 	mSpecialMin = specialMin;
 	mSpecialMax = specialMax;
-    mMaxSpecialSpawn = maxSpecialSpawn;
+	mMaxSpecialSpawn = maxSpecialSpawn;
 	mMaxSpawnEnemies = maxSpawnEnemies;
+	// mTexture = texture;
+	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
+	clVector = ResourceManager::getLevel(chooseColoredTexture);
 
-	ResourceManager::TextureVector bgVector = ResourceManager::getLevel(chooseWhiteTexture);
-	ResourceManager::TextureVector bgVector2 = ResourceManager::getLevel(chooseColoredTexture);
-//	mTexture = texture;
 
-//	mSpriteWhite.setTexture(ResourceManager::getLevel(chooseWhiteTexture));
-//	mSpriteColor.setTexture(ResourceManager::getLevel(chooseColoredTexture));
 }
 
 int Level::getRandomNumber(){
-
-
 	return rand() % 10;
 }
 
@@ -98,21 +90,17 @@ void Level::spawnBasicEnemies(Entity::EntityVector &entityVector){
 
 		if (getRandomNumber() == 1 && spawnCount < mMaxSpawnEnemies){
 			spawnCount++;
-
 			entityVector.push_back(new DefaultEnemy(1));
-
 		}
 
 	}
-		
-	 if (spawnDefaultT.asSeconds() >= mSpawnMax){
-		 entityVector.push_back(new DefaultEnemy(1));
 
+	if (spawnDefaultT.asSeconds() >= mSpawnMax){
+		entityVector.push_back(new DefaultEnemy(1));
 		mDefaultCl.restart();
-		
 	}
 
-}  
+}
 
 void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
@@ -127,13 +115,11 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 		if (getRandomNumber() == 1 && spawnCount < mMaxSpecialSpawn){
 			spawnCount++;
 			entityVector.push_back(new DefaultEnemy(1));
-
 		}
 
 	}
 
 	if (spawnSpecialT.asSeconds() >= mSpecialMax){
-
 		entityVector.push_back(new DefaultEnemy(1));
 		mSpecialCl.restart();
 	}
@@ -143,27 +129,28 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 /*Kallar på spawn-funktioner*/
 void Level::spawn(Entity::EntityVector &entityVector){
 
-	if (mSpecialMax > 0 ){
-
+	if (mSpecialMax > 0){
 		spawnSpecialEnemies(entityVector);
-
 	}
-
 	spawnBasicEnemies(entityVector);
 }
 
 
 float Level::percentRequirement(){
-
+	
 	return mRequirment;
 }
 
+std::string Level::getTheme(int level){
+	if (level == 1){
+		return "resource/sounds/Level1Theme.ogg";
+	}
+}
+
+
 
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
-void Level::moveBackground(sf::RenderWindow *window){
-
-	
-//	mBackgroundRect = mSpriteWhite.getGlobalBounds();
+void Level::moveBackground(sf::RenderWindow &window){
 
 //	if (World::mGold == 0){
 //		opacity = 0;
@@ -174,19 +161,10 @@ void Level::moveBackground(sf::RenderWindow *window){
 //		if (opacity < 254){
 //			opacity++;
 //		}
-//		
+//
 //	}
-//	mSpriteColor.setColor(sf::Color(255, 255, 255, opacity));
-	ResourceManager::drawLevel(*window, bgVector, 1.0f, sf::Color(255,255,255, 255));
-	ResourceManager::drawLevel(*window, bgVector2, 1.0f, sf::Color(255, 255, 255, opacity));
 
-	//window->draw(mSpriteWhite);
-	//window->draw(mSpriteColor);
-	
-	//if (mBackgroundRect.left + mBackgroundRect.width > window->getSize().x){
-	//	mSpriteWhite.move(-1, 0);
-	//	mSpriteColor.move(-1, 0);
-	//}
-	
+	ResourceManager::drawLevel(window, bgVector, (200), sf::Color(255, 255, 255, 255));
+	ResourceManager::drawLevel(window, clVector, (200), sf::Color(255, 255, 255, 0));
+
 }
-

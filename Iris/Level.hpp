@@ -1,31 +1,36 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "World.hpp"
-#include "Enemies.hpp"
+#include "Enemy.hpp"
 #include "ResourceManager.hpp"
-
 
 class Level {
 public:
 
-//	Level(float spawnMini, float spawnMax, float requirement, float specialMin,
-//		float specialMax, float obstMin, float obstMax, sf::Texture &texture);
+	// Level(float spawnMini, float spawnMax, float requirement, float specialMin,
+	// float specialMax, float obstMin, float obstMax, sf::Texture &texture);
 	Level();
 	~Level();
 	/*Spawn:ar default enemies*/
 	void spawnBasicEnemies(Entity::EntityVector &entityVector);
 	/*Spawn:ar Skjutare*/
 	void spawnSpecialEnemies(Entity::EntityVector &entityVector);
-	void set(float spawnMini, float spawnMax, float requirment, float obstSpawnMin, 
-		float obstMax, float specialMin, 
-		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level);
+	
+	void set(float spawnMini, float spawnMax, float requirment, 
+		float obstSpawnMin,	float obstMax, float specialMin, 
+		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
+		int level);
+
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
+
 	float percentRequirement();
-	void moveBackground(sf::RenderWindow *window);
+	void moveBackground(sf::RenderWindow &window);
+	std::string getTheme(int level);
 	sf::Sprite getBackground();
 
-	private:
+private:
+
 	float mSpawnMin;
 	float mSpawnMax;
 	float mSpecialMin;
@@ -33,7 +38,7 @@ public:
 	float mObstSpawnMin;
 	float mObstMax;
 	float mRequirment;
-//	float mSpawn;
+	// float mSpawn;
 	float mRandomSpawn;
 	/*maxx antal enemies som spawnas*/
 	int mMaxSpawnEnemies;
@@ -45,12 +50,7 @@ public:
 	sf::Clock mDefaultCl;
 	sf::Clock mSpecialCl;
 
-	sf::Sprite mSpriteWhite;
-	sf::Sprite mSpriteColor;
-	//sf::Texture mTexture;
-	sf::FloatRect mBackgroundRect;
 	Enemy *enemy;
 
-	ResourceManager::TextureVector bgVector;
-	ResourceManager::TextureVector bgVector2;
+	sf::IntRect backgroundRect;
 };

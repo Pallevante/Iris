@@ -2,33 +2,27 @@
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
+sf::Music* music = new sf::Music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
-
+int spawnTimeLimit = 500;
+int FRAME_LIMIT = 60;
 int World::mGold;
 
-
-int spawnTimeLimit =  500;
-int FRAME_LIMIT = 60;
-
 World::World() :
-
-entityVector()
-{
-
-	currentState = PLAYING;
-
-	currentState = INMENU;	
-
+entityVector(){
+	currentState = INMENU;
 	Player *mPlayer;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
+
 }
 
 World::~World(){}
-
+bool isPlaying = false; /*Kollar om man spelar musik*/
+bool loadedMap = false;
 void World::run(){
 	while (window.isOpen())	{
 
@@ -36,13 +30,13 @@ void World::run(){
 		float expectedTime = ((1.0f / FRAME_LIMIT) * 1000000);
 		float dt = deltaTime / expectedTime;
 
-
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed){
 				window.close();
-
+				ResourceManager::clear();
+			}
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 				pause();
 			/* Debug-funktioner */
@@ -52,9 +46,15 @@ void World::run(){
 				window.setFramerateLimit(FRAME_LIMIT);
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
 			menuInput(event);
-
 		}
+
+
 		window.clear();
+
+
+		if (currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+			menuInput(event);
+
 
 		if (currentState == INMENU){
 			mainMenu.drawMenu(window);
@@ -63,21 +63,40 @@ void World::run(){
 		if (currentState == INSHOP){
 			shopMenu.drawMenu(window);
 		}
-		
+		if (currentState == PAUSED){
+			music->pause();
+			isPlaying = false;
+			renderImages();
+		}
 
+		/*Använder en instans av GameState för att veta vad den skall göra.
+		Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
-			mCurrentLevel = mLoadLevel.LevelEnum::firstLevel;
-			//mLoadLevel.setLevel(mCurrentLevel);
-			mLevel = mLoadLevel.getLevel();
+
+			if (!loadedMap){
+				mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
+				mLoadLevel.setLevel(mCurrentLevel);
+				mLevel = mLoadLevel.getLevel();
+				music = ResourceManager::getMusic(mLevel->getTheme(1));
+				loadedMap = true;
+			}
+
+			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
+			if (!isPlaying){
+				music->play();
+				isPlaying = true;
+			}
+
 			tick(dt);
 
 			startGame();
 		}
-		mLevel->moveBackground(&window);
 		window.display();
 	}
 }
+
+
 void World::startGame(){
 	detectCollisions();
 	killDeadEntities();
@@ -86,11 +105,10 @@ void World::startGame(){
 }
 
 void World::renderImages(){
+	mLevel->moveBackground(window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
-		
 	}
-
 
 }
 
@@ -133,7 +151,7 @@ void World::detectCollisions(){
 
 		for (unsigned int j = i + 1; j < entityVector.size(); j++){
 			Entity *entity1 = entityVector[j];
-
+			/*Du använder en check i collision i world om typen är GOLD sedan hämtar du damage för värdet.*/
 			if (isColliding(entity0, entity1) && entity0->getType() != entity1->getType()){
 				entity0->collide(entity1, entityVector);
 				entity1->collide(entity0, entityVector);
@@ -141,6 +159,8 @@ void World::detectCollisions(){
 		}
 	}
 }
+
+
 /*Skapar en ny vektor som sedan lägger in alla levande entiteter.
 Den nya vektorn uppdaterar våran "main" vektor sedan.*/
 void World::killDeadEntities(){
@@ -154,19 +174,10 @@ void World::killDeadEntities(){
 	entityVector = reserveEnteties;
 }
 
-/*Denna tiomern får vi hämta ifrån levelload sedan då det kommmer olika många fiender på olika banor.*/
+
 void World::spawnEnemies(){
-	sf::Time time = spawnTimer.getElapsedTime();
-
-	if (time.asMilliseconds() > 600){
-
-		entityVector.push_back(new DefaultEnemy(1));
-		mGold++;
-
-		spawnTimer.restart();
-	}
+	mLevel->spawn(entityVector);
 }
-
 
 void World::pause(){
 	if (currentState == PLAYING){
@@ -184,12 +195,13 @@ void World::pause(){
 }
 
 
+
 /*
-              __	- FML.
-	         / _)
-	_/\/\/\_/ /
-  /			 |
- / (  |	 (	|
-/   |_|---|_|
+__	- FML.
+/ _)
+_/\/\/\_/ /
+/			 |
+/ (  |	  (  |
+/   |_|--- |_|
 
 */

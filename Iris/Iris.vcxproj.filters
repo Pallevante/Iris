@@ -1,110 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemies.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DefaultEnemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadLevel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-
-    <ClCompile Include="World_menus.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Source Files\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Files\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="ShopMenu.cpp">
-      <Filter>Source Files\Menu</Filter>
-    </ClCompile>
-
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="DefaultEnemy.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LoadLevel.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="ShopMenu.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="World.cpp" />
+    <ClCompile Include="World_menus.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Player.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ray.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="World.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemies.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultEnemy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadLevel.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenu.hpp">
-      <Filter>Header Files\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.hpp">
-      <Filter>Header Files\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="ShopMenu.hpp">
-      <Filter>Header Files\Menu</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{f88f7309-5e65-4629-a54d-2a6d376d419c}</UniqueIdentifier>
-      <Extensions>hpp;h</Extensions>
-    </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{bf67f524-217b-44ec-9ff1-666f8e01937d}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Source Files\Menu">
-      <UniqueIdentifier>{8f59f307-b8ec-46eb-a24e-943fde22ebea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Menu">
-      <UniqueIdentifier>{1e0d22af-5ee0-4e44-8056-9ffef7ac549b}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="DefaultEnemy.hpp" />
+    <ClInclude Include="Enemy.hpp" />
+    <ClInclude Include="Entity.hpp" />
+    <ClInclude Include="Level.hpp" />
+    <ClInclude Include="LoadLevel.hpp" />
+    <ClInclude Include="MainMenu.hpp" />
+    <ClInclude Include="Menu.hpp" />
+    <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Ray.hpp" />
+    <ClInclude Include="ResourceManager.hpp" />
+    <ClInclude Include="ShopMenu.hpp" />
+    <ClInclude Include="World.hpp" />
   </ItemGroup>
 </Project>
