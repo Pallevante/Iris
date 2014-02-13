@@ -21,9 +21,11 @@ public:
 
 	void setColor(sf::Color& color);
 
-
 	/* Getters */
 	const sf::Sprite getSprite();
+
+	const sf::Color getColor();
+
 private:
 	/* Medlemsvariablar */
 	sf::Clock mFrameTimer;

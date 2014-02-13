@@ -15,10 +15,11 @@ entityVector()
 	Player *mPlayer;
 	PlayerAura *mPlayerAura;
 	window.setFramerateLimit(65);
-	mPlayerAura = new PlayerAura(35, 40);
+	mPlayerAura = new PlayerAura(100, 100);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayerAura);
 	entityVector.push_back(mPlayer);
+	
 }
 
 World::~World(){}
@@ -85,6 +86,7 @@ void World::tick(){
 }
 
 
+
 /* Tar emot två Entitypekare och returnerar om de kolliderar eller inte. Används som stödfunktion till detectCollisions. */
 bool World::isColliding(Entity *entity1, Entity *entity2){
 	int width1 = entity1->getWidth();
@@ -137,6 +139,15 @@ void World::killDeadEntities(){
 	}
 	entityVector = reserveEnteties;
 }
+
+void World::auraAddSub(Entity *entity, Entity::EntityVector &entities){
+	
+	
+
+	
+
+}
+
 
 /*Denna tiomern får vi hämta ifrån levelload sedan då det kommmer olika många fiender på olika banor.*/
 void World::spawnEnemies(){

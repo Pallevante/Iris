@@ -46,8 +46,11 @@ void Animation::setColor(sf::Color& color){
 }
 
 
-
 /* Getters */
 const sf::Sprite Animation::getSprite(){
 	return mSprite;
+}
+
+const sf::Color Animation::getColor(){
+	return mColor;
 }

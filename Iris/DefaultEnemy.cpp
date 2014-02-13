@@ -44,7 +44,7 @@ void DefaultEnemy::setDamage(int newDamage){
 }
 
 int DefaultEnemy::collide(Entity *e0, EntityVector &entities){
-	if (e0->getDamage() > 0 && e0->getType() != getType()){
+	if (e0->getDamage() > 0 && e0->getType() != Entity::Type::ENEMY){
 		mIsDying = true;
 		return 5;
 	}
@@ -67,6 +67,7 @@ void DefaultEnemy::tick(EntityVector &entities){
 /*Enemy Basfunktioner*/
 void DefaultEnemy::death(){
 	mAnimation->setPosition(sf::Vector2f(getPosition().x, getPosition().y - 15));
+	DefaultEnemy::setDamage(0);
 	if (getPosition().y < -140){
 		mIsAlive = false;
 	}

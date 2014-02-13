@@ -1,6 +1,4 @@
 #include "Player.hpp"
-sf::Clock reloadTimer;
-
 
 /*Public funktioner*/
 
@@ -27,7 +25,6 @@ Player::~Player(){}
 
 void Player::tick(EntityVector &entities){
 	move();
-	fire(entities);
 	mAnimation->Update();
 		
 	
@@ -100,16 +97,5 @@ void Player::move(){
 	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
 }
 
-void Player::fire(EntityVector &entities){
 
-	sf::Time isReloaded = reloadTimer.getElapsedTime();
-	if (isReloaded.asMilliseconds() > 200){
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-			entities.push_back(new Ray(getPosition()));
-			/* Spelar upp skjutljud */
-			play("resource/shoot.wav");
-			reloadTimer.restart();
-		}
-	}
-}
 

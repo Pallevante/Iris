@@ -42,6 +42,7 @@ private:
 	bool isColliding(Entity *entity1, Entity *entity2);
 	void detectCollisions();
 	void killDeadEntities();
+	void auraAddSub(Entity *entity, Entity::EntityVector &entities);
 
 	/*Menyrelaterade funktioner*/
 	void menuInput(sf::Event &event);
