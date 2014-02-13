@@ -92,29 +92,29 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Menu.hpp" />
-    <ClCompile Include="PlayerAura.cpp" />
     <ClCompile Include="ShopMenu.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerAura.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="Enemies.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="World.cpp" />
-    <ClCompile Include="World_menus.cpp" />
+    <ClCompile Include="World_menus.cpp" />  
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="DefaultEnemy.hpp" />
-    <ClInclude Include="Enemies.hpp" />
+    <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="Level.hpp" />
     <ClInclude Include="LoadLevel.hpp" />
     <ClInclude Include="MainMenu.hpp" />
-    <ClInclude Include="PlayerAura.hpp" />
-    <ClInclude Include="ShopMenu.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="PlayerAura.hpp" />
     <ClInclude Include="Ray.hpp" />
     <ClInclude Include="ResourceManager.hpp" />
+    <ClInclude Include="ShopMenu.hpp" />
     <ClInclude Include="World.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

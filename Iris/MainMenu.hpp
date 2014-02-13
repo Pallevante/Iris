@@ -15,6 +15,6 @@ public:
 	MainMenu();
 	~MainMenu();
 
-	int getMaxItems();
+	unsigned int getMaxItems();
 private:
 };

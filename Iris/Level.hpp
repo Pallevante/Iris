@@ -1,43 +1,55 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "World.hpp"
-#include "Enemies.hpp"
+#include "Enemy.hpp"
+#include "ResourceManager.hpp"
 
 class Level {
 public:
+
 	// Level(float spawnMini, float spawnMax, float requirement, float specialMin,
 	// float specialMax, float obstMin, float obstMax, sf::Texture &texture);
 	Level();
 	~Level();
-	/*Spawn:ar enemies*/
-	void spawnBasicEnemies(Entity::EntityVector &mEntities);
-	void set(float spawnMini, float spawnMax, float requirment, float obstSpawnMin,
-	float obstMax, int MaxSpawnEnemies);
-	float percentRequirement(float requirement);
+	/*Spawn:ar default enemies*/
+	void spawnBasicEnemies(Entity::EntityVector &entityVector);
+	/*Spawn:ar Skjutare*/
+	void spawnSpecialEnemies(Entity::EntityVector &entityVector);
 
-	/*obst är en förkortning för obstacle*/
-	float obstacleSpawnTimeMin(float obstSpawn);
-	float obstacleSpawnTimeMax(float obstMax);
+	void set(float spawnMini, float spawnMax, float requirment, 
+		float obstSpawnMin,	float obstMax, float specialMin, 
+		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
+		int level);
 
+	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
-
-	void setBackground(sf::Texture &texture);
+	float percentRequirement(float requirement);
+	void drawBackground(sf::RenderWindow *window);
+	void moveBackground(sf::RenderWindow *window);
+	std::string getTheme(int level);
 	sf::Sprite getBackground();
 private:
-	sf::Texture mTexture;
-	sf::Sprite mSprite;
-	float mSpawnMini;
+	float mSpawnMin;
 	float mSpawnMax;
-	float mRequirment;
-	// float mSpecialMin;
-	// float mSpecialMax;
+	float mSpecialMin;
+	float mSpecialMax;
 	float mObstSpawnMin;
 	float mObstMax;
-	float mSpawn;
+	float mRequirment;
+	// float mSpawn;
 	float mRandomSpawn;
 	/*maxx antal enemies som spawnas*/
 	int mMaxSpawnEnemies;
-	//Animation *animation;
-	sf::Clock mDefaultCl;
+	int mMaxSpecialSpawn;
 
+	std::string chooseWhiteTexture;
+	std::string chooseColoredTexture;
+
+	sf::Clock mDefaultCl;
+	sf::Clock mSpecialCl;
+
+	sf::Sprite mSpriteWhite;
+	sf::Sprite mSpriteColor;
+	//sf::Texture mTexture;
+	sf::FloatRect mBackgroundRect;
 };

@@ -22,8 +22,8 @@ public:
 	virtual void setDamage(int newDamage);
 	virtual int collide(Entity *e0, EntityVector &entities);
 	virtual bool isAlive();
-	virtual void tick(EntityVector &entities);
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
+	virtual void tick(EntityVector &entities, float dt);
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
 		target.draw(mAnimation->getSprite(), states);
 	}
 
@@ -31,13 +31,16 @@ public:
 
 
 
-private: 
-	void move();
+private:
+	void move(float dt);
+	void fire(EntityVector &enteties);	
 	Animation* mAnimation;
+
 	float mSpeed;
 	int mHealth;
 	int mDamage;
 	float mRad;
 	bool mIsAlive;
 	sf::Vector2f mVelocity;
+	float mAcceleration;
 };

@@ -1,7 +1,8 @@
 #pragma once
-#include "Enemies.hpp"
+#include "Enemy.hpp"
 #include "Animation.hpp"
 #include "Ray.hpp"
+#include <cstdlib>
 
 class DefaultEnemy : public Enemy {
 public:
@@ -16,18 +17,20 @@ public:
 	virtual void setDamage(int newDamage);
 	virtual int collide(Entity *e0, EntityVector &entities);
 	virtual bool isAlive();
-	virtual void tick(EntityVector &entities);
 
+	virtual Movement getMovement();
+	virtual void tick(EntityVector &entities, float dt);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
 		target.draw(mAnimation->getSprite(), states);
 
 	}
 	/*Medlemsfunktioner för Enemy*/
-	virtual void death();
+	virtual void death(float dt);
 	virtual void fire(EntityVector &enteties);
-	virtual void move();
+	virtual void move(float dt);
 	virtual void useAbility();
 private:
+	float setYPos(); 
 	Animation* mAnimation;
 	float mSpeed;
 	bool mIsAlive;
