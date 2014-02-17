@@ -40,7 +40,7 @@ void Ray::setDamage(int newDamage){
 }
 
 int Ray::collide(Entity *e0, EntityVector &entities){
-	if (e0->getDamage() > 0 && e0->getType() != Type::PLAYER){
+	if (e0->getType() == ENEMY){
 		mIsAlive = false;		
 	}
 	return 0;

@@ -2,6 +2,7 @@
 #include <SFML\Graphics.hpp>
 #include "World.hpp"
 #include "Enemy.hpp"
+#include "Gold.hpp"
 #include "ResourceManager.hpp"
 
 class Level {
@@ -15,7 +16,9 @@ public:
 	void spawnBasicEnemies(Entity::EntityVector &entityVector);
 	/*Spawn:ar Skjutare*/
 	void spawnSpecialEnemies(Entity::EntityVector &entityVector);
-
+	
+	/*Spawn:ar Guld*/
+	void spawnGold(Entity::EntityVector &entityVector);
 	void set(float spawnMini, float spawnMax, float requirment, 
 		float obstSpawnMin,	float obstMax, float specialMin, 
 		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
@@ -41,6 +44,10 @@ private:
 	/*maxx antal enemies som spawnas*/
 	int mMaxSpawnEnemies;
 	int mMaxSpecialSpawn;
+
+	void drawLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color);
+	void moveLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color);
+
 
 	std::string chooseWhiteTexture;
 	std::string chooseColoredTexture;

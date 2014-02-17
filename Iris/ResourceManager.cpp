@@ -91,16 +91,6 @@ std::vector<sf::Texture>& ResourceManager::getLevel(const std::string& filename)
 	return mLevels[filename];
 }
 
-void ResourceManager::drawLevel(sf::RenderWindow& window, TextureVector& bgVector, float speed, sf::Color& color){
-	/* Skapar och ritar ut sprites på relativa positioner */
-	for (std::vector<sf::Texture>::size_type i = 0; i < bgVector.size(); i++){
-		sf::Sprite newSprite;
-		newSprite.setTexture(bgVector[i]);
-		newSprite.setPosition((i * 1024) - speed, 0);
-		newSprite.setColor(color);
-		window.draw(newSprite);
-	}
-}
 
 /* Det här är min bane */
 std::map<std::string, sf::Texture> ResourceManager::mTextures;

@@ -59,7 +59,6 @@ private:
 	int mGold;
 	int mScore;
 	EntityVector entityVector;
-
 	MainMenu mainMenu;
 	ShopMenu shopMenu;
 	Level* mLevel;

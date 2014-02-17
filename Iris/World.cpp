@@ -16,10 +16,11 @@ entityVector(){
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
-	
+	loadMap();	
 }
 
 World::~World(){}
+
 bool isPlaying = false; /*Kollar om man spelar musik*/
 bool loadedMap = false;
 void World::run(){
@@ -43,6 +44,7 @@ void World::run(){
 				window.setFramerateLimit(10);
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F2)
 				window.setFramerateLimit(FRAME_LIMIT);
+		
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
 			menuInput(event);
 		}
@@ -50,11 +52,6 @@ void World::run(){
 
 		window.clear();
 		
-		
-		if (currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-			menuInput(event);
-
-
 		if (currentState == INMENU){
 			mainMenu.drawMenu(window);
 		}
@@ -74,11 +71,7 @@ void World::run(){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
 
 			if (!loadedMap){
-				mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
-				mLoadLevel.setLevel(mCurrentLevel);
-				mLevel = mLoadLevel.getLevel();
-				music = ResourceManager::getMusic(mLevel->getTheme(1));	
-				loadedMap = true;
+				loadMap();
 			}
 
 			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
@@ -95,6 +88,15 @@ void World::run(){
 	}
 }
 
+void World::loadMap(){
+	mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
+	mLoadLevel.setLevel(mCurrentLevel);
+	mLevel = mLoadLevel.getLevel();
+	music = ResourceManager::getMusic(mLevel->getTheme(1));
+	loadedMap = true;
+}
+
+
 
 void World::startGame(){
 	detectCollisions();
@@ -104,7 +106,7 @@ void World::startGame(){
 }
 
 void World::renderImages(){
-	mLevel->moveBackground(window);
+	mLevel->drawBackground(window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 	}
@@ -112,6 +114,7 @@ void World::renderImages(){
 }
 
 void World::tick(float dt){
+	mLevel->moveBackground(window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		entityVector[i]->tick(entityVector, dt);
 	}
@@ -152,6 +155,11 @@ void World::detectCollisions(){
 			Entity *entity1 = entityVector[j];
 			/*Du använder en check i collision i world om typen är GOLD sedan hämtar du damage för värdet.*/
 			if (isColliding(entity0, entity1) && entity0->getType() != entity1->getType()){
+				if (entity0->getType() == Entity::GOLD)
+					mGold += entity0->getDamage();
+				else if (entity1->getType() == Entity::GOLD)
+					mGold += entity1->getDamage();
+
 				entity0->collide(entity1, entityVector);
 				entity1->collide(entity0, entityVector);
 			}
@@ -194,9 +202,8 @@ void World::pause(){
 }
 
 
-
 /*
-__	- FML.
+			 __	- FML.
             / _)
    _/\/\/\_/ /
   /			 |

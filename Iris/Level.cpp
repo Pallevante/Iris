@@ -2,7 +2,8 @@
 
 ResourceManager::TextureVector clVector;
 ResourceManager::TextureVector bgVector;
-sf::Clock WorldClock;
+sf::Clock worldClock;
+sf::Clock goldClock;
 
 Level::Level(){
 
@@ -51,10 +52,7 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	default:
 		break;
 	}
-	// ResourceManager::getLevel(chooseLevel);
-
-
-
+	
 
 	mSpawnMin = spawnMin;
 	mSpawnMax = spawnMax;
@@ -65,7 +63,7 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	mSpecialMax = specialMax;
 	mMaxSpecialSpawn = maxSpecialSpawn;
 	mMaxSpawnEnemies = maxSpawnEnemies;
-	// mTexture = texture;
+
 	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
 	clVector = ResourceManager::getLevel(chooseColoredTexture);
 
@@ -126,13 +124,25 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
 
 }
+
+void Level::spawnGold(Entity::EntityVector &entityVector){
+	sf::Time spawnGold = goldClock.getElapsedTime();
+	/*Varannan sekund så spawnas guld.*/
+	if (spawnGold.asSeconds() > 2){
+		entityVector.push_back(new Gold(1200, 350));		
+		goldClock.restart();
+	}
+}
+
+
 /*Kallar på spawn-funktioner*/
 void Level::spawn(Entity::EntityVector &entityVector){
-
+	
 	if (mSpecialMax > 0){
 		spawnSpecialEnemies(entityVector);
 	}
 	spawnBasicEnemies(entityVector);
+	spawnGold(entityVector);
 }
 
 
@@ -147,14 +157,32 @@ std::string Level::getTheme(int level){
 	}
 }
 
-void Level::drawBackground(sf::RenderWindow &window){
-	
+
+void Level::drawLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color){
+	/* Skapar och ritar ut sprites på relativa positioner */
+	for (std::vector<sf::Texture>::iterator it = bgVector.begin(); it != bgVector.end(); it++){
+		sf::Sprite& newSprite = it;
+		newSprite.setTexture(bgVector[it]);
+		newSprite.setColor(color);
+		window.draw(newSprite);
+	}
 }
 
+void Level::moveLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color){
+	for (std::vector<sf::Texture>::size_type it = 0; it < bgVector.size(); it++){
+		sf::Sprite newSprite;
+		newSprite.setTexture(bgVector[it]);
+		newSprite.setPosition((it * 1024) - speed, 0);
+	}
+}
 
-/*flyttar på spriten tills slutet av spriten når högra kanten av window */
 void Level::moveBackground(sf::RenderWindow &window){
-	ResourceManager::drawLevel(window, bgVector, (200), sf::Color(255, 255, 255, 255));
-	ResourceManager::drawLevel(window, clVector, (200), sf::Color(255, 255, 255, 0));
-
+	moveLevel(window, bgVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 255));
+	moveLevel(window, clVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 0));
 }
+
+void Level::drawBackground(sf::RenderWindow &window){
+	drawLevel(window, bgVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 255));
+	drawLevel(window, clVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 0));
+}
+

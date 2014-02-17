@@ -11,14 +11,11 @@ mDamage(10),
 mSpeed(6 * speedMultiplier),
 mAcceleration(0.5f * speedMultiplier),
 mIsAlive(true),
-
-
 //Måste ändras relativt till bilden.
 mRad(20.f)
 {	
 	mAnimation = new Animation("resource/textures/entities/player.png", 100, 8);
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
-
 }
 
 Player::~Player(){}
