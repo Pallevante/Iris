@@ -1,5 +1,8 @@
 #include "Level.hpp"
 
+ResourceManager::TextureVector clVector;
+ResourceManager::TextureVector bgVector;
+sf::Clock WorldClock;
 
 Level::Level(){
 
@@ -8,7 +11,7 @@ Level::~Level(){
 
 
 }
-ResourceManager resourceManager;
+
 void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,
 	float obstMax, float specialMin, float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level){
 		
@@ -63,9 +66,9 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	mMaxSpecialSpawn = maxSpecialSpawn;
 	mMaxSpawnEnemies = maxSpawnEnemies;
 	// mTexture = texture;
-	
-	//ResourceManager::getLevel(chooseWhiteTexture);
-	//ResourceManager::getLevel(chooseColoredTexture);
+	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
+	clVector = ResourceManager::getLevel(chooseColoredTexture);
+
 	
 }
 
@@ -144,19 +147,14 @@ std::string Level::getTheme(int level){
 	}
 }
 
-void Level::drawBackground(sf::RenderWindow *window){
-	window->draw(mSpriteWhite);
+void Level::drawBackground(sf::RenderWindow &window){
+	
 }
 
 
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
-void Level::moveBackground(sf::RenderWindow *window){
-	mBackgroundRect = mSpriteWhite.getGlobalBounds();
-	//Vi bör ha en funktion som hanterar opacitet här.
-	
-	if (mBackgroundRect.left + mBackgroundRect.width > window->getSize().x){
-		mSpriteWhite.move(-1, 0);
-
-	}
+void Level::moveBackground(sf::RenderWindow &window){
+	ResourceManager::drawLevel(window, bgVector, (200), sf::Color(255, 255, 255, 255));
+	ResourceManager::drawLevel(window, clVector, (200), sf::Color(255, 255, 255, 0));
 
 }

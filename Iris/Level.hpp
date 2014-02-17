@@ -24,8 +24,8 @@ public:
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
 	float percentRequirement(float requirement);
-	void drawBackground(sf::RenderWindow *window);
-	void moveBackground(sf::RenderWindow *window);
+	void drawBackground(sf::RenderWindow &window);
+	void moveBackground(sf::RenderWindow &window);
 	std::string getTheme(int level);
 	sf::Sprite getBackground();
 private:
