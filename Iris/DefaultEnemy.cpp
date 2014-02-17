@@ -8,8 +8,14 @@ mIsAlive(true),
 mRad(64)
 {
 	mAnimation = new Animation("resource/textures/entities/enemy.png", 50, 2);
-	mAnimation->setPosition(sf::Vector2f(1200, 500));
+	mAnimation->setPosition(sf::Vector2f(1200, setYPos()));
 }
+
+float DefaultEnemy::setYPos(){
+	return rand() % 720 + 1;
+}
+
+
 
 DefaultEnemy::~DefaultEnemy(){}
 
@@ -23,6 +29,10 @@ float DefaultEnemy::getRad() const {
 
 DefaultEnemy::Type DefaultEnemy::getType() const {
 	return ENEMY;
+}
+
+DefaultEnemy::Movement DefaultEnemy::getMovement(){
+	return WAVE;
 }
 
 int DefaultEnemy::getDamage() const {
@@ -72,12 +82,31 @@ void DefaultEnemy::death(float dt){
 	}
 }
 
+
 void DefaultEnemy::move(float dt){
+	float mXDir;
+	float mYDir;
 	if (!mIsDying){
-		//mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, getPosition().y));
-		float posX = getPosition().x - 5 * dt;
-		float posY = 500 + (40 * sinf(0.005f * getPosition().x));
-		mAnimation->setPosition(sf::Vector2f(posX, posY));
+		if(getMovement() == DEFAULT){
+			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5 * dt, getPosition().y));
+		}
+		else if(getMovement() == WAVE){
+			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 200 + (70*sinf(0.005 * getPosition().x )) ));
+		}
+		/*else if(getMovement() == FOLLOWING){			
+			if (checkUpdateDir.asMilliseconds() > 350){
+				for (EntityVector::iterator i = mEnteties.begin(); i++){
+					Entity* enteties = *i;
+					if (enteties->getType() == PLAYER){
+						float x = enteties->getPosition().x - getPosition().x;
+						float y = enteties->getPosition().x - getPosition().x;
+						mXDir = x / sqrt(powf(x, 2) + powf(y, 2)) * mSpeed;
+						mYDir = y / sqrt(powf(x, 2) + powf(y, 2)) * mSpeed;
+					}
+				}
+			}
+			mAnimation->setPosition(sf::Vector2f(getPosition().x + mXDir * dt, getPosition().y + mYDir * dt));
+		}	*/
 	}
 	else{
 		death(dt);

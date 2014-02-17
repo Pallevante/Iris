@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio/Music.hpp>
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
 #include <map>
@@ -20,7 +21,7 @@ public:
 	static sf::SoundBuffer& getSoundBuffer(const std::string& filename);
 	static sf::Image& getImage(const std::string& filename);
 	static std::vector<sf::Texture>& getLevel(const std::string& filename);
-
+	static sf::Music* getMusic(const std::string& filename);
 	/* Exempel på användning:
 	Initialisera en TextureVector ****UTANFÖR GAMELOOPEN****
 	ResourceManager::TextureVector bgVector = ResourceManager::getLevel("resource/textures/backgrounds/level1.png");
@@ -33,16 +34,19 @@ public:
 	static void drawLevel(sf::RenderWindow& window, TextureVector& bgVector, float speed, sf::Color& color);
 
 	/* Kör clear innan avslut av programmet för att tömma minnet. */  
+
 	static void clear(){
 		mTextures.clear();
 		mLevels.clear();
 		mSoundBuffers.clear();
 		mSounds.clear();
+		mMusic.clear();
 	}
 private:
 	static std::map<std::string, sf::Texture> mTextures;
 	static std::map<std::string, sf::Sound> mSounds;
 	static std::map<std::string, sf::SoundBuffer> mSoundBuffers;
 	static std::map<std::string, sf::Image> mImages;
+	static std::map<std::string, sf::Music*> mMusic; 
 	static std::map<std::string, std::vector<sf::Texture>> mLevels;
 };

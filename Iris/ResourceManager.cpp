@@ -47,6 +47,27 @@ sf::Image& ResourceManager::getImage(const std::string& filename){
 	return mImages[filename];
 }
 
+/*Testversion för musik.*/
+//Svordoms-mätare:
+//Fan: 10
+//Helvete: 6
+//Jävla-Skit-fitts-funktion: 5
+//Funka då för fan: 5
+//*Suck*: 61
+sf::Music* ResourceManager::getMusic(const std::string& filename){
+
+		if (mMusic.count(filename) == 0){
+			sf::Music* newMusic = new sf::Music;
+			newMusic->openFromFile(filename);
+			mMusic.insert(std::pair<std::string, sf::Music*>(filename, newMusic));
+		}
+	
+	return mMusic[filename];
+}
+
+
+
+
 std::vector<sf::Texture>& ResourceManager::getLevel(const std::string& filename){
 	/* Ser till att varje bild bara laddas in en gång. */
 	if (mLevels.count(filename) == 0){
@@ -81,10 +102,10 @@ void ResourceManager::drawLevel(sf::RenderWindow& window, TextureVector& bgVecto
 	}
 }
 
-
 /* Det här är min bane */
 std::map<std::string, sf::Texture> ResourceManager::mTextures;
 std::map<std::string, sf::Sound> ResourceManager::mSounds;
 std::map<std::string, sf::SoundBuffer> ResourceManager::mSoundBuffers;
 std::map<std::string, sf::Image> ResourceManager::mImages;
 std::map<std::string, std::vector<sf::Texture>> ResourceManager::mLevels;
+std::map<std::string, sf::Music*> ResourceManager::mMusic;
