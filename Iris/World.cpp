@@ -43,17 +43,12 @@ void World::run(){
 				window.setFramerateLimit(10);
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F2)
 				window.setFramerateLimit(FRAME_LIMIT);
-			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+			if (currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
 			menuInput(event);
 		}
 		
 
 		window.clear();
-		
-		
-		if (currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-			menuInput(event);
-
 
 		if (currentState == INMENU){
 			mainMenu.drawMenu(window);
