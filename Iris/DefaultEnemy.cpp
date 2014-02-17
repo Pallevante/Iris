@@ -8,7 +8,8 @@ mIsAlive(true),
 mRad(64)
 {
 	mAnimation = new Animation("resource/textures/entities/enemy.png", 50, 2);
-	mAnimation->setPosition(sf::Vector2f(1200, setYPos());
+	mAnimation->setPosition(sf::Vector2f(1200, setYPos()));
+	
 }
 
 float DefaultEnemy::setYPos(){

@@ -13,13 +13,14 @@ mAcceleration(0.5f * speedMultiplier),
 mIsAlive(true),
 
 
+
 //Måste ändras relativt till bilden.
 mRad(20.f)
 {	
+	mAura = new Animation("Resource/textures/entities/playerAura.png", 100, 1);
 	mAnimation = new Animation("resource/textures/entities/player.png", 100, 8);
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
-
-
+	mAura->setPosition(mAnimation->getSprite().getPosition());
 }
 
 Player::~Player(){}
@@ -28,9 +29,9 @@ Player::~Player(){}
 void Player::tick(EntityVector &entities, float dt){
 	move(dt);
 	fire(entities);
+	mAura->Update();
 	mAnimation->Update();
-		
-	
+	mAura->Update();
 }
 
 int Player::collide(Entity *entity, EntityVector &entities){
@@ -40,6 +41,8 @@ int Player::collide(Entity *entity, EntityVector &entities){
         }
     return 0;
 }
+
+void Player::score(Entity *entity, EntityVector &entities){}
 
 
 /*Get funktioner*/
@@ -84,6 +87,7 @@ void Player::move(float dt){
 	float currentX = mAnimation->getSprite().getPosition().x;
 	float currentY = mAnimation->getSprite().getPosition().y;
 
+
 	sf::Vector2f oldVelocity = mVelocity;
 
 	/* Om den nuvarande hastigheten mVelocity är mindre än maxhastigheten, mSpeed, så ökas den nuvarande hastigheten med accelerationen, mAcceleration */
@@ -115,6 +119,7 @@ void Player::move(float dt){
 	currentY = currentY + (oldVelocity.y + mVelocity.y) * 0.5 * dt;
 	/* Den nuvarande positionen uppdateras med det nya värdet */
 	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
+	mAura->setPosition(mAnimation->getSprite().getPosition());
 
 }
 

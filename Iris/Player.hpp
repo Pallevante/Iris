@@ -12,7 +12,6 @@ public:
 
 	~Player();
 
-	
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition();
 	virtual int getHeight() const;
@@ -23,19 +22,22 @@ public:
 	virtual int collide(Entity *e0, EntityVector &entities);
 	virtual bool isAlive();
 	virtual void tick(EntityVector &entities, float dt);
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
+		target.draw(mAura->getSprite(), states);
 		target.draw(mAnimation->getSprite(), states);
 	}
-
-
+	virtual void score(Entity *entity, EntityVector &entities);
+	Animation* mAura;
+	Animation* mAnimation;
+	
 
 
 
 private:
 	void move(float dt);
 	void fire(EntityVector &enteties);	
-	Animation* mAnimation;
-
+	
+	
 	float mSpeed;
 	int mHealth;
 	int mDamage;

@@ -8,7 +8,6 @@
 #include "LoadLevel.hpp"
 #include "MainMenu.hpp"
 #include "Player.hpp"
-#include "PlayerAura.hpp"
 #include "ResourceManager.hpp"
 #include "ShopMenu.hpp"
 
@@ -45,7 +44,7 @@ private:
 	bool isColliding(Entity *entity1, Entity *entity2);
 	void detectCollisions();
 	void killDeadEntities();
-	void auraAddSub(Entity *entity1, Entity *entity2, Entity::EntityVector &entities);
+	int score(Entity *entity, std::vector<Entity*>);
 
 	/*Menyrelaterade funktioner*/
 
@@ -61,7 +60,7 @@ private:
 	int mGold;
 	int mScore;
 	EntityVector entityVector;
-	
+	Player *mPlayer;
 	MainMenu mainMenu;
 	ShopMenu shopMenu;
 	Level* mLevel;

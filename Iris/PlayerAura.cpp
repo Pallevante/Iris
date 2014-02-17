@@ -1,6 +1,6 @@
-#include "PlayerAura.hpp"
+/*
 
-/*Public funktioner*/
+//Public funktioner
 
 PlayerAura::PlayerAura(float xPosition, float yPosition, float speedMultiplier) :
 mHealth(1),
@@ -13,9 +13,8 @@ mIsAlive(true),
 mRad(20.f)
 {
 	
-	mAnimation = new Animation("resource/textures/entities/playerAura.png", 100, 1);
-	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
-	mAnimation->setColor(sf::Color(255, 0, 0, 255));
+	//mAnimation = new Animation("resource/textures/entities/playerAura.png", 100, 1);
+	
 	
 }
 
@@ -29,11 +28,12 @@ void PlayerAura::tick(EntityVector &entities, float dt){
 }
 
 
-/*Collidefunktionen minskar alphavärdet på auran ifall kollision sker med en ENEMY*/
-int PlayerAura::collide(Entity *entity, EntityVector &entities){
+//Collidefunktionen minskar alphavärdet på auran ifall kollision sker med en ENEMY
+
+	int PlayerAura::collide(Entity *entity, EntityVector &entities){
 	
 
-	/*hämtar färgernas nuvarande värde för att kunna returnera rätt färg och alphavärde*/
+	//hämtar färgernas nuvarande värde för att kunna returnera rätt färg och alphavärde
 	sf::Uint8 currentRed = mAnimation->getSprite().getColor().r;
 	sf::Uint8 currentGreen = mAnimation->getSprite().getColor().g;
 	sf::Uint8 currentBlue = mAnimation->getSprite().getColor().b;
@@ -58,7 +58,7 @@ int PlayerAura::collide(Entity *entity, EntityVector &entities){
 	return 0;
 }
 
-/*
+
 int PlayerAura::collide1(Entity *entity, Entity *entity1, EntityVector &entities){
 
 	sf::Uint8 currentRed = mAnimation->getSprite().getColor().r;
@@ -83,10 +83,10 @@ int PlayerAura::collide1(Entity *entity, Entity *entity1, EntityVector &entities
 	}
 	return 0;
 }
-*/
 
 
-/*Get funktioner*/
+
+//Get funktioner
 bool PlayerAura::isAlive(){
 	return mIsAlive;
 }
@@ -112,7 +112,7 @@ sf::Color PlayerAura::getColor(){
 }
 
 
-/*Set funktioner*/
+//Set funktioner
 void PlayerAura::setDamage(int newDamage){
 	mDamage = newDamage;
 }
@@ -126,14 +126,14 @@ int PlayerAura::getWidth() const {
 }
 
 
-/*Private medlemsfunktioner*/
+//Private medlemsfunktioner
 void PlayerAura::move(float dt){
 	float currentX = mAnimation->getSprite().getPosition().x;
 	float currentY = mAnimation->getSprite().getPosition().y;
 
 	sf::Vector2f oldVelocity = mVelocity;
 
-	/* Om den nuvarande hastigheten mVelocity är mindre än maxhastigheten, mSpeed, så ökas den nuvarande hastigheten med accelerationen, mAcceleration */
+	// Om den nuvarande hastigheten mVelocity är mindre än maxhastigheten, mSpeed, så ökas den nuvarande hastigheten med accelerationen, mAcceleration 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 		if (mVelocity.x < mSpeed){
 			mVelocity.x += mAcceleration;
@@ -154,19 +154,19 @@ void PlayerAura::move(float dt){
 			mVelocity.y -= mAcceleration;
 		}
 	}
-	/* För att sakta ner spelaren gångras den nuvarande hastigheten med ett värde som är mindre än 1. */
+	// För att sakta ner spelaren gångras den nuvarande hastigheten med ett värde som är mindre än 1. 
 	mVelocity.x = mVelocity.x*0.935f;
 	currentX = currentX + (oldVelocity.x + mVelocity.x) * 0.5 * dt;
 
 	mVelocity.y = mVelocity.y*0.935f;
 	currentY = currentY + (oldVelocity.y + mVelocity.y) * 0.5 * dt;
-	/* Den nuvarande positionen uppdateras med det nya värdet */
+	// Den nuvarande positionen uppdateras med det nya värdet 
 	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
 
 }
 
 
-/*testar auran genom att trycka på "P"*/
+//testar auran genom att trycka på "P"
 void PlayerAura::aura(){
 	
 	sf::Uint8 currentRed = mAnimation->getSprite().getColor().r;
@@ -185,3 +185,5 @@ void PlayerAura::aura(){
 }
 
 
+
+*/

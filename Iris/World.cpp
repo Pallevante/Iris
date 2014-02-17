@@ -8,18 +8,41 @@ LoadLevel::LevelEnum mCurrentLevel;
 int spawnTimeLimit =  500;
 int FRAME_LIMIT = 60;
 
+
+
+
 World::World(): 
 entityVector(){	
 	currentState = INMENU;
-	Player *mPlayer;
-	PlayerAura *mPlayerAura;
+	mPlayer;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
-	mPlayerAura = new PlayerAura(100, 100);
 	mPlayer = new Player(100, 100);
-	entityVector.push_back(mPlayerAura);
 	entityVector.push_back(mPlayer);
 }
+
+int World::score(Entity *entity, std::vector<Entity*>){
+	typedef std::vector<Entity*> EntityVector;
+
+	sf::Uint8 currentRed = mPlayer->mAura->getSprite().getColor().r;
+	sf::Uint8 currentGreen = mPlayer->mAura->getSprite().getColor().g;
+	sf::Uint8 currentBlue = mPlayer->mAura->getSprite().getColor().b;
+	sf::Uint8 currentAlpha = mPlayer->mAura->getSprite().getColor().a;
+
+	if (currentAlpha != 0){
+		if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
+			currentAlpha -= entity->getDamage() / 2;
+			mScore = currentAlpha;
+		}
+		mPlayer->mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
+		return 0;
+	}
+	else if (entity->getDamage() > 0 && entity->getType() != Entity::Type::ENEMY){
+		return 0;
+	}
+	return 0;
+}
+
 
 World::~World(){}
 bool isPlaying = false; /*Kollar om man spelar musik*/

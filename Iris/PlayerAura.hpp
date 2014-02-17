@@ -1,8 +1,5 @@
 #pragma once
-#include "Animation.hpp"
-#include "Entity.hpp"
-#include "Ray.hpp"
-#include "ResourceManager.hpp"
+/*
 
 
 
@@ -44,3 +41,5 @@ private:
 	sf::Vector2f mVelocity;
 	float mAcceleration;
 };
+
+*/
