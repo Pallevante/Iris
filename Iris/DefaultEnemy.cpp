@@ -4,11 +4,11 @@ DefaultEnemy::DefaultEnemy(float speedMultiplier) :
 mDamage(10),
 mSpeed(4 * speedMultiplier),
 mIsAlive(true),
-//Måste ändras relativt till bilden.
+//Mï¿½ste ï¿½ndras relativt till bilden.
 mRad(64)
 {
 	mAnimation = new Animation("resource/textures/entities/enemy.png", 50, 2);
-	mAnimation->setPosition(sf::Vector2f(1200, 500));
+	mAnimation->setPosition(sf::Vector2f(1200, setYpos()));
 }
 
 float DefaultEnemy::setYPos(){
@@ -47,7 +47,7 @@ int DefaultEnemy::getWidth() const {
 	return mAnimation->getSprite().getTextureRect().width;
 }
 
-//Någonstans här insåg jag att DefaultEnemy är ett jävligt ocoolt namn på en klass.
+//Nï¿½gonstans hï¿½r insï¿½g jag att DefaultEnemy ï¿½r ett jï¿½vligt ocoolt namn pï¿½ en klass.
 
 void DefaultEnemy::setDamage(int newDamage){
 	mDamage = newDamage;
@@ -115,7 +115,7 @@ void DefaultEnemy::move(float dt){
 	}
 }
 
-/*Dessa ska vara tomma såvida default enemy inte blir ändrad.*/
+/*Dessa ska vara tomma sï¿½vida default enemy inte blir ï¿½ndrad.*/
 void DefaultEnemy::fire(EntityVector &enteties){
 	return;
 }
