@@ -1,9 +1,10 @@
 #include "Level.hpp"
 
-ResourceManager::TextureVector clVector;
-ResourceManager::TextureVector bgVector;
+
+ResourceManager::SpriteVector clVector;
+ResourceManager::SpriteVector bgVector;
 sf::Clock goldClock;
-sf::Clock worldClock;
+
 
 Level::Level(){
 
@@ -158,21 +159,23 @@ std::string Level::getTheme(int level){
 }
 
 
-void Level::drawLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color){
+void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color){
 	/* Skapar och ritar ut sprites på relativa positioner */
-	for (std::vector<sf::Texture>::size_type it = 0; it < bgVector.size(); it++){
-		sf::Sprite newSprite;
-		newSprite.setTexture(bgVector[it]);
+	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
+
 		if (World::currentState == World::PLAYING){
-			newSprite.setPosition((it * 1024) - speed, 0);
-		}
-		newSprite.setColor(color);
-		window.draw(newSprite);
+			bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
+		}		
+		bgVector[i].setColor(color);
+		window.draw(bgVector[i]);
+
 	}
 }
 
-void Level::drawBackground(sf::RenderWindow &window){
-	drawLevel(window, bgVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 255));
-	drawLevel(window, clVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 0));
-}
 
+/*flyttar på spriten tills slutet av spriten når högra kanten av window */
+void Level::drawBackground(sf::RenderWindow &window){
+	drawLevel(window, bgVector, (5), sf::Color(255, 255, 255, 255));
+	drawLevel(window, clVector, (5), sf::Color(255, 255, 255, 0));
+
+}

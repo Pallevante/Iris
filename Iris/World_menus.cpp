@@ -45,6 +45,10 @@ void World::menuInput(sf::Event &event){
 				currentState = INMENU;
 				return;
 				break;
+			case ShopMenu::POWERUP_EXPLOSIVE:
+
+				return;
+				break;
 			default:
 				break;
 			}

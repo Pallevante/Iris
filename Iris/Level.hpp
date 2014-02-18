@@ -44,8 +44,8 @@ private:
 	int mMaxSpawnEnemies;
 	int mMaxSpecialSpawn;
 
-	void drawLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color);
-	void moveLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color);
+	void drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color);
+	void moveLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color);
 
 
 	std::string chooseWhiteTexture;

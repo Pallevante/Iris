@@ -18,6 +18,18 @@ sf::Texture& ResourceManager::getTexture(const std::string& filename){
 	return mTextures.find(filename)->second;
 }
 
+
+sf::Texture& ResourceManager::getTexture(const std::string& filename, const sf::IntRect& intRect, const std::string& indexName){
+	/* Jag valde att kolla om resursen redan existerade i mapen genom att räkna antalet resurser med samma filnamn */
+	if (mTextures.count(indexName) == 0){
+		sf::Texture newTexture;
+		newTexture.loadFromFile(filename, intRect);
+
+		mTextures.insert(std::pair<std::string, sf::Texture>(indexName, newTexture));
+	}
+	return mTextures.find(indexName)->second;
+}
+
 sf::SoundBuffer& ResourceManager::getSoundBuffer(const std::string& filename){
 	if (mSoundBuffers.count(filename) == 0){
 		sf::SoundBuffer newSound;
@@ -68,41 +80,48 @@ sf::Music* ResourceManager::getMusic(const std::string& filename){
 
 
 
-std::vector<sf::Texture>& ResourceManager::getLevel(const std::string& filename){
+ResourceManager::SpriteVector ResourceManager::getLevel(const std::string& filename){
 	/* Ser till att varje bild bara laddas in en gång. */
 	if (mLevels.count(filename) == 0){
 		sf::Image image;
 		image = getImage(filename);
-		
+		sf::Sprite newSprite;
+
 		/* Räkna hur många tiles som kommer behövas */
 		int tileSize = sf::Texture::getMaximumSize();
 		int imageWidth = image.getSize().x;
 		int tileCount = ceil(imageWidth / tileSize);
+
 		/* Definera alla nya texturer ifrån en sf::Image och en IntRect som beräknas genom antalet tiles och bredden på tiles och bilden*/
-		std::vector<sf::Texture> textureVector;
+		ResourceManager::SpriteVector spriteVector;
+
 		for (int i = 0; i <= tileCount; i++){
-			sf::Texture newTexture;
+			//sf::Texture newTexture;
 			sf::IntRect newIntRect(i*tileSize, 0, tileSize, image.getSize().y);
-			newTexture.loadFromImage(image, newIntRect);
-			textureVector.push_back(newTexture);
+			
+			//newTexture.loadFromImage(image, newIntRect);
+			
+			newSprite.setTexture(getTexture(filename, newIntRect, "level" + filename + "_" + std::to_string(i)));
+			newSprite.setPosition((i * sf::Texture::getMaximumSize()),0);
+			spriteVector.push_back(newSprite);
 		}
-		mLevels.insert(std::pair<std::string, std::vector<sf::Texture>>(filename, textureVector));
+		mLevels.insert(std::pair<std::string, ResourceManager::SpriteVector>(filename, spriteVector));
 	}
 	return mLevels[filename];
 }
 
-/*
-void ResourceManager::drawLevel(sf::RenderWindow& window, TextureVector& bgVector, float speed, sf::Color& color){
-	/* Skapar och ritar ut sprites på relativa positioner 
-	for (std::vector<sf::Texture>::size_type i = 0; i < bgVector.size(); i++){
-		sf::Sprite newSprite;
-		newSprite.setTexture(bgVector[i]);
-		newSprite.setPosition((i * sf::Texture::getMaximumSize()) - speed, 0);
-		newSprite.setColor(color);
-		window.draw(newSprite);
+
+void ResourceManager::drawLevel(sf::RenderWindow& window, SpriteVector& bgVector, float speed, sf::Color& color){
+	/* Skapar och ritar ut sprites på relativa positioner */
+	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
+
+		bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
+		bgVector[i].setColor(color);
+		window.draw(bgVector[i]);
+
 	}
 }
-*/
+
 
 
 /* Det här är min bane */
@@ -110,5 +129,5 @@ std::map<std::string, sf::Texture> ResourceManager::mTextures;
 std::map<std::string, sf::Sound> ResourceManager::mSounds;
 std::map<std::string, sf::SoundBuffer> ResourceManager::mSoundBuffers;
 std::map<std::string, sf::Image> ResourceManager::mImages;
-std::map<std::string, std::vector<sf::Texture>> ResourceManager::mLevels;
+std::map<std::string, ResourceManager::SpriteVector> ResourceManager::mLevels;
 std::map<std::string, sf::Music*> ResourceManager::mMusic;
