@@ -75,7 +75,7 @@ std::vector<sf::Texture>& ResourceManager::getLevel(const std::string& filename)
 		image = getImage(filename);
 
 		/* Räkna hur många tiles som kommer behövas */
-		int tileSize = 1024;
+		int tileSize = sf::Texture::getMaximumSize();
 		int imageWidth = image.getSize().x;
 		int tileCount = ceil(imageWidth / tileSize);
 		/* Definera alla nya texturer ifrån en sf::Image och en IntRect som beräknas genom antalet tiles och bredden på tiles och bilden*/

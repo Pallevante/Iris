@@ -106,7 +106,7 @@ void World::startGame(){
 }
 
 void World::renderImages(){
-	mLevel->drawBackground(window);
+	mLevel->drawBackground(window, currentState);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 	}
@@ -114,7 +114,6 @@ void World::renderImages(){
 }
 
 void World::tick(float dt){
-	mLevel->moveBackground(window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		entityVector[i]->tick(entityVector, dt);
 	}

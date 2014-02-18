@@ -2,8 +2,8 @@
 
 ResourceManager::TextureVector clVector;
 ResourceManager::TextureVector bgVector;
-sf::Clock worldClock;
 sf::Clock goldClock;
+sf::Clock worldClock;
 
 Level::Level(){
 
@@ -158,31 +158,21 @@ std::string Level::getTheme(int level){
 }
 
 
-void Level::drawLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color){
+void Level::drawLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color, World::GameState state){
 	/* Skapar och ritar ut sprites på relativa positioner */
-	for (std::vector<sf::Texture>::iterator it = bgVector.begin(); it != bgVector.end(); it++){
-		sf::Sprite& newSprite = it;
+	for (std::vector<sf::Texture>::size_type it = 0; it < bgVector.size(); it++){
+		sf::Sprite newSprite;
 		newSprite.setTexture(bgVector[it]);
+		if (state == World::PLAYING){
+			newSprite.setPosition((it * 1024) - speed, 0);
+		}
 		newSprite.setColor(color);
 		window.draw(newSprite);
 	}
 }
 
-void Level::moveLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color){
-	for (std::vector<sf::Texture>::size_type it = 0; it < bgVector.size(); it++){
-		sf::Sprite newSprite;
-		newSprite.setTexture(bgVector[it]);
-		newSprite.setPosition((it * 1024) - speed, 0);
-	}
-}
-
-void Level::moveBackground(sf::RenderWindow &window){
-	moveLevel(window, bgVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 255));
-	moveLevel(window, clVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 0));
-}
-
-void Level::drawBackground(sf::RenderWindow &window){
-	drawLevel(window, bgVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 255));
-	drawLevel(window, clVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 0));
+void Level::drawBackground(sf::RenderWindow &window, World::GameState& state){
+	drawLevel(window, bgVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 255), state);
+	drawLevel(window, clVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 0), state);
 }
 
