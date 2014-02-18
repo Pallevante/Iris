@@ -1,7 +1,7 @@
 #include "Level.hpp"
 
-ResourceManager::TextureVector clVector;
-ResourceManager::TextureVector bgVector;
+ResourceManager::SpriteVector clVector;
+ResourceManager::SpriteVector bgVector;
 sf::Clock WorldClock;
 
 Level::Level(){
@@ -154,7 +154,7 @@ void Level::drawBackground(sf::RenderWindow &window){
 
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
 void Level::moveBackground(sf::RenderWindow &window){
-	ResourceManager::drawLevel(window, bgVector, (200), sf::Color(255, 255, 255, 255));
-	ResourceManager::drawLevel(window, clVector, (200), sf::Color(255, 255, 255, 0));
+	ResourceManager::drawLevel(window, bgVector, (5), sf::Color(255, 255, 255, 255));
+	ResourceManager::drawLevel(window, clVector, (5), sf::Color(255, 255, 255, 0));
 
 }
