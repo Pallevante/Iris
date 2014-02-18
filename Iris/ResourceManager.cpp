@@ -73,7 +73,7 @@ std::vector<sf::Texture>& ResourceManager::getLevel(const std::string& filename)
 	if (mLevels.count(filename) == 0){
 		sf::Image image;
 		image = getImage(filename);
-
+		
 		/* Räkna hur många tiles som kommer behövas */
 		int tileSize = sf::Texture::getMaximumSize();
 		int imageWidth = image.getSize().x;
@@ -90,6 +90,19 @@ std::vector<sf::Texture>& ResourceManager::getLevel(const std::string& filename)
 	}
 	return mLevels[filename];
 }
+
+/*
+void ResourceManager::drawLevel(sf::RenderWindow& window, TextureVector& bgVector, float speed, sf::Color& color){
+	/* Skapar och ritar ut sprites på relativa positioner 
+	for (std::vector<sf::Texture>::size_type i = 0; i < bgVector.size(); i++){
+		sf::Sprite newSprite;
+		newSprite.setTexture(bgVector[i]);
+		newSprite.setPosition((i * sf::Texture::getMaximumSize()) - speed, 0);
+		newSprite.setColor(color);
+		window.draw(newSprite);
+	}
+}
+*/
 
 
 /* Det här är min bane */
