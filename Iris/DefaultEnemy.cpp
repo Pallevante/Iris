@@ -1,7 +1,7 @@
 #include "DefaultEnemy.hpp"
 
 DefaultEnemy::DefaultEnemy(float speedMultiplier) :
-mDamage(10),
+mDamage(100),
 mSpeed(4 * speedMultiplier),
 mIsAlive(true),
 //M�ste �ndras relativt till bilden.

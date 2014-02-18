@@ -11,16 +11,16 @@ mDamage(10),
 mSpeed(6 * speedMultiplier),
 mAcceleration(0.5f * speedMultiplier),
 mIsAlive(true),
-
-
+entities(entities),
 
 //Måste ändras relativt till bilden.
 mRad(20.f)
-{	
+{
 	mAura = new Animation("Resource/textures/entities/playerAura.png", 100, 1);
 	mAnimation = new Animation("resource/textures/entities/player.png", 100, 8);
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
 	mAura->setPosition(mAnimation->getSprite().getPosition());
+
 }
 
 Player::~Player(){}
@@ -32,17 +32,40 @@ void Player::tick(EntityVector &entities, float dt){
 	mAura->Update();
 	mAnimation->Update();
 	mAura->Update();
+	
 }
 
 int Player::collide(Entity *entity, EntityVector &entities){
-        
+    
     if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
-        mHealth -= entity->getDamage() / 2;                
+		mHealth -= entity->getDamage() / 2;
         }
     return 0;
 }
 
-void Player::score(Entity *entity, EntityVector &entities){}
+int Player::score(){
+
+	/*hämtar färgernas nuvarande värde för att kunna returnera rätt färg och alphavärde*/
+	unsigned int currentRed = mAura->getSprite().getColor().r;
+	unsigned int currentGreen = mAura->getSprite().getColor().g;
+	unsigned int currentBlue = mAura->getSprite().getColor().b;
+	unsigned int currentAlpha = mAura->getSprite().getColor().a;
+
+	if (currentAlpha != 0){
+		if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
+			currentAlpha -= entity->getDamage() / 2;
+
+			mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
+			return 0;
+		}
+		else if (entity->getDamage() > 0 && entity->getType() != Entity::Type::ENEMY){
+			mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
+			return 0;
+		}
+		return 0;
+	}
+	return 0;
+}
 
 
 /*Get funktioner*/

@@ -21,27 +21,6 @@ entityVector(){
 	entityVector.push_back(mPlayer);
 }
 
-int World::score(Entity *entity, std::vector<Entity*>){
-	typedef std::vector<Entity*> EntityVector;
-
-	sf::Uint8 currentRed = mPlayer->mAura->getSprite().getColor().r;
-	sf::Uint8 currentGreen = mPlayer->mAura->getSprite().getColor().g;
-	sf::Uint8 currentBlue = mPlayer->mAura->getSprite().getColor().b;
-	sf::Uint8 currentAlpha = mPlayer->mAura->getSprite().getColor().a;
-
-	if (currentAlpha != 0){
-		if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
-			currentAlpha -= entity->getDamage() / 2;
-			mScore = currentAlpha;
-		}
-		mPlayer->mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
-		return 0;
-	}
-	else if (entity->getDamage() > 0 && entity->getType() != Entity::Type::ENEMY){
-		return 0;
-	}
-	return 0;
-}
 
 
 World::~World(){}
@@ -120,11 +99,12 @@ void World::run(){
 
 
 void World::startGame(){
+
 	detectCollisions();
 	killDeadEntities();
 	spawnEnemies();
 	renderImages();
-	
+	mPlayer->score();
 }
 
 void World::renderImages(){
@@ -132,10 +112,10 @@ void World::renderImages(){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 	}
-	
 }
 
 void World::tick(float dt){
+	
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		entityVector[i]->tick(entityVector, dt);
 	}
@@ -184,6 +164,30 @@ void World::detectCollisions(){
 	}
 }
 
+/*
+int World::score(//Entity *entity, EntityVector &entities){
+
+	//hämtar färgernas nuvarande värde för att kunna returnera rätt färg och alphavärde
+	unsigned int currentRed = mPlayer->mAura->getSprite().getColor().r;
+	unsigned int currentGreen = mPlayer->mAura->getSprite().getColor().g;
+	unsigned int currentBlue = mPlayer->mAura->getSprite().getColor().b;
+	unsigned int currentAlpha = mPlayer->mAura->getSprite().getColor().a;
+	return 0;
+	if (currentAlpha != 0){
+		if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
+			currentAlpha -= entity->getDamage() / 2;
+
+			mPlayer->mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
+			return 0;
+		}
+		else if (entity->getDamage() > 0 && entity->getType() != Entity::Type::ENEMY){
+			mPlayer->mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
+			return 0;
+		}
+		return 0;
+	}
+}
+*/
 
 /*Skapar en ny vektor som sedan lägger in alla levande entiteter.
 Den nya vektorn uppdaterar våran "main" vektor sedan.*/

@@ -44,8 +44,7 @@ private:
 	bool isColliding(Entity *entity1, Entity *entity2);
 	void detectCollisions();
 	void killDeadEntities();
-	int score(Entity *entity, std::vector<Entity*>);
-
+	//int score(/*Entity *entity, std::vector<Entity*> &entities*/);
 	/*Menyrelaterade funktioner*/
 
 	void menuInput(sf::Event &event);
@@ -59,6 +58,7 @@ private:
 	typedef std::vector<Entity*> EntityVector;
 	int mGold;
 	int mScore;
+	
 	EntityVector entityVector;
 	Player *mPlayer;
 	MainMenu mainMenu;
