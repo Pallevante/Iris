@@ -108,7 +108,7 @@ void World::startGame(){
 }
 
 void World::renderImages(){
-	mLevel->drawBackground(window, currentState);
+	mLevel->drawBackground(window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 	}
@@ -202,6 +202,10 @@ void World::pause(){
 	}
 }
 
+
+
+
+World::GameState World::currentState;
 
 /*
 			 __	- FML.

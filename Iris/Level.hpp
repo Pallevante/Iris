@@ -27,7 +27,7 @@ public:
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
 	float percentRequirement(float requirement);
-	void drawBackground(sf::RenderWindow &window, World::GameState& state);
+	void drawBackground(sf::RenderWindow &window);
 	std::string getTheme(int level);
 	sf::Sprite getBackground();
 private:
@@ -44,7 +44,7 @@ private:
 	int mMaxSpawnEnemies;
 	int mMaxSpecialSpawn;
 
-	void drawLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color, World::GameState state);
+	void drawLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color);
 	void moveLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color);
 
 

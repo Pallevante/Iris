@@ -158,12 +158,12 @@ std::string Level::getTheme(int level){
 }
 
 
-void Level::drawLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color, World::GameState state){
+void Level::drawLevel(sf::RenderWindow& window, ResourceManager::TextureVector& bgVector, float speed, sf::Color& color){
 	/* Skapar och ritar ut sprites på relativa positioner */
 	for (std::vector<sf::Texture>::size_type it = 0; it < bgVector.size(); it++){
 		sf::Sprite newSprite;
 		newSprite.setTexture(bgVector[it]);
-		if (state == World::PLAYING){
+		if (World::currentState == World::PLAYING){
 			newSprite.setPosition((it * 1024) - speed, 0);
 		}
 		newSprite.setColor(color);
@@ -171,8 +171,8 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::TextureVector& 
 	}
 }
 
-void Level::drawBackground(sf::RenderWindow &window, World::GameState& state){
-	drawLevel(window, bgVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 255), state);
-	drawLevel(window, clVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 0), state);
+void Level::drawBackground(sf::RenderWindow &window){
+	drawLevel(window, bgVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 255));
+	drawLevel(window, clVector, (worldClock.getElapsedTime().asSeconds() * 200), sf::Color(255, 255, 255, 0));
 }
 
