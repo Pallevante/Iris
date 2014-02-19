@@ -164,7 +164,8 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
 
 		if (World::currentState == World::PLAYING){
-			bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
+			if (i <= bgVector.size() - 1)
+				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
 		}		
 		bgVector[i].setColor(color);
 		window.draw(bgVector[i]);

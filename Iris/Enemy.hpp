@@ -17,7 +17,7 @@ public:
 	virtual Movement getMovement() = 0;
 	virtual void death(float dt) = 0;
 	virtual void fire(EntityVector &enteties) = 0;
-	virtual void move(float dt) = 0;
+	virtual void move(EntityVector& entities, float dt) = 0;
 	virtual void useAbility() = 0;
 private:
 };
