@@ -26,16 +26,14 @@ public:
 		target.draw(mAura->getSprite(), states);
 		target.draw(mAnimation->getSprite(), states);
 	}
-	virtual int score();
-	
-	Entity *entity;
-	
+	//Entity *entity;
+	Animation* mAura;
 
 
 private:
 	void move(float dt);
 	void fire(EntityVector &enteties);	
-	Animation* mAura;
+	
 	Animation* mAnimation;
 
 	EntityVector &entities;

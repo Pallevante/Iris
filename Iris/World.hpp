@@ -44,6 +44,8 @@ private:
 	bool isColliding(Entity *entity1, Entity *entity2);
 	void detectCollisions();
 	void killDeadEntities();
+	int aura(Entity *entity, std::vector<Entity*> &entities);
+
 	//int score(/*Entity *entity, std::vector<Entity*> &entities*/);
 	/*Menyrelaterade funktioner*/
 

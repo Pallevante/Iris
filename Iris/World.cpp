@@ -104,7 +104,7 @@ void World::startGame(){
 	killDeadEntities();
 	spawnEnemies();
 	renderImages();
-	mPlayer->score();
+	//mPlayer->score();
 }
 
 void World::renderImages(){
@@ -120,6 +120,7 @@ void World::tick(float dt){
 		entityVector[i]->tick(entityVector, dt);
 	}
 }
+
 
 
 
@@ -163,6 +164,31 @@ void World::detectCollisions(){
 		}
 	}
 }
+
+int World::aura(Entity *entity, std::vector<Entity*> &entities){
+
+	unsigned int currentRed = mPlayer->mAura->getSprite().getColor().r;
+	unsigned int currentGreen = mPlayer->mAura->getSprite().getColor().g;
+	unsigned int currentBlue = mPlayer->mAura->getSprite().getColor().b;
+	unsigned int currentAlpha = mPlayer->mAura->getSprite().getColor().a;
+
+
+
+	if (currentAlpha != 0){
+		if (mPlayer->collide(entity, entities)){
+			if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
+				currentAlpha -= entity->getDamage() / 2;
+				mPlayer->mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
+				return 0;
+			}
+		}
+		else if (entity->getDamage() > 0 && entity->getType() != Entity::Type::ENEMY){
+			return 0;
+		}
+	}
+	return 0;
+}
+
 
 /*
 int World::score(//Entity *entity, EntityVector &entities){

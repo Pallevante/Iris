@@ -32,40 +32,36 @@ void Player::tick(EntityVector &entities, float dt){
 	mAura->Update();
 	mAnimation->Update();
 	mAura->Update();
-	
 }
 
 int Player::collide(Entity *entity, EntityVector &entities){
-    
-    if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
-		mHealth -= entity->getDamage() / 2;
-        }
-    return 0;
-}
-
-int Player::score(){
-
-	/*hämtar färgernas nuvarande värde för att kunna returnera rätt färg och alphavärde*/
+	return 0;
+	/*
+	//hämtar färgernas nuvarande värde för att kunna returnera rätt färg och alphavärde
 	unsigned int currentRed = mAura->getSprite().getColor().r;
 	unsigned int currentGreen = mAura->getSprite().getColor().g;
 	unsigned int currentBlue = mAura->getSprite().getColor().b;
 	unsigned int currentAlpha = mAura->getSprite().getColor().a;
 
+
 	if (currentAlpha != 0){
 		if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
 			currentAlpha -= entity->getDamage() / 2;
-
-			mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
-			return 0;
+			if (currentAlpha < 10){
+				currentAlpha = 0;
+			}
 		}
-		else if (entity->getDamage() > 0 && entity->getType() != Entity::Type::ENEMY){
-			mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
-			return 0;
-		}
+		mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
 		return 0;
 	}
-	return 0;
+	else if (entity->getDamage() > 0 && entity->getType() != Entity::Type::ENEMY){
+		mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
+		return 0;
+	}
+	return 0;*/
 }
+
+
 
 
 /*Get funktioner*/
