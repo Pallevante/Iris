@@ -165,9 +165,11 @@ void World::detectCollisions(){
 	for (EntityVector::iterator	i = entityVector.begin(); i < entityVector.end(); i++){
 
 		for (EntityVector::iterator x = entityVector.begin(); x < entityVector.end(); x++){
-
+			
 		
-			if ((*i)->ENEMY && (*i)->getPosition().x > 0 && (*i)->isAlive() == false){
+			if ((*i)->ENEMY && (*i)->getPosition().x > 0 && (*i)->isAlive() == false 
+				&& (*i)->collide(new Ray((*i)->getPosition()), entityVector)) {
+				
 				mScore += 0.01f;
 			}
 			else if (mScore >= 1){
@@ -175,10 +177,11 @@ void World::detectCollisions(){
 				mScore = 1;
 
 			}
-			if ((*x)->PLAYER && (*x)->getDamage()){
+
+			 if ((*x)->PLAYER && (*x)->getDamage()){
 				mScore -= 0.01f;
 			}
-			 if (mScore <= 0){
+			 if (mScore < 0){
 				mScore = 0;
 			}
 		

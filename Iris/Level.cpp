@@ -159,7 +159,7 @@ void Level::moveBackground(sf::RenderWindow &window){
 			
 		}
 		
-		else if (World::mScore == 1.0f) {
+		if (World::mScore == 1.0f) {
 			opacity = 255;
 
 		}
