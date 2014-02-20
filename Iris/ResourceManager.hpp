@@ -6,21 +6,24 @@
 #include <map>
 #include <string>
 
+
+
 class ResourceManager{
 
 public:
 	ResourceManager();
 	~ResourceManager();
 
-	typedef std::vector<sf::Texture> TextureVector;
+	typedef std::vector<sf::Sprite> SpriteVector;
 
 	/* getters & adders: Om sökvägen inte hittas i den valda mappen (mTextures, etc)
 	så läggs den till och returneras direkt. */
 	static sf::Texture& getTexture(const std::string& filename);
+	static sf::Texture& getTexture(const std::string& filename, const sf::IntRect& intRect, const std::string& indexName);
 	static sf::Sound& getSound(const std::string& filename);
 	static sf::SoundBuffer& getSoundBuffer(const std::string& filename);
 	static sf::Image& getImage(const std::string& filename);
-	static std::vector<sf::Texture>& getLevel(const std::string& filename);
+	static ResourceManager::SpriteVector getLevel(const std::string& filename);
 	static sf::Music* getMusic(const std::string& filename);
 	/* Exempel på användning:
 	Initialisera en TextureVector ****UTANFÖR GAMELOOPEN****
@@ -31,7 +34,7 @@ public:
 
 	Ange bara vårt renderwindow, din initialiserade TextureVector, hastigheten som den ska röra sig i relativ till nuvarande tiden, och en färg (för opacity)
 	*/
-	static void drawLevel(sf::RenderWindow& window, TextureVector& bgVector, float speed, sf::Color& color);
+	static void drawLevel(sf::RenderWindow& window, SpriteVector& bgVector, float speed, sf::Color& color);
 
 
 	/* Kör clear innan avslut av programmet för att tömma minnet. */  
@@ -49,5 +52,5 @@ private:
 	static std::map<std::string, sf::SoundBuffer> mSoundBuffers;
 	static std::map<std::string, sf::Image> mImages;
 	static std::map<std::string, sf::Music*> mMusic; 
-	static std::map<std::string, std::vector<sf::Texture>> mLevels;
+	static std::map<std::string, ResourceManager::SpriteVector> mLevels;
 };

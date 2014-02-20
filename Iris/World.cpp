@@ -17,10 +17,11 @@ entityVector(){
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
-	
+	loadMap();	
 }
 
 World::~World(){}
+
 bool isPlaying = false; /*Kollar om man spelar musik*/
 bool loadedMap = false;
 void World::run(){
@@ -43,17 +44,16 @@ void World::run(){
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F1)
 				window.setFramerateLimit(10);
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F2)
-				window.setFramerateLimit(FRAME_LIMIT);
+				window.setFramerateLimit(FRAME_LIMIT);		
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+
+			if (currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+
 			menuInput(event);
 		}
 
 
 		window.clear();
-
-
-		if (currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-			menuInput(event);
 
 
 		if (currentState == INMENU){
@@ -75,11 +75,9 @@ void World::run(){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
 
 			if (!loadedMap){
-				mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
-				mLoadLevel.setLevel(mCurrentLevel);
-				mLevel = mLoadLevel.getLevel();
-				music = ResourceManager::getMusic(mLevel->getTheme(1));
-				loadedMap = true;
+
+				loadMap();
+
 			}
 
 			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
@@ -96,6 +94,15 @@ void World::run(){
 	}
 }
 
+void World::loadMap(){
+	mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
+	mLoadLevel.setLevel(mCurrentLevel);
+	mLevel = mLoadLevel.getLevel();
+	music = ResourceManager::getMusic(mLevel->getTheme(1));
+	loadedMap = true;
+}
+
+
 
 void World::startGame(){
 	detectCollisions();
@@ -105,7 +112,7 @@ void World::startGame(){
 }
 
 void World::renderImages(){
-	mLevel->moveBackground(window);
+	mLevel->drawBackground(window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
 		
@@ -155,42 +162,41 @@ void World::detectCollisions(){
 			Entity *entity1 = entityVector[j];
 			/*Du använder en check i collision i world om typen är GOLD sedan hämtar du damage för värdet.*/
 			if (isColliding(entity0, entity1) && entity0->getType() != entity1->getType()){
+				if (entity0->getType() == Entity::GOLD)
+					mGold += entity0->getDamage();
+				else if (entity1->getType() == Entity::GOLD)
+					mGold += entity1->getDamage();
+				if (entity0->getType() == Entity::RAY && entity1->getType() == Entity::ENEMY
+					|| entity0->getType() == Entity::ENEMY && entity1->getType() == Entity::RAY){
+
+					mScore += 0.01f;
+
+				}
+				else if (mScore >= 1){
+
+					mScore = 1;
+
+				}
+				 if (entity0->getType() == Entity::PLAYER && entity1->getType() == Entity::ENEMY ||
+					entity1->getType() == Entity::PLAYER && entity0->getType() == Entity::ENEMY)
+				{
+					mScore -= 0.01f;
+				}
+				 else if (mScore < 0){
+					 mScore = 0;
+				 }
 				entity0->collide(entity1, entityVector);
 				entity1->collide(entity0, entityVector);
-				
+
 			}
 
 		}
 	}
-	for (EntityVector::iterator	i = entityVector.begin(); i < entityVector.end(); i++){
-
-		for (EntityVector::iterator x = entityVector.begin(); x < entityVector.end(); x++){
-			
-		
-			if ((*i)->ENEMY && (*i)->getPosition().x > 0 && (*i)->isAlive() == false 
-				&& (*i)->collide(new Ray((*i)->getPosition()), entityVector)) {
-				
-				mScore += 0.01f;
-			}
-			else if (mScore >= 1){
-
-				mScore = 1;
-
-			}
-
-			 if ((*x)->PLAYER && (*x)->getDamage()){
-				mScore -= 0.01f;
-			}
-			 if (mScore < 0){
-				mScore = 0;
-			}
-		
-		}
-	
-	}
-	
-
 }
+		
+
+	
+	
 
 
 /*Skapar en ny vektor som sedan lägger in alla levande entiteter.
@@ -229,12 +235,16 @@ void World::pause(){
 
 
 
+
+World::GameState World::currentState;
+
 /*
-				__	- FML.
-				/ _)
-		_/\/\/\_/ /
-	/			 |
-	/ (  |	  (  |
-	/   |_|--- |_|
+			 __	- FML.
+            / _)
+   _/\/\/\_/ /
+  /			 |
+ / (  |	  (  |
+/   |_|--- |_|
 
 */
+

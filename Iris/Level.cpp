@@ -1,8 +1,10 @@
 #include "Level.hpp"
 
-ResourceManager::TextureVector clVector;
-ResourceManager::TextureVector bgVector;
-sf::Clock WorldClock;
+
+ResourceManager::SpriteVector clVector;
+ResourceManager::SpriteVector bgVector;
+sf::Clock goldClock;
+
 
 Level::Level(){
 
@@ -51,8 +53,6 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	default:
 		break;
 	}
-	// ResourceManager::getLevel(chooseLevel);
-
 	
 
 	mSpawnMin = spawnMin;
@@ -64,7 +64,7 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	mSpecialMax = specialMax;
 	mMaxSpecialSpawn = maxSpecialSpawn;
 	mMaxSpawnEnemies = maxSpawnEnemies;
-	// mTexture = texture;
+
 	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
 	clVector = ResourceManager::getLevel(chooseColoredTexture);
 
@@ -125,13 +125,25 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
 
 }
+
+void Level::spawnGold(Entity::EntityVector &entityVector){
+	sf::Time spawnGold = goldClock.getElapsedTime();
+	/*Varannan sekund så spawnas guld.*/
+	if (spawnGold.asSeconds() > 2){
+		entityVector.push_back(new Gold(1200, 350));		
+		goldClock.restart();
+	}
+}
+
+
 /*Kallar på spawn-funktioner*/
 void Level::spawn(Entity::EntityVector &entityVector){
-
+	
 	if (mSpecialMax > 0){
 		spawnSpecialEnemies(entityVector);
 	}
 	spawnBasicEnemies(entityVector);
+	spawnGold(entityVector);
 }
 
 
@@ -149,23 +161,26 @@ std::string Level::getTheme(int level){
 
 
 
+
+
+void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color){
+	/* Skapar och ritar ut sprites på relativa positioner */
+	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
+
+		if (World::currentState == World::PLAYING){
+			if (i <= bgVector.size() - 1)
+				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
+		}		
+		bgVector[i].setColor(color);
+		window.draw(bgVector[i]);
+
+	}
+}
+
+
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
-void Level::moveBackground(sf::RenderWindow &window){
-
-	
-		if(World::mScore += 0.01f){
-			opacity = 255 * World::mScore;
-
-			
-		}
-		
-		if (World::mScore == 1.0f) {
-			opacity = 255;
-
-		}
-
-
-	ResourceManager::drawLevel(window, bgVector, (200), sf::Color(255, 255, 255, 255));
-	ResourceManager::drawLevel(window, clVector, (200), sf::Color(255, 255, 255, opacity));
+void Level::drawBackground(sf::RenderWindow &window){
+	drawLevel(window, bgVector, (5), sf::Color(255, 255, 255, 255));
+	drawLevel(window, clVector, (5), sf::Color(255, 255, 255, 0));
 
 }

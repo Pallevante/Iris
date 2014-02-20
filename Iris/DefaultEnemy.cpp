@@ -1,5 +1,8 @@
 #include "DefaultEnemy.hpp"
 
+sf::Clock movementClock;
+
+
 DefaultEnemy::DefaultEnemy(float speedMultiplier) :
 mDamage(10),
 mSpeed(4 * speedMultiplier),
@@ -32,7 +35,7 @@ DefaultEnemy::Type DefaultEnemy::getType() const {
 }
 
 DefaultEnemy::Movement DefaultEnemy::getMovement(){
-	return WAVE;
+	return DEFAULT;
 }
 
 int DefaultEnemy::getDamage() const {
@@ -68,7 +71,7 @@ bool DefaultEnemy::isAlive(){
 }
 
 void DefaultEnemy::tick(EntityVector &entities, float dt){
-	move(dt);
+	move(entities, dt);
 	mAnimation->Update();
 	useAbility();
 	fire(entities);
@@ -83,9 +86,10 @@ void DefaultEnemy::death(float dt){
 }
 
 
-void DefaultEnemy::move(float dt){
+void DefaultEnemy::move(EntityVector &enteties, float dt){
 	float mXDir;
 	float mYDir;
+	sf::Time checkUpdateDir = movementClock.getElapsedTime();
 	if (!mIsDying){
 		if(getMovement() == DEFAULT){
 			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5 * dt, getPosition().y));
@@ -93,20 +97,25 @@ void DefaultEnemy::move(float dt){
 		else if(getMovement() == WAVE){
 			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 200 + (70*sinf(0.005 * getPosition().x )) ));
 		}
-		/*else if(getMovement() == FOLLOWING){			
+
+		/*Kommer användas för att hitta spelaren och följa den.*/
+		else if(getMovement() == FOLLOWING){			
 			if (checkUpdateDir.asMilliseconds() > 350){
-				for (EntityVector::iterator i = mEnteties.begin(); i++){
-					Entity* enteties = *i;
-					if (enteties->getType() == PLAYER){
-						float x = enteties->getPosition().x - getPosition().x;
-						float y = enteties->getPosition().x - getPosition().x;
+				for (EntityVector::iterator i = enteties.begin(); i != enteties.end(); i++){
+					Entity* entity = *i;
+					if (entity->getType() == PLAYER){
+						/*Linjär algebra ftw*/
+						float x = entity->getPosition().x - getPosition().x;
+						float y = entity->getPosition().x - getPosition().x;
 						mXDir = x / sqrt(powf(x, 2) + powf(y, 2)) * mSpeed;
 						mYDir = y / sqrt(powf(x, 2) + powf(y, 2)) * mSpeed;
+
+						movementClock.restart();
 					}
 				}
 			}
-			mAnimation->setPosition(sf::Vector2f(getPosition().x + mXDir * dt, getPosition().y + mYDir * dt));
-		}	*/
+			mAnimation->setPosition(sf::Vector2f((getPosition().x + mXDir) * dt, (getPosition().y + mYDir) * dt));
+		}	
 	}
 	else{
 		death(dt);

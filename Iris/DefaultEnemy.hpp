@@ -27,7 +27,7 @@ public:
 	/*Medlemsfunktioner för Enemy*/
 	virtual void death(float dt);
 	virtual void fire(EntityVector &enteties);
-	virtual void move(float dt);
+	virtual void move(EntityVector &enteties, float dt);
 	virtual void useAbility();
 private:
 	float setYPos(); 

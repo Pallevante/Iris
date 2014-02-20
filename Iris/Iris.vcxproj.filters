@@ -16,6 +16,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="World_menus.cpp" />
+    <ClCompile Include="Gold.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
@@ -31,5 +32,6 @@
     <ClInclude Include="ResourceManager.hpp" />
     <ClInclude Include="ShopMenu.hpp" />
     <ClInclude Include="World.hpp" />
+    <ClInclude Include="Gold.hpp" />
   </ItemGroup>
 </Project>

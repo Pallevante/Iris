@@ -25,7 +25,7 @@ public:
 		INTRO
 	};
 
-	GameState currentState;
+	static GameState currentState;
 
 	World();
 	~World();
@@ -56,6 +56,8 @@ private:
 
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
+
+	int mGold;
 
 	EntityVector entityVector;
 	MainMenu mainMenu;

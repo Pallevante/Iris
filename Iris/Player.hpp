@@ -28,7 +28,6 @@ private:
 	void move(float dt);
 	void fire(EntityVector &enteties);	
 	Animation* mAnimation;
-	
 	float mSpeed;
 	int mHealth;
 	int mDamage;

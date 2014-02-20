@@ -58,7 +58,6 @@ bool Gold::isAlive(){
 int Gold::collide(Entity *e0, EntityVector &entities){
 	if (e0->getType() == PLAYER){
 		mIsAlive = false;
-		return getDamage();
 	}
 	else
 		return 0;
@@ -69,5 +68,5 @@ void Gold::setMovement(Movement movement){
 }
 
 void Gold::move(EntityVector &entities, float dt){
-
+	mAnimation->setPosition(sf::Vector2f(getPosition().x - 5 * dt, getPosition().y));
 }
