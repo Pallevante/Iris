@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "Enemy.hpp"
+#include "Gold.hpp"
 #include "ResourceManager.hpp"
 #include "World.hpp"
 
@@ -15,7 +16,9 @@ public:
 	void spawnBasicEnemies(Entity::EntityVector &entityVector);
 	/*Spawn:ar Skjutare*/
 	void spawnSpecialEnemies(Entity::EntityVector &entityVector);
-
+	
+	/*Spawn:ar Guld*/
+	void spawnGold(Entity::EntityVector &entityVector);
 	void set(float spawnMini, float spawnMax, float requirment, 
 		float obstSpawnMin,	float obstMax, float specialMin, 
 		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
@@ -24,8 +27,7 @@ public:
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
 	float percentRequirement(float requirement);
-	void drawBackground(sf::RenderWindow *window);
-	void moveBackground(sf::RenderWindow *window);
+	void drawBackground(sf::RenderWindow &window);
 	std::string getTheme(int level);
 	sf::Sprite getBackground();
 private:
@@ -41,6 +43,10 @@ private:
 	/*maxx antal enemies som spawnas*/
 	int mMaxSpawnEnemies;
 	int mMaxSpecialSpawn;
+
+	void drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color);
+	void moveLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color);
+
 
 	std::string chooseWhiteTexture;
 	std::string chooseColoredTexture;

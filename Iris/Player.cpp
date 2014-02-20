@@ -11,8 +11,11 @@ mDamage(10),
 mSpeed(6 * speedMultiplier),
 mAcceleration(0.5f * speedMultiplier),
 mIsAlive(true),
+<<<<<<< HEAD
 entities(entities),
 
+=======
+>>>>>>> 877889bab0c94ead740d21ded1038f38e122703b
 //Måste ändras relativt till bilden.
 mRad(20.f)
 {
@@ -144,7 +147,7 @@ void Player::move(float dt){
 void Player::fire(EntityVector &entities){
 
 	sf::Time isReloaded = reloadTimer.getElapsedTime();
-	if (isReloaded.asMilliseconds() > 200){
+	if (isReloaded.asMilliseconds() > 500){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 
 			entities.push_back(new Ray(getPosition()));

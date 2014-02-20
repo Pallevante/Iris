@@ -26,7 +26,7 @@ public:
 		INTRO
 	};
 
-	GameState currentState;
+	static GameState currentState;
 
 	World();
 	~World();

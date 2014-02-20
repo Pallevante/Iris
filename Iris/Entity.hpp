@@ -14,7 +14,8 @@ public:
 	enum Type{
 		PLAYER,
 		RAY, 
-		ENEMY
+		ENEMY,
+		GOLD
 	};
 	Entity();
 	~Entity();

@@ -1,6 +1,11 @@
 #include "Level.hpp"
 
 
+ResourceManager::SpriteVector clVector;
+ResourceManager::SpriteVector bgVector;
+sf::Clock goldClock;
+
+
 Level::Level(){
 
 }
@@ -8,7 +13,7 @@ Level::~Level(){
 
 
 }
-ResourceManager resourceManager;
+
 void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,
 	float obstMax, float specialMin, float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level){
 		
@@ -48,10 +53,7 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	default:
 		break;
 	}
-	// ResourceManager::getLevel(chooseLevel);
-
-
-
+	
 
 	mSpawnMin = spawnMin;
 	mSpawnMax = spawnMax;
@@ -62,10 +64,10 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	mSpecialMax = specialMax;
 	mMaxSpecialSpawn = maxSpecialSpawn;
 	mMaxSpawnEnemies = maxSpawnEnemies;
-	// mTexture = texture;
-	
-	//ResourceManager::getLevel(chooseWhiteTexture);
-	//ResourceManager::getLevel(chooseColoredTexture);
+
+	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
+	clVector = ResourceManager::getLevel(chooseColoredTexture);
+
 	
 }
 
@@ -123,13 +125,25 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
 
 }
+
+void Level::spawnGold(Entity::EntityVector &entityVector){
+	sf::Time spawnGold = goldClock.getElapsedTime();
+	/*Varannan sekund så spawnas guld.*/
+	if (spawnGold.asSeconds() > 2){
+		entityVector.push_back(new Gold(1200, 350));		
+		goldClock.restart();
+	}
+}
+
+
 /*Kallar på spawn-funktioner*/
 void Level::spawn(Entity::EntityVector &entityVector){
-
+	
 	if (mSpecialMax > 0){
 		spawnSpecialEnemies(entityVector);
 	}
 	spawnBasicEnemies(entityVector);
+	spawnGold(entityVector);
 }
 
 
@@ -144,19 +158,24 @@ std::string Level::getTheme(int level){
 	}
 }
 
-void Level::drawBackground(sf::RenderWindow *window){
-	window->draw(mSpriteWhite);
+
+void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color){
+	/* Skapar och ritar ut sprites på relativa positioner */
+	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
+
+		if (World::currentState == World::PLAYING){
+			bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
+		}		
+		bgVector[i].setColor(color);
+		window.draw(bgVector[i]);
+
+	}
 }
 
 
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
-void Level::moveBackground(sf::RenderWindow *window){
-	mBackgroundRect = mSpriteWhite.getGlobalBounds();
-	//Vi bör ha en funktion som hanterar opacitet här.
-	
-	if (mBackgroundRect.left + mBackgroundRect.width > window->getSize().x){
-		mSpriteWhite.move(-1, 0);
-
-	}
+void Level::drawBackground(sf::RenderWindow &window){
+	drawLevel(window, bgVector, (5), sf::Color(255, 255, 255, 255));
+	drawLevel(window, clVector, (5), sf::Color(255, 255, 255, 0));
 
 }

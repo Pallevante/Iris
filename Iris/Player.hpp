@@ -33,9 +33,7 @@ public:
 private:
 	void move(float dt);
 	void fire(EntityVector &enteties);	
-	
 	Animation* mAnimation;
-
 	EntityVector &entities;
 	float mSpeed;
 	int mHealth;

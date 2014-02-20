@@ -40,13 +40,8 @@ void Ray::setDamage(int newDamage){
 }
 
 int Ray::collide(Entity *e0, EntityVector &entities){
-	int currentAlpha = 0;
-
-		if (e0->getDamage() > 0 && e0->getType() == Type::ENEMY){
-			mIsAlive = false;
-			currentAlpha += e0->getDamage();
-		}
-		return 0;
+	if (e0->getType() == ENEMY){
+		mIsAlive = false;		
 	}
 
 bool Ray::isAlive(){

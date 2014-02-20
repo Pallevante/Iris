@@ -2,122 +2,110 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="World_menus.cpp">
-      <Filter>Source Files\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="ShopMenu.cpp">
-      <Filter>Source Files\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Source Files\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Files\Menu</Filter>
+      <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="DefaultEnemy.cpp">
-      <Filter>Source Files\Entities</Filter>
+      <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerAura.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Ray.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Source Files\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadLevel.cpp">
-      <Filter>Source Files\Level</Filter>
+      <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Entities</Filter>
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Gold.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadLevel.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAura.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopMenu.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="World_menus.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="World.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenu.hpp">
-      <Filter>Header Files\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.hpp">
-      <Filter>Header Files\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="ShopMenu.hpp">
-      <Filter>Header Files\Menu</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="DefaultEnemy.hpp">
-      <Filter>Header Files\Entities</Filter>
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.hpp">
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Entity.hpp">
-      <Filter>Header Files\Entities</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Player.hpp">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerAura.hpp">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Ray.hpp">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadLevel.hpp">
-      <Filter>Header Files\Level</Filter>
+    <ClInclude Include="Gold.hpp">
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Level.hpp">
-      <Filter>Header Files\Level</Filter>
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadLevel.hpp">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.hpp">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.hpp">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.hpp">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAura.hpp">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.hpp">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.hpp">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopMenu.hpp">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="World.hpp">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{8dccc3cc-392d-4990-acfd-82f07d91d88b}</UniqueIdentifier>
+    <Filter Include="Header">
+      <UniqueIdentifier>{859c88ce-e5dc-4191-b56b-fc0ba04eb76c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{e40694ad-569b-4880-9d00-14c30930544b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Entities">
-      <UniqueIdentifier>{c67c7370-08fc-4792-b2f4-4dd8774f3115}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Menu">
-      <UniqueIdentifier>{8bb90c78-394a-463b-8ff0-69314e1f8bb9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Entities">
-      <UniqueIdentifier>{69fe8f8b-d0b4-4544-9366-3ca176951a15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Level">
-      <UniqueIdentifier>{251d7ce7-0036-4f3f-8423-046114df0c65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Level">
-      <UniqueIdentifier>{c7bc160a-9274-4b4a-ac97-80ab4c3714c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Menu">
-      <UniqueIdentifier>{c8c1e6e4-d460-47dd-abf2-11441bf4c71a}</UniqueIdentifier>
+    <Filter Include="Source">
+      <UniqueIdentifier>{7674bc5f-4759-4979-8f94-05db1a8d7978}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
