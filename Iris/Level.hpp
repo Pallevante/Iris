@@ -23,7 +23,7 @@ public:
 		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
 		int level);
 	int opacity;
-
+	void opacityChange(float score);
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
 

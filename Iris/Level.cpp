@@ -7,7 +7,7 @@ sf::Clock goldClock;
 
 
 Level::Level(){
-
+	opacity = 0;
 }
 Level::~Level(){
 
@@ -73,6 +73,24 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 
 int Level::getRandomNumber(){
 	return rand() % 10;
+}
+
+void Level::opacityChange(float score){
+
+	
+		opacity = 255 * score;
+
+		
+	
+
+	 if (score >= 1.0f) {
+		opacity = 255;
+
+	}
+	 if (score <= 0){
+
+		 opacity = 0;
+	 }
 }
 
 /*Kollar hur många som ska spawnas av default enemies*/
@@ -181,6 +199,6 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
 void Level::drawBackground(sf::RenderWindow &window){
 	drawLevel(window, bgVector, (5), sf::Color(255, 255, 255, 255));
-	drawLevel(window, clVector, (5), sf::Color(255, 255, 255, 0));
+	drawLevel(window, clVector, (5), sf::Color(255, 255, 255, opacity));
 
 }
