@@ -35,8 +35,8 @@ void Player::tick(EntityVector &entities, float dt){
 }
 
 int Player::collide(Entity *entity, EntityVector &entities){
-	return 0;
-	/*
+	
+	
 	//hämtar färgernas nuvarande värde för att kunna returnera rätt färg och alphavärde
 	unsigned int currentRed = mAura->getSprite().getColor().r;
 	unsigned int currentGreen = mAura->getSprite().getColor().g;
@@ -54,11 +54,9 @@ int Player::collide(Entity *entity, EntityVector &entities){
 		mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
 		return 0;
 	}
-	else if (entity->getDamage() > 0 && entity->getType() != Entity::Type::ENEMY){
-		mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
+	else {
 		return 0;
 	}
-	return 0;*/
 }
 
 
