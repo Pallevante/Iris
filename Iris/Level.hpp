@@ -22,7 +22,7 @@ public:
 	void set(float spawnMini, float spawnMax, float requirment, 
 		float obstSpawnMin,	float obstMax, float specialMin, 
 		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
-		int level);
+		int level, int levelTime);
 
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
@@ -43,7 +43,7 @@ private:
 	/*maxx antal enemies som spawnas*/
 	int mMaxSpawnEnemies;
 	int mMaxSpecialSpawn;
-
+	int mLevelTime;
 	void drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color);
 	void moveLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color);
 

@@ -4,7 +4,7 @@
 ResourceManager::SpriteVector clVector;
 ResourceManager::SpriteVector bgVector;
 sf::Clock goldClock;
-
+sf::Sprite baseImage;
 
 Level::Level(){
 
@@ -15,7 +15,8 @@ Level::~Level(){
 }
 
 void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,
-	float obstMax, float specialMin, float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level){
+	float obstMax, float specialMin, float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
+	int level, int levelTime){
 		
 	switch (level){
 	case 1:
@@ -64,11 +65,10 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	mSpecialMax = specialMax;
 	mMaxSpecialSpawn = maxSpecialSpawn;
 	mMaxSpawnEnemies = maxSpawnEnemies;
+	mLevelTime = levelTime;
 
 	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
-	clVector = ResourceManager::getLevel(chooseColoredTexture);
-
-	
+	clVector = ResourceManager::getLevel(chooseColoredTexture);	
 }
 
 int Level::getRandomNumber(){
@@ -115,7 +115,6 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 			spawnCount++;
 			entityVector.push_back(new DefaultEnemy(1));
 		}
-
 	}
 
 	if (spawnSpecialT.asSeconds() >= mSpecialMax){
@@ -162,21 +161,22 @@ std::string Level::getTheme(int level){
 void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color){
 	/* Skapar och ritar ut sprites på relativa positioner */
 	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
+		baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
 
 		if (World::currentState == World::PLAYING){
-			if (i <= bgVector.size() - 1)
+			if (i < bgVector.size() -1 )
 				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
 		}		
 		bgVector[i].setColor(color);
 		window.draw(bgVector[i]);
-
 	}
 }
 
 
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
 void Level::drawBackground(sf::RenderWindow &window){
-	drawLevel(window, bgVector, (5), sf::Color(255, 255, 255, 255));
-	drawLevel(window, clVector, (5), sf::Color(255, 255, 255, 0));
+	//baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
 
+	drawLevel(window, bgVector, (3), sf::Color(255, 255, 255, 255));
+	drawLevel(window, clVector, (3), sf::Color(255, 255, 255, 0));
 }
