@@ -18,8 +18,38 @@ Menu::ButtonVector{
 }
 
 MainMenu::~MainMenu(){
-
 };
+
 unsigned int MainMenu::getMaxItems(){
 	return NUM_CHOICES;
+}
+
+void MainMenu::input(sf::Event& event){
+	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Up){
+		up();
+	}
+	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Down){
+		down();
+	}
+
+	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return){
+		switch (getCurrentMenuItem()){
+		case MainMenu::PLAY:
+			ResourceManager::getSound("resource/sounds/menuselect.ogg").play();
+			World::currentState = World::PLAYING;
+			return;
+			break;
+		case MainMenu::SHOP:
+			ResourceManager::getSound("resource/sounds/menuselect.ogg").play();
+			World::currentState = World::INSHOP;
+			return;
+			break;
+		case MainMenu::QUIT:
+			ResourceManager::getSound("resource/sounds/menuback.ogg").play();
+			return;
+			break;
+		default:
+			break;
+		}
+	}
 }

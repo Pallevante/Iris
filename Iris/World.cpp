@@ -8,6 +8,11 @@ LoadLevel::LevelEnum mCurrentLevel;
 int spawnTimeLimit =  500;
 int FRAME_LIMIT = 60;
 
+/* Det här är heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemskt dåligt sätt att lösa problem */
+/* ... #YOLO */
+MainMenu mainMenu;
+ShopMenu shopMenu;
+
 World::World(): 
 entityVector(){	
 	currentState = INMENU;
@@ -45,10 +50,15 @@ void World::run(){
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F2)
 				window.setFramerateLimit(FRAME_LIMIT);		
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-
-			if (currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-
-			menuInput(event);
+			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+			switch (currentState){
+			case INMENU:
+					mainMenu.input(event);
+					break;
+			case INSHOP:
+					shopMenu.input(event);
+					break;
+			}
 		}
 		
 

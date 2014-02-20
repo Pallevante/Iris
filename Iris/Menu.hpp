@@ -17,6 +17,7 @@ public:
 	void down();
 
 	virtual unsigned int getMaxItems() = 0;
+	virtual void input(sf::Event &event) = 0;
 protected:
 	ButtonVector mButtonVector;
 	sf::Sprite mActiveButton;
