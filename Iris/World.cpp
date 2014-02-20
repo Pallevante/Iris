@@ -5,13 +5,14 @@ sf::Clock spawnTimer;
 sf::Music* music = new sf::Music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
-int spawnTimeLimit =  500;
+int spawnTimeLimit = 500;
 int FRAME_LIMIT = 60;
+float World::mScore = 0;
 
-World::World(): 
-entityVector(){	
+World::World() :
+entityVector(){
 	currentState = INMENU;
-	Player *mPlayer;	
+	Player *mPlayer;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
@@ -25,7 +26,7 @@ bool isPlaying = false; /*Kollar om man spelar musik*/
 bool loadedMap = false;
 void World::run(){
 	while (window.isOpen())	{
-		
+
 		int deltaTime = deltaTimer.restart().asMicroseconds();
 		float expectedTime = ((1.0f / FRAME_LIMIT) * 1000000);
 		float dt = deltaTime / expectedTime;
@@ -50,9 +51,10 @@ void World::run(){
 
 			menuInput(event);
 		}
-		
+
 
 		window.clear();
+
 
 		if (currentState == INMENU){
 			mainMenu.drawMenu(window);
@@ -61,7 +63,7 @@ void World::run(){
 		if (currentState == INSHOP){
 			shopMenu.drawMenu(window);
 		}
-		if (currentState == PAUSED){			
+		if (currentState == PAUSED){
 			music->pause();
 			isPlaying = false;
 			renderImages();
@@ -73,13 +75,15 @@ void World::run(){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
 
 			if (!loadedMap){
+
 				loadMap();
+
 			}
 
 			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
-			if (!isPlaying){	
+			if (!isPlaying){
 				music->play();
-				isPlaying = true;				
+				isPlaying = true;
 			}
 
 			tick(dt);
@@ -103,7 +107,7 @@ void World::loadMap(){
 void World::startGame(){
 	detectCollisions();
 	killDeadEntities();
-	spawnEnemies(); 
+	spawnEnemies();
 	renderImages();
 }
 
@@ -111,13 +115,15 @@ void World::renderImages(){
 	mLevel->drawBackground(window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
+		
 	}
-	
+
 }
 
 void World::tick(float dt){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		entityVector[i]->tick(entityVector, dt);
+		
 	}
 }
 
@@ -158,15 +164,38 @@ void World::detectCollisions(){
 			if (isColliding(entity0, entity1) && entity0->getType() != entity1->getType()){
 				if (entity0->getType() == Entity::GOLD)
 					mGold += entity0->getDamage();
+
 				else if (entity1->getType() == Entity::GOLD)
 					mGold += entity1->getDamage();
 
+				if (entity0->getType() == Entity::RAY && entity1->getType() == Entity::ENEMY
+					|| entity0->getType() == Entity::ENEMY && entity1->getType() == Entity::RAY){
+					mScore += 0.01f;
+				}
+
+				else if (mScore >= 1){
+					mScore = 1;
+				}
+				 if (entity0->getType() == Entity::PLAYER && entity1->getType() == Entity::ENEMY ||
+					entity1->getType() == Entity::PLAYER && entity0->getType() == Entity::ENEMY){
+					mScore -= 0.01f;
+				}
+
+				 else if (mScore < 0){
+					 mScore = 0;
+				 }
 				entity0->collide(entity1, entityVector);
 				entity1->collide(entity0, entityVector);
+
 			}
+
 		}
 	}
 }
+		
+
+	
+	
 
 
 /*Skapar en ny vektor som sedan lägger in alla levande entiteter.
@@ -178,6 +207,7 @@ void World::killDeadEntities(){
 		if (enteties->isAlive()){
 			reserveEnteties.push_back(enteties);
 		}
+	
 	}
 	entityVector = reserveEnteties;
 }
@@ -216,3 +246,4 @@ World::GameState World::currentState;
 /   |_|--- |_|
 
 */
+

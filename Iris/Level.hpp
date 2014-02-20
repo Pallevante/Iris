@@ -8,8 +8,7 @@
 class Level {
 public:
 
-	// Level(float spawnMini, float spawnMax, float requirement, float specialMin,
-	// float specialMax, float obstMin, float obstMax, sf::Texture &texture);
+	
 	Level();
 	~Level();
 	/*Spawn:ar default enemies*/
@@ -24,10 +23,15 @@ public:
 		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
 		int level, int levelTime);
 
+	int opacity;
+
+
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
-	float percentRequirement(float requirement);
+
+	float percentRequirement();
 	void drawBackground(sf::RenderWindow &window);
+
 	std::string getTheme(int level);
 	sf::Sprite getBackground();
 private:
@@ -38,6 +42,7 @@ private:
 	float mObstSpawnMin;
 	float mObstMax;
 	float mRequirment;
+	
 	// float mSpawn;
 	float mRandomSpawn;
 	/*maxx antal enemies som spawnas*/

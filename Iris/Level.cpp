@@ -15,9 +15,10 @@ Level::~Level(){
 }
 
 void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,
+
 	float obstMax, float specialMin, float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
 	int level, int levelTime){
-		
+
 	switch (level){
 	case 1:
 		chooseWhiteTexture = "resource/textures/backgrounds/usa_bild_grå.png";
@@ -68,7 +69,9 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	mLevelTime = levelTime;
 
 	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
+
 	clVector = ResourceManager::getLevel(chooseColoredTexture);	
+
 }
 
 int Level::getRandomNumber(){
@@ -146,8 +149,8 @@ void Level::spawn(Entity::EntityVector &entityVector){
 }
 
 
-float Level::percentRequirement(float requirement){
-	mRequirment = requirement;
+float Level::percentRequirement(){
+	
 	return mRequirment;
 }
 
@@ -156,6 +159,10 @@ std::string Level::getTheme(int level){
 		return "resource/sounds/Level1Theme.ogg";
 	}
 }
+
+
+
+
 
 
 void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color){

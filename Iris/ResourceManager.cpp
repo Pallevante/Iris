@@ -119,6 +119,7 @@ void ResourceManager::drawLevel(sf::RenderWindow& window, SpriteVector& bgVector
 		bgVector[i].setColor(color);
 		window.draw(bgVector[i]);
 
+
 	}
 }
 
@@ -129,5 +130,7 @@ std::map<std::string, sf::Texture> ResourceManager::mTextures;
 std::map<std::string, sf::Sound> ResourceManager::mSounds;
 std::map<std::string, sf::SoundBuffer> ResourceManager::mSoundBuffers;
 std::map<std::string, sf::Image> ResourceManager::mImages;
+
 std::map<std::string, ResourceManager::SpriteVector> ResourceManager::mLevels;
 std::map<std::string, sf::Music*> ResourceManager::mMusic;
+

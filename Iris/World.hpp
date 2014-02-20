@@ -13,7 +13,6 @@
 
 class Level;
 
-
 class World{
 public:
 	/*Används för att veta vad man ska rendera.*/
@@ -36,6 +35,7 @@ public:
 	/*Slänga in rätt parametrar för att loadMap ska ladda in
 	music, bilder och fiender*/
 	void loadMap();
+	static float mScore;
 private:
 	/*Spelrelaterade funktioner*/
 	void spawnEnemies();
@@ -52,15 +52,17 @@ private:
 	void enterStore();
 	void enterSettings();
 	void enterMap();
-	
+	DefaultEnemy enemy(DefaultEnemy &enemy);
 
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
+
 	int mGold;
-	int mScore;
+
 	EntityVector entityVector;
 	MainMenu mainMenu;
 	ShopMenu shopMenu;
 	Level* mLevel;
 	sf::Clock deltaTimer;
+	//Enemy *enemy;
 };
