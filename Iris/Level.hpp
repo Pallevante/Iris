@@ -15,22 +15,20 @@ public:
 	void spawnBasicEnemies(Entity::EntityVector &entityVector);
 	/*Spawn:ar Skjutare*/
 	void spawnSpecialEnemies(Entity::EntityVector &entityVector);
-	
-	void set(float spawnMini, float spawnMax, float requirment, 
-		float obstSpawnMin,	float obstMax, float specialMin, 
-		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
+
+	void set(float spawnMini, float spawnMax, float requirment,
+		float obstSpawnMin, float obstMax, float specialMin,
+		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies,
 		int level);
+	int opacity;
 
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
-
 	float percentRequirement();
 	void moveBackground(sf::RenderWindow &window);
 	std::string getTheme(int level);
 	sf::Sprite getBackground();
-
 private:
-
 	float mSpawnMin;
 	float mSpawnMax;
 	float mSpecialMin;
@@ -38,19 +36,21 @@ private:
 	float mObstSpawnMin;
 	float mObstMax;
 	float mRequirment;
+	
 	// float mSpawn;
 	float mRandomSpawn;
 	/*maxx antal enemies som spawnas*/
 	int mMaxSpawnEnemies;
 	int mMaxSpecialSpawn;
-	int opacity;
+
 	std::string chooseWhiteTexture;
 	std::string chooseColoredTexture;
 
 	sf::Clock mDefaultCl;
 	sf::Clock mSpecialCl;
 
-	Enemy *enemy;
-
-	sf::IntRect backgroundRect;
+	sf::Sprite mSpriteWhite;
+	sf::Sprite mSpriteColor;
+	//sf::Texture mTexture;
+	sf::FloatRect mBackgroundRect;
 };

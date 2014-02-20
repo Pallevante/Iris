@@ -53,8 +53,7 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	}
 	// ResourceManager::getLevel(chooseLevel);
 
-
-
+	
 
 	mSpawnMin = spawnMin;
 	mSpawnMax = spawnMax;
@@ -149,22 +148,24 @@ std::string Level::getTheme(int level){
 
 
 
+
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
 void Level::moveBackground(sf::RenderWindow &window){
 
-//	if (World::mGold == 0){
-//		opacity = 0;
-//	}
-//
-//	for (int i = 0; i < World::mGold; i++){
-//
-//		if (opacity < 254){
-//			opacity++;
-//		}
-//
-//	}
+	
+		if(World::mScore += 0.01f){
+			opacity = 255 * World::mScore;
+
+			
+		}
+		
+		else if (World::mScore == 1.0f) {
+			opacity = 255;
+
+		}
+
 
 	ResourceManager::drawLevel(window, bgVector, (200), sf::Color(255, 255, 255, 255));
-	ResourceManager::drawLevel(window, clVector, (200), sf::Color(255, 255, 255, 0));
+	ResourceManager::drawLevel(window, clVector, (200), sf::Color(255, 255, 255, opacity));
 
 }

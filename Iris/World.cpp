@@ -7,7 +7,7 @@ LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 int spawnTimeLimit = 500;
 int FRAME_LIMIT = 60;
-int World::mGold;
+float World::mScore = 0;
 
 World::World() :
 entityVector(){
@@ -17,7 +17,7 @@ entityVector(){
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
-
+	
 }
 
 World::~World(){}
@@ -108,6 +108,7 @@ void World::renderImages(){
 	mLevel->moveBackground(window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);
+		
 	}
 
 }
@@ -115,6 +116,7 @@ void World::renderImages(){
 void World::tick(float dt){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		entityVector[i]->tick(entityVector, dt);
+		
 	}
 }
 
@@ -155,9 +157,36 @@ void World::detectCollisions(){
 			if (isColliding(entity0, entity1) && entity0->getType() != entity1->getType()){
 				entity0->collide(entity1, entityVector);
 				entity1->collide(entity0, entityVector);
+				
 			}
+
 		}
 	}
+	for (EntityVector::iterator	i = entityVector.begin(); i < entityVector.end(); i++){
+
+		for (EntityVector::iterator x = entityVector.begin(); x < entityVector.end(); x++){
+
+		
+			if ((*i)->ENEMY && (*i)->getPosition().x > 0 && (*i)->isAlive() == false){
+				mScore += 0.01f;
+			}
+			else if (mScore >= 1){
+
+				mScore = 1;
+
+			}
+			if ((*x)->PLAYER && (*x)->getDamage()){
+				mScore -= 0.01f;
+			}
+			 if (mScore <= 0){
+				mScore = 0;
+			}
+		
+		}
+	
+	}
+	
+
 }
 
 
@@ -170,6 +199,7 @@ void World::killDeadEntities(){
 		if (enteties->isAlive()){
 			reserveEnteties.push_back(enteties);
 		}
+	
 	}
 	entityVector = reserveEnteties;
 }
@@ -197,11 +227,11 @@ void World::pause(){
 
 
 /*
-__	- FML.
-/ _)
-_/\/\/\_/ /
-/			 |
-/ (  |	  (  |
-/   |_|--- |_|
+				__	- FML.
+				/ _)
+		_/\/\/\_/ /
+	/			 |
+	/ (  |	  (  |
+	/   |_|--- |_|
 
 */
