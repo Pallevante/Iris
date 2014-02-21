@@ -6,9 +6,7 @@
 #include "ResourceManager.hpp"
 
 class Level {
-public:
-
-	
+public:	
 	Level();
 	~Level();
 	/*Spawn:ar default enemies*/
@@ -24,7 +22,7 @@ public:
 		int level, int levelTime);
 
 	int opacity;
-
+	void opacityChange(float score);
 
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();

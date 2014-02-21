@@ -7,9 +7,8 @@ mAcceleration(0.5f),
 mIsAlive(true)
 //Måste ändras relativt till bilden.
 {
-	mAnimation = new Animation("resource/textures/entities/gold.png", 100, 8);
+	mAnimation = new Animation("resource/textures/entities/gold.png", 100, 4);
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
-
 }
 
 
@@ -39,6 +38,7 @@ float Gold::getRad() const {
 }
 
 void Gold::tick(EntityVector &entities, float dt){
+	mAnimation->Update();
 	move(entities, dt);
 }
 
@@ -58,6 +58,7 @@ bool Gold::isAlive(){
 int Gold::collide(Entity *e0, EntityVector &entities){
 	if (e0->getType() == PLAYER){
 		mIsAlive = false;
+		ResourceManager::getSound("resource/sounds/Coin.ogg").play();
 	}
 	else
 		return 0;

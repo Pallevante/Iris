@@ -169,9 +169,9 @@ void World::detectCollisions(){
 					mGold += entity1->getDamage();
 
 				if (entity0->getType() == Entity::RAY && entity1->getType() == Entity::ENEMY
-					|| entity0->getType() == Entity::ENEMY && entity1->getType() == Entity::RAY){
-					mScore += 0.01f;
-				}
+					|| entity0->getType() == Entity::ENEMY && entity1->getType() == Entity::RAY){					
+					mScore += 0.10f;
+				}				
 
 				else if (mScore >= 1){
 					mScore = 1;
@@ -181,12 +181,12 @@ void World::detectCollisions(){
 					mScore -= 0.01f;
 				}
 
-				 else if (mScore < 0){
+				 else if (mScore == 0){
 					 mScore = 0;
 				 }
 				entity0->collide(entity1, entityVector);
 				entity1->collide(entity0, entityVector);
-
+				mLevel->opacityChange(mScore);
 			}
 
 		}

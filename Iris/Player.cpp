@@ -84,26 +84,37 @@ void Player::move(float dt){
 	sf::Vector2f oldVelocity = mVelocity;
 
 	/* Om den nuvarande hastigheten mVelocity är mindre än maxhastigheten, mSpeed, så ökas den nuvarande hastigheten med accelerationen, mAcceleration */
+	
+	/*Ser till att man inte kan komma 'för' långt utanför skärmen. 
+	Allt relativt till nuvarande velocity och acceleration.*/
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 		if (mVelocity.x < mSpeed){
-			mVelocity.x += mAcceleration;
+			if (getPosition().x + (mVelocity.x + mAcceleration) < 1280 - mAnimation->getSprite().getGlobalBounds().width)
+				mVelocity.x += mAcceleration;				
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-		if (mVelocity.x > -mSpeed){
-			mVelocity.x -= mAcceleration;
+		if (mVelocity.x > -mSpeed){			
+			if (getPosition().x - (mVelocity.x + mAcceleration) > 0)
+				mVelocity.x -= mAcceleration;
 		}
 	}	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 		if (mVelocity.y < mSpeed){
-			mVelocity.y += mAcceleration;
+			if (-mAnimation->getSprite().getGlobalBounds().height + 720 - (mAcceleration + mVelocity.y) > getPosition().y)
+				mVelocity.y += mAcceleration;
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 		if (mVelocity.y > -mSpeed){
-			mVelocity.y -= mAcceleration;
+			if (getPosition().y - (mAcceleration + mAcceleration) > 0)
+				mVelocity.y -= mAcceleration;
 		}
 	}
+
+
+
 	/* För att sakta ner spelaren gångras den nuvarande hastigheten med ett värde som är mindre än 1. */
 	mVelocity.x = mVelocity.x*0.935f;
 	currentX = currentX + (oldVelocity.x + mVelocity.x) * 0.5 * dt;

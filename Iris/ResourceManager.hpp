@@ -34,7 +34,7 @@ public:
 
 	Ange bara vårt renderwindow, din initialiserade TextureVector, hastigheten som den ska röra sig i relativ till nuvarande tiden, och en färg (för opacity)
 	*/
-	static void drawLevel(sf::RenderWindow& window, SpriteVector& bgVector, float speed, sf::Color& color);
+	//static void drawLevel(sf::RenderWindow& window, SpriteVector& bgVector, float speed, sf::Color& color);
 
 
 	/* Kör clear innan avslut av programmet för att tömma minnet. */  

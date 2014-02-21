@@ -15,8 +15,13 @@ mRad(64)
 }
 
 float DefaultEnemy::setYPos(){
-	return rand() % 720 + 1;
+	float random =  rand() % 720 - mAnimation->getSprite().getGlobalBounds().height + 1;
+	if (random < 0){
+		random += mAnimation->getSprite().getGlobalBounds().height;
+	}
+	return random;
 }
+
 
 
 
@@ -57,8 +62,9 @@ void DefaultEnemy::setDamage(int newDamage){
 }
 
 int DefaultEnemy::collide(Entity *e0, EntityVector &entities){
-	if (e0->getDamage() > 0 && e0->getType() != getType()){
+	if (e0->getDamage() > 0 && e0->getType() == RAY){
 		mIsDying = true;
+		ResourceManager::getSound("resource/sounds/Hitplopp.ogg").play();
 		return 5;
 	}
 	else {

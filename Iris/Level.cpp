@@ -7,22 +7,21 @@ sf::Clock goldClock;
 sf::Sprite baseImage;
 
 Level::Level(){
-
+	opacity = 0;
 }
 Level::~Level(){
 
 
 }
 
-void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,
-
-	float obstMax, float specialMin, float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
-	int level, int levelTime){
+void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,float obstMax, 
+	float specialMin, float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level, 
+	int levelTime){
 
 	switch (level){
 	case 1:
-		chooseWhiteTexture = "resource/textures/backgrounds/usa_bild_grå.png";
-		chooseColoredTexture = "resource/textures/backgrounds/usa_bild_blå.png";
+		chooseWhiteTexture = "resource/textures/backgrounds/Level1/grey.png";
+		chooseColoredTexture = "resource/textures/backgrounds/Level1/color.png";
 		break;
 	case 2:
 		chooseWhiteTexture = "resource/test.png";
@@ -67,15 +66,30 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	mMaxSpecialSpawn = maxSpecialSpawn;
 	mMaxSpawnEnemies = maxSpawnEnemies;
 	mLevelTime = levelTime;
+	/*Måste tömmas innan så att nästa bana inte hamnar över den gamla.*/
+	if (!bgVector.empty())
+		bgVector.clear();
+	if (!clVector.empty())
+		clVector.clear();
 
 	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
-
 	clVector = ResourceManager::getLevel(chooseColoredTexture);	
 
 }
 
 int Level::getRandomNumber(){
 	return rand() % 10;
+}
+
+void Level::opacityChange(float score){	
+
+	opacity = 255 * score;
+	if (score >= 1.0f) {
+		opacity = 255;
+	}
+	if (score <= 0){
+		opacity = 0;
+	}
 }
 
 /*Kollar hur många som ska spawnas av default enemies*/
@@ -161,29 +175,28 @@ std::string Level::getTheme(int level){
 }
 
 
-
-
-
-
 void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color){
 	/* Skapar och ritar ut sprites på relativa positioner */
 	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
 		baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
+		//Borde egentligen lägga in en svordomsmätare här men... Jag har helt ärligt tappat räkningen.
 
-		if (World::currentState == World::PLAYING){
-			if (i < bgVector.size() -1 )
+		if (World::currentState == World::PLAYING){			
+			if(bgVector[bgVector.size() - 1].getPosition().x + bgVector[bgVector.size() -1].getGlobalBounds().width > 9000)
 				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
 		}		
+
 		bgVector[i].setColor(color);
-		window.draw(bgVector[i]);
+		window.draw(bgVector[i]);		
 	}
 }
 
 
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
 void Level::drawBackground(sf::RenderWindow &window){
+
 	//baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
 
-	drawLevel(window, bgVector, (3), sf::Color(255, 255, 255, 255));
-	drawLevel(window, clVector, (3), sf::Color(255, 255, 255, 0));
+	drawLevel(window, bgVector, (20), sf::Color(255, 255, 255, 255));
+	drawLevel(window, clVector, (20), sf::Color(255, 255, 255, opacity));
 }
