@@ -5,15 +5,25 @@ Menu(
 Menu::ButtonVector{ 
 	/* Knapparna måste läggas in i rätt ordning som de visas på menyn */
 	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/play.png")),
+	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/play_selected.png")),
 	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/shop.png")),
-	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/quit.png"))
+	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/shop_selected.png")),
+	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/quit.png")),
+	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/quit_selected.png"))
 }, "resource/textures/backgrounds/menu.png", 0)
 {
 	/* Definera position på knapparna här */
-	mButtonVector[0]->setPosition(100, 100);
-	mButtonVector[1]->setPosition(100, 300);
-	mButtonVector[2]->setPosition(100, 500);
-	/* Körs nu för att uppdatera positionen på aktiv knapp-symbolen */
+	mButtonVector[PLAY * 2]->setPosition(100, 100);
+	mButtonVector[PLAY * 2 + 1]->setPosition(100, 100);
+	mButtonVector[SHOP * 2]->setPosition(100, 300);
+	mButtonVector[SHOP * 2 + 1]->setPosition(100, 300);
+	mButtonVector[QUIT * 2]->setPosition(100, 500);
+	mButtonVector[QUIT * 2 + 1]->setPosition(100, 500);
+	setInactive(PLAY);
+	setInactive(SHOP);
+	setInactive(QUIT);
+
+	/* Körs nu för att uppdatera aktiv knapp-symbolen */
 	setActive(mCurrentMenuItem);
 }
 

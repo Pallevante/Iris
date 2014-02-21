@@ -13,6 +13,7 @@ public:
 	unsigned int getCurrentMenuItem();
 	void setCurrentMenuItem(unsigned int i);
 	void setActive(unsigned int i);
+	void setInactive(unsigned int i);
 	void up();
 	void down();
 
@@ -20,7 +21,6 @@ public:
 	virtual void input(sf::Event &event) = 0;
 protected:
 	ButtonVector mButtonVector;
-	sf::Sprite mActiveButton;
 	sf::Sprite mBackground;
 	unsigned int mCurrentMenuItem;
 };
