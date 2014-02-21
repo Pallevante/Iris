@@ -19,6 +19,8 @@ unsigned int Menu::getCurrentMenuItem(){
 	return mCurrentMenuItem;
 }
 
+
+
 void Menu::setActive(unsigned int i){
 	mButtonVector[i * 2 + 1]->setColor(sf::Color(255,255,255,255));
 }

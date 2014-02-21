@@ -68,18 +68,19 @@ sf::Image& ResourceManager::getImage(const std::string& filename){
 //*Suck*: 61
 sf::Music* ResourceManager::getMusic(const std::string& filename){
 
-		if (mMusic.count(filename) == 0){
+		//if (mMusic.count(filename) == 0){
+			mMusic.clear();
 			sf::Music* newMusic = new sf::Music;
 			newMusic->openFromFile(filename);
 			mMusic.insert(std::pair<std::string, sf::Music*>(filename, newMusic));
-		}
+		//}
 	
 	return mMusic[filename];
 }
 
 
 
-
+/*spawn of satan*/
 ResourceManager::SpriteVector ResourceManager::getLevel(const std::string& filename){
 	/* Ser till att varje bild bara laddas in en gång. */
 	if (mLevels.count(filename) == 0){
@@ -110,9 +111,9 @@ ResourceManager::SpriteVector ResourceManager::getLevel(const std::string& filen
 	return mLevels[filename];
 }
 
-
+/*
 void ResourceManager::drawLevel(sf::RenderWindow& window, SpriteVector& bgVector, float speed, sf::Color& color){
-	/* Skapar och ritar ut sprites på relativa positioner */
+	/* Skapar och ritar ut sprites på relativa positioner 
 	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
 
 		bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
@@ -122,7 +123,7 @@ void ResourceManager::drawLevel(sf::RenderWindow& window, SpriteVector& bgVector
 
 	}
 }
-
+*/
 
 
 /* Det här är min bane */

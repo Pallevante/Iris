@@ -4,19 +4,25 @@ sf::Clock movementClock;
 
 
 DefaultEnemy::DefaultEnemy(float speedMultiplier) :
-mDamage(10),
+mDamage(100),
 mSpeed(4 * speedMultiplier),
 mIsAlive(true),
-//Måste ändras relativt till bilden.
+//Mï¿½ste ï¿½ndras relativt till bilden.
 mRad(64)
 {
 	mAnimation = new Animation("resource/textures/entities/enemy.png", 50, 2);
 	mAnimation->setPosition(sf::Vector2f(1200, setYPos()));
+	
 }
 
 float DefaultEnemy::setYPos(){
-	return rand() % 720 + 1;
+	float random =  rand() % 720 - mAnimation->getSprite().getGlobalBounds().height + 1;
+	if (random < 0){
+		random += mAnimation->getSprite().getGlobalBounds().height;
+	}
+	return random;
 }
+
 
 
 
@@ -50,15 +56,17 @@ int DefaultEnemy::getWidth() const {
 	return mAnimation->getSprite().getTextureRect().width;
 }
 
-//Någonstans här insåg jag att DefaultEnemy är ett jävligt ocoolt namn på en klass.
+//Nï¿½gonstans hï¿½r insï¿½g jag att DefaultEnemy ï¿½r ett jï¿½vligt ocoolt namn pï¿½ en klass.
 
 void DefaultEnemy::setDamage(int newDamage){
 	mDamage = newDamage;
 }
 
 int DefaultEnemy::collide(Entity *e0, EntityVector &entities){
-	if (e0->getDamage() > 0 && e0->getType() != getType()){
+
+	if (e0->getDamage() > 0 && e0->getType() == RAY){
 		mIsDying = true;
+		ResourceManager::getSound("resource/sounds/Hitplopp.ogg").play();
 		return 5;
 	}
 	else {
@@ -78,8 +86,10 @@ void DefaultEnemy::tick(EntityVector &entities, float dt){
 }
 
 /*Enemy Basfunktioner*/
+
 void DefaultEnemy::death(float dt){
 	mAnimation->setPosition(sf::Vector2f(getPosition().x, getPosition().y - 15*dt));
+	DefaultEnemy::setDamage(0);
 	if (getPosition().y < -140){
 		mIsAlive = false;
 	}
@@ -122,7 +132,7 @@ void DefaultEnemy::move(EntityVector &enteties, float dt){
 	}
 }
 
-/*Dessa ska vara tomma såvida default enemy inte blir ändrad.*/
+/*Dessa ska vara tomma sï¿½vida default enemy inte blir ï¿½ndrad.*/
 void DefaultEnemy::fire(EntityVector &enteties){
 	return;
 }

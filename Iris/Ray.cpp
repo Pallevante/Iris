@@ -5,10 +5,10 @@ Ray::Ray(sf::Vector2f position) :
 mDamage(10),
 mRad(64),
 mSpeed(7),
-mIsAlive(true)
-{
-	mAnimation = new Animation("resource/textures/entities/ray.png", 25, 17);
-	mAnimation->setPosition(position);
+mIsAlive(true){
+	mAnimation = new Animation("resource/textures/entities/ray.png", 100, 17);
+	mAnimation->setPosition(sf::Vector2f(position.x + 109, position.y + 54.5));
+
 }
 
 Ray::~Ray(){}
@@ -41,7 +41,7 @@ void Ray::setDamage(int newDamage){
 
 int Ray::collide(Entity *e0, EntityVector &entities){
 	if (e0->getType() == ENEMY){
-		mIsAlive = false;		
+		mIsAlive = false;
 	}
 	return 0;
 }

@@ -1,14 +1,12 @@
 #pragma once
 #include <SFML\Graphics.hpp>
-#include "World.hpp"
 #include "Enemy.hpp"
 #include "Gold.hpp"
 #include "ResourceManager.hpp"
+#include "World.hpp"
 
 class Level {
-public:
-
-	
+public:	
 	Level();
 	~Level();
 	/*Spawn:ar default enemies*/
@@ -21,9 +19,11 @@ public:
 	void set(float spawnMini, float spawnMax, float requirment, 
 		float obstSpawnMin,	float obstMax, float specialMin, 
 		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
-		int level);
+		int level, int levelTime);
+
 	int opacity;
 	void opacityChange(float score);
+
 	void spawn(Entity::EntityVector &entityVector);
 	int getRandomNumber();
 
@@ -46,7 +46,7 @@ private:
 	/*maxx antal enemies som spawnas*/
 	int mMaxSpawnEnemies;
 	int mMaxSpecialSpawn;
-
+	int mLevelTime;
 	void drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color);
 	void moveLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color);
 
