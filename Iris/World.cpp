@@ -9,10 +9,6 @@ int spawnTimeLimit = 500;
 int FRAME_LIMIT = 60;
 float World::mScore = 0;
 
-<<<<<<< HEAD
-World::World() :
-entityVector(){
-=======
 /* Det här är heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemskt dåligt sätt att lösa problem */
 /* ... #YOLO */
 MainMenu mainMenu;
@@ -20,7 +16,7 @@ ShopMenu shopMenu;
 
 World::World(): 
 entityVector(){	
->>>>>>> bq
+
 	currentState = INMENU;
 	Player *mPlayer;
 	window.setVerticalSyncEnabled(true);
