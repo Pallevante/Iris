@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "ResourceManager.hpp"
 #include "Menu.hpp"
+#include "World.hpp"
 
 class MainMenu : public Menu{
 public:
@@ -16,5 +17,6 @@ public:
 	~MainMenu();
 
 	unsigned int getMaxItems();
+	void input(sf::Event& event);
 private:
 };

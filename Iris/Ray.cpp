@@ -7,7 +7,7 @@ mRad(64),
 mSpeed(7),
 mIsAlive(true)
 {
-	mAnimation = new Animation("resource/textures/entities/ray.png", 100, 13);
+	mAnimation = new Animation("resource/textures/entities/ray.png", 25, 17);
 	mAnimation->setPosition(position);
 }
 

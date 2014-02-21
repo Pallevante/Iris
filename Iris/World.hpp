@@ -46,8 +46,6 @@ private:
 	void killDeadEntities();
 
 	/*Menyrelaterade funktioner*/
-
-	void menuInput(sf::Event &event);
 	void pause();
 	void enterStore();
 	void enterSettings();
@@ -60,8 +58,6 @@ private:
 	int mGold;
 
 	EntityVector entityVector;
-	MainMenu mainMenu;
-	ShopMenu shopMenu;
 	Level* mLevel;
 	sf::Clock deltaTimer;
 	//Enemy *enemy;
