@@ -11,7 +11,7 @@ float World::mScore = 0;
 
 
 /* Det här är heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemskt dåligt sätt att lösa problem */
-/* ... #YOLO */
+/* ... #YOLO  - Älskar dig simon <3*/
 MainMenu mainMenu;
 ShopMenu shopMenu;
 
@@ -24,7 +24,6 @@ entityVector(){
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
 	loadMap();	
-
 }
 
 

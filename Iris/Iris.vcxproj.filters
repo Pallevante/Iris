@@ -31,12 +31,9 @@
     <ClCompile Include="LoadLevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
-=======
     <ClCompile Include="World_menus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
->>>>>>> peterH
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>

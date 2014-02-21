@@ -56,6 +56,7 @@ void MainMenu::input(sf::Event& event){
 			break;
 		case MainMenu::QUIT:
 			ResourceManager::getSound("resource/sounds/menuback.ogg").play();
+			World::currentState = World::EXIT;
 			return;
 			break;
 		default:
