@@ -9,16 +9,20 @@ int spawnTimeLimit = 500;
 int FRAME_LIMIT = 60;
 float World::mScore = 0;
 
+
 World::World() :
 entityVector(){
 	currentState = INMENU;
-	Player *mPlayer;
+	//Player *mPlayer;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
 	loadMap();	
+
 }
+
+
 
 World::~World(){}
 
@@ -55,6 +59,8 @@ void World::run(){
 
 		window.clear();
 
+		if (currentState == EXIT)
+			window.close();
 
 		if (currentState == INMENU){
 			mainMenu.drawMenu(window);
@@ -75,9 +81,7 @@ void World::run(){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
 
 			if (!loadedMap){
-
 				loadMap();
-
 			}
 
 			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
@@ -93,13 +97,15 @@ void World::run(){
 		window.display();
 	}
 }
-
+/*Load funktion.*/
 void World::loadMap(){
+	window.setTitle("Getting shit ready for you :)");
 	mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
 	mLoadLevel.setLevel(mCurrentLevel);
 	mLevel = mLoadLevel.getLevel();
 	music = ResourceManager::getMusic(mLevel->getTheme(1));
 	loadedMap = true;
+	window.setTitle("Iris");
 }
 
 
@@ -109,23 +115,23 @@ void World::startGame(){
 	killDeadEntities();
 	spawnEnemies();
 	renderImages();
+	//mPlayer->score();
 }
 
 void World::renderImages(){
 	mLevel->drawBackground(window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
-		window.draw(*entityVector[i]);
-		
+		window.draw(*entityVector[i]);		
 	}
-
 }
 
-void World::tick(float dt){
+void World::tick(float dt){	
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
-		entityVector[i]->tick(entityVector, dt);
-		
+		entityVector[i]->tick(entityVector, dt);		
 	}
 }
+
+
 
 
 /* Tar emot två Entitypekare och returnerar om de kolliderar eller inte. Används som stödfunktion till detectCollisions. */
@@ -187,6 +193,8 @@ void World::detectCollisions(){
 				entity0->collide(entity1, entityVector);
 				entity1->collide(entity0, entityVector);
 				mLevel->opacityChange(mScore);
+				//Uppdaterar auran.
+				mPlayer->updateAura(mScore);
 			}
 
 		}
@@ -196,7 +204,32 @@ void World::detectCollisions(){
 
 	
 	
+//Vad är meningen med denna?
+/*
+int World::aura(Entity *entity, std::vector<Entity*> &entities){
 
+	unsigned int currentRed = mPlayer->mAura->getSprite().getColor().r;
+	unsigned int currentGreen = mPlayer->mAura->getSprite().getColor().g;
+	unsigned int currentBlue = mPlayer->mAura->getSprite().getColor().b;
+	unsigned int currentAlpha = mPlayer->mAura->getSprite().getColor().a;
+
+
+
+	if (currentAlpha != 0){
+		if (mPlayer->collide(entity, entities)){
+			if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
+				currentAlpha -= entity->getDamage() / 2;
+				mPlayer->mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
+				return 0;
+			}
+		}
+		else if (entity->getDamage() > 0 && entity->getType() != Entity::Type::ENEMY){
+			return 0;
+		}
+	}
+	return 0;
+}
+*/
 
 /*Skapar en ny vektor som sedan lägger in alla levande entiteter.
 Den nya vektorn uppdaterar våran "main" vektor sedan.*/
@@ -238,10 +271,11 @@ void World::pause(){
 World::GameState World::currentState;
 
 /*
-			 __	- FML.
+
+			 __  - FML. 
             / _)
    _/\/\/\_/ /
-  /			 |
+  /	         |
  / (  |	  (  |
 /   |_|--- |_|
 

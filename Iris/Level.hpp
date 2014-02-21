@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML\Graphics.hpp>
-#include "World.hpp"
 #include "Enemy.hpp"
 #include "Gold.hpp"
 #include "ResourceManager.hpp"
+#include "World.hpp"
 
 class Level {
 public:	

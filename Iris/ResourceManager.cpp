@@ -68,11 +68,12 @@ sf::Image& ResourceManager::getImage(const std::string& filename){
 //*Suck*: 61
 sf::Music* ResourceManager::getMusic(const std::string& filename){
 
-		if (mMusic.count(filename) == 0){
+		//if (mMusic.count(filename) == 0){
+			mMusic.clear();
 			sf::Music* newMusic = new sf::Music;
 			newMusic->openFromFile(filename);
 			mMusic.insert(std::pair<std::string, sf::Music*>(filename, newMusic));
-		}
+		//}
 	
 	return mMusic[filename];
 }

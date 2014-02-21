@@ -39,7 +39,17 @@ void Animation::setPosition(const sf::Vector2f& position){
 	mSprite.setPosition(position);
 }
 
+void Animation::setColor(sf::Color& color){
+	mSprite.setColor(color);
+
+}
+
+
 /* Getters */
 const sf::Sprite Animation::getSprite(){
 	return mSprite;
+}
+
+const sf::Color Animation::getColor(){
+	return mColor;
 }

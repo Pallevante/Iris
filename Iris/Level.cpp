@@ -169,6 +169,9 @@ float Level::percentRequirement(){
 }
 
 std::string Level::getTheme(int level){
+	if (level == 0){
+		return "resource/sounds/Credits.wav";
+	}
 	if (level == 1){
 		return "resource/sounds/Level1Theme.ogg";
 	}
@@ -197,6 +200,6 @@ void Level::drawBackground(sf::RenderWindow &window){
 
 	//baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
 
-	drawLevel(window, bgVector, (20), sf::Color(255, 255, 255, 255));
-	drawLevel(window, clVector, (20), sf::Color(255, 255, 255, opacity));
+	drawLevel(window, bgVector, (3), sf::Color(255, 255, 255, 255));
+	drawLevel(window, clVector, (3), sf::Color(255, 255, 255, opacity));
 }

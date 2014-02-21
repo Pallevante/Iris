@@ -21,6 +21,8 @@ unsigned int Menu::getCurrentMenuItem(){
 	return mCurrentMenuItem;
 }
 
+
+
 void Menu::setActive(unsigned int i){
 	mActiveButton.setPosition(mButtonVector[i]->getPosition().x - 80, mButtonVector[i]->getPosition().y);
 }
