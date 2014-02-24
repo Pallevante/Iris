@@ -88,6 +88,7 @@
     <ClCompile Include="DefaultEnemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Gold.cpp" />
+    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LoadLevel.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="Gold.hpp" />
+    <ClInclude Include="Hud.hpp" />
     <ClInclude Include="Level.hpp" />
     <ClInclude Include="LoadLevel.hpp" />
     <ClInclude Include="MainMenu.hpp" />

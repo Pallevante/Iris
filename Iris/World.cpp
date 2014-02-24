@@ -8,6 +8,8 @@ LoadLevel::LevelEnum mCurrentLevel;
 int spawnTimeLimit = 500;
 int FRAME_LIMIT = 60;
 float World::mScore = 0;
+int World::mGold = 0;
+
 
 
 /* Det här är heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemskt dåligt sätt att lösa problem */
@@ -24,6 +26,8 @@ entityVector(){
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
 	loadMap();	
+	mHud = new Hud();
+	
 }
 
 
@@ -132,12 +136,18 @@ void World::renderImages(){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);		
 	}
+<<<<<<< HEAD
+=======
+	
+	mHud->drawText(window);
+>>>>>>> majal
 }
 
 void World::tick(float dt){	
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		entityVector[i]->tick(entityVector, dt);		
 	}
+	mHud->setText();
 }
 
 
@@ -201,6 +211,7 @@ void World::detectCollisions(){
 				 }
 				entity0->collide(entity1, entityVector);
 				entity1->collide(entity0, entityVector);
+				
 				mLevel->opacityChange(mScore);
 				//Uppdaterar auran.
 				mPlayer->updateAura(mScore);
