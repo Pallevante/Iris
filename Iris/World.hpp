@@ -10,8 +10,12 @@
 #include "Player.hpp"
 #include "ResourceManager.hpp"
 #include "ShopMenu.hpp"
+#include "Hud.hpp"
+#include <SFML/System/Clock.hpp>
+
 
 class Level;
+class Hud;
 
 class World{
 public:
@@ -37,6 +41,8 @@ public:
 	music, bilder och fiender*/
 	void loadMap();
 	static float mScore;
+	static int mGold;
+	void renderHUD();
 private:
 	/*Spelrelaterade funktioner*/
 	void spawnEnemies();
@@ -60,12 +66,13 @@ private:
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
 
-	int mGold;
+	
 
 	EntityVector entityVector;
 	Player *mPlayer;
 	MainMenu mainMenu;
 	ShopMenu shopMenu;
 	Level* mLevel;
+	Hud* mHud;
 	sf::Clock deltaTimer;
 };
