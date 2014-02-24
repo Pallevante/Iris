@@ -187,13 +187,13 @@ void World::detectCollisions(){
 					mScore -= 0.01f;
 				}
 
-				 else if (mScore == 0){
+				 else if (mScore <= 0){
 					 mScore = 0;
 				 }
 				entity0->collide(entity1, entityVector);
-				entity1->collide(entity0, entityVector);
+				entity1->collide(entity0, entityVector);				
+				/*Uppdaterar auran samt Level opacity.*/
 				mLevel->opacityChange(mScore);
-				//Uppdaterar auran.
 				mPlayer->updateAura(mScore);
 			}
 
@@ -266,8 +266,6 @@ void World::pause(){
 }
 
 
-
-
 World::GameState World::currentState;
 
 /*
@@ -279,5 +277,9 @@ World::GameState World::currentState;
  / (  |	  (  |
 /   |_|--- |_|
 
+This is Dan. 
+Dan has watched the progress of iris since the begining.
+Dan had come to a conclusion about the programmers.
+"You are fucking idiots" - Dan
 */
 

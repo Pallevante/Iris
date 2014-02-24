@@ -10,8 +10,6 @@ Level::Level(){
 	opacity = 0;
 }
 Level::~Level(){
-
-
 }
 
 void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,float obstMax, 
@@ -66,6 +64,7 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	mMaxSpecialSpawn = maxSpecialSpawn;
 	mMaxSpawnEnemies = maxSpawnEnemies;
 	mLevelTime = levelTime;
+
 	/*Måste tömmas innan så att nästa bana inte hamnar över den gamla.*/
 	if (!bgVector.empty())
 		bgVector.clear();
@@ -146,7 +145,7 @@ void Level::spawnGold(Entity::EntityVector &entityVector){
 	sf::Time spawnGold = goldClock.getElapsedTime();
 	/*Varannan sekund så spawnas guld.*/
 	if (spawnGold.asSeconds() > 2){
-		entityVector.push_back(new Gold(1200, 350));		
+		entityVector.push_back(new Gold());		
 		goldClock.restart();
 	}
 }
