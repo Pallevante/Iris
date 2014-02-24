@@ -8,6 +8,8 @@ LoadLevel::LevelEnum mCurrentLevel;
 int spawnTimeLimit = 500;
 int FRAME_LIMIT = 60;
 float World::mScore = 0;
+int World::mGold = 0;
+
 
 World::World() :
 entityVector(){
@@ -18,6 +20,8 @@ entityVector(){
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
 	loadMap();	
+	mHud = new Hud();
+	
 }
 
 World::~World(){}
@@ -117,7 +121,8 @@ void World::renderImages(){
 		window.draw(*entityVector[i]);
 		
 	}
-
+	
+	mHud->drawText(window);
 }
 
 void World::tick(float dt){
@@ -125,6 +130,7 @@ void World::tick(float dt){
 		entityVector[i]->tick(entityVector, dt);
 		
 	}
+	mHud->setText();
 }
 
 
@@ -187,6 +193,7 @@ void World::detectCollisions(){
 				 }
 				entity0->collide(entity1, entityVector);
 				entity1->collide(entity0, entityVector);
+				
 				mLevel->opacityChange(mScore);
 			}
 
