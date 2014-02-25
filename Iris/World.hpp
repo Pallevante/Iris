@@ -10,11 +10,9 @@
 #include "Player.hpp"
 #include "ResourceManager.hpp"
 #include "ShopMenu.hpp"
-<<<<<<< HEAD
-=======
 #include "Hud.hpp"
 #include <SFML/System/Clock.hpp>
->>>>>>> majal
+
 
 class Level;
 class Hud;
