@@ -7,7 +7,7 @@ mNumFrames(numFrames),
 mCurrentFrame(0){
 	/* Använder texturen som en sprite */
 	mSprite.setTexture(ResourceManager::getTexture(filename));
-	
+
 	/* Visar den första framen av spritesheetet */
 	sf::IntRect textureRect(0, 0, ResourceManager::getTexture(filename).getSize().x / mNumFrames, ResourceManager::getTexture(filename).getSize().y);
 	mSprite.setTextureRect(textureRect);
@@ -23,7 +23,7 @@ void Animation::Update(){
 		/* Startar om timern inför nästa frame */
 		mFrameTimer.restart();
 
-		++mCurrentFrame; 
+		++mCurrentFrame;
 		if (mCurrentFrame >= mNumFrames){
 			mCurrentFrame = 0;
 		}
@@ -39,7 +39,17 @@ void Animation::setPosition(const sf::Vector2f& position){
 	mSprite.setPosition(position);
 }
 
+void Animation::setColor(sf::Color& color){
+	mSprite.setColor(color);
+
+}
+
+
 /* Getters */
 const sf::Sprite Animation::getSprite(){
 	return mSprite;
+}
+
+const sf::Color Animation::getColor(){
+	return mColor;
 }

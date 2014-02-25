@@ -1,8 +1,8 @@
 #pragma once
+#include <string>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Clock.hpp>
-#include <string>
 #include "ResourceManager.hpp"
 
 class Animation{
@@ -19,12 +19,18 @@ public:
 	/* Stödfunktion för att sätta positionen på medlemsspriten i en Animation. */
 	void setPosition(const sf::Vector2f& position);
 
+	void setColor(sf::Color& color);
+
 	/* Getters */
 	const sf::Sprite getSprite();
+
+	const sf::Color getColor();
+
 private:
 	/* Medlemsvariablar */
 	sf::Clock mFrameTimer;
 	sf::Sprite mSprite;
+	sf::Color mColor;
 	int mTimePerFrame = 0;
 	int mNumFrames = 0;
 	int mCurrentFrame = 0;
