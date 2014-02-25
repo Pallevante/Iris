@@ -3,8 +3,7 @@
 Menu::Menu(ButtonVector buttons, const std::string& background, unsigned int currentMenuItem):
 mButtonVector(buttons),
 mCurrentMenuItem(currentMenuItem),
-mBackground(ResourceManager::getTexture(background)),
-mActiveButton(ResourceManager::getTexture("resource/textures/buttons/activebutton.png"))
+mBackground(ResourceManager::getTexture(background))
 {
 }
 
@@ -15,17 +14,22 @@ void Menu::drawMenu(sf::RenderWindow& window){
 	for (ButtonVector::size_type i = 0; i < mButtonVector.size(); i++){
 		window.draw(*mButtonVector[i]);
 	}
-	window.draw(mActiveButton);
 }
 unsigned int Menu::getCurrentMenuItem(){
 	return mCurrentMenuItem;
 }
 
+
+
 void Menu::setActive(unsigned int i){
-	mActiveButton.setPosition(mButtonVector[i]->getPosition().x - 80, mButtonVector[i]->getPosition().y);
+	mButtonVector[i * 2 + 1]->setColor(sf::Color(255,255,255,255));
+}
+void Menu::setInactive(unsigned int i){
+	mButtonVector[i * 2 + 1]->setColor(sf::Color(255, 255, 255, 0));
 }
 
 void Menu::setCurrentMenuItem(unsigned int i){
+	Menu::setInactive(mCurrentMenuItem);
 	mCurrentMenuItem = i;
 	Menu::setActive(mCurrentMenuItem);
 }

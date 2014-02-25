@@ -6,17 +6,21 @@ sf::Clock reloadTimer;
 
 
 Player::Player(float xPosition, float yPosition, float speedMultiplier) :
-
+mHealth(0),
 mDamage(10),
 mSpeed(6 * speedMultiplier),
 mAcceleration(0.5f * speedMultiplier),
 mIsAlive(true),
-//Måste ändras relativt till bilden.
+entities(entities),
+
 mRad(20.f)
-{	
+{
+	mAura = new Animation("resource/textures/entities/playerAura.png", 100, 1);
 	mAnimation = new Animation("resource/textures/entities/player.png", 100, 8);
 
 	mAnimation->setPosition(sf::Vector2f(xPosition, yPosition));
+	mAura->setPosition(mAnimation->getSprite().getPosition());
+
 }
 
 Player::~Player(){}
@@ -26,16 +30,53 @@ void Player::tick(EntityVector &entities, float dt){
 	move(dt);
 	fire(entities);
 	mAnimation->Update();
+	mAura->setPosition(mAnimation->getSprite().getPosition());
+	mAura->setColor(sf::Color(255,255,255,opacity));
+	mAura->Update();
+}
 
+void Player::updateAura(float score){
+
+	opacity = 255 * score;
+	if (score >= 1.0f) {
+		opacity = 255;
+	}
+	if (score <= 0){
+		opacity = 0;
+	}
 }
 
 int Player::collide(Entity *entity, EntityVector &entities){
-        
-    if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
-        mHealth -= entity->getDamage() / 2;                
-        }
-    return 0;
+
+	if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
+		mHealth -= entity->getDamage() / 2;
+	}
+
+	return 0;
+	
+	//hämtar färgernas nuvarande värde för att kunna returnera rätt färg och alphavärde
+	/*unsigned int currentRed = mAura->getSprite().getColor().r;
+	unsigned int currentGreen = mAura->getSprite().getColor().g;
+	unsigned int currentBlue = mAura->getSprite().getColor().b;
+	unsigned int currentAlpha = mAura->getSprite().getColor().a;
+
+
+	if (currentAlpha != 0){
+		if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
+			currentAlpha -= entity->getDamage() / 2;
+			if (currentAlpha < 10){
+				currentAlpha = 0;
+			}
+		}
+		mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
+		return 0;
+	}
+	else {
+		return 0;
+	}*/
 }
+
+
 
 
 /*Get funktioner*/
@@ -81,29 +122,41 @@ void Player::move(float dt){
 	float currentX = mAnimation->getSprite().getPosition().x;
 	float currentY = mAnimation->getSprite().getPosition().y;
 
+
 	sf::Vector2f oldVelocity = mVelocity;
 
 	/* Om den nuvarande hastigheten mVelocity är mindre än maxhastigheten, mSpeed, så ökas den nuvarande hastigheten med accelerationen, mAcceleration */
+	
+	/*Ser till att man inte kan komma 'för' långt utanför skärmen. 
+	Allt relativt till nuvarande velocity och acceleration.*/
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 		if (mVelocity.x < mSpeed){
-			mVelocity.x += mAcceleration;
+			if (getPosition().x + (mVelocity.x + mAcceleration) < 1280 - mAnimation->getSprite().getGlobalBounds().width)
+				mVelocity.x += mAcceleration;				
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-		if (mVelocity.x > -mSpeed){
-			mVelocity.x -= mAcceleration;
+		if (mVelocity.x > -mSpeed){			
+			if (getPosition().x - (mVelocity.x + mAcceleration) > 0)
+				mVelocity.x -= mAcceleration;
 		}
 	}	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 		if (mVelocity.y < mSpeed){
-			mVelocity.y += mAcceleration;
+			if (-mAnimation->getSprite().getGlobalBounds().height + 720 - (mAcceleration + mVelocity.y) > getPosition().y)
+				mVelocity.y += mAcceleration;
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 		if (mVelocity.y > -mSpeed){
-			mVelocity.y -= mAcceleration;
+			if (getPosition().y - (mAcceleration + mAcceleration) > 0)
+				mVelocity.y -= mAcceleration;
 		}
 	}
+
+
+
 	/* För att sakta ner spelaren gångras den nuvarande hastigheten med ett värde som är mindre än 1. */
 	mVelocity.x = mVelocity.x*0.935f;
 	currentX = currentX + (oldVelocity.x + mVelocity.x) * 0.5 * dt;
@@ -112,8 +165,10 @@ void Player::move(float dt){
 	currentY = currentY + (oldVelocity.y + mVelocity.y) * 0.5 * dt;
 	/* Den nuvarande positionen uppdateras med det nya värdet */
 	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
+	mAura->setPosition(mAnimation->getSprite().getPosition());
 
 }
+
 
 void Player::fire(EntityVector &entities){
 
@@ -129,3 +184,4 @@ void Player::fire(EntityVector &entities){
 		}
 	}
 }
+

@@ -79,6 +79,7 @@
     <ClCompile Include="Gold.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+
     <ClCompile Include="Hud.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -126,6 +127,7 @@
     <ClInclude Include="Gold.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+
     <ClInclude Include="Hud.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

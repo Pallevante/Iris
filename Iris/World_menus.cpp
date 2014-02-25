@@ -21,8 +21,9 @@ void World::menuInput(sf::Event &event){
 				currentState = INSHOP;
 				return;
 				break;
-			case MainMenu::QUIT:
+			case MainMenu::QUIT:				
 				ResourceManager::getSound("resource/sounds/menuback.ogg").play();
+				currentState = EXIT;
 				return;
 				break;
 			default:

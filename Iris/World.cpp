@@ -11,10 +11,16 @@ float World::mScore = 0;
 int World::mGold = 0;
 
 
-World::World() :
-entityVector(){
+
+/* Det här är heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemskt dåligt sätt att lösa problem */
+/* ... #YOLO  - Älskar dig simon <3*/
+MainMenu mainMenu;
+ShopMenu shopMenu;
+
+World::World(): 
+entityVector(){	
 	currentState = INMENU;
-	Player *mPlayer;
+	//Player *mPlayer;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
@@ -23,6 +29,8 @@ entityVector(){
 	mHud = new Hud();
 	
 }
+
+
 
 World::~World(){}
 
@@ -50,15 +58,22 @@ void World::run(){
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F2)
 				window.setFramerateLimit(FRAME_LIMIT);		
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-
-			if (currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-
-			menuInput(event);
+			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+			switch (currentState){
+			case INMENU:
+					mainMenu.input(event);
+					break;
+			case INSHOP:
+					shopMenu.input(event);
+					break;
+			}
 		}
 
 
 		window.clear();
 
+		if (currentState == EXIT)
+			window.close();
 
 		if (currentState == INMENU){
 			mainMenu.drawMenu(window);
@@ -79,9 +94,7 @@ void World::run(){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
 
 			if (!loadedMap){
-
 				loadMap();
-
 			}
 
 			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
@@ -97,13 +110,15 @@ void World::run(){
 		window.display();
 	}
 }
-
+/*Load funktion.*/
 void World::loadMap(){
+	window.setTitle("Getting shit ready for you :)");
 	mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
 	mLoadLevel.setLevel(mCurrentLevel);
 	mLevel = mLoadLevel.getLevel();
 	music = ResourceManager::getMusic(mLevel->getTheme(1));
 	loadedMap = true;
+	window.setTitle("Iris");
 }
 
 
@@ -113,25 +128,29 @@ void World::startGame(){
 	killDeadEntities();
 	spawnEnemies();
 	renderImages();
+	//mPlayer->score();
 }
 
 void World::renderImages(){
 	mLevel->drawBackground(window);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
-		window.draw(*entityVector[i]);
-		
+		window.draw(*entityVector[i]);		
 	}
+<<<<<<< HEAD
+=======
 	
 	mHud->drawText(window);
+>>>>>>> majal
 }
 
-void World::tick(float dt){
+void World::tick(float dt){	
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
-		entityVector[i]->tick(entityVector, dt);
-		
+		entityVector[i]->tick(entityVector, dt);		
 	}
 	mHud->setText();
 }
+
+
 
 
 /* Tar emot två Entitypekare och returnerar om de kolliderar eller inte. Används som stödfunktion till detectCollisions. */
@@ -170,24 +189,23 @@ void World::detectCollisions(){
 			if (isColliding(entity0, entity1) && entity0->getType() != entity1->getType()){
 				if (entity0->getType() == Entity::GOLD)
 					mGold += entity0->getDamage();
+
 				else if (entity1->getType() == Entity::GOLD)
 					mGold += entity1->getDamage();
+
 				if (entity0->getType() == Entity::RAY && entity1->getType() == Entity::ENEMY
-					|| entity0->getType() == Entity::ENEMY && entity1->getType() == Entity::RAY){
-
+					|| entity0->getType() == Entity::ENEMY && entity1->getType() == Entity::RAY){					
 					mScore += 0.10f;
+				}				
 
-				}
-				else if (mScore == 1){
-
+				else if (mScore >= 1){
 					mScore = 1;
-
 				}
 				 if (entity0->getType() == Entity::PLAYER && entity1->getType() == Entity::ENEMY ||
-					entity1->getType() == Entity::PLAYER && entity0->getType() == Entity::ENEMY)
-				{
+					entity1->getType() == Entity::PLAYER && entity0->getType() == Entity::ENEMY){
 					mScore -= 0.01f;
 				}
+
 				 else if (mScore == 0){
 					 mScore = 0;
 				 }
@@ -195,6 +213,8 @@ void World::detectCollisions(){
 				entity1->collide(entity0, entityVector);
 				
 				mLevel->opacityChange(mScore);
+				//Uppdaterar auran.
+				mPlayer->updateAura(mScore);
 			}
 
 		}
@@ -204,7 +224,32 @@ void World::detectCollisions(){
 
 	
 	
+//Vad är meningen med denna?
+/*
+int World::aura(Entity *entity, std::vector<Entity*> &entities){
 
+	unsigned int currentRed = mPlayer->mAura->getSprite().getColor().r;
+	unsigned int currentGreen = mPlayer->mAura->getSprite().getColor().g;
+	unsigned int currentBlue = mPlayer->mAura->getSprite().getColor().b;
+	unsigned int currentAlpha = mPlayer->mAura->getSprite().getColor().a;
+
+
+
+	if (currentAlpha != 0){
+		if (mPlayer->collide(entity, entities)){
+			if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
+				currentAlpha -= entity->getDamage() / 2;
+				mPlayer->mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
+				return 0;
+			}
+		}
+		else if (entity->getDamage() > 0 && entity->getType() != Entity::Type::ENEMY){
+			return 0;
+		}
+	}
+	return 0;
+}
+*/
 
 /*Skapar en ny vektor som sedan lägger in alla levande entiteter.
 Den nya vektorn uppdaterar våran "main" vektor sedan.*/
@@ -246,10 +291,11 @@ void World::pause(){
 World::GameState World::currentState;
 
 /*
-			 __	- FML.
+
+			 __  - FML. 
             / _)
    _/\/\/\_/ /
-  /			 |
+  /	         |
  / (  |	  (  |
 /   |_|--- |_|
 

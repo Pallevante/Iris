@@ -1,15 +1,17 @@
 #pragma once
-#include "Entity.hpp"
-#include "ResourceManager.hpp"
-#include "Ray.hpp"
 #include "Animation.hpp"
+#include "Entity.hpp"
+#include "Ray.hpp"
+#include "ResourceManager.hpp"
 
 
 class Player : public Entity{
 public:
 	Player(float xPosition, float yPosition, float speedMultiplier = 1);
+	
 
 	~Player();
+	void updateAura(float score);
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition();
 	virtual int getHeight() const;
@@ -20,15 +22,21 @@ public:
 	virtual int collide(Entity *e0, EntityVector &entities);
 	virtual bool isAlive();
 	virtual void tick(EntityVector &entities, float dt);
-
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
+		target.draw(mAura->getSprite(), states);
 		target.draw(mAnimation->getSprite(), states);
 	}
-private: 
+	//Entity *entity;
+	Animation* mAura;
+
+
+private:
 	void move(float dt);
 	void fire(EntityVector &enteties);	
 	Animation* mAnimation;
+	EntityVector &entities;
 	float mSpeed;
+	float opacity;
 	int mHealth;
 	int mDamage;
 	float mRad;

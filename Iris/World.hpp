@@ -1,16 +1,20 @@
 #pragma once
-#include "ResourceManager.hpp"
-#include "Entity.hpp"
-#include "Player.hpp"
-#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/System/Clock.hpp>
 #include "Animation.hpp"
 #include "DefaultEnemy.hpp"
+#include "Entity.hpp"
 #include "LoadLevel.hpp"
 #include "MainMenu.hpp"
+#include "Player.hpp"
+#include "ResourceManager.hpp"
 #include "ShopMenu.hpp"
+<<<<<<< HEAD
+=======
 #include "Hud.hpp"
 #include <SFML/System/Clock.hpp>
+>>>>>>> majal
 
 class Level;
 class Hud;
@@ -24,7 +28,8 @@ public:
 		PAUSED,
 		INSHOP,
 		OUTRO,
-		INTRO
+		INTRO,
+		EXIT
 	};
 
 	static GameState currentState;
@@ -48,10 +53,10 @@ private:
 	bool isColliding(Entity *entity1, Entity *entity2);
 	void detectCollisions();
 	void killDeadEntities();
+	int aura(Entity *entity, std::vector<Entity*> &entities);
 
+	//int score(/*Entity *entity, std::vector<Entity*> &entities*/);
 	/*Menyrelaterade funktioner*/
-
-	void menuInput(sf::Event &event);
 	void pause();
 	void enterStore();
 	void enterSettings();
@@ -64,10 +69,8 @@ private:
 	
 
 	EntityVector entityVector;
-	MainMenu mainMenu;
-	ShopMenu shopMenu;
+	Player *mPlayer;
 	Level* mLevel;
 	Hud* mHud;
 	sf::Clock deltaTimer;
-	//Enemy *enemy;
 };
