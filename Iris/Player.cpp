@@ -2,7 +2,7 @@
 sf::Clock reloadTimer;
 
 /*Public funktioner*/
-
+bool isFlipped = false;
 
 
 Player::Player(float xPosition, float yPosition, float speedMultiplier) :
@@ -39,7 +39,7 @@ void Player::updateAura(float score){
 
 	opacity = 255 * score;
 	if (score >= 1.0f) {
-		opacity = 255;
+		opacity = 210;
 	}
 	if (score <= 0){
 		opacity = 0;
@@ -51,29 +51,7 @@ int Player::collide(Entity *entity, EntityVector &entities){
 	if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
 		mHealth -= entity->getDamage() / 2;
 	}
-
 	return 0;
-	
-	//hämtar färgernas nuvarande värde för att kunna returnera rätt färg och alphavärde
-	/*unsigned int currentRed = mAura->getSprite().getColor().r;
-	unsigned int currentGreen = mAura->getSprite().getColor().g;
-	unsigned int currentBlue = mAura->getSprite().getColor().b;
-	unsigned int currentAlpha = mAura->getSprite().getColor().a;
-
-
-	if (currentAlpha != 0){
-		if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
-			currentAlpha -= entity->getDamage() / 2;
-			if (currentAlpha < 10){
-				currentAlpha = 0;
-			}
-		}
-		mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
-		return 0;
-	}
-	else {
-		return 0;
-	}*/
 }
 
 

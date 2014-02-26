@@ -55,18 +55,21 @@ private:
 
 	//int score(/*Entity *entity, std::vector<Entity*> &entities*/);
 	/*Menyrelaterade funktioner*/
-
 	void menuInput(sf::Event &event);
 	void pause();
 	void enterStore();
 	void enterSettings();
 	void enterMap();
-	DefaultEnemy enemy(DefaultEnemy &enemy);
+
+
+	void toneDownMusic(sf::Music* m0, sf::Music* m1); 
+
 
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
 
-	
+	bool isPlaying = false; /*Kollar om man spelar musik*/
+	bool menuIsPlaying = false;
 
 	EntityVector entityVector;
 	Player *mPlayer;

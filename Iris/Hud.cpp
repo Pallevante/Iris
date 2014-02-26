@@ -1,17 +1,13 @@
 #include "Hud.hpp"
 
 
-
-
-Hud::Hud()
-{
+Hud::Hud(){
 	font.loadFromFile("resource/fonts/AGENTORANGE.ttf");
 }
 
-
-Hud::~Hud()
-{
+Hud::~Hud(){
 }
+
 void Hud::setText(){
 
 	goldAmount.str("");
@@ -22,15 +18,12 @@ void Hud::setText(){
 	goldText.setCharacterSize(60);
 
 	goldText.setString("Gold:" + goldAmount.str());
-	goldText.setColor(sf::Color::Green);
-	goldText.setPosition(800, 10);
-	
+	goldText.setColor(sf::Color::White);
+	goldText.setPosition(0, 10);	
 
 }
 
 void Hud::drawText(sf::RenderWindow &window){
-	
-
 	window.draw(goldText);
 
 }

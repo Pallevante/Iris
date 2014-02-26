@@ -25,7 +25,7 @@ public:
 	void opacityChange(float score);
 
 	void spawn(Entity::EntityVector &entityVector);
-	int getRandomNumber();
+	int getRandomNumber(int maxNumber = 10);
 
 	float percentRequirement();
 	void drawBackground(sf::RenderWindow &window);

@@ -3,27 +3,18 @@
 sf::Clock movementClock;
 
 
-DefaultEnemy::DefaultEnemy(float speedMultiplier) :
+DefaultEnemy::DefaultEnemy(float speedMultiplier, sf::Vector2f position) :
 mDamage(100),
 mSpeed(4 * speedMultiplier),
 mIsAlive(true),
-//Mï¿½ste ï¿½ndras relativt till bilden.
+mHealth(2),
+//Måste ändras relativt till bilden.
 mRad(64)
 {
 	mAnimation = new Animation("resource/textures/entities/enemy.png", 50, 2);
-	mAnimation->setPosition(sf::Vector2f(1200, setYPos()));
+	mAnimation->setPosition(position);
 	
 }
-
-float DefaultEnemy::setYPos(){
-	float random =  rand() % 720 - mAnimation->getSprite().getGlobalBounds().height + 1;
-	if (random < 0){
-		random += mAnimation->getSprite().getGlobalBounds().height;
-	}
-	return random;
-}
-
-
 
 
 DefaultEnemy::~DefaultEnemy(){}
@@ -65,7 +56,11 @@ void DefaultEnemy::setDamage(int newDamage){
 int DefaultEnemy::collide(Entity *e0, EntityVector &entities){
 
 	if (e0->getDamage() > 0 && e0->getType() == RAY){
-		mIsDying = true;
+		mHealth -= e0->getDamage();
+
+		if (mHealth <= 0)
+			mIsDying = true;
+
 		ResourceManager::getSound("resource/sounds/Hitplopp.ogg").play();
 		return 5;
 	}

@@ -2,7 +2,7 @@
 
 
 Ray::Ray(sf::Vector2f position) :
-mDamage(10),
+mDamage(1),
 mRad(64),
 mSpeed(7),
 mIsAlive(true)

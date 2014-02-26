@@ -26,6 +26,7 @@ public:
 		target.draw(mAura->getSprite(), states);
 		target.draw(mAnimation->getSprite(), states);
 	}
+
 	//Entity *entity;
 	Animation* mAura;
 

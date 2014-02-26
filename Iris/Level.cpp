@@ -76,8 +76,8 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 
 }
 
-int Level::getRandomNumber(){
-	return rand() % 10;
+int Level::getRandomNumber(int maxNumber){
+	return rand() % maxNumber;
 }
 
 void Level::opacityChange(float score){	
@@ -105,13 +105,13 @@ void Level::spawnBasicEnemies(Entity::EntityVector &entityVector){
 
 		if (getRandomNumber() == 1 && spawnCount < mMaxSpawnEnemies){
 			spawnCount++;
-			entityVector.push_back(new DefaultEnemy(1));
+			entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(700))));
 		}
 
 	}
 
 	if (spawnDefaultT.asSeconds() >= mSpawnMax){
-		entityVector.push_back(new DefaultEnemy(1));
+		entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(700))));
 		mDefaultCl.restart();
 	}
 
@@ -129,12 +129,12 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
 		if (getRandomNumber() == 1 && spawnCount < mMaxSpecialSpawn){
 			spawnCount++;
-			entityVector.push_back(new DefaultEnemy(1));
+			entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(720))));
 		}
 	}
 
 	if (spawnSpecialT.asSeconds() >= mSpecialMax){
-		entityVector.push_back(new DefaultEnemy(1));
+		entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(720))));
 		mSpecialCl.restart();
 	}
 
@@ -184,8 +184,12 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 		//Borde egentligen lägga in en svordomsmätare här men... Jag har helt ärligt tappat räkningen.
 
 		if (World::currentState == World::PLAYING){			
-			if(bgVector[bgVector.size() - 1].getPosition().x + bgVector[bgVector.size() -1].getGlobalBounds().width > 9000)
+			if(bgVector[bgVector.size() - 1].getPosition().x + bgVector[bgVector.size() -1].getGlobalBounds().width > 0)
 				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
+			else{
+				World::currentState = World::INMENU;
+				return;
+			}
 		}		
 
 		bgVector[i].setColor(color);

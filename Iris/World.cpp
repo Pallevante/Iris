@@ -3,6 +3,7 @@
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
 sf::Music* music = new sf::Music;
+sf::Music* menuMusic = new sf::Music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 int spawnTimeLimit = 500;
@@ -29,7 +30,7 @@ entityVector(){
 
 World::~World(){}
 
-bool isPlaying = false; /*Kollar om man spelar musik*/
+
 bool loadedMap = false;
 void World::run(){
 	while (window.isOpen())	{
@@ -66,6 +67,11 @@ void World::run(){
 			window.close();
 
 		if (currentState == INMENU){
+			music->stop();
+			if (!menuIsPlaying){
+				menuMusic->play();
+				menuIsPlaying = true;
+			}
 			mainMenu.drawMenu(window);
 		}
 
@@ -82,11 +88,12 @@ void World::run(){
 		Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
-
+			
 			if (!loadedMap){
 				loadMap();
 			}
-
+			//toneDownMusic(menuMusic, music);
+			menuMusic->stop();
 			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
 			if (!isPlaying){
 				music->play();
@@ -100,6 +107,25 @@ void World::run(){
 		window.display();
 	}
 }
+/*Tonar ut ena musiken in in den andra.
+void World::toneDownMusic(sf::Music* m0, sf::Music* m1){
+	m1->setVolume(0);
+	while (m0->getVolume() >= 0){
+		m0->setVolume(m0->getVolume() - 1);
+		m1->setVolume(m1->getVolume() + 1);
+
+		/*Börjar spela musiken efter en viss volym.
+		if (m1->getVolume() > 10){
+			if (!isPlaying){
+				m1->play();
+				isPlaying = true;
+			}
+		}
+
+	}
+	m0->stop();
+}*/
+
 /*Load funktion.*/
 void World::loadMap(){
 	window.setTitle("Getting shit ready for you :)");
@@ -107,6 +133,7 @@ void World::loadMap(){
 	mLoadLevel.setLevel(mCurrentLevel);
 	mLevel = mLoadLevel.getLevel();
 	music = ResourceManager::getMusic(mLevel->getTheme(1));
+	menuMusic = ResourceManager::getMusic(mLevel->getTheme(0));
 	loadedMap = true;
 	window.setTitle("Iris");
 }
@@ -173,10 +200,11 @@ void World::detectCollisions(){
 			Entity *entity1 = entityVector[j];
 			/*Du använder en check i collision i world om typen är GOLD sedan hämtar du damage för värdet.*/
 			if (isColliding(entity0, entity1) && entity0->getType() != entity1->getType()){
-				if (entity0->getType() == Entity::GOLD)
+
+				if (entity0->getType() == Entity::GOLD && entity1->getType() == Entity::PLAYER)
 					mGold += entity0->getDamage();
 
-				else if (entity1->getType() == Entity::GOLD)
+				else if (entity1->getType() == Entity::GOLD&& entity0->getType() == Entity::PLAYER)
 					mGold += entity1->getDamage();
 
 				if (entity0->getType() == Entity::RAY && entity1->getType() == Entity::ENEMY
