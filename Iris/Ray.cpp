@@ -5,10 +5,10 @@ Ray::Ray(sf::Vector2f position) :
 mDamage(1),
 mRad(64),
 mSpeed(7),
-mIsAlive(true)
-{
+mIsAlive(true){
 	mAnimation = new Animation("resource/textures/entities/ray.png", 100, 17);
 	mAnimation->setPosition(sf::Vector2f(position.x + 109, position.y + 54.5));
+
 }
 
 Ray::~Ray(){}

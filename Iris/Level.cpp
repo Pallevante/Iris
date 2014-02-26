@@ -76,8 +76,8 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 
 }
 
-int Level::getRandomNumber(int maxNumber){
-	return rand() % maxNumber;
+float Level::getRandomNumber(float maxNumber){
+	return fmodf(rand(), maxNumber);
 }
 
 void Level::opacityChange(float score){	

@@ -13,8 +13,13 @@ int World::mGold = 0;
 
 
 
-World::World() :
-entityVector(){
+/* Det här är heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemskt dåligt sätt att lösa problem */
+/* ... #YOLO  - Älskar dig simon <3*/
+MainMenu mainMenu;
+ShopMenu shopMenu;
+
+World::World(): 
+entityVector(){	
 	currentState = INMENU;
 	//Player *mPlayer;
 	window.setVerticalSyncEnabled(true);
@@ -23,6 +28,7 @@ entityVector(){
 	entityVector.push_back(mPlayer);
 	loadMap();	
 	mHud = new Hud();
+	mSelectLevelM = new SelectLevelMenu();
 
 }
 
@@ -54,10 +60,18 @@ void World::run(){
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F2)
 				window.setFramerateLimit(FRAME_LIMIT);		
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-
-			if (currentState == INMENU || currentState == INSHOP)/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-
-			menuInput(event);
+			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+			switch (currentState){
+			case INMENU:
+					mainMenu.input(event);
+					break;
+			case INSHOP:
+					shopMenu.input(event);
+					break;
+			case INLEVELSELECT:
+				mSelectLevelM->input(event);
+				break;
+			}
 		}
 
 
@@ -82,6 +96,10 @@ void World::run(){
 			music->pause();
 			isPlaying = false;
 			renderImages();
+		}
+		if(currentState == INLEVELSELECT){
+			mSelectLevelM->drawMenu(window);
+
 		}
 
 		/*Använder en instans av GameState för att veta vad den skall göra.
@@ -212,13 +230,14 @@ void World::detectCollisions(){
 					mScore += 0.10f;
 				}				
 
-				else if (mScore >= 1){
+				else if (mScore > 1){
 					mScore = 1;
 				}
 				 if (entity0->getType() == Entity::PLAYER && entity1->getType() == Entity::ENEMY ||
 					entity1->getType() == Entity::PLAYER && entity0->getType() == Entity::ENEMY){
 					mScore -= 0.01f;
 				}
+
 
 				 else if (mScore <= 0){
 					 mScore = 0;

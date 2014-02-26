@@ -91,7 +91,7 @@ ResourceManager::SpriteVector ResourceManager::getLevel(const std::string& filen
 		/* Räkna hur många tiles som kommer behövas */
 		int tileSize = sf::Texture::getMaximumSize();
 		int imageWidth = image.getSize().x;
-		int tileCount = ceil(imageWidth / tileSize);
+		int tileCount = (int)round(ceil(imageWidth / tileSize));
 
 		/* Definera alla nya texturer ifrån en sf::Image och en IntRect som beräknas genom antalet tiles och bredden på tiles och bilden*/
 		ResourceManager::SpriteVector spriteVector;
