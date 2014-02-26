@@ -46,7 +46,7 @@ void MainMenu::input(sf::Event& event){
 		switch (getCurrentMenuItem()){
 		case MainMenu::PLAY:
 			ResourceManager::getSound("resource/sounds/menuselect.ogg").play();
-			World::currentState = World::PLAYING;
+			World::currentState = World::INLEVELSELECT;
 			return;
 			break;
 		case MainMenu::SHOP:

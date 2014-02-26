@@ -27,8 +27,9 @@ void Hud::setText(){
 	goldText.setPosition(800, 10);
 
 	progress = 200 * World::mScore;
-	if (progress >= 200) progress = 200;
+	if (progress > 200) progress = 200;
 
+	if (progress < 0)progress = 0;
 	if (progress < 60) progressColor = sf::Color::Red;
 	else if (progress < 110 && progress > 60) progressColor = sf::Color::Yellow;
 	else if (progress < 200 && progress > 110) progressColor = sf::Color::Green;

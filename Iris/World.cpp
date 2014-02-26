@@ -27,6 +27,7 @@ entityVector(){
 	entityVector.push_back(mPlayer);
 	loadMap();	
 	mHud = new Hud();
+	mSelectLevelM = new SelectLevelMenu;
 	
 }
 
@@ -66,6 +67,9 @@ void World::run(){
 			case INSHOP:
 					shopMenu.input(event);
 					break;
+			case INLEVELSELECT:
+				mSelectLevelM->input(event);
+				break;
 			}
 		}
 
@@ -86,6 +90,10 @@ void World::run(){
 			music->pause();
 			isPlaying = false;
 			renderImages();
+		}
+		if(currentState == INLEVELSELECT){
+			mSelectLevelM->drawMenu(window);
+
 		}
 
 		/*Använder en instans av GameState för att veta vad den skall göra.
@@ -197,7 +205,7 @@ void World::detectCollisions(){
 					mScore += 0.10f;
 				}				
 
-				else if (mScore >= 1){
+				else if (mScore > 1){
 					mScore = 1;
 				}
 				 if (entity0->getType() == Entity::PLAYER && entity1->getType() == Entity::ENEMY ||
@@ -205,7 +213,7 @@ void World::detectCollisions(){
 					mScore -= 0.01f;
 				}
 
-				 else if (mScore == 0){
+				 else if (mScore < 0){
 					 mScore = 0;
 				 }
 				entity0->collide(entity1, entityVector);

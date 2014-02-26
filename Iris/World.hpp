@@ -12,10 +12,12 @@
 #include "ShopMenu.hpp"
 #include "Hud.hpp"
 #include <SFML/System/Clock.hpp>
+#include "SelectLevelMenu.hpp"
 
 
 class Level;
 class Hud;
+class SelectLevelMenu;
 
 class World{
 public:
@@ -24,6 +26,7 @@ public:
 		INMENU,
 		PLAYING,
 		PAUSED,
+		INLEVELSELECT,
 		INSHOP,
 		OUTRO,
 		INTRO,
@@ -70,5 +73,7 @@ private:
 	Player *mPlayer;
 	Level* mLevel;
 	Hud* mHud;
+	SelectLevelMenu *mSelectLevelM;
 	sf::Clock deltaTimer;
+	
 };

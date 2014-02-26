@@ -31,9 +31,6 @@
     <ClCompile Include="LoadLevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="World_menus.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
@@ -79,9 +76,11 @@
     <ClCompile Include="Gold.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-
     <ClCompile Include="Hud.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectLevelMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,9 +126,11 @@
     <ClInclude Include="Gold.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-
     <ClInclude Include="Hud.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectLevelMenu.hpp">
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
