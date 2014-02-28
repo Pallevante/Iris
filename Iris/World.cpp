@@ -136,11 +136,7 @@ void World::renderImages(){
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		window.draw(*entityVector[i]);		
 	}
-<<<<<<< HEAD
-=======
-	
 	mHud->drawText(window);
->>>>>>> majal
 }
 
 void World::tick(float dt){	
