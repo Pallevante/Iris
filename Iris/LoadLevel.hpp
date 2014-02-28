@@ -17,7 +17,7 @@ public:
 		SEVENTHLEVEL,
 		EIGHTLEVEL
 	};
-
+	static LevelEnum mCurrentLevel;
 	LoadLevel();
 	~LoadLevel();
 	/*Anropas av World.*/

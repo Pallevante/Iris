@@ -89,7 +89,7 @@ ResourceManager::SpriteVector ResourceManager::getLevel(const std::string& filen
 		sf::Sprite newSprite;
 
 		/* Räkna hur många tiles som kommer behövas */
-		int tileSize = sf::Texture::getMaximumSize();
+		int tileSize = 5000;
 		int imageWidth = image.getSize().x;
 		int tileCount = (int)round(ceil(imageWidth / tileSize));
 
@@ -103,7 +103,7 @@ ResourceManager::SpriteVector ResourceManager::getLevel(const std::string& filen
 			//newTexture.loadFromImage(image, newIntRect);
 			
 			newSprite.setTexture(getTexture(filename, newIntRect, "level" + filename + "_" + std::to_string(i)));
-			newSprite.setPosition((i * sf::Texture::getMaximumSize()),0);
+			newSprite.setPosition((i * 5000),0);
 			spriteVector.push_back(newSprite);
 		}
 		mLevels.insert(std::pair<std::string, ResourceManager::SpriteVector>(filename, spriteVector));

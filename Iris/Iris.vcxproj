@@ -91,6 +91,7 @@
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LoadLevel.cpp" />
+    <ClCompile Include="LoadSave.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="Hud.hpp" />
     <ClInclude Include="Level.hpp" />
     <ClInclude Include="LoadLevel.hpp" />
+    <ClInclude Include="LoadSave.hpp" />
     <ClInclude Include="MainMenu.hpp" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Player.hpp" />

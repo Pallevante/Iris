@@ -5,7 +5,7 @@ sf::Clock movementClock;
 
 DefaultEnemy::DefaultEnemy(float speedMultiplier, sf::Vector2f position) :
 mDamage(100),
-mSpeed(4 * speedMultiplier),
+mSpeed(6 * speedMultiplier),
 mIsAlive(true),
 mHealth(2),
 //Måste ändras relativt till bilden.

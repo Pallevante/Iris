@@ -22,8 +22,8 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 		chooseColoredTexture = "resource/textures/backgrounds/Level1/color.png";
 		break;
 	case 2:
-		chooseWhiteTexture = "resource/test.png";
-		chooseColoredTexture = "resource/TestRawr.jpg";
+		chooseWhiteTexture = "resource/textures/backgrounds/Level2/grey.png";
+		chooseColoredTexture = "resource/textures/backgrounds/Level2/color.png";
 		break;
 	case 3:
 		chooseWhiteTexture = "resource/test.png";
@@ -105,13 +105,13 @@ void Level::spawnBasicEnemies(Entity::EntityVector &entityVector){
 
 		if (getRandomNumber() == 1 && spawnCount < mMaxSpawnEnemies){
 			spawnCount++;
-			entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(700))));
+			entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(620))));
 		}
 
 	}
 
 	if (spawnDefaultT.asSeconds() >= mSpawnMax){
-		entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(700))));
+		entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(620))));
 		mDefaultCl.restart();
 	}
 
@@ -129,12 +129,12 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
 		if (getRandomNumber() == 1 && spawnCount < mMaxSpecialSpawn){
 			spawnCount++;
-			entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(720))));
+			entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(620))));
 		}
 	}
 
 	if (spawnSpecialT.asSeconds() >= mSpecialMax){
-		entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(720))));
+		entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(620))));
 		mSpecialCl.restart();
 	}
 
@@ -174,27 +174,31 @@ std::string Level::getTheme(int level){
 	if (level == 1){
 		return "resource/sounds/Level1Theme.ogg";
 	}
+	if (level == 2){
+		return "resource/sounds/Level2Theme.ogg";
+	}
 }
 
 
 void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color){
 	/* Skapar och ritar ut sprites på relativa positioner */
 	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
-		baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
+		
 		//Borde egentligen lägga in en svordomsmätare här men... Jag har helt ärligt tappat räkningen.
 
 		if (World::currentState == World::PLAYING){			
-			if(bgVector[bgVector.size() - 1].getPosition().x + bgVector[bgVector.size() -1].getGlobalBounds().width > 0)
-				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
-			else{
-				World::currentState = World::INMENU;
-				return;
-			}
+			if(bgVector[3].getPosition().x > 1500)
+				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);			
 		}		
 
 		bgVector[i].setColor(color);
 		window.draw(bgVector[i]);		
 	}
+}
+
+void Level::clearVectors(){
+	bgVector.clear();
+	clVector.clear();
 }
 
 

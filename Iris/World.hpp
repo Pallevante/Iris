@@ -20,6 +20,8 @@ class Level;
 class Hud;
 class SelectLevelMenu;
 
+
+
 class World{
 public:
 	/*Används för att veta vad man ska rendera.*/
@@ -43,10 +45,12 @@ public:
 	void startGame();
 	/*Slänga in rätt parametrar för att loadMap ska ladda in
 	music, bilder och fiender*/
-	void loadMap();
+	void loadMap(int level = 1);
 	static float mScore;
-	static int mGold;
+	static int mGold;	
+	static int mLevelInt;
 	void renderHUD();
+
 private:
 	/*Spelrelaterade funktioner*/
 	void spawnEnemies();
@@ -70,13 +74,12 @@ private:
 
 	void toneDownMusic(sf::Music* m0, sf::Music* m1); 
 
-
+	void getEnum(int level = 1);
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
 
 	bool isPlaying = false; /*Kollar om man spelar musik*/
 	bool menuIsPlaying = false;
-
 	EntityVector entityVector;
 	Player *mPlayer;
 	Level* mLevel;

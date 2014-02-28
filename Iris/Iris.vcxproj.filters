@@ -82,6 +82,9 @@
     <ClCompile Include="SelectLevelMenu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="LoadSave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.hpp">
@@ -131,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="SelectLevelMenu.hpp">
       <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadSave.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

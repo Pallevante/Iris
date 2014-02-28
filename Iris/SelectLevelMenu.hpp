@@ -11,7 +11,7 @@ public:
 	enum SelectButtons
 	{
 		USA,
-		LABUTTON,
+		BRAZIL,
 		BACK,
 		NUM_CHOICES
 	};

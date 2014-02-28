@@ -23,7 +23,7 @@ public:
 
 	float opacity;
 	void opacityChange(float score);
-
+	void clearVectors();
 	void spawn(Entity::EntityVector &entityVector);
 	float getRandomNumber(float maxNumber = 10);
 

@@ -4,13 +4,15 @@ sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
 sf::Music* music = new sf::Music;
 sf::Music* menuMusic = new sf::Music;
+
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
+
 int spawnTimeLimit = 500;
 int FRAME_LIMIT = 60;
 float World::mScore = 0;
 int World::mGold = 0;
-
+int World::mLevelInt = 1;
 
 
 /* Det här är heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemskt dåligt sätt att lösa problem */
@@ -20,13 +22,14 @@ ShopMenu shopMenu;
 
 World::World(): 
 entityVector(){	
+	menuMusic = ResourceManager::getMusic(mLevel->getTheme(0));
 	currentState = INMENU;
 	//Player *mPlayer;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
-	loadMap();	
+	//loadMap();	
 	mHud = new Hud();
 	mSelectLevelM = new SelectLevelMenu();
 
@@ -49,8 +52,10 @@ void World::run(){
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed){
-				window.close();
 				ResourceManager::clear();
+				mLevel->clearVectors();
+				window.close();
+				
 			}
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 				pause();
@@ -81,6 +86,7 @@ void World::run(){
 			window.close();
 
 		if (currentState == INMENU){
+			
 			music->stop();
 			if (!menuIsPlaying){
 				menuMusic->play();
@@ -108,7 +114,7 @@ void World::run(){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
 			
 			if (!loadedMap){
-				loadMap();
+				loadMap(mLevelInt);
 			}
 			//toneDownMusic(menuMusic, music);
 			menuMusic->stop();
@@ -145,15 +151,27 @@ void World::toneDownMusic(sf::Music* m0, sf::Music* m1){
 }*/
 
 /*Load funktion.*/
-void World::loadMap(){
+void World::loadMap(int level){
 	window.setTitle("Getting shit ready for you :)");
-	mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
+	getEnum(level);
 	mLoadLevel.setLevel(mCurrentLevel);
 	mLevel = mLoadLevel.getLevel();
-	music = ResourceManager::getMusic(mLevel->getTheme(1));
-	menuMusic = ResourceManager::getMusic(mLevel->getTheme(0));
+	music = ResourceManager::getMusic(mLevel->getTheme(level));
 	loadedMap = true;
 	window.setTitle("Iris");
+}
+
+
+
+void World::getEnum(int level){
+	switch (level){
+	case 1:
+		 mCurrentLevel = LoadLevel::FIRSTLEVEL;
+		break;
+	case 2:
+		 mCurrentLevel = LoadLevel::SECONDLEVEL;
+		 break;
+	}
 }
 
 
@@ -254,35 +272,6 @@ void World::detectCollisions(){
 }
 		
 
-	
-	
-//Vad är meningen med denna?
-/*
-int World::aura(Entity *entity, std::vector<Entity*> &entities){
-
-	unsigned int currentRed = mPlayer->mAura->getSprite().getColor().r;
-	unsigned int currentGreen = mPlayer->mAura->getSprite().getColor().g;
-	unsigned int currentBlue = mPlayer->mAura->getSprite().getColor().b;
-	unsigned int currentAlpha = mPlayer->mAura->getSprite().getColor().a;
-
-
-
-	if (currentAlpha != 0){
-		if (mPlayer->collide(entity, entities)){
-			if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
-				currentAlpha -= entity->getDamage() / 2;
-				mPlayer->mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
-				return 0;
-			}
-		}
-		else if (entity->getDamage() > 0 && entity->getType() != Entity::Type::ENEMY){
-			return 0;
-		}
-	}
-	return 0;
-}
-*/
-
 /*Skapar en ny vektor som sedan lägger in alla levande entiteter.
 Den nya vektorn uppdaterar våran "main" vektor sedan.*/
 void World::killDeadEntities(){
@@ -299,7 +288,8 @@ void World::killDeadEntities(){
 
 
 void World::spawnEnemies(){
-	mLevel->spawn(entityVector);
+	if (loadedMap)
+		mLevel->spawn(entityVector);
 }
 
 void World::pause(){
@@ -316,7 +306,6 @@ void World::pause(){
 		return;
 	}
 }
-
 
 World::GameState World::currentState;
 
