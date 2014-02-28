@@ -119,7 +119,7 @@ void World::run(){
 			//toneDownMusic(menuMusic, music);
 			menuMusic->stop();
 			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
-			if (!isPlaying){
+			if (!isPlaying && loadedMap){
 				music->play();
 				isPlaying = true;
 			}

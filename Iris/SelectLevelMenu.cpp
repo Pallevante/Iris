@@ -2,12 +2,12 @@
 
 
 SelectLevelMenu::SelectLevelMenu() : Menu(Menu::ButtonVector{
+	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/LevelSelect_back.png")),
+	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/LevelSelect_back_selected.png")),
 	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/usa_thumb_off.png")),
 	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/Usa_thumb_on.png")),
 	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/brazil_thumb_off.png")),
-	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/brazil_thumb_on.png")),
-	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/LevelSelect_back.png")),
-	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/LevelSelect_back_selected.png"))
+	new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/brazil_thumb_on.png"))
 }, "resource/textures/backgrounds/levelselect.png", 0){
 
 	mButtonVector[BACK * 2]->setPosition(50, 50);
@@ -26,9 +26,7 @@ SelectLevelMenu::SelectLevelMenu() : Menu(Menu::ButtonVector{
 }
 
 
-SelectLevelMenu::~SelectLevelMenu()
-{
-}
+SelectLevelMenu::~SelectLevelMenu(){}
 
 unsigned int SelectLevelMenu::getMaxItems(){
 	return NUM_CHOICES;

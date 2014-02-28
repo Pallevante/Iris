@@ -10,9 +10,9 @@ public:
 	virtual void input(sf::Event &event);
 	enum SelectButtons
 	{
-		USA,
-		BRAZIL,
 		BACK,
+		USA,
+		BRAZIL,		
 		NUM_CHOICES
 	};
 
