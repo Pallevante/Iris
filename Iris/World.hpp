@@ -14,8 +14,6 @@
 #include <SFML/System/Clock.hpp>
 #include "SelectLevelMenu.hpp"
 
-
-
 class Level;
 class Hud;
 class SelectLevelMenu;

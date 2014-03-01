@@ -10,8 +10,11 @@ class MainMenu : public Menu{
 public:
 	enum mMenuItems{ 
 		PLAY, 
+		LEVEL,
 		SHOP,
-		QUIT, 
+		SOUND,
+		MUSIC,
+		EXIT, 
 		NUM_CHOICES 
 	};
 	MainMenu();
