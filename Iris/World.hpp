@@ -12,9 +12,13 @@
 #include "ShopMenu.hpp"
 #include "Hud.hpp"
 #include <SFML/System/Clock.hpp>
+#include "SelectLevelMenu.hpp"
 
 class Level;
 class Hud;
+class SelectLevelMenu;
+
+
 
 class World{
 public:
@@ -23,6 +27,7 @@ public:
 		INMENU,
 		PLAYING,
 		PAUSED,
+		INLEVELSELECT,
 		INSHOP,
 		OUTRO,
 		INTRO,
@@ -38,10 +43,12 @@ public:
 	void startGame();
 	/*Slänga in rätt parametrar för att loadMap ska ladda in
 	music, bilder och fiender*/
-	void loadMap();
+	void loadMap(int level = 1);
 	static float mScore;
-	static int mGold;
+	static int mGold;	
+	static int mLevelInt;
 	void renderHUD();
+
 private:
 	/*Spelrelaterade funktioner*/
 	void spawnEnemies();
@@ -54,20 +61,28 @@ private:
 
 	//int score(/*Entity *entity, std::vector<Entity*> &entities*/);
 	/*Menyrelaterade funktioner*/
+
+	void menuInput(sf::Event &event);
+
 	void pause();
 	void enterStore();
 	void enterSettings();
 	void enterMap();
-	DefaultEnemy enemy(DefaultEnemy &enemy);
 
+
+	void toneDownMusic(sf::Music* m0, sf::Music* m1); 
+
+	void getEnum(int level = 1);
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
 
-	
-
+	bool isPlaying = false; /*Kollar om man spelar musik*/
+	bool menuIsPlaying = false;
 	EntityVector entityVector;
 	Player *mPlayer;
 	Level* mLevel;
 	Hud* mHud;
+	SelectLevelMenu *mSelectLevelM;
 	sf::Clock deltaTimer;
+	
 };

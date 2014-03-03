@@ -56,8 +56,9 @@ void MainMenu::input(sf::Event& event){
 	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return){
 		switch (getCurrentMenuItem()){
 		case MainMenu::PLAY:
+			World::currentState = World::INLEVELSELECT;
 			ResourceManager::getSound("resource/sounds/menu/menuclick.ogg").play();
-			World::currentState = World::PLAYING;
+
 			return;
 			break;
 		case MainMenu::SHOP:

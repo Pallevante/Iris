@@ -3,13 +3,16 @@
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
 sf::Music* music = new sf::Music;
+sf::Music* menuMusic = new sf::Music;
+
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
+
 int spawnTimeLimit = 500;
 int FRAME_LIMIT = 60;
 float World::mScore = 0;
 int World::mGold = 0;
-
+int World::mLevelInt = 1;
 
 
 /* Det här är heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemskt dåligt sätt att lösa problem */
@@ -19,22 +22,24 @@ ShopMenu shopMenu;
 
 World::World(): 
 entityVector(){	
+	menuMusic = ResourceManager::getMusic(mLevel->getTheme(0));
 	currentState = INMENU;
 	//Player *mPlayer;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
-	loadMap();	
+	//loadMap();	
 	mHud = new Hud();
-	
+	mSelectLevelM = new SelectLevelMenu();
+
 }
 
 
 
 World::~World(){}
 
-bool isPlaying = false; /*Kollar om man spelar musik*/
+
 bool loadedMap = false;
 void World::run(){
 	while (window.isOpen())	{
@@ -47,8 +52,10 @@ void World::run(){
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed){
-				window.close();
 				ResourceManager::clear();
+				mLevel->clearVectors();
+				window.close();
+				
 			}
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 				pause();
@@ -66,6 +73,9 @@ void World::run(){
 			case INSHOP:
 					shopMenu.input(event);
 					break;
+			case INLEVELSELECT:
+				mSelectLevelM->input(event);
+				break;
 			}
 		}
 
@@ -76,6 +86,12 @@ void World::run(){
 			window.close();
 
 		if (currentState == INMENU){
+			
+			music->stop();
+			if (!menuIsPlaying){
+				menuMusic->play();
+				menuIsPlaying = true;
+			}
 			mainMenu.drawMenu(window);
 		}
 
@@ -87,18 +103,23 @@ void World::run(){
 			isPlaying = false;
 			renderImages();
 		}
+		if(currentState == INLEVELSELECT){
+			mSelectLevelM->drawMenu(window);
+
+		}
 
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
 		if (currentState == PLAYING){
 			//Lite halv homo lösning men verkar fungera (den kompilerar).
-
+			
 			if (!loadedMap){
-				loadMap();
+				loadMap(mLevelInt);
 			}
-
+			//toneDownMusic(menuMusic, music);
+			menuMusic->stop();
 			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
-			if (!isPlaying){
+			if (!isPlaying && loadedMap){
 				music->play();
 				isPlaying = true;
 			}
@@ -110,15 +131,47 @@ void World::run(){
 		window.display();
 	}
 }
+/*Tonar ut ena musiken in in den andra.
+void World::toneDownMusic(sf::Music* m0, sf::Music* m1){
+	m1->setVolume(0);
+	while (m0->getVolume() >= 0){
+		m0->setVolume(m0->getVolume() - 1);
+		m1->setVolume(m1->getVolume() + 1);
+
+		/*Börjar spela musiken efter en viss volym.
+		if (m1->getVolume() > 10){
+			if (!isPlaying){
+				m1->play();
+				isPlaying = true;
+			}
+		}
+
+	}
+	m0->stop();
+}*/
+
 /*Load funktion.*/
-void World::loadMap(){
+void World::loadMap(int level){
 	window.setTitle("Getting shit ready for you :)");
-	mCurrentLevel = mLoadLevel.LevelEnum::FIRSTLEVEL;
+	getEnum(level);
 	mLoadLevel.setLevel(mCurrentLevel);
 	mLevel = mLoadLevel.getLevel();
-	music = ResourceManager::getMusic(mLevel->getTheme(1));
+	music = ResourceManager::getMusic(mLevel->getTheme(level));
 	loadedMap = true;
 	window.setTitle("Iris");
+}
+
+
+
+void World::getEnum(int level){
+	switch (level){
+	case 1:
+		 mCurrentLevel = LoadLevel::FIRSTLEVEL;
+		break;
+	case 2:
+		 mCurrentLevel = LoadLevel::SECONDLEVEL;
+		 break;
+	}
 }
 
 
@@ -183,10 +236,11 @@ void World::detectCollisions(){
 			Entity *entity1 = entityVector[j];
 			/*Du använder en check i collision i world om typen är GOLD sedan hämtar du damage för värdet.*/
 			if (isColliding(entity0, entity1) && entity0->getType() != entity1->getType()){
-				if (entity0->getType() == Entity::GOLD)
+
+				if (entity0->getType() == Entity::GOLD && entity1->getType() == Entity::PLAYER)
 					mGold += entity0->getDamage();
 
-				else if (entity1->getType() == Entity::GOLD)
+				else if (entity1->getType() == Entity::GOLD&& entity0->getType() == Entity::PLAYER)
 					mGold += entity1->getDamage();
 
 				if (entity0->getType() == Entity::RAY && entity1->getType() == Entity::ENEMY
@@ -194,7 +248,7 @@ void World::detectCollisions(){
 					mScore += 0.10f;
 				}				
 
-				else if (mScore >= 1){
+				else if (mScore > 1){
 					mScore = 1;
 				}
 				 if (entity0->getType() == Entity::PLAYER && entity1->getType() == Entity::ENEMY ||
@@ -202,14 +256,14 @@ void World::detectCollisions(){
 					mScore -= 0.01f;
 				}
 
-				 else if (mScore == 0){
+
+				 else if (mScore <= 0){
 					 mScore = 0;
 				 }
 				entity0->collide(entity1, entityVector);
-				entity1->collide(entity0, entityVector);
-				
+				entity1->collide(entity0, entityVector);				
+				/*Uppdaterar auran samt Level opacity.*/
 				mLevel->opacityChange(mScore);
-				//Uppdaterar auran.
 				mPlayer->updateAura(mScore);
 			}
 
@@ -217,35 +271,6 @@ void World::detectCollisions(){
 	}
 }
 		
-
-	
-	
-//Vad är meningen med denna?
-/*
-int World::aura(Entity *entity, std::vector<Entity*> &entities){
-
-	unsigned int currentRed = mPlayer->mAura->getSprite().getColor().r;
-	unsigned int currentGreen = mPlayer->mAura->getSprite().getColor().g;
-	unsigned int currentBlue = mPlayer->mAura->getSprite().getColor().b;
-	unsigned int currentAlpha = mPlayer->mAura->getSprite().getColor().a;
-
-
-
-	if (currentAlpha != 0){
-		if (mPlayer->collide(entity, entities)){
-			if (entity->getDamage() > 0 && entity->getType() == Entity::Type::ENEMY){
-				currentAlpha -= entity->getDamage() / 2;
-				mPlayer->mAura->setColor(sf::Color(currentRed, currentGreen, currentBlue, currentAlpha));
-				return 0;
-			}
-		}
-		else if (entity->getDamage() > 0 && entity->getType() != Entity::Type::ENEMY){
-			return 0;
-		}
-	}
-	return 0;
-}
-*/
 
 /*Skapar en ny vektor som sedan lägger in alla levande entiteter.
 Den nya vektorn uppdaterar våran "main" vektor sedan.*/
@@ -263,7 +288,8 @@ void World::killDeadEntities(){
 
 
 void World::spawnEnemies(){
-	mLevel->spawn(entityVector);
+	if (loadedMap)
+		mLevel->spawn(entityVector);
 }
 
 void World::pause(){
@@ -281,9 +307,6 @@ void World::pause(){
 	}
 }
 
-
-
-
 World::GameState World::currentState;
 
 /*
@@ -295,5 +318,9 @@ World::GameState World::currentState;
  / (  |	  (  |
 /   |_|--- |_|
 
+This is Dan. 
+Dan has watched the progress of iris since the begining.
+Dan had come to a conclusion about the programmers.
+"You are fucking idiots" - Dan
 */
 

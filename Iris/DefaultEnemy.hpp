@@ -6,7 +6,7 @@
 
 class DefaultEnemy : public Enemy {
 public:
-	DefaultEnemy(float speedMultiplier);
+	DefaultEnemy(float speedMultiplier, sf::Vector2f position);
 	~DefaultEnemy();
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition();

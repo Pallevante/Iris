@@ -21,11 +21,11 @@ public:
 		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
 		int level, int levelTime);
 
-	int opacity;
+	float opacity;
 	void opacityChange(float score);
-
+	void clearVectors();
 	void spawn(Entity::EntityVector &entityVector);
-	int getRandomNumber();
+	float getRandomNumber(float maxNumber = 10);
 
 	float percentRequirement();
 	void drawBackground(sf::RenderWindow &window);

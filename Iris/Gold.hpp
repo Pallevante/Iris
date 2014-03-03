@@ -8,8 +8,9 @@ public:
 		DEFAULT,
 		MAGNET
 	};
-	Gold(float xPosition, float yPosition);
+	Gold();
 	~Gold();
+	float setYPos();
 	virtual int getHeight() const;
 	virtual int getWidth() const;
 	virtual Type getType() const;	
