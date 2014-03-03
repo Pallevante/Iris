@@ -23,7 +23,9 @@ mRad(20.f)
 
 }
 
-Player::~Player(){}
+Player::~Player(){
+	delete mAnimation;
+}
 
 
 void Player::tick(EntityVector &entities, float dt){

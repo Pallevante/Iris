@@ -4,7 +4,7 @@ sf::Clock movementClock;
 
 
 DefaultEnemy::DefaultEnemy(float speedMultiplier, sf::Vector2f position) :
-mDamage(100),
+mDamage(1),
 mSpeed(6 * speedMultiplier),
 mIsAlive(true),
 mHealth(2),
@@ -17,7 +17,9 @@ mRad(64)
 }
 
 
-DefaultEnemy::~DefaultEnemy(){}
+DefaultEnemy::~DefaultEnemy(){
+	delete mAnimation;
+}
 
 sf::Vector2f DefaultEnemy::getPosition() {
 	return mAnimation->getSprite().getPosition();

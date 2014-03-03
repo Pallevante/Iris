@@ -18,7 +18,9 @@ float Gold::setYPos(){
 	return random;
 }
 
-Gold::~Gold(){}
+Gold::~Gold(){
+	delete mAnimation;
+}
 
 int Gold::getHeight() const{
 	return mAnimation->getSprite().getTextureRect().height;

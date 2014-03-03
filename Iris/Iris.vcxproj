@@ -85,6 +85,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="DefaultEnemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FinishMenu.cpp" />
@@ -106,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="Cloud.hpp" />
     <ClInclude Include="DefaultEnemy.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Entity.hpp" />

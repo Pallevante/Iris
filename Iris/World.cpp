@@ -29,7 +29,6 @@ entityVector(){
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
-	//loadMap();	
 	mHud = new Hud();
 	mSelectLevelM = new SelectLevelMenu();
 
@@ -160,8 +159,6 @@ void World::loadMap(int level){
 	loadedMap = true;
 	window.setTitle("Iris");
 }
-
-
 
 void World::getEnum(int level){
 	switch (level){

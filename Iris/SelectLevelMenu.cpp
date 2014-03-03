@@ -21,21 +21,7 @@ Menu::ButtonVector{
 	setButtonPosition(BACK, sf::Vector2f(50, 50));
 	setButtonPosition(USA, sf::Vector2f(100, 200));
 	setButtonPosition(BRAZIL, sf::Vector2f(650, 200));
-	/*
-	mButtonVector[BACK * 2]->setPosition(50, 50);
-	mButtonVector[BACK * 2 + 1]->setPosition(50, 50);
-	mButtonVector[USA * 2]->setPosition(100, 200);
-	mButtonVector[USA * 2 + 1]->setPosition(100, 200);
-	mButtonVector[BRAZIL * 2]->setPosition(650, 200);
-	mButtonVector[BRAZIL * 2 + 1]->setPosition(650, 200);
 
-
-	setInactive(USA);
-	setInactive(BACK);
-	setInactive(BRAZIL);
-	
-	setActive(mCurrentMenuItem);
-	*/
 }
 
 

@@ -11,7 +11,9 @@ mIsAlive(true){
 
 }
 
-Ray::~Ray(){}
+Ray::~Ray(){
+	delete mAnimation;
+}
 
 float Ray::getRad() const{
 	return mRad;

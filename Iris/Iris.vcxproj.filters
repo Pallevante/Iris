@@ -88,6 +88,9 @@
     <ClCompile Include="FinishMenu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="Cloud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.hpp">
@@ -135,7 +138,6 @@
     <ClInclude Include="Hud.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-
     <ClInclude Include="SelectLevelMenu.hpp">
       <Filter>Header Files\Menu</Filter>
     </ClInclude>
@@ -144,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="FinishMenu.hpp">
       <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Cloud.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
