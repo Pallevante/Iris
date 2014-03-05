@@ -9,8 +9,7 @@ sf::Sprite baseImage;
 Level::Level(){
 	opacity = 0;
 }
-Level::~Level(){
-}
+Level::~Level(){}
 
 void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,float obstMax, 
 	float specialMin, float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level, 
@@ -77,7 +76,7 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 }
 
 float Level::getRandomNumber(float maxNumber){
-	return fmodf(rand(), maxNumber);
+	return fmod(rand(), maxNumber);
 }
 
 void Level::opacityChange(float score){	
@@ -105,7 +104,7 @@ void Level::spawnBasicEnemies(Entity::EntityVector &entityVector){
 
 		if (getRandomNumber() == 1 && spawnCount < mMaxSpawnEnemies){
 			spawnCount++;
-			entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(620))));
+			entityVector.push_back(new Cloud(1, sf::Vector2f(1300, getRandomNumber(620))));
 		}
 
 	}

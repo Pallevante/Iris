@@ -22,7 +22,6 @@ public:
 	virtual void tick(EntityVector &entities, float dt);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
 		target.draw(mAnimation->getSprite(), states);
-
 	}
 	/*Medlemsfunktioner för Enemy*/
 	virtual void death(float dt);
@@ -38,4 +37,6 @@ private:
 	float mHealth;
 	float mRad;
 	int mDamage;
+	sf::Clock* enemyReloadTimer;
+	sf::Clock* movementClock;
 };

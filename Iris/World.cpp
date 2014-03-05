@@ -64,7 +64,7 @@ void World::run(){
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F2)
 				window.setFramerateLimit(FRAME_LIMIT);		
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+			
 			switch (currentState){
 			case INMENU:
 					mainMenu.input(event);
@@ -156,8 +156,9 @@ void World::loadMap(int level){
 	mLoadLevel.setLevel(mCurrentLevel);
 	mLevel = mLoadLevel.getLevel();
 	music = ResourceManager::getMusic(mLevel->getTheme(level));
-	loadedMap = true;
+	
 	window.setTitle("Iris");
+	loadedMap = true;
 }
 
 void World::getEnum(int level){

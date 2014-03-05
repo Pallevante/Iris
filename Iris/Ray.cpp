@@ -1,13 +1,19 @@
 #include "Ray.hpp"
 
 
-Ray::Ray(sf::Vector2f position) :
+Ray::Ray(sf::Vector2f position, bool isEnemy) :
 mDamage(1),
 mRad(64),
 mSpeed(7),
+mIsEnemy(isEnemy),
 mIsAlive(true){
-	mAnimation = new Animation("resource/textures/entities/ray.png", 100, 17);
-	mAnimation->setPosition(sf::Vector2f(position.x + 109, position.y + 54.5));
+	//Sätter animationen på ray.
+	if (!mIsEnemy)
+		mAnimation = new Animation("resource/textures/entities/ray.png", 100, 17);
+	else if (mIsEnemy)
+		mAnimation = new Animation("resource/textures/entities/imp_ray.png", 100, 5);
+
+		mAnimation->setPosition(position);
 
 }
 
@@ -25,9 +31,12 @@ int Ray::getDamage() const{
 	return mDamage;
 }
 Ray::Type Ray::getType() const{
-	return RAY;
+	/*Detta är så att vi slipper göra flera undantag i collide.*/
+	if (!mIsEnemy)
+		return RAY;
+	else
+		return ENEMY;
 }
-
 
 int Ray::getHeight() const {
 	return mAnimation->getSprite().getTextureRect().height;
@@ -60,6 +69,11 @@ void Ray::tick(EntityVector &entities, float dt){
 void Ray::move(float dt){
 	float currentX = mAnimation->getSprite().getPosition().x;
 	float currentY = mAnimation->getSprite().getPosition().y;
-	currentX = currentX + (mSpeed * dt);
+
+	if (!mIsEnemy)
+		currentX = currentX + (mSpeed * dt);
+	else if(mIsEnemy)
+		currentX = currentX + (-2 *mSpeed * dt);
+
 	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
 }

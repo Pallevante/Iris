@@ -155,8 +155,8 @@ void Player::fire(EntityVector &entities){
 	sf::Time isReloaded = reloadTimer.getElapsedTime();
 	if (isReloaded.asMilliseconds() > 500){
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-
-			entities.push_back(new Ray(getPosition()));
+			/*Så att vi Ray slipper hålla koll på vilken entitet som skjuter och placera ut den på spriten.*/
+			entities.push_back(new Ray(sf::Vector2f(getPosition().x + getWidth(), getPosition().y + (getHeight() / 2)), false));
 			/* Spelar upp skjutljud - no shit? */
 			ResourceManager::getSound("resource/sounds/shoot.wav").play();
 			reloadTimer.restart();

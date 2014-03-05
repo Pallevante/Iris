@@ -7,7 +7,7 @@ mDamage(1),
 mSpeed(6 * speedMultiplier),
 mIsAlive(true),
 mHealth(2){
-	mAnimation = new Animation("resource/textures/entities/enemy.png", 50, 2);
+	mAnimation = new Animation("resource/textures/entities/cloud.png", 50, 8);
 	mAnimation->setPosition(position);
 }
 
@@ -43,6 +43,7 @@ Cloud::Type Cloud::getType() const{
 void Cloud::setDamage(int newDamage){
 	mDamage = newDamage;
 }
+
 //Kollision som känner om träffande entitet är RAY
 int Cloud::collide(Entity *e0, EntityVector &entities){
 	if (e0->getDamage() > 0 && e0->getType() == RAY){
@@ -79,8 +80,6 @@ void Cloud::death(float dt){
 		mIsAlive = false;
 	}
 }
-
-void Cloud::fire(EntityVector &entities){}
 
 void Cloud::move(EntityVector &entities, float dt){
 	float mXDir;
@@ -119,3 +118,5 @@ void Cloud::move(EntityVector &entities, float dt){
 }
 
 void Cloud::useAbility(){}
+
+void Cloud::fire(EntityVector &entities){}

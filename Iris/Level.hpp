@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "Enemy.hpp"
+#include "Cloud.hpp"
 #include "Gold.hpp"
 #include "ResourceManager.hpp"
 #include "World.hpp"

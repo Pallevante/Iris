@@ -4,7 +4,7 @@
 
 class Ray :	public Entity{
 public:
-	Ray(sf::Vector2f position);
+	Ray(sf::Vector2f position, bool isEnemy);
 	~Ray();
 	virtual float getRad() const;
 	virtual sf::Vector2f getPosition();
@@ -23,6 +23,7 @@ private:
 	void move(float dt);
 	Animation* mAnimation;
 	bool mIsAlive;
+	bool mIsEnemy;
 	int mDamage;
 	float mRad;
 	float mSpeed;
