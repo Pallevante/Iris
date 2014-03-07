@@ -1,6 +1,8 @@
 #include "DefaultEnemy.hpp"
 
 
+
+
 DefaultEnemy::DefaultEnemy(float speedMultiplier, sf::Vector2f position) :
 mDamage(1),
 mSpeed(6 * speedMultiplier),

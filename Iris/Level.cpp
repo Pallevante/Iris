@@ -77,7 +77,7 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 }
 
 float Level::getRandomNumber(float maxNumber){
-	return fmod(rand(), maxNumber);
+	return fmodf(rand(), maxNumber);
 }
 
 void Level::opacityChange(float score){	
@@ -188,10 +188,9 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 		//Borde egentligen lägga in en svordomsmätare här men... Jag har helt ärligt tappat räkningen.
 
 		if (World::currentState == World::PLAYING){			
-			if (bgVector[bgVector.size() -1].getPosition().x > 0){
-				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
-				scrollClock.restart();
-			}
+
+			if(bgVector[bgVector.size() -1].getGlobalBounds().width > window.getSize().x)
+				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);			
 		}		
 
 		bgVector[i].setColor(color);
@@ -210,8 +209,9 @@ void Level::drawBackground(sf::RenderWindow &window){
 
 	baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
 
-	float speed = 0;
-	speed = mLevelTime * 1000 / baseImage.getLocalBounds().width;
+
+	float speed = (baseImage.getLocalBounds().width - window.getSize().x) / mLevelTime * 1000;
+
 	
 	drawLevel(window, bgVector, (speed), sf::Color(255, 255, 255, 255));
 	drawLevel(window, clVector, (speed), sf::Color(255, 255, 255, opacity));

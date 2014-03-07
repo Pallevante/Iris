@@ -152,7 +152,7 @@ void World::toneDownMusic(sf::Music* m0, sf::Music* m1){
 
 /*Load funktion.*/
 void World::loadMap(int level){
-	window.setTitle("Getting shit ready for you :)");
+	window.setTitle("Getting shit ready for you :) - FUCK DISTRICT 12");
 	getEnum(level);
 	mLoadLevel.setLevel(mCurrentLevel);
 	mLevel = mLoadLevel.getLevel();
