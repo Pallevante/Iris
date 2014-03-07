@@ -1,10 +1,8 @@
 #include "DefaultEnemy.hpp"
 
-sf::Clock movementClock;
-
 
 DefaultEnemy::DefaultEnemy(float speedMultiplier, sf::Vector2f position) :
-mDamage(100),
+mDamage(1),
 mSpeed(6 * speedMultiplier),
 mIsAlive(true),
 mHealth(2),
@@ -13,11 +11,16 @@ mRad(64)
 {
 	mAnimation = new Animation("resource/textures/entities/enemy.png", 50, 2);
 	mAnimation->setPosition(position);
-	
+
+	movementClock = new sf::Clock;
+	enemyReloadTimer = new sf::Clock;
 }
 
 
-DefaultEnemy::~DefaultEnemy(){}
+DefaultEnemy::~DefaultEnemy(){
+	delete mAnimation;
+	delete movementClock;
+}
 
 sf::Vector2f DefaultEnemy::getPosition() {
 	return mAnimation->getSprite().getPosition();
@@ -92,13 +95,23 @@ void DefaultEnemy::death(float dt){
 
 
 void DefaultEnemy::move(EntityVector &enteties, float dt){
+	//Dessa används för FOLLOWING funktionen.
 	float mXDir;
 	float mYDir;
-	sf::Time checkUpdateDir = movementClock.getElapsedTime();
+	sf::Time checkUpdateDir = movementClock->getElapsedTime();
+
+
 	if (!mIsDying){
+		//Dödar fiender som inte redan är döende och är utanför skärmens yta på vänster sida.
+		if (getPosition().x < -20){
+			mIsAlive = false;
+		}
+		//Rak rörelse för fienderna.
 		if(getMovement() == DEFAULT){
 			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5 * dt, getPosition().y));
 		}
+
+		//De rör sig i ett vågformat mönster.
 		else if(getMovement() == WAVE){
 			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 200 + (70*sinf(0.005 * getPosition().x )) ));
 		}
@@ -115,22 +128,28 @@ void DefaultEnemy::move(EntityVector &enteties, float dt){
 						mXDir = x / sqrt(powf(x, 2) + powf(y, 2)) * mSpeed;
 						mYDir = y / sqrt(powf(x, 2) + powf(y, 2)) * mSpeed;
 
-						movementClock.restart();
+						movementClock->restart();
 					}
 				}
 			}
 			mAnimation->setPosition(sf::Vector2f((getPosition().x + mXDir) * dt, (getPosition().y + mYDir) * dt));
 		}	
 	}
+	//Om fienden inte är vid liv.
 	else{
 		death(dt);
 	}
 }
 
-/*Dessa ska vara tomma sï¿½vida default enemy inte blir ï¿½ndrad.*/
-void DefaultEnemy::fire(EntityVector &enteties){
-	return;
+
+void DefaultEnemy::fire(EntityVector &entities){
+
+	sf::Time checkReloadTime =	checkReloadTime = enemyReloadTimer->getElapsedTime();
+	//De skjuter med stora intervaller men snabba skott.
+	if (checkReloadTime.asMilliseconds() > 1700){
+		ResourceManager::getSound("resource/sounds/GoblinShot.ogg").play();
+		entities.push_back(new Ray(sf::Vector2f(getPosition().x, (getPosition().y + getHeight() /2)), true));
+		enemyReloadTimer->restart();
+	}
 }
-void DefaultEnemy::useAbility(){
-	return;
-}
+void DefaultEnemy::useAbility(){}

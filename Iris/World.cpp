@@ -32,7 +32,6 @@ entityVector(){
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
 	entityVector.push_back(mPlayer);
-	//loadMap();	
 	mHud = new Hud();
 	mSelectLevelM = new SelectLevelMenu();
 	
@@ -70,7 +69,7 @@ void World::run(){
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F3)
 				currentState = INFINISHMENU;
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
+			
 			switch (currentState){
 			case INMENU:
 				mainMenu.input(event);
@@ -203,11 +202,10 @@ void World::loadMap(int level){
 	mLoadLevel.setLevel(mCurrentLevel);
 	mLevel = mLoadLevel.getLevel();
 	music = ResourceManager::getMusic(mLevel->getTheme(level));
-	loadedMap = true;
+	
 	window.setTitle("Iris");
+	loadedMap = true;
 }
-
-
 
 void World::getEnum(int level){
 	switch (level){

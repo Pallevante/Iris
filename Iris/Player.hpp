@@ -26,15 +26,12 @@ public:
 		target.draw(mAura->getSprite(), states);
 		target.draw(mAnimation->getSprite(), states);
 	}
-
-	//Entity *entity;
-	Animation* mAura;
-
-
+		
 private:
 	void move(float dt);
 	void fire(EntityVector &enteties);	
 	Animation* mAnimation;
+	Animation* mAura;
 	EntityVector &entities;
 	float mSpeed;
 	float opacity;
