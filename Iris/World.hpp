@@ -87,5 +87,5 @@ private:
 	Hud* mHud;
 	SelectLevelMenu *mSelectLevelM;
 	sf::Clock deltaTimer;
-	
+	sf::Font goldFont;
 };

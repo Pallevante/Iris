@@ -24,6 +24,7 @@ PauseMenu pauseMenu;
 
 World::World(): 
 entityVector(){	
+	goldFont.loadFromFile("resource/fonts/AGENTORANGE.ttf");
 	menuMusic = ResourceManager::getMusic(mLevel->getTheme(0));
 	currentState = INMENU;
 	//Player *mPlayer;
@@ -34,7 +35,7 @@ entityVector(){
 	//loadMap();	
 	mHud = new Hud();
 	mSelectLevelM = new SelectLevelMenu();
-
+	
 }
 
 
@@ -123,6 +124,33 @@ void World::run(){
 		}
 		if (currentState == INFINISHMENU){
 			finishMenu.drawMenu(window);
+			
+			std::stringstream goldAmount;
+			goldAmount.str("");
+			goldAmount.clear();
+			goldAmount << World::mGold;
+
+			sf::Text gold;
+			gold.setFont(goldFont);
+			gold.setString(goldAmount.str());
+			gold.setColor(sf::Color::White);
+			gold.setCharacterSize(60);
+			gold.setPosition(346, 140);
+			window.draw(gold);
+
+			std::stringstream scoreAmount;
+			scoreAmount.str("");
+			scoreAmount.clear();
+			scoreAmount << World::mScore;
+
+			sf::Text score;
+			score.setFont(goldFont);
+			score.setString(scoreAmount.str());
+			score.setColor(sf::Color::White);
+			score.setCharacterSize(60);
+			score.setPosition(755, 140);
+			window.draw(score);
+
 		}
 
 
