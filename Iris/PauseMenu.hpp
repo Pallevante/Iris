@@ -2,16 +2,16 @@
 #include "Menu.hpp"
 #include "World.hpp"
 
-class FinishMenu : public Menu{
+class PauseMenu : public Menu{
 public:
 	enum mMenuItems{
-		NEXT_LEVEL,
-		SHOP,
+		RESUME,
+		RESTART,
 		MAIN_MENU,
 		NUM_CHOICES
 	};
-	FinishMenu();
-	~FinishMenu();
+	PauseMenu();
+	~PauseMenu();
 
 	unsigned int getMaxItems();
 	void input(sf::Event& event);
