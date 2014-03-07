@@ -89,6 +89,7 @@ void World::run(){
 			music->stop();
 			if (!menuIsPlaying){
 				menuMusic->play();
+				menuMusic->setLoop(true);
 				menuIsPlaying = true;
 			}
 			mainMenu.drawMenu(window);

@@ -4,6 +4,7 @@
 ResourceManager::SpriteVector clVector;
 ResourceManager::SpriteVector bgVector;
 sf::Clock goldClock;
+sf::Clock scrollClock;
 sf::Sprite baseImage;
 
 Level::Level(){
@@ -181,13 +182,16 @@ std::string Level::getTheme(int level){
 
 void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color){
 	/* Skapar och ritar ut sprites på relativa positioner */
+	sf::Time scrollTime = scrollClock.getElapsedTime();
 	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
 		
 		//Borde egentligen lägga in en svordomsmätare här men... Jag har helt ärligt tappat räkningen.
 
 		if (World::currentState == World::PLAYING){			
-			if(bgVector[3].getPosition().x > 1500)
-				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);			
+			if (bgVector[bgVector.size() -1].getPosition().x > 0){
+				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
+				scrollClock.restart();
+			}
 		}		
 
 		bgVector[i].setColor(color);
@@ -204,8 +208,11 @@ void Level::clearVectors(){
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
 void Level::drawBackground(sf::RenderWindow &window){
 
-	//baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
+	baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
 
-	drawLevel(window, bgVector, (3), sf::Color(255, 255, 255, 255));
-	drawLevel(window, clVector, (3), sf::Color(255, 255, 255, opacity));
+	float speed = 0;
+	speed = mLevelTime * 1000 / baseImage.getLocalBounds().width;
+	
+	drawLevel(window, bgVector, (speed), sf::Color(255, 255, 255, 255));
+	drawLevel(window, clVector, (speed), sf::Color(255, 255, 255, opacity));
 }

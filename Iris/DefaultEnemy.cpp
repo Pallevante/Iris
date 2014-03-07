@@ -20,6 +20,7 @@ mRad(64)
 DefaultEnemy::~DefaultEnemy(){
 	delete mAnimation;
 	delete movementClock;
+	delete enemyReloadTimer;
 }
 
 sf::Vector2f DefaultEnemy::getPosition() {
@@ -103,7 +104,7 @@ void DefaultEnemy::move(EntityVector &enteties, float dt){
 
 	if (!mIsDying){
 		//Dödar fiender som inte redan är döende och är utanför skärmens yta på vänster sida.
-		if (getPosition().x < -20){
+		if (getPosition().x < -200){
 			mIsAlive = false;
 		}
 		//Rak rörelse för fienderna.
