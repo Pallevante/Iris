@@ -34,8 +34,6 @@ entityVector(){
 
 }
 
-
-
 World::~World(){}
 
 
@@ -131,7 +129,8 @@ void World::run(){
 		window.display();
 	}
 }
-/*Tonar ut ena musiken in in den andra.
+
+/*Tonar ut ena musiken in in den andra.*/
 void World::toneDownMusic(sf::Music* m0, sf::Music* m1){
 	m1->setVolume(0);
 	while (m0->getVolume() >= 0){
@@ -139,16 +138,16 @@ void World::toneDownMusic(sf::Music* m0, sf::Music* m1){
 		m1->setVolume(m1->getVolume() + 1);
 
 		/*Börjar spela musiken efter en viss volym.
+			Fungerar Ej just nu.*/
 		if (m1->getVolume() > 10){
 			if (!isPlaying){
 				m1->play();
 				isPlaying = true;
 			}
 		}
-
 	}
 	m0->stop();
-}*/
+}
 
 /*Load funktion.*/
 void World::loadMap(int level){
