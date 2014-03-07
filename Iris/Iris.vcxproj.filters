@@ -82,10 +82,10 @@
     <ClCompile Include="SelectLevelMenu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="LoadSave.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FinishMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMenu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
@@ -135,7 +135,6 @@
     <ClInclude Include="Hud.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-
     <ClInclude Include="SelectLevelMenu.hpp">
       <Filter>Header Files\Menu</Filter>
     </ClInclude>
@@ -143,6 +142,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FinishMenu.hpp">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseMenu.hpp">
       <Filter>Header Files\Menu</Filter>
     </ClInclude>
   </ItemGroup>

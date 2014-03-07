@@ -13,6 +13,8 @@
 #include "Hud.hpp"
 #include <SFML/System/Clock.hpp>
 #include "SelectLevelMenu.hpp"
+#include "FinishMenu.hpp"
+#include "PauseMenu.hpp"
 
 class Level;
 class Hud;
@@ -28,6 +30,7 @@ public:
 		PLAYING,
 		PAUSED,
 		INLEVELSELECT,
+		INFINISHMENU,
 		INSHOP,
 		OUTRO,
 		INTRO,
