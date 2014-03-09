@@ -186,9 +186,9 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 		//Borde egentligen lägga in en svordomsmätare här men... Jag har helt ärligt tappat räkningen.
 
 		if (World::currentState == World::PLAYING){			
-			if(bgVector[bgVector.size() -1].getGlobalBounds().width > window.getSize().x)
+			if(bgVector[bgVector.size() -1].getPosition().x + bgVector[bgVector.size() -1].getGlobalBounds().width > window.getSize().x)
 				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);			
-		}		
+		}		 
 
 		bgVector[i].setColor(color);
 		window.draw(bgVector[i]);		
