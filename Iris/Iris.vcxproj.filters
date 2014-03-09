@@ -82,14 +82,14 @@
     <ClCompile Include="SelectLevelMenu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="LoadSave.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FinishMenu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
     <ClCompile Include="Cloud.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="Cloud.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseMenu.hpp">
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
