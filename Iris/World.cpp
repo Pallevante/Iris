@@ -43,7 +43,6 @@ World::~World(){}
 bool loadedMap = false;
 void World::run(){
 	while (window.isOpen())	{
-
 		int deltaTime = deltaTimer.restart().asMicroseconds();
 		float expectedTime = ((1.0f / FRAME_LIMIT) * 1000000);
 		float dt = deltaTime / expectedTime;
@@ -92,6 +91,13 @@ void World::run(){
 
 		if (currentState == EXIT)
 			window.close();
+
+		if (currentState == RESTARTING){
+			restart();
+			music->setPlayingOffset(sf::Time::Zero);
+			mScore = 0;
+			currentState = PLAYING;
+		}
 
 		if (currentState == INMENU){
 			
@@ -237,6 +243,8 @@ void World::renderImages(){
 }
 
 void World::tick(float dt){	
+	if (mGold > 100)
+		window.setTitle("Iris - Achivement: Oh Jew!");
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		entityVector[i]->tick(entityVector, dt);		
 	}
@@ -328,6 +336,10 @@ void World::killDeadEntities(){
 	
 	}
 	entityVector = reserveEnteties;
+}
+
+void World::restart(){
+	mLevel->restart();
 }
 
 

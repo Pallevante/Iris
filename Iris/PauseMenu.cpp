@@ -48,7 +48,8 @@ void PauseMenu::input(sf::Event& event){
 			return;
 			break;
 		case PauseMenu::RESTART:
-			//TODO: restarta level funktion
+			ResourceManager::getSound("resource/sounds/menu/menuback.ogg").play();
+			World::currentState = World::RESTARTING;
 			return;
 			break;
 		case PauseMenu::MAIN_MENU:

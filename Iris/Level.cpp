@@ -4,6 +4,7 @@
 ResourceManager::SpriteVector clVector;
 ResourceManager::SpriteVector bgVector;
 sf::Clock goldClock;
+sf::Clock scrollClock;
 sf::Sprite baseImage;
 
 Level::Level(){
@@ -143,8 +144,16 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 void Level::spawnGold(Entity::EntityVector &entityVector){
 	sf::Time spawnGold = goldClock.getElapsedTime();
 	/*Varannan sekund så spawnas guld.*/
-	if (spawnGold.asSeconds() > 2){
-		entityVector.push_back(new Gold());		
+	if (spawnGold.asSeconds() > 3){
+		
+		float yPos = getRandomNumber(620);				//Sätter position för Y som alla guldklimpar använder sig av.
+		float xPos = 1300;								//Sätter X värdet för alla guldklimpar som kommer ändras med 50
+		int numbOfGoldToSpawn = getRandomNumber(4);		//Hämtar antalet guld som skall spawnas.
+
+		for (int index = 0; index < numbOfGoldToSpawn; index++){
+			entityVector.push_back(new Gold(sf::Vector2f(xPos, yPos)));
+			xPos += 50;
+		}		
 		goldClock.restart();
 	}
 }
@@ -181,21 +190,36 @@ std::string Level::getTheme(int level){
 
 void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color){
 	/* Skapar och ritar ut sprites på relativa positioner */
+	sf::Time scrollTime = scrollClock.getElapsedTime();
+	float fPassedTime = scrollTime.asMilliseconds();
 
 	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
 		
 		//Borde egentligen lägga in en svordomsmätare här men... Jag har helt ärligt tappat räkningen.
 
-		if (World::currentState == World::PLAYING){			
+		if (World::currentState == World::PLAYING){	
 			//Kollar sista posten i vektorns position samt storleken för att veta om den är i kanten på skärmen.
-			if (bgVector[bgVector.size() - 1].getPosition().x + bgVector[bgVector.size() - 1].getGlobalBounds().width > window.getSize().x)
-				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);			
-		}		
+			if (bgVector[bgVector.size() - 1].getPosition().x + bgVector[bgVector.size() - 1].getGlobalBounds().width > window.getSize().x)	{
+				//if (fmodf(fPassedTime, 1) == 0.0001)
+					bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
+			}
+			else
+				World::currentState = World::INFINISHMENU;
+		}		 
 
 		bgVector[i].setColor(color);
 		window.draw(bgVector[i]);		
 	}
+	
 }
+
+void Level::restart(){
+	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
+		bgVector[i].setPosition(i * bgVector[i].getGlobalBounds().width, 0);
+		clVector[i].setPosition(i * clVector[i].getGlobalBounds().width, 0);
+	}
+}
+
 
 void Level::clearVectors(){
 	bgVector.clear();
@@ -207,8 +231,8 @@ void Level::clearVectors(){
 void Level::drawBackground(sf::RenderWindow &window){
 
 	baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
-	//"Fungerade i morse".
-	float speed = (baseImage.getLocalBounds().width - window.getSize().x) / mLevelTime * 1000;
+	//Nedan fungerar inte riktigt än. Behöver fixas innan release. Gärna innan testning på onsdag.
+	float speed = (baseImage.getLocalBounds().width - window.getSize().x) / (mLevelTime * 100);
 
 	
 	drawLevel(window, bgVector, (speed), sf::Color(255, 255, 255, 255));

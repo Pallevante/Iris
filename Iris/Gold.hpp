@@ -8,7 +8,7 @@ public:
 		DEFAULT,
 		MAGNET
 	};
-	Gold();
+	Gold(sf::Vector2f position);
 	~Gold();
 	float setYPos();
 	virtual int getHeight() const;
