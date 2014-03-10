@@ -337,9 +337,23 @@ void World::killDeadEntities(){
 	}
 	entityVector = reserveEnteties;
 }
+/*Återställer vektorn till ursprungsläge med enbart spelaren i.
+  Kan vara bra att ha även vid ny bana.*/
+void World::resetVector(){
+	EntityVector reserveVector;
+	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); i++){
+		Entity* entities = *i;
+		if (entities->getType() == Entity::PLAYER){
+			reserveVector.push_back(entities);
+		}
+	}
+	entityVector = reserveVector;
+}
+
 
 void World::restart(){
 	window.clear();
+	resetVector();
 	mLevel->restart();
 }
 

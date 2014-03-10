@@ -29,6 +29,7 @@ public:
 	virtual void move(EntityVector &enteties, float dt);
 	virtual void useAbility();
 private:
+	
 	float setYPos(); 
 	Animation* mAnimation;
 	float mSpeed;
