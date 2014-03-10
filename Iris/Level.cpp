@@ -93,8 +93,6 @@ void Level::opacityChange(float score){
 
 /*Kollar hur många som ska spawnas av default enemies*/
 void Level::spawnBasicEnemies(Entity::EntityVector &entityVector){
-
-
 	sf::Time spawnDefaultT = mDefaultCl.getElapsedTime();
 	int spawnCount = 0;
 
@@ -111,7 +109,7 @@ void Level::spawnBasicEnemies(Entity::EntityVector &entityVector){
 	}
 
 	if (spawnDefaultT.asSeconds() >= mSpawnMax){
-		entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(620))));
+		entityVector.push_back(new Cloud(1, sf::Vector2f(1300, getRandomNumber(620))));
 		mDefaultCl.restart();
 	}
 
@@ -137,8 +135,6 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 		entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(620))));
 		mSpecialCl.restart();
 	}
-
-
 }
 
 void Level::spawnGold(Entity::EntityVector &entityVector){
@@ -188,12 +184,7 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 		//Borde egentligen lägga in en svordomsmätare här men... Jag har helt ärligt tappat räkningen.
 
 		if (World::currentState == World::PLAYING){			
-<<<<<<< HEAD
 			if(bgVector[bgVector.size() -1].getPosition().x + bgVector[bgVector.size() -1].getGlobalBounds().width > window.getSize().x)
-=======
-
-			if(bgVector[bgVector.size() -1].getGlobalBounds().width > window.getSize().x)
->>>>>>> 0af44a4e7d039acc2f5f0ba3c8732ece5447d91d
 				bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);			
 		}		 
 
@@ -214,7 +205,7 @@ void Level::drawBackground(sf::RenderWindow &window){
 	baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
 
 
-	float speed = (baseImage.getLocalBounds().width - window.getSize().x) / mLevelTime * 1000;
+	float speed = (baseImage.getLocalBounds().width - window.getSize().x) / (mLevelTime * 100);
 
 	
 	drawLevel(window, bgVector, (speed), sf::Color(255, 255, 255, 255));
