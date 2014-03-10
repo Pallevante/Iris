@@ -181,6 +181,7 @@ std::string Level::getTheme(int level){
 	if (level == 2){
 		return "resource/sounds/Level2Theme.ogg";
 	}
+
 }
 
 
@@ -193,11 +194,10 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 		
 		//Borde egentligen lägga in en svordomsmätare här men... Jag har helt ärligt tappat räkningen.
 
-
 		if (World::currentState == World::PLAYING){	
 			//Kollar sista posten i vektorns position samt storleken för att veta om den är i kanten på skärmen.
 			if (bgVector[bgVector.size() - 1].getPosition().x + bgVector[bgVector.size() - 1].getGlobalBounds().width > 720){
-				//if (fmodf(fPassedTime, 1) == 0.0001)
+				if (fmodf(fPassedTime, 1) == 0)
 					bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
 			}
 			//else

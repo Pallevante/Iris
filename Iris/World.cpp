@@ -4,7 +4,7 @@ sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
 sf::Clock spawnTimer;
 sf::Music* music = new sf::Music;
 sf::Music* menuMusic = new sf::Music;
-
+sf::Music* shopMusic = new sf::Music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 
@@ -26,6 +26,7 @@ World::World():
 entityVector(){	
 	goldFont.loadFromFile("resource/fonts/AGENTORANGE.ttf");
 	menuMusic = ResourceManager::getMusic(mLevel->getTheme(0));
+	shopMusic = ResourceManager::getMusic("resource/sounds/ShopTest.ogg");
 	currentState = INMENU;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
@@ -107,9 +108,12 @@ void World::run(){
 
 
 		if (currentState == INMENU){
-			
+
+			shopMusic->stop();
 			music->stop();
+
 			if (!menuIsPlaying){
+				shopIsPlaying = false;
 				menuMusic->play();
 				menuMusic->setLoop(true);
 				menuIsPlaying = true;
@@ -118,8 +122,17 @@ void World::run(){
 		}
 
 		if (currentState == INSHOP){
+			menuMusic->stop();		
+
+			if (!shopIsPlaying){
+				menuIsPlaying = false;
+				shopMusic->play();
+				shopMusic->setLoop(true);
+				shopIsPlaying = true;
+			}
 			shopMenu.drawMenu(window);
 		}
+
 		if (currentState == PAUSED){
 			music->pause();
 			isPlaying = false;

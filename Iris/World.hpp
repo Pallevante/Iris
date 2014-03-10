@@ -81,6 +81,7 @@ private:
 
 	bool isPlaying = false; /*Kollar om man spelar musik*/
 	bool menuIsPlaying = false;
+	bool shopIsPlaying = false;
 	EntityVector entityVector;
 	Player *mPlayer;
 	Level* mLevel;
