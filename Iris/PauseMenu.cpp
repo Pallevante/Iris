@@ -21,9 +21,9 @@ Menu::ButtonVector{
 	},
 	"", 0)
 		{
-	setButtonPosition(RESUME, sf::Vector2f(300, 100));
-	setButtonPosition(RESTART, sf::Vector2f(350, 250));
-	setButtonPosition(MAIN_MENU, sf::Vector2f(350, 350));
+	setButtonPosition(RESUME, sf::Vector2f(516, 190));
+	setButtonPosition(RESTART, sf::Vector2f(516, 336));
+	setButtonPosition(MAIN_MENU, sf::Vector2f(516, 485));
 };
 
 PauseMenu::~PauseMenu(){

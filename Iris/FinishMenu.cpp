@@ -46,7 +46,7 @@ void FinishMenu::input(sf::Event& event){
 		switch (getCurrentMenuItem()){
 		case FinishMenu::NEXT_LEVEL:
 			World::mLevelInt = World::mLevelInt + 1;
-			World::currentState = World::PLAYING;
+			World::currentState = World::LOAD;
 			return;
 			break;
 		case FinishMenu::SHOP:

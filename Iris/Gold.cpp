@@ -68,8 +68,7 @@ int Gold::collide(Entity *e0, EntityVector &entities){
 		mIsAlive = false;
 		ResourceManager::getSound("resource/sounds/Coin.ogg").play();
 	}
-	else
-		return 0;
+	return 0;
 }
 
 void Gold::setMovement(Movement movement){

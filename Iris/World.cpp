@@ -27,7 +27,6 @@ entityVector(){
 	goldFont.loadFromFile("resource/fonts/AGENTORANGE.ttf");
 	menuMusic = ResourceManager::getMusic(mLevel->getTheme(0));
 	currentState = INMENU;
-	//Player *mPlayer;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
@@ -99,6 +98,14 @@ void World::run(){
 			currentState = PLAYING;
 		}
 
+		if (currentState == LOAD){
+			if (!loadedMap || mLevelInt != mCurrentLevel){
+				loadMap(mLevelInt);
+				currentState = PLAYING;
+			}
+		}
+
+
 		if (currentState == INMENU){
 			
 			music->stop();
@@ -118,8 +125,20 @@ void World::run(){
 			isPlaying = false;
 			renderImages();
 			sf::RectangleShape darkBox(sf::Vector2f(2000, 2000));
+			//Boxen för pausmenyn
+			sf::Sprite pauseBG;
+			pauseBG.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/pause_bg.png"));
+			pauseBG.setPosition(461, 136);
+
+			//Titel för pausmeny
+			sf::Sprite pauseTitle;
+			pauseTitle.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/gamepaused_title.png"));
+			pauseTitle.setPosition(280, 22);
+
 			darkBox.setFillColor(sf::Color(0,0,0, 150));
 			window.draw(darkBox);
+			window.draw(pauseBG);
+			window.draw(pauseTitle);
 			pauseMenu.drawMenu(window);
 		}
 		if(currentState == INLEVELSELECT){
@@ -203,12 +222,18 @@ void World::toneDownMusic(sf::Music* m0, sf::Music* m1){
 
 /*Load funktion.*/
 void World::loadMap(int level){
-	window.setTitle("The game is loading! :)");
+	//Stannar musiken så den kan bytas
+	if (isPlaying){
+		music->stop();
+		isPlaying = false;
+	}
+
+	resetVector();
+	window.setTitle("The game is loading! :)");	
 	getEnum(level);
 	mLoadLevel.setLevel(mCurrentLevel);
 	mLevel = mLoadLevel.getLevel();
-	music = ResourceManager::getMusic(mLevel->getTheme(level));
-	
+	music = ResourceManager::getMusic(mLevel->getTheme(level));	
 	window.setTitle("Iris");
 	loadedMap = true;
 }
@@ -236,7 +261,7 @@ void World::startGame(){
 
 void World::renderImages(){
 	mLevel->drawBackground(window);
-	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
+	for (EntityVector::size_type i = 0; i < entityVector.size(); ++i){
 		window.draw(*entityVector[i]);		
 	}
 	mHud->drawText(window);
@@ -245,7 +270,7 @@ void World::renderImages(){
 void World::tick(float dt){	
 	if (mGold > 100)
 		window.setTitle("Iris - Achivement: Oh Jew!");
-	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
+	for (EntityVector::size_type i = 0; i < entityVector.size(); ++i){
 		entityVector[i]->tick(entityVector, dt);		
 	}
 	mHud->setText();
@@ -328,7 +353,7 @@ void World::detectCollisions(){
 Den nya vektorn uppdaterar våran "main" vektor sedan.*/
 void World::killDeadEntities(){
 	EntityVector reserveEnteties;
-	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); i++){
+	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); ++i){
 		Entity* enteties = *i;
 		if (enteties->isAlive()){
 			reserveEnteties.push_back(enteties);
@@ -341,7 +366,7 @@ void World::killDeadEntities(){
   Kan vara bra att ha även vid ny bana.*/
 void World::resetVector(){
 	EntityVector reserveVector;
-	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); i++){
+	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); ++i){
 		Entity* entities = *i;
 		if (entities->getType() == Entity::PLAYER){
 			reserveVector.push_back(entities);

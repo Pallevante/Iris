@@ -15,7 +15,7 @@ private:
 	sf::Text goldText;
 	std::stringstream goldAmount;
 	sf::RectangleShape progressBar;
-	int progress;
+	float progress;
 	sf::Color progressColor;
 };
 
