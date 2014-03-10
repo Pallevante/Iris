@@ -13,6 +13,8 @@
 #include "Hud.hpp"
 #include <SFML/System/Clock.hpp>
 #include "SelectLevelMenu.hpp"
+#include "FinishMenu.hpp"
+#include "PauseMenu.hpp"
 
 class Level;
 class Hud;
@@ -28,8 +30,10 @@ public:
 		PLAYING,
 		PAUSED,
 		INLEVELSELECT,
+		INFINISHMENU,
 		INSHOP,
 		OUTRO,
+		RESTARTING,
 		INTRO,
 		EXIT
 	};
@@ -48,7 +52,7 @@ public:
 	static int mGold;	
 	static int mLevelInt;
 	void renderHUD();
-
+	void restart();
 private:
 	/*Spelrelaterade funktioner*/
 	void spawnEnemies();
@@ -68,7 +72,7 @@ private:
 	void enterStore();
 	void enterSettings();
 	void enterMap();
-
+	
 
 	void toneDownMusic(sf::Music* m0, sf::Music* m1); 
 
@@ -84,5 +88,5 @@ private:
 	Hud* mHud;
 	SelectLevelMenu *mSelectLevelM;
 	sf::Clock deltaTimer;
-	
+	sf::Font goldFont;
 };

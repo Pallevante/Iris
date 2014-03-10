@@ -26,6 +26,7 @@ public:
 	void opacityChange(float score);
 	void clearVectors();
 	void spawn(Entity::EntityVector &entityVector);
+	void restart();
 	float getRandomNumber(float maxNumber = 10);
 
 	float percentRequirement();

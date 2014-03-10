@@ -1,6 +1,6 @@
 #include "Gold.hpp"
 
-Gold::Gold(): 
+Gold::Gold(sf::Vector2f position) :
 
 mSpeed(6),
 mAcceleration(0.5f),
@@ -8,7 +8,7 @@ mIsAlive(true)
 //Måste ändras relativt till bilden.
 {
 	mAnimation = new Animation("resource/textures/entities/gold.png", 100, 4);
-	mAnimation->setPosition(sf::Vector2f(1300, setYPos()));
+	mAnimation->setPosition(position);
 }
 float Gold::setYPos(){
 	float random = rand() % 720 - mAnimation->getSprite().getGlobalBounds().height + 1;

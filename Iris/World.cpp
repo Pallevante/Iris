@@ -19,9 +19,12 @@ int World::mLevelInt = 1;
 /* ... #YOLO  - Älskar dig simon <3*/
 MainMenu mainMenu;
 ShopMenu shopMenu;
+FinishMenu finishMenu;
+PauseMenu pauseMenu;
 
 World::World(): 
 entityVector(){	
+	goldFont.loadFromFile("resource/fonts/AGENTORANGE.ttf");
 	menuMusic = ResourceManager::getMusic(mLevel->getTheme(0));
 	currentState = INMENU;
 	//Player *mPlayer;
@@ -31,7 +34,7 @@ entityVector(){
 	entityVector.push_back(mPlayer);
 	mHud = new Hud();
 	mSelectLevelM = new SelectLevelMenu();
-
+	
 }
 
 World::~World(){}
@@ -40,7 +43,6 @@ World::~World(){}
 bool loadedMap = false;
 void World::run(){
 	while (window.isOpen())	{
-
 		int deltaTime = deltaTimer.restart().asMicroseconds();
 		float expectedTime = ((1.0f / FRAME_LIMIT) * 1000000);
 		float dt = deltaTime / expectedTime;
@@ -61,17 +63,25 @@ void World::run(){
 				window.setFramerateLimit(10);
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F2)
 				window.setFramerateLimit(FRAME_LIMIT);		
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F3)
+				currentState = INFINISHMENU;
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
 			
 			switch (currentState){
 			case INMENU:
-					mainMenu.input(event);
-					break;
+				mainMenu.input(event);
+				break;
 			case INSHOP:
-					shopMenu.input(event);
-					break;
+				shopMenu.input(event);
+				break;
 			case INLEVELSELECT:
 				mSelectLevelM->input(event);
+				break;
+			case INFINISHMENU:
+				finishMenu.input(event);
+				break;
+			case PAUSED:
+				pauseMenu.input(event);
 				break;
 			}
 		}
@@ -81,6 +91,13 @@ void World::run(){
 
 		if (currentState == EXIT)
 			window.close();
+
+		if (currentState == RESTARTING){
+			restart();
+			music->setPlayingOffset(sf::Time::Zero);
+			mScore = 0;
+			currentState = PLAYING;
+		}
 
 		if (currentState == INMENU){
 			
@@ -100,11 +117,46 @@ void World::run(){
 			music->pause();
 			isPlaying = false;
 			renderImages();
+			sf::RectangleShape darkBox(sf::Vector2f(2000, 2000));
+			darkBox.setFillColor(sf::Color(0,0,0, 150));
+			window.draw(darkBox);
+			pauseMenu.drawMenu(window);
 		}
 		if(currentState == INLEVELSELECT){
 			mSelectLevelM->drawMenu(window);
 
 		}
+		if (currentState == INFINISHMENU){
+			finishMenu.drawMenu(window);
+			
+			std::stringstream goldAmount;
+			goldAmount.str("");
+			goldAmount.clear();
+			goldAmount << World::mGold;
+
+			sf::Text gold;
+			gold.setFont(goldFont);
+			gold.setString(goldAmount.str());
+			gold.setColor(sf::Color::White);
+			gold.setCharacterSize(60);
+			gold.setPosition(346, 140);
+			window.draw(gold);
+
+			std::stringstream scoreAmount;
+			scoreAmount.str("");
+			scoreAmount.clear();
+			scoreAmount << World::mScore;
+
+			sf::Text score;
+			score.setFont(goldFont);
+			score.setString(scoreAmount.str());
+			score.setColor(sf::Color::White);
+			score.setCharacterSize(60);
+			score.setPosition(755, 140);
+			window.draw(score);
+
+		}
+
 
 		/*Använder en instans av GameState för att veta vad den skall göra.
 		Göra så att när man klickar play så går den in i ett state som laddar sedan ändrar load till PLAYING?*/
@@ -151,7 +203,7 @@ void World::toneDownMusic(sf::Music* m0, sf::Music* m1){
 
 /*Load funktion.*/
 void World::loadMap(int level){
-	window.setTitle("Getting shit ready for you :) - FUCK DISTRICT 12");
+	window.setTitle("The game is loading! :)");
 	getEnum(level);
 	mLoadLevel.setLevel(mCurrentLevel);
 	mLevel = mLoadLevel.getLevel();
@@ -188,9 +240,11 @@ void World::renderImages(){
 		window.draw(*entityVector[i]);		
 	}
 	mHud->drawText(window);
-}
+} 
 
 void World::tick(float dt){	
+	if (mGold > 100)
+		window.setTitle("Iris - Achivement: Oh Jew!");
 	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
 		entityVector[i]->tick(entityVector, dt);		
 	}
@@ -282,6 +336,11 @@ void World::killDeadEntities(){
 	
 	}
 	entityVector = reserveEnteties;
+}
+
+void World::restart(){
+	window.clear();
+	mLevel->restart();
 }
 
 
