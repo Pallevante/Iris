@@ -42,10 +42,17 @@ World::~World(){}
 
 bool loadedMap = false;
 void World::run(){
+	float oldTime = 0;
+	float newTime = 0;
+	dt = (1.0f / FRAME_LIMIT);
+
 	while (window.isOpen())	{
-		int deltaTime = deltaTimer.restart().asMicroseconds();
-		float expectedTime = ((1.0f / FRAME_LIMIT) * 1000000);
-		float dt = deltaTime / expectedTime;
+		oldTime = newTime;
+		//newTime = deltaTimer.restart().asSeconds();
+		newTime = deltaTimer.getElapsedTime().asSeconds();
+		dt = newTime - oldTime;
+		//float expectedTime = ((1.0f / FRAME_LIMIT) * 1000000);
+		//dt = deltaTime / expectedTime;
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -237,7 +244,9 @@ void World::run(){
 			startGame();
 		}
 		window.display();
+		
 	}
+
 }
 
 /*Tonar ut ena musiken in in den andra.*/
@@ -299,7 +308,7 @@ void World::startGame(){
 }
 
 void World::renderImages(){
-	mLevel->drawBackground(window);
+	mLevel->drawBackground(window, dt);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); ++i){
 		window.draw(*entityVector[i]);		
 	}

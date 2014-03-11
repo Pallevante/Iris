@@ -8,8 +8,8 @@ bool isFlipped = false;
 Player::Player(float xPosition, float yPosition, float speedMultiplier) :
 mHealth(0),
 mDamage(10),
-mSpeed(6 * speedMultiplier),
-mAcceleration(0.5f * speedMultiplier),
+mSpeed(360 * speedMultiplier),
+mAcceleration(30.0f * speedMultiplier),
 mIsAlive(true),
 entities(entities),
 

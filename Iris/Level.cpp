@@ -5,7 +5,6 @@ ResourceManager::SpriteVector clVector;
 ResourceManager::SpriteVector bgVector;
 sf::Clock goldClock;
 sf::Clock scrollClock;
-//sf::Sprite baseImage;
 
 Level::Level(){
 	opacity = 0;
@@ -73,10 +72,10 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 
 	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
 	clVector = ResourceManager::getLevel(chooseColoredTexture);	
-	/*
-	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
 
-	}*/
+	baseImage = ResourceManager::getImage(chooseWhiteTexture);
+	int backgroundWidth = baseImage.getSize().x;
+	backgroundSpeed = backgroundWidth / mLevelTime;
 }
 
 float Level::getRandomNumber(float maxNumber){
@@ -188,7 +187,7 @@ std::string Level::getTheme(int level){
 }
 
 
-void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color){
+void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, sf::Color& color, float dt){
 	/* Skapar och ritar ut sprites på relativa positioner */
 	sf::Time scrollTime = scrollClock.getElapsedTime();
 	float fPassedTime = scrollTime.asMilliseconds();
@@ -210,8 +209,8 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 		if (World::currentState == World::PLAYING){
 			sf::Vector2f currentPosition = bgVector[i].getPosition();
 
-			sf::Vector2f newPosition = sf::Vector2f(currentPosition.x - (speed * fPassedTime/10000000), currentPosition.y);
-		
+			sf::Vector2f newPosition = sf::Vector2f(currentPosition.x - (backgroundSpeed * dt), currentPosition.y);
+
 			bgVector[i].setPosition(newPosition);
 		}
 		bgVector[i].setColor(color);
@@ -235,17 +234,16 @@ void Level::clearVectors(){
 
 
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
-void Level::drawBackground(sf::RenderWindow &window){
+void Level::drawBackground(sf::RenderWindow &window, float dt){
 
 	//baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
 
-	int backgroundWidth = sf::Texture::getMaximumSize() * bgVector.size();
-
+	
 	//Nedan fungerar inte riktigt än. Behöver fixas innan release. Gärna innan testning på onsdag.
 	//float speed = (baseImage.getLocalBounds().width - window.getSize().x) / (mLevelTime * 10);
-	float speed = backgroundWidth / mLevelTime;
+	
 
 
-	drawLevel(window, bgVector, speed, sf::Color(255, 255, 255, 255));
-	drawLevel(window, clVector, speed, sf::Color(255, 255, 255, opacity));
+	drawLevel(window, bgVector, sf::Color(255, 255, 255, 255), dt);
+	drawLevel(window, clVector, sf::Color(255, 255, 255, opacity), dt);
 }

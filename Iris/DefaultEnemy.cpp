@@ -5,7 +5,7 @@
 
 DefaultEnemy::DefaultEnemy(float speedMultiplier, sf::Vector2f position) :
 mDamage(1),
-mSpeed(6 * speedMultiplier),
+mSpeed(300 * speedMultiplier),
 mIsAlive(true),
 mHealth(2),
 //Måste ändras relativt till bilden.
@@ -89,7 +89,7 @@ void DefaultEnemy::tick(EntityVector &entities, float dt){
 /*Enemy Basfunktioner*/
 
 void DefaultEnemy::death(float dt){
-	mAnimation->setPosition(sf::Vector2f(getPosition().x, getPosition().y - 15*dt));
+	mAnimation->setPosition(sf::Vector2f(getPosition().x, getPosition().y - mSpeed * 3 *dt));
 	DefaultEnemy::setDamage(0);
 	if (getPosition().y < -140){
 		mIsAlive = false;
@@ -111,12 +111,12 @@ void DefaultEnemy::move(EntityVector &enteties, float dt){
 		}
 		//Rak rörelse för fienderna.
 		if(getMovement() == DEFAULT){
-			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5 * dt, getPosition().y));
+			mAnimation->setPosition(sf::Vector2f(getPosition().x - mSpeed * dt, getPosition().y));
 		}
 
 		//De rör sig i ett vågformat mönster.
 		else if(getMovement() == WAVE){
-			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 200 + (70*sinf(0.005 * getPosition().x )) ));
+			mAnimation->setPosition(sf::Vector2f(getPosition().x - mSpeed, 200 + (70*sinf(0.005 * getPosition().x )) ));
 		}
 
 		/*Kommer användas för att hitta spelaren och följa den.*/

@@ -4,7 +4,7 @@
 Ray::Ray(sf::Vector2f position, bool isEnemy) :
 mDamage(1),
 mRad(64),
-mSpeed(7),
+mSpeed(420),
 mIsEnemy(isEnemy),
 mIsAlive(true){
 	//Sätter animationen på ray.
