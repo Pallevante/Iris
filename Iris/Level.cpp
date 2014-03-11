@@ -146,7 +146,7 @@ void Level::spawnGold(Entity::EntityVector &entityVector){
 		float xPos = 1300;								//Sätter X värdet för alla guldklimpar som kommer ändras med 50
 		int numbOfGoldToSpawn = getRandomNumber(4);		//Hämtar antalet guld som skall spawnas.
 
-		for (int index = 0; index < numbOfGoldToSpawn; index++){
+		for (int index = 0; index < numbOfGoldToSpawn; ++index){
 			entityVector.push_back(new Gold(sf::Vector2f(xPos, yPos)));
 			xPos += 50;
 		}		
