@@ -48,12 +48,12 @@ void SelectLevelMenu::input(sf::Event& event){
 			break;
 		case SelectLevelMenu::USA:
 			World::mLevelInt = 1;
-			World::currentState = World::PLAYING;
+			World::currentState = World::LOAD;
 			return;
 			break;
 		case SelectButtons::BRAZIL:
 			World::mLevelInt = 2;
-			World::currentState = World::PLAYING;
+			World::currentState = World::LOAD;
 		default:
 			break;
 		}
