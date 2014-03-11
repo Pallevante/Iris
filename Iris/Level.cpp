@@ -139,7 +139,7 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
 void Level::spawnGold(Entity::EntityVector &entityVector){
 	sf::Time spawnGold = goldClock.getElapsedTime();
-	/*Varannan sekund så spawnas guld.*/
+	/*Var tredje sekund så spawnas guld.*/
 	if (spawnGold.asSeconds() > 3){
 		
 		float yPos = getRandomNumber(620);				//Sätter position för Y som alla guldklimpar använder sig av.
