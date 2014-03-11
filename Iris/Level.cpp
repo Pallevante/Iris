@@ -211,6 +211,7 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 
 
 		if (World::currentState == World::PLAYING){
+			//Om positionen på den första bilden sammanslaget med bredden på fönstret är mer än banlängden, FINISHMENU
 			if (-(bgVector[0].getPosition().x - window.getSize().x) > baseImage.getSize().x){
 				World::currentState = World::INFINISHMENU;
 			}
