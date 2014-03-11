@@ -43,16 +43,17 @@ World::~World(){}
 bool loadedMap = false;
 void World::run(){
 	float oldTime = 0;
-	float newTime = 0;
-	dt = (1.0f / FRAME_LIMIT);
+	float newTime = (1.0f / FRAME_LIMIT);
+	dt = newTime - oldTime;
 
 	while (window.isOpen())	{
+		/*	För att göra uträkningar baserade på tid istället för frames så måste man räkna ut 
+			hur lång tid det tar per frame. Alltså gångrar vi alla hastigheter i movement 
+			i spelet med dt. */
 		oldTime = newTime;
-		//newTime = deltaTimer.restart().asSeconds();
 		newTime = deltaTimer.getElapsedTime().asSeconds();
 		dt = newTime - oldTime;
-		//float expectedTime = ((1.0f / FRAME_LIMIT) * 1000000);
-		//dt = deltaTime / expectedTime;
+
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -164,6 +165,7 @@ void World::run(){
 
 		}
 		if (currentState == INFINISHMENU){
+			finishMenu.updateActionButton();
 			renderImages();
 
 			finishMenu.drawMenu(window);
@@ -193,6 +195,7 @@ void World::run(){
 
 		}		
 		if (currentState == INFAILEDFINISHMENU){
+			finishMenu.updateActionButton();
 			renderImages();
 
 			finishMenu.drawMenu(window);
