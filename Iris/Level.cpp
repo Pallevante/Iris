@@ -5,7 +5,7 @@ ResourceManager::SpriteVector clVector;
 ResourceManager::SpriteVector bgVector;
 sf::Clock goldClock;
 sf::Clock scrollClock;
-sf::Sprite baseImage;
+//sf::Sprite baseImage;
 
 Level::Level(){
 	opacity = 0;
@@ -73,7 +73,10 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 
 	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
 	clVector = ResourceManager::getLevel(chooseColoredTexture);	
+	/*
+	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
 
+	}*/
 }
 
 float Level::getRandomNumber(float maxNumber){
@@ -193,7 +196,7 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
 		
 		//Borde egentligen lägga in en svordomsmätare här men... Jag har helt ärligt tappat räkningen.
-
+		/*
 		if (World::currentState == World::PLAYING){	
 			//Kollar sista posten i vektorns position samt storleken för att veta om den är i kanten på skärmen.
 			if (bgVector[bgVector.size() - 1].getPosition().x + bgVector[bgVector.size() - 1].getGlobalBounds().width > 720){
@@ -203,7 +206,14 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 			//else
 				//World::currentState = World::INFINISHMENU;
 		}		 
+		*/
+		if (World::currentState == World::PLAYING){
+			sf::Vector2f currentPosition = bgVector[i].getPosition();
 
+			sf::Vector2f newPosition = sf::Vector2f(currentPosition.x - (speed * fPassedTime/10000000), currentPosition.y);
+		
+			bgVector[i].setPosition(newPosition);
+		}
 		bgVector[i].setColor(color);
 		window.draw(bgVector[i]);		
 	}
@@ -227,11 +237,15 @@ void Level::clearVectors(){
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
 void Level::drawBackground(sf::RenderWindow &window){
 
-	baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
+	//baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
+
+	int backgroundWidth = sf::Texture::getMaximumSize() * bgVector.size();
 
 	//Nedan fungerar inte riktigt än. Behöver fixas innan release. Gärna innan testning på onsdag.
-	float speed = (baseImage.getLocalBounds().width - window.getSize().x) / (mLevelTime * 10);
+	//float speed = (baseImage.getLocalBounds().width - window.getSize().x) / (mLevelTime * 10);
+	float speed = backgroundWidth / mLevelTime;
 
-	drawLevel(window, bgVector, (3), sf::Color(255, 255, 255, 255));
-	drawLevel(window, clVector, (3), sf::Color(255, 255, 255, opacity));
+
+	drawLevel(window, bgVector, speed, sf::Color(255, 255, 255, 255));
+	drawLevel(window, clVector, speed, sf::Color(255, 255, 255, opacity));
 }
