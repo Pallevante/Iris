@@ -2,7 +2,7 @@
 
 Gold::Gold(sf::Vector2f position) :
 
-mSpeed(6),
+mSpeed(300),
 mAcceleration(0.5f),
 mIsAlive(true)
 //Måste ändras relativt till bilden.
@@ -76,5 +76,5 @@ void Gold::setMovement(Movement movement){
 }
 
 void Gold::move(EntityVector &entities, float dt){
-	mAnimation->setPosition(sf::Vector2f(getPosition().x - 5 * dt, getPosition().y));
+	mAnimation->setPosition(sf::Vector2f(getPosition().x - mSpeed * dt, getPosition().y));
 }
