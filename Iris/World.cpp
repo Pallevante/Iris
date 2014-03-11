@@ -65,6 +65,8 @@ void World::run(){
 				window.setFramerateLimit(FRAME_LIMIT);		
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F3)
 				currentState = INFINISHMENU;
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F4)
+				currentState = INFAILEDFINISHMENU;
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
 			
 			switch (currentState){
@@ -78,6 +80,9 @@ void World::run(){
 				mSelectLevelM->input(event);
 				break;
 			case INFINISHMENU:
+				finishMenu.input(event);
+				break;
+			case INFAILEDFINISHMENU:
 				finishMenu.input(event);
 				break;
 			case PAUSED:
@@ -137,30 +142,35 @@ void World::run(){
 			music->pause();
 			isPlaying = false;
 			renderImages();
-			sf::RectangleShape darkBox(sf::Vector2f(2000, 2000));
-			//Boxen för pausmenyn
-			sf::Sprite pauseBG;
-			pauseBG.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/pause_bg.png"));
-			pauseBG.setPosition(461, 136);
+			pauseMenu.drawMenu(window);
 
 			//Titel för pausmeny
 			sf::Sprite pauseTitle;
 			pauseTitle.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/gamepaused_title.png"));
 			pauseTitle.setPosition(280, 22);
 
-			darkBox.setFillColor(sf::Color(0,0,0, 150));
-			window.draw(darkBox);
-			window.draw(pauseBG);
 			window.draw(pauseTitle);
-			pauseMenu.drawMenu(window);
+			
 		}
 		if(currentState == INLEVELSELECT){
 			mSelectLevelM->drawMenu(window);
 
 		}
 		if (currentState == INFINISHMENU){
+			renderImages();
+
 			finishMenu.drawMenu(window);
-			
+
+			sf::Sprite finishText;
+			finishText.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/finish_text_status_comp.png"));
+			finishText.setPosition(280, 147);
+			window.draw(finishText);
+
+			sf::Sprite goldText;
+			goldText.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/finish_text_gold.png"));
+			goldText.setPosition(280, 280);
+			window.draw(goldText);
+
 			std::stringstream goldAmount;
 			goldAmount.str("");
 			goldAmount.clear();
@@ -170,22 +180,38 @@ void World::run(){
 			gold.setFont(goldFont);
 			gold.setString(goldAmount.str());
 			gold.setColor(sf::Color::White);
-			gold.setCharacterSize(60);
-			gold.setPosition(346, 140);
+			gold.setCharacterSize(40);
+			gold.setPosition(500, 275);
 			window.draw(gold);
 
-			std::stringstream scoreAmount;
-			scoreAmount.str("");
-			scoreAmount.clear();
-			scoreAmount << World::mScore;
+		}		
+		if (currentState == INFAILEDFINISHMENU){
+			renderImages();
 
-			sf::Text score;
-			score.setFont(goldFont);
-			score.setString(scoreAmount.str());
-			score.setColor(sf::Color::White);
-			score.setCharacterSize(60);
-			score.setPosition(755, 140);
-			window.draw(score);
+			finishMenu.drawMenu(window);
+
+			sf::Sprite finishText;
+			finishText.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/finish_text_status_notcomp.png"));
+			finishText.setPosition(280, 147);
+			window.draw(finishText);
+
+			sf::Sprite goldText;
+			goldText.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/finish_text_gold.png"));
+			goldText.setPosition(280, 280);
+			window.draw(goldText);
+
+			std::stringstream goldAmount;
+			goldAmount.str("");
+			goldAmount.clear();
+			goldAmount << World::mGold;
+
+			sf::Text gold;
+			gold.setFont(goldFont);
+			gold.setString(goldAmount.str());
+			gold.setColor(sf::Color::White);
+			gold.setCharacterSize(40);
+			gold.setPosition(500, 275);
+			window.draw(gold);
 
 		}
 

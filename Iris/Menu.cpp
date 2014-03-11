@@ -20,6 +20,14 @@ mBackground(ResourceManager::getTexture(background))
 Menu::~Menu(){}
 
 void Menu::drawMenu(sf::RenderWindow& window){
+	//Mörklägg bakgrund
+	sf::RectangleShape darkBox(sf::Vector2f(window.getSize()));
+	darkBox.setFillColor(sf::Color(0, 0, 0, 150));
+	window.draw(darkBox);
+
+	//Lägg bakgrunden centrerad (påverkar inte bilder som fyller hela skärmen)
+	mBackground.setPosition((window.getSize().x / 2) - (mBackground.getTexture()->getSize().x / 2), (window.getSize().y / 2) - (mBackground.getTexture()->getSize().y / 2));
+
 	window.draw(mBackground);
 	for (ButtonVector::size_type i = 0; i < mButtonVector.size(); i++){
 		window.draw(*mButtonVector[i]);
@@ -52,6 +60,11 @@ void Menu::setButtonPosition(unsigned int i, sf::Vector2f position){
 	mButtonSelectedVector[i]->setPosition(position);
 	mButtonActiveVector[i]->setPosition(position);
 }
+void Menu::setButtonTexture(unsigned int i, const std::string& normalTexture, const std::string& selectedTexture, const std::string& activeTexture) {
+	mButtonVector[i]->setTexture(ResourceManager::getTexture(normalTexture));
+	mButtonSelectedVector[i]->setTexture(ResourceManager::getTexture(selectedTexture));
+	mButtonActiveVector[i]->setTexture(ResourceManager::getTexture(activeTexture));
+}
 
 void Menu::setCurrentMenuItem(unsigned int i){
 	Menu::setUnselected(mCurrentMenuItem);
@@ -71,3 +84,4 @@ void Menu::up(){
 	}
 	ResourceManager::getSound("resource/sounds/menu/menuscroll.ogg").play();
 }
+
