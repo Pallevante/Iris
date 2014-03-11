@@ -73,8 +73,10 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
 	clVector = ResourceManager::getLevel(chooseColoredTexture);	
 
+	//Hämtar bakgrundsbilden utan att ladda in den igen (den ligger redan i ramminnet efter getLevel)
 	baseImage = ResourceManager::getImage(chooseWhiteTexture);
 	int backgroundWidth = baseImage.getSize().x;
+	//Hastighet = bredd / tid
 	backgroundSpeed = backgroundWidth / mLevelTime;
 }
 
@@ -206,8 +208,10 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 				//World::currentState = World::INFINISHMENU;
 		}		 
 		*/
+
+
 		if (World::currentState == World::PLAYING){
-			if (bgVector[i].getPosition().x + window.getSize().x > baseImage.getSize().x){
+			if (-(bgVector[0].getPosition().x - window.getSize().x) > baseImage.getSize().x){
 				World::currentState = World::INFINISHMENU;
 			}
 

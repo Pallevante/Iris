@@ -95,14 +95,12 @@ ResourceManager::SpriteVector ResourceManager::getLevel(const std::string& filen
 		int imageWidth = image.getSize().x;
 		int tileCount = (int)round(ceil(imageWidth / tileSize));
 
-		/* Definera alla nya texturer ifrån en sf::Image och en IntRect som beräknas genom antalet tiles och bredden på tiles och bilden*/
+		
 		ResourceManager::SpriteVector spriteVector;
-
+		/* Definera alla nya texturer ifrån en sf::Image och en IntRect som beräknas genom antalet tiles och bredden på tiles och bilden*/
+		/* Den delar alltså upp bilden i mindre bilder som har så stor bredd som grafikkortet tillåter, för bakåtkompabilitet och prestanda. */
 		for (int i = 0; i <= tileCount; i++){
-			//sf::Texture newTexture;
 			sf::IntRect newIntRect(i*tileSize, 0, tileSize, image.getSize().y);
-			
-			//newTexture.loadFromImage(image, newIntRect);
 			
 			newSprite.setTexture(getTexture(filename, newIntRect, "level" + filename + "_" + std::to_string(i)));
 			newSprite.setPosition((i * tileSize),0);
