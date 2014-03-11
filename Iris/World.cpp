@@ -1,6 +1,6 @@
 #include "World.hpp"
 
-sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
+sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris", sf::Style::Close);
 sf::Clock spawnTimer;
 sf::Music* music = new sf::Music;
 sf::Music* menuMusic = new sf::Music;
