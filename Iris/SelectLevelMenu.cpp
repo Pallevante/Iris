@@ -17,7 +17,7 @@ Menu::ButtonVector{
 		new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/usa_thumb_off.png")),
 		new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/brazil_thumb_off.png"))
 	},
-"resource/textures/backgrounds/levelselect.png", 0){
+"resource/textures/backgrounds/levelselect.png", USA){
 	setButtonPosition(BACK, sf::Vector2f(50, 50));
 	setButtonPosition(USA, sf::Vector2f(100, 200));
 	setButtonPosition(BRAZIL, sf::Vector2f(650, 200));

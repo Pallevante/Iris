@@ -19,11 +19,11 @@ Menu::ButtonVector{
 		new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/menu/pause_restart.png")),
 		new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/menu/pause_main.png"))
 	},
-	"", 0)
+	"resource/textures/buttons/menu/pause_bg.png", 0)
 		{
-	setButtonPosition(RESUME, sf::Vector2f(516, 190));
-	setButtonPosition(RESTART, sf::Vector2f(516, 336));
-	setButtonPosition(MAIN_MENU, sf::Vector2f(516, 485));
+	setButtonPosition(RESUME, sf::Vector2f(516, 162));
+	setButtonPosition(RESTART, sf::Vector2f(516, 309));
+	setButtonPosition(MAIN_MENU, sf::Vector2f(516, 467));
 };
 
 PauseMenu::~PauseMenu(){
