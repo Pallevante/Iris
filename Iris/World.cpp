@@ -24,6 +24,7 @@ PauseMenu pauseMenu;
 
 World::World(): 
 entityVector(){	
+	window.setKeyRepeatEnabled(true);
 	goldFont.loadFromFile("resource/fonts/AGENTORANGE.ttf");
 	menuMusic = ResourceManager::getMusic(mLevel->getTheme(0));
 	shopMusic = ResourceManager::getMusic("resource/sounds/ShopTest.ogg");
