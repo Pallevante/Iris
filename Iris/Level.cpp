@@ -207,6 +207,10 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 		}		 
 		*/
 		if (World::currentState == World::PLAYING){
+			if (bgVector[i].getPosition().x + window.getSize().x > baseImage.getSize().x){
+				World::currentState = World::INFINISHMENU;
+			}
+
 			sf::Vector2f currentPosition = bgVector[i].getPosition();
 
 			sf::Vector2f newPosition = sf::Vector2f(currentPosition.x - (backgroundSpeed * dt), currentPosition.y);
