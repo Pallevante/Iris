@@ -31,11 +31,8 @@ entityVector(){
 	currentState = INMENU;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
-	mPlayer = new Player(100, 100);
-	entityVector.push_back(mPlayer);
 	mHud = new Hud();
-	mSelectLevelM = new SelectLevelMenu();
-	
+	mSelectLevelM = new SelectLevelMenu();	
 }
 
 World::~World(){}
@@ -125,6 +122,7 @@ void World::run(){
 
 			shopMusic->stop();
 			music->stop();
+			mLevel->clearVectors(); //Annars kommer vi ligga på runt 300MB i minne när vi återvänder till menyn.
 
 			if (!menuIsPlaying){
 				shopIsPlaying = false;
@@ -280,7 +278,10 @@ void World::loadMap(int level){
 		isPlaying = false;
 	}
 
-	resetVector();
+	resetVector();						//Återstället vektorn helt.
+	mPlayer = new Player(100, 100);		//Skapar en player.
+	entityVector.push_back(mPlayer);	//Lägger in spelaren i den nya vektorn.
+
 	window.setTitle("The game is loading! :)");	
 	getEnum(level);
 	mLoadLevel.setLevel(mCurrentLevel);
@@ -414,17 +415,9 @@ void World::killDeadEntities(){
 	}
 	entityVector = reserveEnteties;
 }
-/*Återställer vektorn till ursprungsläge med enbart spelaren i.
-  Kan vara bra att ha även vid ny bana.*/
+/*Rensar hela vektorn*/
 void World::resetVector(){
-	EntityVector reserveVector;
-	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); ++i){
-		Entity* entities = *i;
-		if (entities->getType() == Entity::PLAYER){
-			reserveVector.push_back(entities);
-		}
-	}
-	entityVector = reserveVector;
+	entityVector.clear();
 }
 
 

@@ -5,6 +5,8 @@
 #include "Gold.hpp"
 #include "ResourceManager.hpp"
 #include "World.hpp"
+#include <thread>
+#include <future>
 
 class Level {
 public:	

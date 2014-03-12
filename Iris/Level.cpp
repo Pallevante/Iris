@@ -66,12 +66,16 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 
 	/*Måste tömmas innan så att nästa bana inte hamnar över den gamla.*/
 	if (!bgVector.empty())
-		bgVector.clear();
+		bgVector.clear();	
+		
 	if (!clVector.empty())
 		clVector.clear();
 
-	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
-	clVector = ResourceManager::getLevel(chooseColoredTexture);	
+	auto future = std::async(ResourceManager::getLevel, chooseWhiteTexture);
+	auto future2 = std::async(ResourceManager::getLevel, chooseColoredTexture);	
+
+	bgVector = future.get();
+	clVector = future2.get();
 
 	//Hämtar bakgrundsbilden utan att ladda in den igen (den ligger redan i ramminnet efter getLevel)
 	baseImage = ResourceManager::getImage(chooseWhiteTexture);
