@@ -15,6 +15,7 @@ public:
 
 	unsigned int getMaxItems();
 	void input(sf::Event& event);
+	void updateActionButton();
 private:
 
 };

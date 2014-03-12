@@ -37,16 +37,10 @@ unsigned int FinishMenu::getMaxItems(){
 }
 
 void FinishMenu::input(sf::Event& event){
-	if (World::currentState == World::INFAILEDFINISHMENU){
-		setButtonTexture(ACTION, "resource/textures/buttons/menu/finish_retry.png", "resource/textures/buttons/menu/finish_retry_selected.png", "resource/textures/buttons/menu/finish_retry.png");
-	}
-	if (World::currentState == World::INFINISHMENU){
-		setButtonTexture(ACTION, "resource/textures/buttons/menu/finish_nextlevel.png", "resource/textures/buttons/menu/finish_nextlevel_selected.png", "resource/textures/buttons/menu/finish_nextlevel.png");
-	}
-	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Left){
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left){
 		up();
 	}
-	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Right){
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right){
 		down();
 	}
 	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return){
@@ -71,5 +65,14 @@ void FinishMenu::input(sf::Event& event){
 		default:
 			break;
 		}
+	}
+}
+
+void FinishMenu::updateActionButton(){
+	if (World::currentState == World::INFAILEDFINISHMENU){
+		setButtonTexture(ACTION, "resource/textures/buttons/menu/finish_retry.png", "resource/textures/buttons/menu/finish_retry_selected.png", "resource/textures/buttons/menu/finish_retry.png");
+	}
+	if (World::currentState == World::INFINISHMENU){
+		setButtonTexture(ACTION, "resource/textures/buttons/menu/finish_nextlevel.png", "resource/textures/buttons/menu/finish_nextlevel_selected.png", "resource/textures/buttons/menu/finish_nextlevel.png");
 	}
 }

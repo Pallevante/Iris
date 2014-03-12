@@ -43,10 +43,10 @@ unsigned int ShopMenu::getMaxItems(){
 }
 
 void ShopMenu::input(sf::Event& event){
-	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Up){
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up){
 		up();
 	}
-	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Down){
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down){
 		down();
 	}
 	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return){

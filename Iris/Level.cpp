@@ -73,8 +73,10 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
 	clVector = ResourceManager::getLevel(chooseColoredTexture);	
 
+	//Hämtar bakgrundsbilden utan att ladda in den igen (den ligger redan i ramminnet efter getLevel)
 	baseImage = ResourceManager::getImage(chooseWhiteTexture);
 	int backgroundWidth = baseImage.getSize().x;
+	//Hastighet = bredd / tid
 	backgroundSpeed = backgroundWidth / mLevelTime;
 }
 
@@ -206,7 +208,18 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 				//World::currentState = World::INFINISHMENU;
 		}		 
 		*/
+
+
 		if (World::currentState == World::PLAYING){
+			//Om positionen på den första bilden sammanslaget med bredden på fönstret är mer än banlängden, FINISHMENU
+			if (-(bgVector[0].getPosition().x - window.getSize().x) >= baseImage.getSize().x){
+				if (World::mScore >= mRequirment){
+					World::currentState = World::INFINISHMENU;
+				}else{
+					World::currentState = World::INFAILEDFINISHMENU;
+				}
+			}
+
 			sf::Vector2f currentPosition = bgVector[i].getPosition();
 
 			sf::Vector2f newPosition = sf::Vector2f(currentPosition.x - (backgroundSpeed * dt), currentPosition.y);
