@@ -70,8 +70,12 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	if (!clVector.empty())
 		clVector.clear();
 
-	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
-	clVector = ResourceManager::getLevel(chooseColoredTexture);	
+	auto future = std::async(ResourceManager::getLevel, chooseWhiteTexture);
+	auto future2 = std::async(ResourceManager::getLevel, chooseColoredTexture);
+	bgVector = future.get();
+	clVector = future2.get();
+	//bgVector = ResourceManager::getLevel(chooseWhiteTexture);
+	//clVector = ResourceManager::getLevel(chooseColoredTexture);	
 
 	//Hämtar bakgrundsbilden utan att ladda in den igen (den ligger redan i ramminnet efter getLevel)
 	baseImage = ResourceManager::getImage(chooseWhiteTexture);
