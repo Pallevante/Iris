@@ -15,14 +15,11 @@ private:
 	sf::Font font;
 	sf::Text goldText;
 	std::stringstream goldAmount;
-	//sf::RectangleShape progressBar;
-	//float progress;
-	//sf::Color progressColor;
 
 	sf::Sprite progressBar;
 	sf::Sprite fillTexture;
-	
+	float progress;
 	sf::IntRect currentProgressRect;
-
+	float fillSpeed;
 };
 
