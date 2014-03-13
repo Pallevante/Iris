@@ -134,6 +134,7 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 		if (getRandomNumber() == 1 && spawnCount < mMaxSpecialSpawn){
 			spawnCount++;
 			entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(620))));
+			mSpecialCl.restart();
 		}
 	}
 
