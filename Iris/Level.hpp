@@ -7,6 +7,7 @@
 #include "World.hpp"
 #include <thread>
 #include <future>
+
 class Level {
 public:	
 	Level();

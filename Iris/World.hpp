@@ -2,6 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
+#include "Windows.h"
 #include "Animation.hpp"
 #include "DefaultEnemy.hpp"
 #include "Entity.hpp"
@@ -63,7 +64,7 @@ private:
 	void detectCollisions();
 	void killDeadEntities();
 	void resetVector();
-	
+	void printScreen();
 	/*Menyrelaterade funktioner*/
 
 	void menuInput(sf::Event &event);
@@ -79,7 +80,8 @@ private:
 	void getEnum(int level = 1);
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
-
+	unsigned int mCurrentFetchedGold = 0;
+	int screenNumber;
 	bool isPlaying = false; /*Kollar om man spelar musik*/
 	bool menuIsPlaying = false;
 	bool shopIsPlaying = false;
@@ -90,5 +92,6 @@ private:
 	SelectLevelMenu *mSelectLevelM;
 	sf::Clock deltaTimer;
 	float dt;
+	std::stringstream numb;
 	sf::Font goldFont;
 };

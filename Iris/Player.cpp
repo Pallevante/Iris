@@ -1,9 +1,6 @@
 #include "Player.hpp"
 sf::Clock reloadTimer;
 
-/*Public funktioner*/
-bool isFlipped = false;
-
 
 Player::Player(float xPosition, float yPosition, float speedMultiplier) :
 mHealth(0),
@@ -135,7 +132,7 @@ void Player::move(float dt){
 	}	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 		if (mVelocity.y < mSpeed){
-			if (mAnimation->getSprite().getPosition().y + mAnimation->getSprite().getGlobalBounds().height + mAcceleration < 720)
+			if (getPosition().y + mAnimation->getSprite().getGlobalBounds().height + mAcceleration < 720)
 				mVelocity.y += mAcceleration;
 		}
 	}

@@ -66,15 +66,12 @@ sf::Image& ResourceManager::getImage(const std::string& filename){
 //Jävla-Skit-fitts-funktion: 5
 //Funka då för fan: 5
 //*Suck*: 61
-sf::Music* ResourceManager::getMusic(const std::string& filename){
 
-		//if (mMusic.count(filename) == 0){
+sf::Music* ResourceManager::getMusic(const std::string& filename){
 			mMusic.clear();
 			sf::Music* newMusic = new sf::Music;
 			newMusic->openFromFile(filename);
-			mMusic.insert(std::pair<std::string, sf::Music*>(filename, newMusic));
-		//}
-	
+			mMusic.insert(std::pair<std::string, sf::Music*>(filename, newMusic));	
 	return mMusic[filename];
 }
 

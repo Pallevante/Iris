@@ -1,4 +1,8 @@
 #include "World.hpp"
+#include <ctime>
+#include <sstream>
+#include <thread>
+
 
 sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris", sf::Style::Close);
 sf::Clock spawnTimer;
@@ -24,6 +28,7 @@ PauseMenu pauseMenu;
 
 World::World(): 
 entityVector(){	
+	screenNumber = 0;
 	window.setKeyRepeatEnabled(true);
 	goldFont.loadFromFile("resource/fonts/AGENTORANGE.ttf");
 	menuMusic = ResourceManager::getMusic(mLevel->getTheme(0));
@@ -31,11 +36,8 @@ entityVector(){
 	currentState = INMENU;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
-	mPlayer = new Player(100, 100);
-	entityVector.push_back(mPlayer);
 	mHud = new Hud();
-	mSelectLevelM = new SelectLevelMenu();
-	
+	mSelectLevelM = new SelectLevelMenu();	
 }
 
 World::~World(){}
@@ -76,8 +78,13 @@ void World::run(){
 				currentState = INFINISHMENU;
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F4)
 				currentState = INFAILEDFINISHMENU;
+
+			/*Används för att göra en screenshot.*/
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::P){
+				printScreen();
+			}
+
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
-			
 			switch (currentState){
 			case INMENU:
 				mainMenu.input(event);
@@ -122,9 +129,10 @@ void World::run(){
 
 
 		if (currentState == INMENU){
-
+			mGold -= mCurrentFetchedGold;
 			shopMusic->stop();
 			music->stop();
+			mLevel->clearVectors(); //Annars kommer vi ligga på runt 300MB i minne när vi återvänder till menyn.
 
 			if (!menuIsPlaying){
 				shopIsPlaying = false;
@@ -166,6 +174,8 @@ void World::run(){
 
 		}
 		if (currentState == INFINISHMENU){
+
+			mCurrentFetchedGold = 0;
 			finishMenu.updateActionButton();
 			renderImages();
 
@@ -280,7 +290,10 @@ void World::loadMap(int level){
 		isPlaying = false;
 	}
 
-	resetVector();
+	resetVector();						//Återstället vektorn helt.
+	mPlayer = new Player(100, 100);		//Skapar en player.
+	entityVector.push_back(mPlayer);	//Lägger in spelaren i den nya vektorn.
+
 	window.setTitle("The game is loading! :)");	
 	getEnum(level);
 	mLoadLevel.setLevel(mCurrentLevel);
@@ -366,11 +379,15 @@ void World::detectCollisions(){
 			/*Du använder en check i collision i world om typen är GOLD sedan hämtar du damage för värdet.*/
 			if (isColliding(entity0, entity1) && entity0->getType() != entity1->getType()){
 
-				if (entity0->getType() == Entity::GOLD && entity1->getType() == Entity::PLAYER)
+				if (entity0->getType() == Entity::GOLD && entity1->getType() == Entity::PLAYER){
 					mGold += entity0->getDamage();
+					++mCurrentFetchedGold;
+				}
 
-				else if (entity1->getType() == Entity::GOLD&& entity0->getType() == Entity::PLAYER)
+				else if (entity1->getType() == Entity::GOLD&& entity0->getType() == Entity::PLAYER){
 					mGold += entity1->getDamage();
+					++mCurrentFetchedGold;
+				}
 
 				if (entity0->getType() == Entity::RAY && entity1->getType() == Entity::ENEMY
 					|| entity0->getType() == Entity::ENEMY && entity1->getType() == Entity::RAY){					
@@ -414,20 +431,12 @@ void World::killDeadEntities(){
 	}
 	entityVector = reserveEnteties;
 }
-/*Återställer vektorn till ursprungsläge med enbart spelaren i.
-  Kan vara bra att ha även vid ny bana.*/
+/*Rensar hela vektorn*/
 void World::resetVector(){
-	EntityVector reserveVector;
-	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); ++i){
-		Entity* entities = *i;
-		if (entities->getType() == Entity::PLAYER){
-			reserveVector.push_back(entities);
-		}
-	}
-	entityVector = reserveVector;
+	entityVector.clear();
 }
 
-
+/*Används för restart funktionen.*/
 void World::restart(){
 	window.clear();
 	resetVector();
@@ -454,6 +463,21 @@ void World::pause(){
 		return;
 	}
 }
+
+
+void World::printScreen(){
+
+	sf::Image currentScreen = window.capture();	
+	numb.clear();
+	numb << screenNumber;
+	++screenNumber;
+	std::string filename = "screenshots/" + numb.str() + ".png";	
+	currentScreen.saveToFile(filename);
+
+}
+
+
+
 
 World::GameState World::currentState;
 

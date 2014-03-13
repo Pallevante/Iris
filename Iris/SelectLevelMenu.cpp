@@ -33,7 +33,7 @@ unsigned int SelectLevelMenu::getMaxItems(){
 
 
 void SelectLevelMenu::input(sf::Event& event){
-	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left){
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left){		
 		up();
 	}
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right){

@@ -24,11 +24,11 @@ void Hud::setText(){
 	goldAmount <<  World::mGold;
 
 	goldText.setFont(font);
-	goldText.setCharacterSize(60);
+	goldText.setCharacterSize(40);
 
 	goldText.setString("Gold:" + goldAmount.str());
 	goldText.setColor(sf::Color::White);
-	goldText.setPosition(0, 10);
+	goldText.setPosition(0, 632);
 
 }
 
