@@ -65,11 +65,9 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	mLevelTime = levelTime;
 
 	/*Måste tömmas innan så att nästa bana inte hamnar över den gamla.*/
-	if (!bgVector.empty())
-		bgVector.clear();	
+	if (!bgVector.empty() || !clVector.empty())
+		clearVectors();
 		
-	if (!clVector.empty())
-		clVector.clear();
 
 	auto future = std::async(ResourceManager::getLevel, chooseWhiteTexture);
 	auto future2 = std::async(ResourceManager::getLevel, chooseColoredTexture);
@@ -245,6 +243,8 @@ void Level::restart(){
 
 
 void Level::clearVectors(){
+	ResourceManager::clearImages();
+	ResourceManager::clearLevels();
 	bgVector.clear();
 	clVector.clear();
 }

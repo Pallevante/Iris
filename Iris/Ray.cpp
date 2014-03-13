@@ -35,7 +35,7 @@ Ray::Type Ray::getType() const{
 	if (!mIsEnemy)
 		return RAY;
 	else
-		return ENEMY;
+		return ENEMY_RAY;
 }
 
 int Ray::getHeight() const {

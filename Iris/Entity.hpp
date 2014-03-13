@@ -15,6 +15,7 @@ public:
 		PLAYER,
 		RAY, 
 		ENEMY,
+		ENEMY_RAY,
 		GOLD
 	};
 	Entity();
