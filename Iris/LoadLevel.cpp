@@ -16,7 +16,7 @@ void LoadLevel::setLevel(LevelEnum& levelToLoad){
 	}
 
 	else if (levelToLoad == SECONDLEVEL){
-		mLevel->set(3, 3, 0.6, 10, 10, 1, 5, 5, 1, 2, 150);
+		mLevel->set(3, 3, 0.6, 10, 10, 1, 5, 5, 5, 2, 150);
 	}
 }
 /*Anropas av World för att hämta pekaren så den kan rita ut bakgrunden och spawna fiender.*/

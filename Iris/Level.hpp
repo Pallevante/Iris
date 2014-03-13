@@ -11,7 +11,7 @@ public:
 	Level();
 	~Level();
 	/*Spawn:ar default enemies*/
-	void spawnBasicEnemies(Entity::EntityVector &entityVector);
+	void spawnBasicEnemies(Entity::EntityVector &entityVector, int random);
 	/*Spawn:ar Skjutare*/
 	void spawnSpecialEnemies(Entity::EntityVector &entityVector);
 	

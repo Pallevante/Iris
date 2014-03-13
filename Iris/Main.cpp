@@ -1,3 +1,6 @@
+#include <cstdlib>
+#include <ctime>
+#include <cstdio>
 /*Iris
 
 Uppbyggnad av kod - förslag av Peter
@@ -34,6 +37,7 @@ Vad som krävs:
 
 int main()
 {
+	srand(time(NULL));
 	World world;
 	world.run();
 	return 0;

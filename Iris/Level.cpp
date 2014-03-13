@@ -92,24 +92,27 @@ void Level::opacityChange(float score){
 }
 
 /*Kollar hur många som ska spawnas av default enemies*/
-void Level::spawnBasicEnemies(Entity::EntityVector &entityVector){
+void Level::spawnBasicEnemies(Entity::EntityVector &entityVector, int random){
 	sf::Time spawnDefaultT = mDefaultCl.getElapsedTime();
 	int spawnCount = 0;
+
+	int randomSpawn = random;
 
 	if (mSpawnMin < spawnDefaultT.asSeconds()
 		&& spawnDefaultT.asSeconds() < mSpawnMax){
 
-		getRandomNumber();
+		
 
-		if (getRandomNumber() == 1 && spawnCount < mMaxSpawnEnemies){
-			spawnCount++;
+		for (int i = 0; i < randomSpawn; i++){
+			
+
 			entityVector.push_back(new Cloud(1, sf::Vector2f(1300, getRandomNumber(620))));
 		}
 
 	}
 
 	if (spawnDefaultT.asSeconds() >= mSpawnMax){
-		entityVector.push_back(new Cloud(1, sf::Vector2f(1300, getRandomNumber(620))));
+	//	entityVector.push_back(new Cloud(1, sf::Vector2f(1300, getRandomNumber(620))));
 		mDefaultCl.restart();
 	}
 
@@ -161,7 +164,7 @@ void Level::spawn(Entity::EntityVector &entityVector){
 	if (mSpecialMax > 0){
 		spawnSpecialEnemies(entityVector);
 	}
-	spawnBasicEnemies(entityVector);
+	spawnBasicEnemies(entityVector, getRandomNumber(mMaxSpawnEnemies));
 	spawnGold(entityVector);
 }
 
