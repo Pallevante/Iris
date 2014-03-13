@@ -1,10 +1,10 @@
 #include "World.hpp"
 
-sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris");
+sf::RenderWindow window(sf::VideoMode(1280, 720), "Iris", sf::Style::Close);
 sf::Clock spawnTimer;
 sf::Music* music = new sf::Music;
 sf::Music* menuMusic = new sf::Music;
-
+sf::Music* shopMusic = new sf::Music;
 LoadLevel mLoadLevel;
 LoadLevel::LevelEnum mCurrentLevel;
 
@@ -24,10 +24,11 @@ PauseMenu pauseMenu;
 
 World::World(): 
 entityVector(){	
+	window.setKeyRepeatEnabled(true);
 	goldFont.loadFromFile("resource/fonts/AGENTORANGE.ttf");
 	menuMusic = ResourceManager::getMusic(mLevel->getTheme(0));
+	shopMusic = ResourceManager::getMusic("resource/sounds/ShopTest.ogg");
 	currentState = INMENU;
-	//Player *mPlayer;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
 	mPlayer = new Player(100, 100);
@@ -42,10 +43,18 @@ World::~World(){}
 
 bool loadedMap = false;
 void World::run(){
+	float oldTime = 0;
+	float newTime = (1.0f / FRAME_LIMIT);
+	dt = newTime - oldTime;
+
 	while (window.isOpen())	{
-		int deltaTime = deltaTimer.restart().asMicroseconds();
-		float expectedTime = ((1.0f / FRAME_LIMIT) * 1000000);
-		float dt = deltaTime / expectedTime;
+		/*	För att göra uträkningar baserade på tid istället för frames så måste man räkna ut 
+			hur lång tid det tar per frame. Alltså gångrar vi alla hastigheter i movement 
+			i spelet med dt. */
+		oldTime = newTime;
+		newTime = deltaTimer.getElapsedTime().asSeconds();
+		dt = newTime - oldTime;
+
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -65,6 +74,8 @@ void World::run(){
 				window.setFramerateLimit(FRAME_LIMIT);		
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F3)
 				currentState = INFINISHMENU;
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F4)
+				currentState = INFAILEDFINISHMENU;
 			/* Kollar inputen i en egen funktion för att slippa problem med placering av koden (kan använda return i switchen) */
 			
 			switch (currentState){
@@ -78,6 +89,9 @@ void World::run(){
 				mSelectLevelM->input(event);
 				break;
 			case INFINISHMENU:
+				finishMenu.input(event);
+				break;
+			case INFAILEDFINISHMENU:
 				finishMenu.input(event);
 				break;
 			case PAUSED:
@@ -99,10 +113,21 @@ void World::run(){
 			currentState = PLAYING;
 		}
 
+		if (currentState == LOAD){
+			if (!loadedMap || mLevelInt != mCurrentLevel){
+				loadMap(mLevelInt);
+				currentState = PLAYING;
+			}
+		}
+
+
 		if (currentState == INMENU){
-			
+
+			shopMusic->stop();
 			music->stop();
+
 			if (!menuIsPlaying){
+				shopIsPlaying = false;
 				menuMusic->play();
 				menuMusic->setLoop(true);
 				menuIsPlaying = true;
@@ -111,24 +136,51 @@ void World::run(){
 		}
 
 		if (currentState == INSHOP){
+			menuMusic->stop();		
+
+			if (!shopIsPlaying){
+				menuIsPlaying = false;
+				shopMusic->play();
+				shopMusic->setLoop(true);
+				shopIsPlaying = true;
+			}
 			shopMenu.drawMenu(window);
 		}
+
 		if (currentState == PAUSED){
 			music->pause();
 			isPlaying = false;
 			renderImages();
-			sf::RectangleShape darkBox(sf::Vector2f(2000, 2000));
-			darkBox.setFillColor(sf::Color(0,0,0, 150));
-			window.draw(darkBox);
 			pauseMenu.drawMenu(window);
+
+			//Titel för pausmeny
+			sf::Sprite pauseTitle;
+			pauseTitle.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/gamepaused_title.png"));
+			pauseTitle.setPosition(280, 22);
+
+			window.draw(pauseTitle);
+			
 		}
 		if(currentState == INLEVELSELECT){
 			mSelectLevelM->drawMenu(window);
 
 		}
 		if (currentState == INFINISHMENU){
+			finishMenu.updateActionButton();
+			renderImages();
+
 			finishMenu.drawMenu(window);
-			
+
+			sf::Sprite finishText;
+			finishText.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/finish_text_status_comp.png"));
+			finishText.setPosition(280, 147);
+			window.draw(finishText);
+
+			sf::Sprite goldText;
+			goldText.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/finish_text_gold.png"));
+			goldText.setPosition(280, 280);
+			window.draw(goldText);
+
 			std::stringstream goldAmount;
 			goldAmount.str("");
 			goldAmount.clear();
@@ -138,22 +190,39 @@ void World::run(){
 			gold.setFont(goldFont);
 			gold.setString(goldAmount.str());
 			gold.setColor(sf::Color::White);
-			gold.setCharacterSize(60);
-			gold.setPosition(346, 140);
+			gold.setCharacterSize(40);
+			gold.setPosition(500, 275);
 			window.draw(gold);
 
-			std::stringstream scoreAmount;
-			scoreAmount.str("");
-			scoreAmount.clear();
-			scoreAmount << World::mScore;
+		}		
+		if (currentState == INFAILEDFINISHMENU){
+			finishMenu.updateActionButton();
+			renderImages();
 
-			sf::Text score;
-			score.setFont(goldFont);
-			score.setString(scoreAmount.str());
-			score.setColor(sf::Color::White);
-			score.setCharacterSize(60);
-			score.setPosition(755, 140);
-			window.draw(score);
+			finishMenu.drawMenu(window);
+
+			sf::Sprite finishText;
+			finishText.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/finish_text_status_notcomp.png"));
+			finishText.setPosition(280, 147);
+			window.draw(finishText);
+
+			sf::Sprite goldText;
+			goldText.setTexture(ResourceManager::getTexture("resource/textures/buttons/menu/finish_text_gold.png"));
+			goldText.setPosition(280, 280);
+			window.draw(goldText);
+
+			std::stringstream goldAmount;
+			goldAmount.str("");
+			goldAmount.clear();
+			goldAmount << World::mGold;
+
+			sf::Text gold;
+			gold.setFont(goldFont);
+			gold.setString(goldAmount.str());
+			gold.setColor(sf::Color::White);
+			gold.setCharacterSize(40);
+			gold.setPosition(500, 275);
+			window.draw(gold);
 
 		}
 
@@ -179,7 +248,9 @@ void World::run(){
 			startGame();
 		}
 		window.display();
+		
 	}
+
 }
 
 /*Tonar ut ena musiken in in den andra.*/
@@ -203,12 +274,18 @@ void World::toneDownMusic(sf::Music* m0, sf::Music* m1){
 
 /*Load funktion.*/
 void World::loadMap(int level){
-	window.setTitle("The game is loading! :)");
+	//Stannar musiken så den kan bytas
+	if (isPlaying){
+		music->stop();
+		isPlaying = false;
+	}
+
+	resetVector();
+	window.setTitle("The game is loading! :)");	
 	getEnum(level);
 	mLoadLevel.setLevel(mCurrentLevel);
 	mLevel = mLoadLevel.getLevel();
-	music = ResourceManager::getMusic(mLevel->getTheme(level));
-	
+	music = ResourceManager::getMusic(mLevel->getTheme(level));	
 	window.setTitle("Iris");
 	loadedMap = true;
 }
@@ -235,8 +312,8 @@ void World::startGame(){
 }
 
 void World::renderImages(){
-	mLevel->drawBackground(window);
-	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
+	mLevel->drawBackground(window, dt);
+	for (EntityVector::size_type i = 0; i < entityVector.size(); ++i){
 		window.draw(*entityVector[i]);		
 	}
 	mHud->drawText(window);
@@ -245,7 +322,7 @@ void World::renderImages(){
 void World::tick(float dt){	
 	if (mGold > 100)
 		window.setTitle("Iris - Achivement: Oh Jew!");
-	for (EntityVector::size_type i = 0; i < entityVector.size(); i++){
+	for (EntityVector::size_type i = 0; i < entityVector.size(); ++i){
 		entityVector[i]->tick(entityVector, dt);		
 	}
 	mHud->setText();
@@ -328,7 +405,7 @@ void World::detectCollisions(){
 Den nya vektorn uppdaterar våran "main" vektor sedan.*/
 void World::killDeadEntities(){
 	EntityVector reserveEnteties;
-	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); i++){
+	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); ++i){
 		Entity* enteties = *i;
 		if (enteties->isAlive()){
 			reserveEnteties.push_back(enteties);
@@ -341,7 +418,7 @@ void World::killDeadEntities(){
   Kan vara bra att ha även vid ny bana.*/
 void World::resetVector(){
 	EntityVector reserveVector;
-	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); i++){
+	for (EntityVector::iterator i = entityVector.begin(); i != entityVector.end(); ++i){
 		Entity* entities = *i;
 		if (entities->getType() == Entity::PLAYER){
 			reserveVector.push_back(entities);

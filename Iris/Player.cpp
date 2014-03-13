@@ -8,8 +8,8 @@ bool isFlipped = false;
 Player::Player(float xPosition, float yPosition, float speedMultiplier) :
 mHealth(0),
 mDamage(10),
-mSpeed(6 * speedMultiplier),
-mAcceleration(0.5f * speedMultiplier),
+mSpeed(360 * speedMultiplier),
+mAcceleration(30.0f * speedMultiplier),
 mIsAlive(true),
 entities(entities),
 
@@ -110,27 +110,38 @@ void Player::move(float dt){
 	/*Ser till att man inte kan komma 'för' långt utanför skärmen. 
 	Allt relativt till nuvarande velocity och acceleration.*/
 
+
+
+	/*
+	Höger:		Hämtar positionen, accelerationen och spelarens bredd för att kolla om spelaren är på kanten.
+	Vänster:	Hämtar  positionen, accelerationen för att kolla om spelaren är på kanten.
+	Ner:		Hämtar positionen, accelerationen och höjden för att kolla om spelaren är på kanten
+	Up:			Hämtar positionen, accelerationen för att kolla om spelaren är på kanten.
+
+	Upp + vänster fungerar såhär: Position - acceleration > Skärmhöjd/ < skärmbredd
+	Höger + ner fungerar såhär: Position + storlek - acceleration > skärmbredd/ < skärmhöjd
+	*/
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 		if (mVelocity.x < mSpeed){
-			if (getPosition().x + (mVelocity.x + mAcceleration) < 1280 - mAnimation->getSprite().getGlobalBounds().width)
+			if (getPosition().x + mAcceleration + mAnimation->getSprite().getGlobalBounds().width < 1280)
 				mVelocity.x += mAcceleration;				
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 		if (mVelocity.x > -mSpeed){			
-			if (getPosition().x - (mVelocity.x + mAcceleration) > 0)
+			if (getPosition().x - mAcceleration > 0)
 				mVelocity.x -= mAcceleration;
 		}
 	}	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 		if (mVelocity.y < mSpeed){
-			if (-mAnimation->getSprite().getGlobalBounds().height + 720 - (mAcceleration + mVelocity.y) > getPosition().y)
+			if (mAnimation->getSprite().getPosition().y + mAnimation->getSprite().getGlobalBounds().height + mAcceleration < 720)
 				mVelocity.y += mAcceleration;
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 		if (mVelocity.y > -mSpeed){
-			if (getPosition().y - (mAcceleration + mAcceleration) > 0)
+			if (getPosition().y -  mAcceleration > 0)
 				mVelocity.y -= mAcceleration;
 		}
 	}

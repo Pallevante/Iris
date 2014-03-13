@@ -46,6 +46,14 @@ public:
 		mSounds.clear();
 		mMusic.clear();
 	}
+
+	static void clearImages(){
+		mImages.clear();
+	}
+
+	static void clearLevels(){
+		mLevels.clear();
+	}
 private:
 	static std::map<std::string, sf::Texture> mTextures;
 	static std::map<std::string, sf::Sound> mSounds;

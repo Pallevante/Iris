@@ -28,9 +28,11 @@ public:
 	enum GameState{
 		INMENU,
 		PLAYING,
+		LOAD,
 		PAUSED,
 		INLEVELSELECT,
 		INFINISHMENU,
+		INFAILEDFINISHMENU,
 		INSHOP,
 		OUTRO,
 		RESTARTING,
@@ -45,9 +47,8 @@ public:
 	void run();
 	/*Måste ladda in banan innan*/
 	void startGame();
-	/*Slänga in rätt parametrar för att loadMap ska ladda in
-	music, bilder och fiender*/
-	void loadMap(int level = 1);
+	
+	void loadMap(int level = 1); //Default som USA.
 	static float mScore;
 	static int mGold;	
 	static int mLevelInt;
@@ -62,9 +63,7 @@ private:
 	void detectCollisions();
 	void killDeadEntities();
 	void resetVector();
-	int aura(Entity *entity, std::vector<Entity*> &entities);
-
-	//int score(/*Entity *entity, std::vector<Entity*> &entities*/);
+	
 	/*Menyrelaterade funktioner*/
 
 	void menuInput(sf::Event &event);
@@ -83,11 +82,13 @@ private:
 
 	bool isPlaying = false; /*Kollar om man spelar musik*/
 	bool menuIsPlaying = false;
+	bool shopIsPlaying = false;
 	EntityVector entityVector;
 	Player *mPlayer;
 	Level* mLevel;
 	Hud* mHud;
 	SelectLevelMenu *mSelectLevelM;
 	sf::Clock deltaTimer;
+	float dt;
 	sf::Font goldFont;
 };

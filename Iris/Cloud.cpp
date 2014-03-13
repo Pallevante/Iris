@@ -4,7 +4,7 @@ sf::Clock movementClock;
 
 Cloud::Cloud(float speedMultiplier, sf::Vector2f position) :
 mDamage(1),
-mSpeed(6 * speedMultiplier),
+mSpeed(300 * speedMultiplier),
 mIsAlive(true),
 mHealth(2){
 	mAnimation = new Animation("resource/textures/entities/cloud.png", 50, 8);
@@ -74,7 +74,7 @@ void Cloud::tick(EntityVector &entities, float dt){
 }
 
 void Cloud::death(float dt){
-	mAnimation->setPosition(sf::Vector2f(getPosition().x, getPosition().y - 15 * dt));
+	mAnimation->setPosition(sf::Vector2f(getPosition().x, getPosition().y - mSpeed * 3 * dt));
 	setDamage(0);
 	if (getPosition().y < -140){
 		mIsAlive = false;
@@ -87,10 +87,10 @@ void Cloud::move(EntityVector &entities, float dt){
 	sf::Time checkUpdateDir = movementClock.getElapsedTime();
 	if (!mIsDying){
 		if (getMovement() == DEFAULT){
-			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5 * dt, getPosition().y));
+			mAnimation->setPosition(sf::Vector2f(getPosition().x - mSpeed * dt, getPosition().y));
 		}
 		else if (getMovement() == WAVE){
-			mAnimation->setPosition(sf::Vector2f(getPosition().x - 5, 200 + (70 * sinf(0.005 * getPosition().x))));
+			mAnimation->setPosition(sf::Vector2f(getPosition().x - mSpeed, 200 + (70 * sinf(0.005 * getPosition().x))));
 		}
 
 		/*Kommer användas för att hitta spelaren och följa den.*/

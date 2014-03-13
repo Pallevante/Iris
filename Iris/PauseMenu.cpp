@@ -19,11 +19,11 @@ Menu::ButtonVector{
 		new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/menu/pause_restart.png")),
 		new sf::Sprite(ResourceManager::getTexture("resource/textures/buttons/menu/pause_main.png"))
 	},
-	"", 0)
+	"resource/textures/buttons/menu/pause_bg.png", 0)
 		{
-	setButtonPosition(RESUME, sf::Vector2f(300, 100));
-	setButtonPosition(RESTART, sf::Vector2f(350, 250));
-	setButtonPosition(MAIN_MENU, sf::Vector2f(350, 350));
+	setButtonPosition(RESUME, sf::Vector2f(516, 162));
+	setButtonPosition(RESTART, sf::Vector2f(516, 309));
+	setButtonPosition(MAIN_MENU, sf::Vector2f(516, 467));
 };
 
 PauseMenu::~PauseMenu(){
@@ -35,10 +35,10 @@ unsigned int PauseMenu::getMaxItems(){
 }
 
 void PauseMenu::input(sf::Event& event){
-	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Up){
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up){
 		up();
 	}
-	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Down){
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down){
 		down();
 	}
 	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return){

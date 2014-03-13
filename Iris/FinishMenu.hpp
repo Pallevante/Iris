@@ -5,9 +5,9 @@
 class FinishMenu : public Menu{
 public:
 	enum mMenuItems{
-		NEXT_LEVEL,
-		SHOP,
 		MAIN_MENU,
+		SHOP,
+		ACTION,
 		NUM_CHOICES
 	};
 	FinishMenu();
@@ -15,6 +15,7 @@ public:
 
 	unsigned int getMaxItems();
 	void input(sf::Event& event);
+	void updateActionButton();
 private:
 
 };

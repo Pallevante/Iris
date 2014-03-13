@@ -3,7 +3,15 @@
 
 Hud::Hud(){
 	font.loadFromFile("resource/fonts/AGENTORANGE.ttf");
-	progress = 0;
+
+	progressBar.setTexture(ResourceManager::getTexture("resource/textures/hud/emptybar.png"));
+	fillTexture.setTexture(ResourceManager::getTexture("resource/textures/hud/block.png"));
+	progressBar.setPosition(222, 632);
+	fillTexture.setPosition(222, 632);
+	currentProgressRect = sf::IntRect(0, 0, 0, 0);
+	fillTexture.setTextureRect(currentProgressRect);
+
+	fillSpeed = 8.0f;
 }
 
 Hud::~Hud(){
@@ -20,30 +28,31 @@ void Hud::setText(){
 
 	goldText.setString("Gold:" + goldAmount.str());
 	goldText.setColor(sf::Color::White);
-	goldText.setPosition(0, 10);	
-	progress = 200 * World::mScore;
+	goldText.setPosition(0, 10);
 
-	if (progress > 200) 
-		progress = 200;
+}
 
-	if (progress < 0)
-		progress = 0;
+void Hud::updateProgressBar(){
+	float currentSizeX = currentProgressRect.width;
+	progress = fillTexture.getTexture()->getSize().x * World::mScore;
 
-	if (progress < 60) 
-		progressColor = sf::Color::Red;
+	if (currentSizeX != progress){
+		if ((currentSizeX + fillSpeed <= progress) || (currentSizeX - fillSpeed <= progress)){
+			currentSizeX = currentSizeX + fillSpeed;
+		}
+		if ((currentSizeX + fillSpeed >= progress) || (currentSizeX - fillSpeed >= progress)){
+			currentSizeX = currentSizeX - fillSpeed;
+		}
+	}
+	
 
-	else if (progress < 110 && progress > 60) 
-		progressColor = sf::Color::Yellow;
-
-	else if (progress < 200 && progress > 110) 
-		progressColor = sf::Color::Green;
-
-	progressBar.setFillColor(progressColor);
-	progressBar.setSize(sf::Vector2f(progress, 40));
-	progressBar.setPosition(sf::Vector2f(550, 700));
+	currentProgressRect = sf::IntRect(0, 0, currentSizeX, fillTexture.getTexture()->getSize().y);
+	fillTexture.setTextureRect(currentProgressRect);
 }
 
 void Hud::drawText(sf::RenderWindow &window){
+	updateProgressBar();
 	window.draw(goldText);
+	window.draw(fillTexture);
 	window.draw(progressBar);
 }

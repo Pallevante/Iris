@@ -4,7 +4,7 @@
 Ray::Ray(sf::Vector2f position, bool isEnemy) :
 mDamage(1),
 mRad(64),
-mSpeed(7),
+mSpeed(420),
 mIsEnemy(isEnemy),
 mIsAlive(true){
 	//Sätter animationen på ray.
@@ -77,6 +77,9 @@ void Ray::move(float dt){
 		currentX = currentX + (mSpeed * dt);
 	else if(mIsEnemy)
 		currentX = currentX + (-2 *mSpeed * dt);
+	//Kollar om skotten är utanför skärmen.
+	if (currentX > 1350 || currentX < -20)
+		mIsAlive = false;
 
 	mAnimation->setPosition(sf::Vector2f(currentX, currentY));
 }

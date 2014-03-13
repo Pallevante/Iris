@@ -5,7 +5,8 @@
 #include "Gold.hpp"
 #include "ResourceManager.hpp"
 #include "World.hpp"
-
+#include <thread>
+#include <future>
 class Level {
 public:	
 	Level();
@@ -30,10 +31,11 @@ public:
 	float getRandomNumber(float maxNumber = 10);
 
 	float percentRequirement();
-	void drawBackground(sf::RenderWindow &window);
+	void drawBackground(sf::RenderWindow &window, float dt);
 
 	std::string getTheme(int level);
 	sf::Sprite getBackground();
+	const float getOpacity();
 private:
 	float mSpawnMin;
 	float mSpawnMax;
@@ -49,8 +51,8 @@ private:
 	int mMaxSpawnEnemies;
 	int mMaxSpecialSpawn;
 	int mLevelTime;
-	void drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color);
-	void moveLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color);
+	void drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, sf::Color& color, float dt);
+	void moveLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, sf::Color& color);
 
 
 	std::string chooseWhiteTexture;
@@ -63,4 +65,7 @@ private:
 	sf::Sprite mSpriteColor;
 	//sf::Texture mTexture;
 	sf::FloatRect mBackgroundRect;
+
+	sf::Image baseImage;
+	float backgroundSpeed;
 };

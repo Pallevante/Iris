@@ -28,6 +28,7 @@ public:
 	}
 		
 private:
+	void idleAnimation();
 	void move(float dt);
 	void fire(EntityVector &enteties);	
 	Animation* mAnimation;

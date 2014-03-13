@@ -10,12 +10,16 @@ public:
 	~Hud();
 	void setText();
 	void drawText(sf::RenderWindow &window);
+	void updateProgressBar();
 private:
 	sf::Font font;
 	sf::Text goldText;
 	std::stringstream goldAmount;
-	sf::RectangleShape progressBar;
-	int progress;
-	sf::Color progressColor;
+
+	sf::Sprite progressBar;
+	sf::Sprite fillTexture;
+	float progress;
+	sf::IntRect currentProgressRect;
+	float fillSpeed;
 };
 

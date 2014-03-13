@@ -5,7 +5,6 @@ ResourceManager::SpriteVector clVector;
 ResourceManager::SpriteVector bgVector;
 sf::Clock goldClock;
 sf::Clock scrollClock;
-sf::Sprite baseImage;
 
 Level::Level(){
 	opacity = 0;
@@ -71,9 +70,18 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 	if (!clVector.empty())
 		clVector.clear();
 
-	bgVector = ResourceManager::getLevel(chooseWhiteTexture);
-	clVector = ResourceManager::getLevel(chooseColoredTexture);	
+	auto future = std::async(ResourceManager::getLevel, chooseWhiteTexture);
+	auto future2 = std::async(ResourceManager::getLevel, chooseColoredTexture);
+	bgVector = future.get();
+	clVector = future2.get();
+	//bgVector = ResourceManager::getLevel(chooseWhiteTexture);
+	//clVector = ResourceManager::getLevel(chooseColoredTexture);	
 
+	//Hämtar bakgrundsbilden utan att ladda in den igen (den ligger redan i ramminnet efter getLevel)
+	baseImage = ResourceManager::getImage(chooseWhiteTexture);
+	int backgroundWidth = baseImage.getSize().x;
+	//Hastighet = bredd / tid
+	backgroundSpeed = backgroundWidth / mLevelTime;
 }
 
 float Level::getRandomNumber(float maxNumber){
@@ -142,14 +150,14 @@ void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
 void Level::spawnGold(Entity::EntityVector &entityVector){
 	sf::Time spawnGold = goldClock.getElapsedTime();
-	/*Varannan sekund så spawnas guld.*/
+	/*Var tredje sekund så spawnas guld.*/
 	if (spawnGold.asSeconds() > 3){
 		
 		float yPos = getRandomNumber(620);				//Sätter position för Y som alla guldklimpar använder sig av.
 		float xPos = 1300;								//Sätter X värdet för alla guldklimpar som kommer ändras med 50
 		int numbOfGoldToSpawn = getRandomNumber(4);		//Hämtar antalet guld som skall spawnas.
 
-		for (int index = 0; index < numbOfGoldToSpawn; index++){
+		for (int index = 0; index < numbOfGoldToSpawn; ++index){
 			entityVector.push_back(new Gold(sf::Vector2f(xPos, yPos)));
 			xPos += 50;
 		}		
@@ -184,10 +192,11 @@ std::string Level::getTheme(int level){
 	if (level == 2){
 		return "resource/sounds/Level2Theme.ogg";
 	}
+
 }
 
 
-void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, float speed, sf::Color& color){
+void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, sf::Color& color, float dt){
 	/* Skapar och ritar ut sprites på relativa positioner */
 	sf::Time scrollTime = scrollClock.getElapsedTime();
 	float fPassedTime = scrollTime.asMilliseconds();
@@ -195,18 +204,35 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
 		
 		//Borde egentligen lägga in en svordomsmätare här men... Jag har helt ärligt tappat räkningen.
-
-
+		/*
 		if (World::currentState == World::PLAYING){	
 			//Kollar sista posten i vektorns position samt storleken för att veta om den är i kanten på skärmen.
 			if (bgVector[bgVector.size() - 1].getPosition().x + bgVector[bgVector.size() - 1].getGlobalBounds().width > 720){
-				//if (fmodf(fPassedTime, 1) == 0.0001)
+				if (fmodf(fPassedTime, 1) == 0)
 					bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
 			}
 			//else
 				//World::currentState = World::INFINISHMENU;
 		}		 
+		*/
 
+
+		if (World::currentState == World::PLAYING){
+			//Om positionen på den första bilden sammanslaget med bredden på fönstret är mer än banlängden, FINISHMENU
+			if (-(bgVector[0].getPosition().x - window.getSize().x) >= baseImage.getSize().x){
+				if (World::mScore >= mRequirment){
+					World::currentState = World::INFINISHMENU;
+				}else{
+					World::currentState = World::INFAILEDFINISHMENU;
+				}
+			}
+
+			sf::Vector2f currentPosition = bgVector[i].getPosition();
+
+			sf::Vector2f newPosition = sf::Vector2f(currentPosition.x - (backgroundSpeed * dt), currentPosition.y);
+
+			bgVector[i].setPosition(newPosition);
+		}
 		bgVector[i].setColor(color);
 		window.draw(bgVector[i]);		
 	}
@@ -228,13 +254,16 @@ void Level::clearVectors(){
 
 
 /*flyttar på spriten tills slutet av spriten når högra kanten av window */
-void Level::drawBackground(sf::RenderWindow &window){
+void Level::drawBackground(sf::RenderWindow &window, float dt){
 
-	baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
+	//baseImage.setTexture(ResourceManager::getTexture(chooseColoredTexture));
 
+	
 	//Nedan fungerar inte riktigt än. Behöver fixas innan release. Gärna innan testning på onsdag.
-	float speed = (baseImage.getLocalBounds().width - window.getSize().x) / (mLevelTime * 10);
+	//float speed = (baseImage.getLocalBounds().width - window.getSize().x) / (mLevelTime * 10);
+	
 
-	drawLevel(window, bgVector, (3), sf::Color(255, 255, 255, 255));
-	drawLevel(window, clVector, (3), sf::Color(255, 255, 255, opacity));
+
+	drawLevel(window, bgVector, sf::Color(255, 255, 255, 255), dt);
+	drawLevel(window, clVector, sf::Color(255, 255, 255, opacity), dt);
 }
