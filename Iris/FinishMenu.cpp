@@ -48,9 +48,11 @@ void FinishMenu::input(sf::Event& event){
 		case FinishMenu::ACTION:
 			if (World::currentState == World::INFINISHMENU) {
 				World::mLevelInt = World::mLevelInt + 1;
+				World::currentState = World::LOAD;
 			}
-
-			World::currentState = World::LOAD;
+			else if (World::currentState == World::INFAILEDFINISHMENU)
+				World::currentState = World::RESTARTING;
+			
 			return;
 			break;
 		case FinishMenu::SHOP:

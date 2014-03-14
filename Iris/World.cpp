@@ -64,6 +64,8 @@ void World::run(){
 			if (event.type == sf::Event::Closed){
 				ResourceManager::clear();
 				mLevel->clearVectors();
+				restart();
+				delete mPlayer;
 				window.close();
 				
 			}
@@ -400,9 +402,10 @@ void World::detectCollisions(){
 				else if (mScore > 1){
 					mScore = 1;
 				}
-				 if (entity0->getType() == Entity::PLAYER && entity1->getType() == Entity::ENEMY ||
-					entity1->getType() == Entity::PLAYER && entity0->getType() == Entity::ENEMY){
-					mScore -= 0.01f;
+				if (entity0->getType() == Entity::PLAYER && entity1->getType() == Entity::ENEMY ||
+					entity1->getType() == Entity::ENEMY_RAY ||	entity1->getType() == Entity::PLAYER && 
+					entity0->getType() == Entity::ENEMY || entity0->getType() == Entity::ENEMY_RAY){
+					mScore -= 0.01f; //Ta skada.
 				}
 
 
@@ -434,15 +437,21 @@ void World::killDeadEntities(){
 	}
 	entityVector = reserveEnteties;
 }
-/*Rensar hela vektorn*/
+/*Rensar vektorn från alla entiteter utom player.*/
 void World::resetVector(){
-	entityVector.clear();
+	EntityVector reserveVector;
+	for (EntityVector::size_type index = 0; index < entityVector.size(); ++index){
+		if (entityVector[index]->getType() == Entity::PLAYER)
+			reserveVector.push_back(entityVector[index]);
+	}
+	entityVector = reserveVector;
 }
 
 /*Används för restart funktionen.*/
 void World::restart(){
 	window.clear();
 	resetVector();
+	mPlayer->reset();
 	mLevel->restart();
 }
 
