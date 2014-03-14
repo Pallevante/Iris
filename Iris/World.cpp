@@ -303,6 +303,8 @@ void World::loadMap(int level){
 	loadedMap = true;
 }
 
+/*Används vid laddning. 
+Vi använder en statisk int som parameter.*/
 void World::getEnum(int level){
 	switch (level){
 	case 1:
@@ -343,8 +345,6 @@ void World::tick(float dt){
 	}
 	mHud->setText();
 }
-
-
 
 
 /* Tar emot två Entitypekare och returnerar om de kolliderar eller inte. Används som stödfunktion till detectCollisions. */
