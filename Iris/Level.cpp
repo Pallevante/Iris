@@ -25,8 +25,8 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 		chooseColoredTexture = "resource/textures/backgrounds/Level2/color.png";
 		break;
 	case 3:
-		chooseWhiteTexture = "resource/test.png";
-		chooseColoredTexture = "resource/TestRawr.jpg";
+		chooseWhiteTexture = "resource/textures/backgrounds/Level3/grey.png";
+		chooseColoredTexture = "resource/textures/backgrounds/Level3/color.png";
 		break;
 	case 4:
 		chooseWhiteTexture = "resource/test.png";
@@ -187,6 +187,9 @@ std::string Level::getTheme(int level){
 	}
 	if (level == 2){
 		return "resource/sounds/Level2Theme.ogg";
+	}
+	if (level == 3){
+		return "resource/sounds/Level3Theme.ogg";
 	}
 
 }

@@ -60,6 +60,11 @@ void Menu::setButtonPosition(unsigned int i, sf::Vector2f position){
 	mButtonSelectedVector[i]->setPosition(position);
 	mButtonActiveVector[i]->setPosition(position);
 }
+
+sf::Vector2f Menu::getButtonPosition(unsigned int i){
+	return mButtonVector[i]->getPosition();
+}
+
 void Menu::setButtonTexture(unsigned int i, const std::string& normalTexture, const std::string& selectedTexture, const std::string& activeTexture) {
 	mButtonVector[i]->setTexture(ResourceManager::getTexture(normalTexture));
 	mButtonSelectedVector[i]->setTexture(ResourceManager::getTexture(selectedTexture));

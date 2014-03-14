@@ -12,7 +12,8 @@ public:
 	{
 		BACK,
 		USA,
-		BRAZIL,		
+		BRAZIL,
+		EUROPE,
 		NUM_CHOICES
 	};
 

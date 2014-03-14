@@ -19,6 +19,7 @@ public:
 	void setActive(unsigned int i);
 	void setInactive(unsigned int i);
 	void setButtonPosition(unsigned int i, sf::Vector2f position);
+	sf::Vector2f getButtonPosition(unsigned int i);
 	void setButtonTexture(unsigned int i, const std::string& normalTexture, const std::string& selectedTexture, const std::string& activeTexture);
 	void up();
 	void down();

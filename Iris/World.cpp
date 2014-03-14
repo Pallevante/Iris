@@ -310,7 +310,10 @@ void World::getEnum(int level){
 		break;
 	case 2:
 		 mCurrentLevel = LoadLevel::SECONDLEVEL;
-		 break;
+		 break; 
+	case 3:
+		mCurrentLevel = LoadLevel::THIRDLEVEL;
+		break;
 	}
 }
 
