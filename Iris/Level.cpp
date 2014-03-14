@@ -8,12 +8,14 @@ sf::Clock scrollClock;
 
 Level::Level(){
 	opacity = 0;
+	
 }
 Level::~Level(){}
 
-void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpawnMin,float obstMax, 
-	float specialMin, float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, int level, 
-	int levelTime){
+void Level::set(float basicEnemySpawnTime, int maxBasicEnemySpawn,
+	float specialEnemySpawnTime, int maxSpecialEnemySpawn,
+	float requirment, float obstSpawnTime, int maxObstSpawn, int level
+	, int levelTime){
 
 	switch (level){
 	case 1:
@@ -52,16 +54,13 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 		break;
 	}
 	
-
-	mSpawnMin = spawnMin;
-	mSpawnMax = spawnMax;
-	mObstSpawnMin = obstSpawnMin;
-	mObstMax = obstMax;
+	mBasicEnemySpawnTime = basicEnemySpawnTime;
+	mSpecialEnemySpawnTime = specialEnemySpawnTime;
+	mObstSpawnTime = obstSpawnTime;
 	mRequirment = requirment;
-	mSpecialMin = specialMin;
-	mSpecialMax = specialMax;
-	mMaxSpecialSpawn = maxSpecialSpawn;
-	mMaxSpawnEnemies = maxSpawnEnemies;
+	mMaxBasicEnemySpawn = maxBasicEnemySpawn;
+	mMaxSpecialEnemySpawn = maxSpecialEnemySpawn;
+	mMaxObstSpawn = maxObstSpawn;
 	mLevelTime = levelTime;
 
 	/*Måste tömmas innan så att nästa bana inte hamnar över den gamla.*/
@@ -98,27 +97,26 @@ void Level::opacityChange(float score){
 }
 
 /*Kollar hur många som ska spawnas av default enemies*/
-void Level::spawnBasicEnemies(Entity::EntityVector &entityVector, int random){
+void Level::spawnBasicEnemies(Entity::EntityVector &entityVector){
 	sf::Time spawnDefaultT = mDefaultCl.getElapsedTime();
-	int spawnCount = 0;
+	int  randomSpawn = getRandomNumber(mMaxBasicEnemySpawn);
+	float randomPos = getRandomNumber(620);
+	int xPos = 1300;
 
-	int randomSpawn = random;
-
-	if (mSpawnMin < spawnDefaultT.asSeconds()
-		&& spawnDefaultT.asSeconds() < mSpawnMax){
-
-		
+	if (spawnDefaultT.asSeconds() > mBasicEnemySpawnTime){
 
 		for (int i = 0; i < randomSpawn; i++){
+			int prevRandomPos = randomPos;
 			
+			if(randomPos >= prevRandomPos && randomPos <= prevRandomPos + 300){
+				randomPos = getRandomNumber(620);
+				int xPos = 1400;
+			}
 
-			entityVector.push_back(new Cloud(1, sf::Vector2f(1300, getRandomNumber(620))));
+			entityVector.push_back(new Cloud(1, sf::Vector2f(xPos, randomPos)));
+		
 		}
 
-	}
-
-	if (spawnDefaultT.asSeconds() >= mSpawnMax){
-	//	entityVector.push_back(new Cloud(1, sf::Vector2f(1300, getRandomNumber(620))));
 		mDefaultCl.restart();
 	}
 
@@ -127,24 +125,27 @@ void Level::spawnBasicEnemies(Entity::EntityVector &entityVector, int random){
 void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
 	sf::Time spawnSpecialT = mSpecialCl.getElapsedTime();
-	int spawnCount = 0;
+	int  randomSpawn = getRandomNumber(mMaxBasicEnemySpawn);
+	float randomPos = getRandomNumber(620);
+	int xPos = 1300;
 
-	if (mSpecialMin < spawnSpecialT.asSeconds()
-		&& spawnSpecialT.asSeconds() < mSpecialMax){
+	if (spawnSpecialT.asSeconds() > mSpecialEnemySpawnTime){
 
-		getRandomNumber();
+		for (int i = 0; i < randomSpawn; i++){
+			int prevRandomPos = randomPos;
 
-		if (getRandomNumber() == 1 && spawnCount < mMaxSpecialSpawn){
-			spawnCount++;
-			entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(620))));
-			mSpecialCl.restart();
+			if (randomPos >= prevRandomPos && randomPos <= prevRandomPos + 300){
+				randomPos = getRandomNumber(620);
+				int xPos = 1400;
+			}
+
+			entityVector.push_back(new Cloud(1, sf::Vector2f(xPos, randomPos)));
+
 		}
+
+		mDefaultCl.restart();
 	}
 
-	if (spawnSpecialT.asSeconds() >= mSpecialMax){
-		entityVector.push_back(new DefaultEnemy(1, sf::Vector2f(1300, getRandomNumber(620))));
-		mSpecialCl.restart();
-	}
 }
 
 void Level::spawnGold(Entity::EntityVector &entityVector){
@@ -168,10 +169,10 @@ void Level::spawnGold(Entity::EntityVector &entityVector){
 /*Kallar på spawn-funktioner*/
 void Level::spawn(Entity::EntityVector &entityVector){
 	
-	if (mSpecialMax > 0){
+	if (mMaxSpecialEnemySpawn > 0){
 		spawnSpecialEnemies(entityVector);
 	}
-	spawnBasicEnemies(entityVector, getRandomNumber(mMaxSpawnEnemies));
+	spawnBasicEnemies(entityVector);
 	spawnGold(entityVector);
 }
 

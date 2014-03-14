@@ -13,16 +13,16 @@ public:
 	Level();
 	~Level();
 	/*Spawn:ar default enemies*/
-	void spawnBasicEnemies(Entity::EntityVector &entityVector, int random);
+	void spawnBasicEnemies(Entity::EntityVector &entityVector);
 	/*Spawn:ar Skjutare*/
 	void spawnSpecialEnemies(Entity::EntityVector &entityVector);
 	
 	/*Spawn:ar Guld*/
 	void spawnGold(Entity::EntityVector &entityVector);
-	void set(float spawnMini, float spawnMax, float requirment, 
-		float obstSpawnMin,	float obstMax, float specialMin, 
-		float specialMax, int maxSpecialSpawn, int maxSpawnEnemies, 
-		int level, int levelTime);
+	void set(float basicEnemySpawnTime,int maxBasicEnemySpawn, 
+		float specialEnemySpawnTime, int maxSpecialEnemySpawn,
+		float requirment, float obstSpawnTime, int maxObstSpawn,int level
+		, int levelTime);
 
 	float opacity;
 	void opacityChange(float score);
@@ -38,19 +38,15 @@ public:
 	sf::Sprite getBackground();
 	const float getOpacity();
 private:
-	float mSpawnMin;
-	float mSpawnMax;
-	float mSpecialMin;
-	float mSpecialMax;
-	float mObstSpawnMin;
-	float mObstMax;
+	float mBasicEnemySpawnTime;
+	float mSpecialEnemySpawnTime;
+	float mObstSpawnTime;
 	float mRequirment;
 	
-	// float mSpawn;
-	float mRandomSpawn;
 	/*maxx antal enemies som spawnas*/
-	int mMaxSpawnEnemies;
-	int mMaxSpecialSpawn;
+	int mMaxBasicEnemySpawn;
+	int mMaxSpecialEnemySpawn;
+	int mMaxObstSpawn;
 	int mLevelTime;
 	void drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, sf::Color& color, float dt);
 	void moveLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& bgVector, sf::Color& color);
@@ -69,4 +65,5 @@ private:
 
 	sf::Image baseImage;
 	float backgroundSpeed;
+
 };
