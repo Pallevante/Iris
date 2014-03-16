@@ -65,5 +65,6 @@ private:
 
 	sf::Image baseImage;
 	float backgroundSpeed;
+	Cloud *mCloud;
 
 };

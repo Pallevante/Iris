@@ -5,6 +5,7 @@
 
 class Cloud : public Enemy{
 public:
+	Cloud();
 	Cloud(float speedMultiplier, sf::Vector2f position);
 	~Cloud();
 	virtual float getRad() const;

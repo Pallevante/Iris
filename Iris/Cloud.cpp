@@ -1,7 +1,7 @@
 #include "Cloud.hpp"
 
 sf::Clock movementClock;
-
+Cloud::Cloud(){}
 Cloud::Cloud(float speedMultiplier, sf::Vector2f position) :
 mDamage(1),
 mSpeed(300 * speedMultiplier),

@@ -80,7 +80,7 @@ void World::run(){
 				currentState = INFAILEDFINISHMENU;
 
 			/*Används för att göra en screenshot.*/
-			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::P){
+  			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::P){
 				printScreen();
 			}
 

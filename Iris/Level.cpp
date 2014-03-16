@@ -8,7 +8,7 @@ sf::Clock scrollClock;
 
 Level::Level(){
 	opacity = 0;
-	
+	mCloud = new Cloud;
 }
 Level::~Level(){}
 
@@ -87,7 +87,7 @@ float Level::getRandomNumber(float maxNumber){
 
 void Level::opacityChange(float score){	
 
-	opacity = 255 * score;
+ 	opacity = 255 * score;
 	if (score >= 1.0f) {
 		opacity = 255;
 	}
@@ -101,46 +101,52 @@ void Level::spawnBasicEnemies(Entity::EntityVector &entityVector){
 	sf::Time spawnDefaultT = mDefaultCl.getElapsedTime();
 	int  randomSpawn = getRandomNumber(mMaxBasicEnemySpawn);
 	float randomPos = getRandomNumber(620);
-	int xPos = 1300;
+	float xPosChange = 1300;
 
 	if (spawnDefaultT.asSeconds() > mBasicEnemySpawnTime){
 
 		for (int i = 0; i < randomSpawn; i++){
 			int prevRandomPos = randomPos;
 			
-			if(randomPos >= prevRandomPos && randomPos <= prevRandomPos + 300){
+			if(randomPos >= prevRandomPos && randomPos <= prevRandomPos + 160){
+				
 				randomPos = getRandomNumber(620);
-				int xPos = 1400;
+				
 			}
+			else if (randomPos <= prevRandomPos && randomPos >= prevRandomPos + 300){
+				
+			}
+			
+			entityVector.push_back(new Cloud(1, sf::Vector2f( xPosChange, randomPos)));
+			xPosChange += 350;
+  		}
 
-			entityVector.push_back(new Cloud(1, sf::Vector2f(xPos, randomPos)));
-		
-		}
-
-		mDefaultCl.restart();
+ 		mDefaultCl.restart();
 	}
 
-}
+ }
 
 void Level::spawnSpecialEnemies(Entity::EntityVector &entityVector){
 
 	sf::Time spawnSpecialT = mSpecialCl.getElapsedTime();
 	int  randomSpawn = getRandomNumber(mMaxBasicEnemySpawn);
 	float randomPos = getRandomNumber(620);
-	int xPos = 1300;
+	int xPos = 0;
 
 	if (spawnSpecialT.asSeconds() > mSpecialEnemySpawnTime){
 
 		for (int i = 0; i < randomSpawn; i++){
-			int prevRandomPos = randomPos;
-
-			if (randomPos >= prevRandomPos && randomPos <= prevRandomPos + 300){
-				randomPos = getRandomNumber(620);
-				int xPos = 1400;
-			}
-
+		//	int prevRandomPos = randomPos;
+		//
+		//	if (randomPos >= prevRandomPos && randomPos <= prevRandomPos + 150){
+		//		randomPos = getRandomNumber(620);
+		//		xPos = 1400;
+		//	}
+		//	else{
+		//		xPos = 1300;
+		//	}
 			entityVector.push_back(new Cloud(1, sf::Vector2f(xPos, randomPos)));
-
+			xPos -= 50;
 		}
 
 		mDefaultCl.restart();
