@@ -37,10 +37,14 @@ entityVector(){
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
 	mHud = new Hud();
+	mCurrentFetchedGold = 0;
+	mPlayer = new Player(100, 100);		
 	mSelectLevelM = new SelectLevelMenu();	
 }
 
-World::~World(){}
+World::~World(){
+	entityVector.clear();
+}
 
 
 bool loadedMap = false;
@@ -63,9 +67,7 @@ void World::run(){
 		{
 			if (event.type == sf::Event::Closed){
 				ResourceManager::clear();
-				mLevel->clearVectors();
-				restart();
-				delete mPlayer;
+				mLevel->clearVectors();				
 				window.close();
 				
 			}
@@ -131,7 +133,10 @@ void World::run(){
 
 
 		if (currentState == INMENU){
-			mGold -= mCurrentFetchedGold;
+
+			if (mCurrentFetchedGold > 0)
+				mGold -= mCurrentFetchedGold;
+
 			shopMusic->stop();
 			music->stop();
 			mLevel->clearVectors(); //Annars kommer vi ligga på runt 300MB i minne när vi återvänder till menyn.
@@ -292,10 +297,12 @@ void World::loadMap(int level){
 		isPlaying = false;
 	}
 
-	resetVector();						//Återstället vektorn helt.
-	mPlayer = new Player(100, 100);		//Skapar en player.
-	entityVector.push_back(mPlayer);	//Lägger in spelaren i den nya vektorn.
+	resetVector();						//Återställer vektorn helt.
 
+	/*
+	mPlayer->reset();					//Återställer player
+	entityVector.push_back(mPlayer);	//Lägger in spelaren i den nya vektorn.
+	*/
 	window.setTitle("The game is loading! :)");	
 	getEnum(level);
 	mLoadLevel.setLevel(mCurrentLevel);
@@ -320,8 +327,6 @@ void World::getEnum(int level){
 		break;
 	}
 }
-
-
 
 void World::startGame(){
 	detectCollisions();
@@ -386,12 +391,12 @@ void World::detectCollisions(){
 
 				if (entity0->getType() == Entity::GOLD && entity1->getType() == Entity::PLAYER){
 					mGold += entity0->getDamage();
-					++mCurrentFetchedGold;
+					mCurrentFetchedGold++;
 				}
 
 				else if (entity1->getType() == Entity::GOLD&& entity0->getType() == Entity::PLAYER){
 					mGold += entity1->getDamage();
-					++mCurrentFetchedGold;
+					mCurrentFetchedGold++;
 				}
 
 				if (entity0->getType() == Entity::RAY && entity1->getType() == Entity::ENEMY
@@ -439,12 +444,18 @@ void World::killDeadEntities(){
 }
 /*Rensar vektorn från alla entiteter utom player.*/
 void World::resetVector(){
-	EntityVector reserveVector;
+	//Eftersom spelet baseras på tid kan vi inte reseta allt utom player.
+	//Vi kommer då få en högre hastighet på player mha. deltaTimer.
+	entityVector.clear();
+	entityVector.push_back(mPlayer);
+
+	/*EntityVector reserveVector;
 	for (EntityVector::size_type index = 0; index < entityVector.size(); ++index){
 		if (entityVector[index]->getType() == Entity::PLAYER)
 			reserveVector.push_back(entityVector[index]);
 	}
-	entityVector = reserveVector;
+	entityVector = reserveVector;*/
+		
 }
 
 /*Används för restart funktionen.*/
