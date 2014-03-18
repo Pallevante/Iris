@@ -133,9 +133,7 @@ void World::run(){
 
 
 		if (currentState == INMENU){
-
-			restart();
-
+			restart();				//Kan även användas som reset om man inte ändrar mode till PLAYING.
 			shopMusic->stop();
 			music->stop();
 			mLevel->clearVectors(); //Annars kommer vi ligga på runt 300MB i minne när vi återvänder till menyn.
