@@ -26,9 +26,7 @@ public:
 		target.draw(mAura->getSprite(), states);
 		target.draw(mAnimation->getSprite(), states);
 	}
-	void reset(){
-		mAnimation->setPosition(sf::Vector2f(100, 100));
-	}
+	void reset();
 private:
 	void idleAnimation();
 	void move(float dt);

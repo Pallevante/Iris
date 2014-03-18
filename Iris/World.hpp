@@ -80,7 +80,7 @@ private:
 	void getEnum(int level = 1);
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
-	unsigned int mCurrentFetchedGold = 0;
+	int mCurrentFetchedGold;
 	int screenNumber;
 	bool isPlaying = false; /*Kollar om man spelar musik*/
 	bool menuIsPlaying = false;

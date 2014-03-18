@@ -105,11 +105,8 @@ void Player::move(float dt){
 	/* Om den nuvarande hastigheten mVelocity är mindre än maxhastigheten, mSpeed, så ökas den nuvarande hastigheten med accelerationen, mAcceleration */
 	
 	/*Ser till att man inte kan komma 'för' långt utanför skärmen. 
-	Allt relativt till nuvarande velocity och acceleration.*/
-
-
-
-	/*
+	Allt relativt till nuvarande velocity och acceleration.
+	
 	Höger:		Hämtar positionen, accelerationen och spelarens bredd för att kolla om spelaren är på kanten.
 	Vänster:	Hämtar  positionen, accelerationen för att kolla om spelaren är på kanten.
 	Ner:		Hämtar positionen, accelerationen och höjden för att kolla om spelaren är på kanten
@@ -157,7 +154,12 @@ void Player::move(float dt){
 
 }
 
+/*Används för att återställa spelarens ursprungsposition.*/
+void Player::reset(){
+	mAnimation->setPosition(sf::Vector2f(100, 100));
+}
 
+/*Skjuter en ray från IRIS.*/
 void Player::fire(EntityVector &entities){
 
 	sf::Time isReloaded = reloadTimer.getElapsedTime();

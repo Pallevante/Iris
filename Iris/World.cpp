@@ -134,8 +134,7 @@ void World::run(){
 
 		if (currentState == INMENU){
 
-			if (mCurrentFetchedGold > 0)
-				mGold -= mCurrentFetchedGold;
+			restart();
 
 			shopMusic->stop();
 			music->stop();
@@ -215,6 +214,7 @@ void World::run(){
 		if (currentState == INFAILEDFINISHMENU){
 			finishMenu.updateActionButton();
 			renderImages();
+			mCurrentFetchedGold = 0;
 
 			finishMenu.drawMenu(window);
 
@@ -299,10 +299,6 @@ void World::loadMap(int level){
 
 	resetVector();						//Återställer vektorn helt.
 
-	/*
-	mPlayer->reset();					//Återställer player
-	entityVector.push_back(mPlayer);	//Lägger in spelaren i den nya vektorn.
-	*/
 	window.setTitle("The game is loading! :)");	
 	getEnum(level);
 	mLoadLevel.setLevel(mCurrentLevel);
@@ -328,6 +324,7 @@ void World::getEnum(int level){
 	}
 }
 
+/*loopen som används i PLAYING.*/
 void World::startGame(){
 	detectCollisions();
 	killDeadEntities();
@@ -336,6 +333,7 @@ void World::startGame(){
 	//mPlayer->score();
 }
 
+/*Rendrerar alla bilder*/
 void World::renderImages(){
 	mLevel->drawBackground(window, dt);
 	for (EntityVector::size_type i = 0; i < entityVector.size(); ++i){
@@ -344,6 +342,7 @@ void World::renderImages(){
 	mHud->drawText(window);
 } 
 
+/*Utför varje entitets TICK som är t ex move och fire.*/
 void World::tick(float dt){	
 	if (mGold > 100)
 		window.setTitle("Iris - Achivement: Oh Jew!");
@@ -442,11 +441,14 @@ void World::killDeadEntities(){
 	}
 	entityVector = reserveEnteties;
 }
+
+
 /*Rensar vektorn från alla entiteter utom player.*/
 void World::resetVector(){
 	//Eftersom spelet baseras på tid kan vi inte reseta allt utom player.
 	//Vi kommer då få en högre hastighet på player mha. deltaTimer.
-	entityVector.clear();
+
+	entityVector.clear();				
 	entityVector.push_back(mPlayer);
 
 	/*EntityVector reserveVector;
@@ -454,19 +456,23 @@ void World::resetVector(){
 		if (entityVector[index]->getType() == Entity::PLAYER)
 			reserveVector.push_back(entityVector[index]);
 	}
-	entityVector = reserveVector;*/
-		
+	entityVector = reserveVector;*/		
 }
 
 /*Används för restart funktionen.*/
 void World::restart(){
+
+	if (mCurrentFetchedGold > 0){
+		mGold -= mCurrentFetchedGold;
+		mCurrentFetchedGold = 0;
+	}
 	window.clear();
 	resetVector();
 	mPlayer->reset();
 	mLevel->restart();
 }
 
-
+/*Används i tick för att spawna fiender.*/
 void World::spawnEnemies(){
 	if (loadedMap)
 		mLevel->spawn(entityVector);
@@ -487,7 +493,6 @@ void World::pause(){
 	}
 }
 
-
 void World::printScreen(){
 
 	sf::Image currentScreen = window.capture();	
@@ -498,9 +503,6 @@ void World::printScreen(){
 	currentScreen.saveToFile(filename);
 
 }
-
-
-
 
 World::GameState World::currentState;
 

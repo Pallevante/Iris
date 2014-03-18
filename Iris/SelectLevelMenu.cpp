@@ -45,7 +45,7 @@ void SelectLevelMenu::input(sf::Event& event){
 		up();
 	}
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right){
-		if (getCurrentMenuItem() % 2 == 0 && getCurrentMenuItem() != 3){
+		if (getCurrentMenuItem() % 2 == 0 && getCurrentMenuItem() != 3 && getCurrentMenuItem() != 0){
 			setButtonPosition(USA, sf::Vector2f(getButtonPosition(USA).x - 550, 200)); 
 			setButtonPosition(BRAZIL, sf::Vector2f(getButtonPosition(BRAZIL).x - 550, 200));
 			setButtonPosition(EUROPE, sf::Vector2f(getButtonPosition(EUROPE).x - 550, 200));
