@@ -2,7 +2,10 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
+#include <SFML/System/Clock.hpp>
 #include "Windows.h"
+
+//Projektspecifika inkluderingar
 #include "Animation.hpp"
 #include "DefaultEnemy.hpp"
 #include "Entity.hpp"
@@ -12,10 +15,10 @@
 #include "ResourceManager.hpp"
 #include "ShopMenu.hpp"
 #include "Hud.hpp"
-#include <SFML/System/Clock.hpp>
 #include "SelectLevelMenu.hpp"
 #include "FinishMenu.hpp"
 #include "PauseMenu.hpp"
+#include <sfeMovie\Movie.hpp>
 
 class Level;
 class Hud;
@@ -73,10 +76,7 @@ private:
 	void enterStore();
 	void enterSettings();
 	void enterMap();
-	
-
 	void toneDownMusic(sf::Music* m0, sf::Music* m1); 
-
 	void getEnum(int level = 1);
 	/*Variabler*/
 	typedef std::vector<Entity*> EntityVector;
@@ -85,6 +85,9 @@ private:
 	bool isPlaying = false; /*Kollar om man spelar musik*/
 	bool menuIsPlaying = false;
 	bool shopIsPlaying = false;
+	bool introIsPlaying = false;
+
+	sfe::Movie intro;
 	EntityVector entityVector;
 	Player *mPlayer;
 	Level* mLevel;

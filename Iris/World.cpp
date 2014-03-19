@@ -76,12 +76,18 @@ void World::run(){
 			/* Debug-funktioner */
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F1)
 				window.setFramerateLimit(10);
+
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F2)
-				window.setFramerateLimit(FRAME_LIMIT);		
+				window.setFramerateLimit(FRAME_LIMIT);	
+
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F3)
 				currentState = INFINISHMENU;
+
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F4)
 				currentState = INFAILEDFINISHMENU;
+
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::T)
+				currentState = INTRO;
 
 			/*Används för att göra en screenshot.*/
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::P){
@@ -158,6 +164,19 @@ void World::run(){
 			}
 			shopMenu.drawMenu(window);
 		}
+
+		if (currentState == INTRO){
+			menuMusic->stop();
+			if (!introIsPlaying){
+				if (!intro.openFromFile("resource/cutscenes/intro.wmv"))
+					window.setTitle("something fucked up.");
+				intro.resizeToFrame(0, 0, window.getSize().x, window.getSize().y);
+				intro.play();
+				introIsPlaying = true;
+			}
+			window.draw(intro);
+		}
+
 
 		if (currentState == PAUSED){
 			music->pause();
