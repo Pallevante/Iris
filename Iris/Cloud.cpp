@@ -53,7 +53,7 @@ int Cloud::collide(Entity *e0, EntityVector &entities){
 			mIsDying = true;
 
 		ResourceManager::getSound("resource/sounds/Hitplopp.ogg").play();
-		return 5;
+		return 1;
 	}
 	else {
 		return 0;

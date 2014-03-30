@@ -45,8 +45,8 @@ void Level::set(float spawnMin, float spawnMax, float requirment, float obstSpaw
 		chooseColoredTexture = "resource/TestRawr.jpg";
 		break;
 	case 8:
-		chooseWhiteTexture = "resource/test.png";
-		chooseColoredTexture = "resource/TestRawr.jpg";
+		chooseWhiteTexture = "resource/textures/backgrounds/Final/default.png";
+		chooseColoredTexture = "resource/textures/backgrounds/Final/default.png";
 		break;
 	default:
 		break;
@@ -99,6 +99,10 @@ void Level::opacityChange(float score){
 
 /*Kollar hur många som ska spawnas av default enemies*/
 void Level::spawnBasicEnemies(Entity::EntityVector &entityVector){
+	//HAX
+	if (mSpawnMax == 0)
+		return;
+
 	sf::Time spawnDefaultT = mDefaultCl.getElapsedTime();
 	int spawnCount = 0;
 
@@ -180,16 +184,19 @@ float Level::percentRequirement(){
 
 std::string Level::getTheme(int level){
 	if (level == 0){
-		return "resource/sounds/Credits.wav";
+		return "resource/sounds/menuTheme.wav";
 	}
 	if (level == 1){
-		return "resource/sounds/Level1Theme.ogg";
+		return "resource/sounds/Level1Theme.wav";
 	}
 	if (level == 2){
-		return "resource/sounds/Level2Theme.ogg";
+		return "resource/sounds/Level2Theme.wav";
 	}
 	if (level == 3){
-		return "resource/sounds/Level3Theme.ogg";
+		return "resource/sounds/Level3Theme.wav";
+	}
+	if (level == 8){
+		return "resource/sounds/Final.wav";
 	}
 
 }
@@ -202,26 +209,14 @@ void Level::drawLevel(sf::RenderWindow& window, ResourceManager::SpriteVector& b
 
 	for (ResourceManager::SpriteVector::size_type i = 0; i < bgVector.size(); i++){
 		
-		//Borde egentligen lägga in en svordomsmätare här men... Jag har helt ärligt tappat räkningen.
-		/*
-		if (World::currentState == World::PLAYING){	
-			//Kollar sista posten i vektorns position samt storleken för att veta om den är i kanten på skärmen.
-			if (bgVector[bgVector.size() - 1].getPosition().x + bgVector[bgVector.size() - 1].getGlobalBounds().width > 720){
-				if (fmodf(fPassedTime, 1) == 0)
-					bgVector[i].setPosition(bgVector[i].getPosition().x - speed, 0);
-			}
-			//else
-				//World::currentState = World::INFINISHMENU;
-		}		 
-		*/
-
-
+		
 		if (World::currentState == World::PLAYING){
 			//Om positionen på den första bilden sammanslaget med bredden på fönstret är mer än banlängden, FINISHMENU
 			if (-(bgVector[0].getPosition().x - window.getSize().x) >= baseImage.getSize().x){
 				if (World::mScore >= mRequirment){
 					World::currentState = World::INFINISHMENU;
-				}else{
+				}
+				else{
 					World::currentState = World::INFAILEDFINISHMENU;
 				}
 			}

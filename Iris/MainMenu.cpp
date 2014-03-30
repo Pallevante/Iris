@@ -56,7 +56,7 @@ void MainMenu::input(sf::Event& event){
 	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return){
 		switch (getCurrentMenuItem()){
 		case MainMenu::PLAY:
-			World::mLevelInt = 1;
+			World::mLevelInt = 8;
 			World::currentState = World::LOAD;
 			ResourceManager::getSound("resource/sounds/menu/menuclick.ogg").play();
 			return;

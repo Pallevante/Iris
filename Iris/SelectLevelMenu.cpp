@@ -35,7 +35,7 @@ unsigned int SelectLevelMenu::getMaxItems(){
 }
 
 
-void SelectLevelMenu::input(sf::Event& event){
+void SelectLevelMenu::input(sf::Event& event){	
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left){		
 		if (getCurrentMenuItem() % 2 != 0 && getCurrentMenuItem() != 1){
 			setButtonPosition(USA, sf::Vector2f(getButtonPosition(USA).x + 550, 200)); //Ska skilja 500px i x-led.

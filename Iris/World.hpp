@@ -49,6 +49,7 @@ public:
 	World();
 	~World();
 	void run();
+
 	/*Måste ladda in banan innan*/
 	void startGame();
 	

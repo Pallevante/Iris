@@ -5,7 +5,7 @@
 
 DefaultEnemy::DefaultEnemy(float speedMultiplier, sf::Vector2f position) :
 mDamage(1),
-mSpeed(300 * speedMultiplier),
+mSpeed(500 * speedMultiplier),
 mIsAlive(true),
 mHealth(2),
 //Måste ändras relativt till bilden.
@@ -149,7 +149,7 @@ void DefaultEnemy::fire(EntityVector &entities){
 
 	sf::Time checkReloadTime =	checkReloadTime = enemyReloadTimer->getElapsedTime();
 	//De skjuter med stora intervaller men snabba skott.
-	if (checkReloadTime.asMilliseconds() > 1700){
+	if (checkReloadTime.asMilliseconds() > 1000){
 		ResourceManager::getSound("resource/sounds/GoblinShot.ogg").play();
 		entities.push_back(new Ray(sf::Vector2f(getPosition().x, (getPosition().y + getHeight() /2)), true));
 		enemyReloadTimer->restart();

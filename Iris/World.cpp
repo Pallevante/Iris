@@ -32,7 +32,7 @@ entityVector(){
 	window.setKeyRepeatEnabled(true);
 	goldFont.loadFromFile("resource/fonts/AGENTORANGE.ttf");
 	menuMusic = ResourceManager::getMusic(mLevel->getTheme(0));
-	shopMusic = ResourceManager::getMusic("resource/sounds/ShopTest.ogg");
+	shopMusic = ResourceManager::getMusic("resource/sounds/ShopMusic.ogg");
 	currentState = INMENU;
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FRAME_LIMIT);
@@ -167,14 +167,18 @@ void World::run(){
 
 		if (currentState == INTRO){
 			menuMusic->stop();
+			menuIsPlaying = false;
 			if (!introIsPlaying){
 				if (!intro.openFromFile("resource/cutscenes/intro.wmv"))
 					window.setTitle("something fucked up.");
 				intro.resizeToFrame(0, 0, window.getSize().x, window.getSize().y);
 				intro.play();
-				introIsPlaying = true;
+				introIsPlaying = true;							
 			}
 			window.draw(intro);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
+				currentState = INMENU;
+		
 		}
 
 
@@ -269,10 +273,11 @@ void World::run(){
 			if (!loadedMap){
 				loadMap(mLevelInt);
 			}
-			//toneDownMusic(menuMusic, music);
-			menuMusic->stop();
+					
 			/*Så man kan pausa musiken om man pausar spelet samt starta den igen.*/
 			if (!isPlaying && loadedMap){
+				menuMusic->stop();
+				menuIsPlaying = false;
 				music->play();
 				isPlaying = true;
 			}
@@ -337,6 +342,9 @@ void World::getEnum(int level){
 		 break; 
 	case 3:
 		mCurrentLevel = LoadLevel::THIRDLEVEL;
+		break;	
+	case 8:
+		mCurrentLevel = LoadLevel::EIGHTLEVEL;
 		break;
 	}
 }
